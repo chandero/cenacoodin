@@ -1,0 +1,10 @@
+INSERT INTO "dian$chequedevuelto"
+SELECT
+  "cap$extracto".NUMERO_CUENTA,
+  "cap$extracto".ID_TIPO_CAPTACION,
+  "cap$extracto".DIGITO_CUENTA,
+  "cap$extracto".VALOR_CREDITO
+FROM
+  "cap$extracto"
+WHERE
+  "cap$extracto".ID_TIPO_MOVIMIENTO = 31

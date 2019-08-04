@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="3">
+      <Unit0>
+        <Filename Value="cargador.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="9" Y="10"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="inventario.lpi"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+        <DefaultSyntaxHighlighter Value="XML"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="unitcargararticulo.pas"/>
+        <ComponentName Value="frmCargaArticulo"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="unitCargarArticulo"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="14" Y="6"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit2>
+    </Units>
+    <JumpHistory Count="4" HistoryIndex="3">
+      <Position1>
+        <Filename Value="unitcargararticulo.pas"/>
+      </Position1>
+      <Position2>
+        <Filename Value="unitcargararticulo.pas"/>
+        <Caret Line="8" Column="46"/>
+      </Position2>
+      <Position3>
+        <Filename Value="cargador.lpr"/>
+        <Caret Line="18" Column="81"/>
+      </Position3>
+      <Position4>
+        <Filename Value="cargador.lpr"/>
+        <Caret Line="10" Column="9"/>
+      </Position4>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

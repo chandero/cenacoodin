@@ -1,0 +1,188 @@
+object UDPMainFormWin: TUDPMainFormWin
+  Left = 240
+  Top = 232
+  Width = 573
+  Height = 226
+  VertScrollBar.Range = 137
+  ActiveControl = LogMemo
+  Caption = 'UDP server windows'
+  Color = clBackground
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  TextWidth = 6
+  object GroupBox1: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 573
+    Height = 103
+    Align = alTop
+    Caption = 'Fuente en Servicio'
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 12
+      Top = 16
+      Width = 80
+      Height = 13
+      Caption = 'Nombre de Host:'
+    end
+    object Label2: TLabel
+      Left = 12
+      Top = 32
+      Width = 86
+      Height = 13
+      Caption = 'Direcci'#243'n IP Host:'
+    end
+    object Label3: TLabel
+      Left = 13
+      Top = 47
+      Width = 34
+      Height = 13
+      Caption = 'Puerto:'
+    end
+    object Label4: TLabel
+      Left = 13
+      Top = 62
+      Width = 50
+      Height = 13
+      Caption = 'DataBase:'
+    end
+    object Label5: TLabel
+      Left = 13
+      Top = 77
+      Width = 73
+      Height = 13
+      Caption = 'Tama'#241'o Buffer:'
+    end
+    object lblhost: TLabel
+      Left = 104
+      Top = 16
+      Width = 30
+      Height = 13
+      Caption = 'lblhost'
+    end
+    object lblIP: TLabel
+      Left = 104
+      Top = 32
+      Width = 20
+      Height = 13
+      Caption = 'lblIP'
+    end
+    object lblpuerto: TLabel
+      Left = 104
+      Top = 46
+      Width = 40
+      Height = 13
+      Caption = 'lblpuerto'
+    end
+    object lblbase: TLabel
+      Left = 104
+      Top = 62
+      Width = 33
+      Height = 13
+      Caption = 'lblbase'
+    end
+    object lblbuffer: TLabel
+      Left = 104
+      Top = 77
+      Width = 37
+      Height = 13
+      Caption = 'lblbuffer'
+    end
+    object Label6: TLabel
+      Left = 320
+      Top = 16
+      Width = 59
+      Height = 13
+      Caption = 'Estado UDP'
+    end
+    object Label7: TLabel
+      Left = 322
+      Top = 43
+      Width = 67
+      Height = 13
+      Caption = 'Fecha y Hora:'
+    end
+    object Label8: TLabel
+      Left = 396
+      Top = 43
+      Width = 32
+      Height = 13
+      Caption = 'Label8'
+    end
+    object lblUDPEstado: TLabel
+      Left = 395
+      Top = 16
+      Width = 66
+      Height = 13
+      Caption = 'lblUDPEstado'
+    end
+  end
+  object LogMemo: TMemo
+    Left = 0
+    Top = 103
+    Width = 573
+    Height = 89
+    Align = alClient
+    ScrollBars = ssAutoBoth
+    TabOrder = 1
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 192
+    Width = 573
+    Height = 34
+    Align = alBottom
+    Color = clOlive
+    ParentColor = False
+    TabOrder = 2
+    object Button1: TButton
+      Left = 6
+      Top = 6
+      Width = 115
+      Height = 25
+      Caption = 'Cerrar Servidor'
+      TabOrder = 0
+      OnClick = Button1Click
+    end
+  end
+  object UDPServer: TIdUDPServer
+    Bindings = <>
+    DefaultPort = 4250
+    OnUDPRead = UDPServerUDPRead
+    ThreadedEvent = True
+    Left = 472
+    Top = 24
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 432
+    Top = 56
+  end
+  object SQLConn: TIBDatabase
+    LoginPrompt = False
+    Left = 264
+    Top = 16
+  end
+  object UDPAntiFreeze: TIdAntiFreeze
+    OnlyWhenIdle = False
+    Left = 508
+    Top = 24
+  end
+  object IBQuery1: TIBQuery
+    Left = 224
+    Top = 16
+  end
+  object IBTransaction1: TIBTransaction
+    Params.Strings = (
+      'read_committed'
+      'rec_version'
+      'nowait')
+    Left = 264
+    Top = 48
+  end
+  object IdThreadMgrDefault1: TIdThreadMgrDefault
+    Left = 504
+    Top = 56
+  end
+end

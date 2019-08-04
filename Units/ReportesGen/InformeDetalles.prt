@@ -1,0 +1,478 @@
+object TprTxReport
+  ShowProgress = True
+  Title = 'Informe Diario de Cartera'
+  ExportFromPage = 0
+  ExportToPage = 0
+  Values = <
+    item
+      Name = 'TNo'
+      AggFunction = prafCount
+      Formula = 'IBQuery1.NUMERO_CUENTA'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end>
+  Variables = <
+    item
+      Name = 'Empresa'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'Hoy'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'empleado'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'usuario'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'Tipo'
+      ValueType = 'prvvtString'
+      Value = 'ASOCIADOS'
+    end>
+  WrapAfterColumn = 0
+  EjectPageAfterPrint = False
+  LinesOnPage = 0
+  FromLine = 0
+  ToLine = 0
+  ExportFromLine = 0
+  ExportToLine = 0
+  Left = 176
+  Top = 18
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 1'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.7')
+  object prTxPage1: TprTxPage
+    ColNum = 140
+    object prTxHPageHeaderBand1: TprTxHPageHeaderBand
+      Height = 2
+      PrintOnFirstPage = True
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[Empresa]')
+            TxFontOptionsEx = (
+              tfoWide)
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 17
+        dRec.Bottom = 1
+      end
+      object prTxCommandObj2: TprTxCommandObj
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcCondensedOn)
+          end>
+        dRec.Left = 90
+        dRec.Top = 0
+        dRec.Right = 91
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj30: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Fecha Informe :  [:<yyyy/mm/dd>Hoy]')
+          end>
+        dRec.Left = 47
+        dRec.Top = 1
+        dRec.Right = 82
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj32: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'INFORME DE DETALLES ENTREGADOS [TIPO]')
+            TxFontOptionsEx = (
+              tfoWide)
+          end>
+        dRec.Left = 23
+        dRec.Top = 0
+        dRec.Right = 89
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj31: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Usuario :  [usuario]')
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 45
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj79: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'P'#225'gina [Page] de [PagesCount]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 119
+        dRec.Top = 0
+        dRec.Right = 138
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailHeaderBand1: TprTxHDetailHeaderBand
+      Height = 3
+      DetailBand = prTxHDetailBand1
+      ColCount = 1
+      ReprintOnEachPage = True
+      object prTxMemoObj14: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '---------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 138
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj15: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '---------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 138
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'NUMERO CUENTA')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 24
+        dRec.Top = 1
+        dRec.Right = 39
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 39
+        dRec.Top = 1
+        dRec.Right = 40
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj51: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'DOCUMENTO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 40
+        dRec.Top = 1
+        dRec.Right = 54
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj53: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 54
+        dRec.Top = 1
+        dRec.Right = 55
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj54: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ASOCIADO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 55
+        dRec.Top = 1
+        dRec.Right = 113
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj63: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '')
+          end>
+        dRec.Left = -1
+        dRec.Top = 1
+        dRec.Right = 1
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj5: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'FECHA ENTREGA')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 14
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj6: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'HORA')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 15
+        dRec.Top = 1
+        dRec.Right = 23
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj9: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 14
+        dRec.Top = 1
+        dRec.Right = 15
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj10: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 23
+        dRec.Top = 1
+        dRec.Right = 24
+        dRec.Bottom = 2
+      end
+    end
+    object prTxHDetailBand1: TprTxHDetailBand
+      Height = 1
+      DataSetName = 'IBQuery1'
+      ColCount = 1
+      Bands = (
+        'prTxHDetailHeaderBand1'
+        'prTxHDetailFooterBand1')
+      object prTxMemoObj18: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<0000000>IBQuery1.NUMERO_CUENTA] - [IBQuery1.DIGITO_CUENTA]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 24
+        dRec.Top = 0
+        dRec.Right = 39
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj57: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 39
+        dRec.Top = 0
+        dRec.Right = 40
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj60: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[IBQuery1.NOMBRE] [IBQuery1.PRIMER_APELLIDO] [IBQuery1.SEGUNDO_A' +
+                'PELLIDO]')
+            vAlign = prvCenter
+            WordWrap = True
+          end>
+        dRec.Left = 55
+        dRec.Top = 0
+        dRec.Right = 113
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj64: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 54
+        dRec.Top = 0
+        dRec.Right = 55
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj41: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.ID_PERSONA]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 40
+        dRec.Top = 0
+        dRec.Right = 54
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj7: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<yyyy/mm/dd>IBQuery1.FECHA_ENTREGA]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 14
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj8: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<HH:mm:ss>IBQuery1.HORA_ENTREGA]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 15
+        dRec.Top = 0
+        dRec.Right = 23
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj11: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 14
+        dRec.Top = 0
+        dRec.Right = 15
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj12: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 23
+        dRec.Top = 0
+        dRec.Right = 24
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailFooterBand1: TprTxHDetailFooterBand
+      Height = 3
+      DetailBand = prTxHDetailBand1
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      object prTxMemoObj25: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '---------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 138
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj16: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Elaboro :  [empleado]')
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 45
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Detalles : [TNo]')
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 32
+        dRec.Bottom = 2
+      end
+    end
+  end
+end

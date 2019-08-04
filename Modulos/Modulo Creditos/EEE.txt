@@ -1,0 +1,14 @@
+              with IBdatos do
+              begin
+                Close;
+                SQL.Clear;
+                SQL.Add('SELECT');
+                SQL.Add('"cap$tipocaptacion".SALDO_MINIMO');
+                SQL.Add('FROM');
+                SQL.Add('"cap$tipocaptacion"');
+                SQL.Add('WHERE');
+                SQL.Add('("cap$tipocaptacion".ID_TIPO_CAPTACION = 1)');
+                Open;
+                JVtotal.Value := FieldByName('SALDO_MINIMO').AsCurrency;
+                Close;
+              end;

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Documentation Roadmap"><param name="Local" value="main.html"><param name="ImageNumber" value="11"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="File List"><param name="Local" value="files.html"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="api.h"><param name="Local" value="api_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="g_IIEPad.idl"><param name="Local" value="g__IIEPad_8idl.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="gIIEPad.odl"><param name="Local" value="gIIEPad_8odl.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="IePadEnum.idl"><param name="Local" value="IePadEnum_8idl.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="provider.idl"><param name="Local" value="provider_8idl.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="usb_io.h"><param name="Local" value="usb__io_8h.html"><param name="ImageNumber" value="11"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Compound List"><param name="Local" value="annotated.html"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="GIIEPADLib::_DGIIEPad"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="GIIEPADLib::_DGIIEPadEvents"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPadEvents.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="BACKLIGHT_INFO"><param name="Local" value="structBACKLIGHT__INFO.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="DISPLAY"><param name="Local" value="structDISPLAY.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="DISPLAY_CAL"><param name="Local" value="structDISPLAY__CAL.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="FILTER_CAL"><param name="Local" value="structFILTER__CAL.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="gIEDebugGUI"><param name="Local" value="interfacegIEDebugGUI.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="gIIEPad"><param name="Local" value="interfacegIIEPad.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="GIIEPADLib::GIIEPad"><param name="Local" value="classGIIEPADLib_1_1GIIEPad.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="gIIEPadEvent"><param name="Local" value="interfacegIIEPadEvent.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="IEPADENUMLib::IEPadEnum"><param name="Local" value="classIEPADENUMLib_1_1IEPadEnum.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="IIEPadEnum"><param name="Local" value="interfaceIIEPadEnum.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="INK_INFO"><param name="Local" value="structINK__INFO.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="IWedge"><param name="Local" value="interfaceIWedge.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="LCD_BITMAP"><param name="Local" value="structLCD__BITMAP.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="LCD_POINT"><param name="Local" value="structLCD__POINT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="LCD_RECT"><param name="Local" value="structLCD__RECT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="LCD_SCREEN"><param name="Local" value="structLCD__SCREEN.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="OPTIONS"><param name="Local" value="structOPTIONS.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="SYS_CAL"><param name="Local" value="structSYS__CAL.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="T_HANDLE"><param name="Local" value="structT__HANDLE.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagBACKLIGHTINFO"><param name="Local" value="structtagBACKLIGHTINFO.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagBITMAP_HEADER"><param name="Local" value="structtagBITMAP__HEADER.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagBITMAP_REPORT"><param name="Local" value="structtagBITMAP__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagCLRSCRN_REPORT"><param name="Local" value="structtagCLRSCRN__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagDATA_FLAGS"><param name="Local" value="structtagDATA__FLAGS.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagDATA_REPORT"><param name="Local" value="structtagDATA__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagDISPLAY"><param name="Local" value="structtagDISPLAY.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagDISPLAY_CAL"><param name="Local" value="structtagDISPLAY__CAL.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagECHO_REPORT"><param name="Local" value="structtagECHO__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagFILTER_CAL"><param name="Local" value="structtagFILTER__CAL.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagINK"><param name="Local" value="structtagINK.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagLAYER"><param name="Local" value="structtagLAYER.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagLINE_REPORT"><param name="Local" value="structtagLINE__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagMOUSE_REPORT"><param name="Local" value="structtagMOUSE__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagOPTIONS"><param name="Local" value="structtagOPTIONS.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagOPTIONS_REPORT"><param name="Local" value="structtagOPTIONS__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagPOINT"><param name="Local" value="structtagPOINT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagRECT"><param name="Local" value="structtagRECT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagRESET_DEFAULTS_REPORT"><param name="Local" value="structtagRESET__DEFAULTS__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagSCRN_HEADER"><param name="Local" value="structtagSCRN__HEADER.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagSERIALNUM_REPORT"><param name="Local" value="structtagSERIALNUM__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagSYS_CAL"><param name="Local" value="structtagSYS__CAL.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagSYSCAL_REPORT"><param name="Local" value="structtagSYSCAL__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagTEST_REPORT"><param name="Local" value="structtagTEST__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="tagWRITE_SCRN_REPORT"><param name="Local" value="structtagWRITE__SCRN__REPORT.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="VISIBILITY"><param name="Local" value="structVISIBILITY.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="PROVIDERLib::Wedge"><param name="Local" value="classPROVIDERLib_1_1Wedge.html"><param name="ImageNumber" value="11"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Compound Members"><param name="Local" value="functions.html"><param name="ImageNumber" value="11"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Namespace List"><param name="Local" value="namespaces.html"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="GIIEPADLib"><param name="Local" value="namespaceGIIEPADLib.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="IEPADENUMLib"><param name="Local" value="namespaceIEPADENUMLib.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="PROVIDERLib"><param name="Local" value="namespacePROVIDERLib.html"><param name="ImageNumber" value="11"></OBJECT>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Modules"><param name="Local" value="modules.html"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Generic ePad Access"><param name="Local" value="group__Generic.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Text/Graphics on ePadInk"><param name="Local" value="group__graphLib.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="ePadInk - USB level protocol"><param name="Local" value="group__ePadInk__USBIO.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="ePadInk - Sample files"><param name="Local" value="group__ePadInk__sampleFiles.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Generic ePad OCX Control"><param name="Local" value="group__gIIEPad.html"><param name="ImageNumber" value="11"></OBJECT>
+    <UL>
+    </UL>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="File Members"><param name="Local" value="globals.html"><param name="ImageNumber" value="11"></OBJECT>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Namespace Members"><param name="Local" value="namespacemembers.html"><param name="ImageNumber" value="11"></OBJECT>
+</UL>

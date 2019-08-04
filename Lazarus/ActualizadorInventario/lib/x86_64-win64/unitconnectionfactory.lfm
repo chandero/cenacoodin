@@ -1,0 +1,23 @@
+object ConnectionFactory: TConnectionFactory
+  OnCreate = DataModuleCreate
+  OldCreateOrder = False
+  Height = 150
+  HorizontalOffset = 543
+  VerticalOffset = 202
+  Width = 300
+  object SQLTransactionMain: TSQLTransaction
+    Active = False
+    Options = []
+    left = 68
+    top = 72
+  end
+  object IBConnection1: TIBConnection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    CharSet = 'ISO8859_1'
+    Options = []
+    left = 56
+    top = 16
+  end
+end

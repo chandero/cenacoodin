@@ -1,0 +1,226 @@
+object frmModificaArticulo: TfrmModificaArticulo
+  Left = 267
+  Height = 285
+  Top = 183
+  Width = 855
+  Caption = 'frmModificaArticulo'
+  ClientHeight = 285
+  ClientWidth = 855
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.6.2.0'
+  object DBGrid1: TDBGrid
+    Left = 0
+    Height = 216
+    Top = 32
+    Width = 736
+    Color = clWindow
+    Columns = <>
+    DataSource = DSdata
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns]
+    TabOrder = 0
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 0
+    Height = 25
+    Top = 256
+    Width = 736
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 736
+    DataSource = DSdata
+    Options = []
+    TabOrder = 1
+  end
+  object Button1: TButton
+    Left = 744
+    Height = 25
+    Top = 256
+    Width = 104
+    Caption = '&Cerrar'
+    OnClick = Button1Click
+    TabOrder = 2
+  end
+  object btnAplicar: TButton
+    Left = 744
+    Height = 25
+    Top = 8
+    Width = 104
+    Caption = 'Aplicar Cambios'
+    OnClick = btnAplicarClick
+    TabOrder = 3
+  end
+  object btnAExcel: TButton
+    Left = 744
+    Height = 25
+    Top = 40
+    Width = 104
+    Caption = 'Exportar a Excel'
+    OnClick = btnAExcelClick
+    TabOrder = 4
+  end
+  object edCodigo: TEdit
+    Left = 88
+    Height = 23
+    Top = 3
+    Width = 159
+    OnKeyPress = edCodigoKeyPress
+    TabOrder = 5
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 4
+    Width = 76
+    Caption = 'Código/Barras'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 254
+    Height = 15
+    Top = 6
+    Width = 42
+    Caption = 'Artículo'
+    ParentColor = False
+  end
+  object edNombre: TEdit
+    Left = 304
+    Height = 23
+    Top = 4
+    Width = 432
+    OnKeyPress = edNombreKeyPress
+    TabOrder = 6
+  end
+  object DSdata: TDataSource
+    DataSet = edQuery
+    left = 45
+    top = 104
+  end
+  object edQuery: TSQLQuery
+    FieldDefs = <>
+    OnFilterRecord = edQueryFilterRecord
+    SQL.Strings = (
+      'SELECT * FROM PRODUCT_SELECT'
+    )
+    InsertSQL.Strings = (
+      'INSERT INTO PRODUCT ('
+      '  PROD_CODE,'
+      '  PROD_BARCODE,'
+      '  PROD_NAME,'
+      '  PROD_PRESENTATION,'
+      '  PROD_REFERENCE,'
+      '  PROD_COST,'
+      '  PROD_PROVIDER,'
+      '  PROD_PROVIDERNAME,'
+      '  PROD_LINEGROUP,'
+      '  PROD_LINENAME,'
+      '  PROD_LOCATION,'
+      '  PROD_LOCATIONNAME,'
+      '  PROD_TAX,'
+      '  PROD_INVENTORY,'
+      '  PROD_SALE01,'
+      '  PROD_SALE02,'
+      '  PROD_SALE03,'
+      '  PROD_SALE04,'
+      '  PROD_SALE05,'
+      '  PROD_SALE06,'
+      '  PROD_SALE07,'
+      '  PROD_SALE08,'
+      '  PROD_SALE09,'
+      '  PROD_SALE10,'
+      '  PROD_MINIMAL,'
+      '  PROD_GAIN,'
+      '  PROD_DUEDATE'
+      '  ) VALUES ('
+      '  :PROD_CODE,'
+      '  :PROD_BARCODE,'
+      '  :PROD_NAME,'
+      '  :PROD_PRESENTATION,'
+      '  :PROD_REFERENCE,'
+      '  :PROD_COST,'
+      '  :PROD_PROVIDER,'
+      '  :PROD_PROVIDERNAME,'
+      '  :PROD_LINEGROUP,'
+      '  :PROD_LINENAME,'
+      '  :PROD_LOCATION,'
+      '  :PROD_LOCATIONNAME,'
+      '  :PROD_TAX,'
+      '  :PROD_INVENTORY,'
+      '  :PROD_SALE01,'
+      '  :PROD_SALE02,'
+      '  :PROD_SALE03,'
+      '  :PROD_SALE04,'
+      '  :PROD_SALE05,'
+      '  :PROD_SALE06,'
+      '  :PROD_SALE07,'
+      '  :PROD_SALE08,'
+      '  :PROD_SALE09,'
+      '  :PROD_SALE10,'
+      '  :PROD_MINIMAL,'
+      '  :PROD_GAIN,'
+      '  :PROD_DUEDATE)'
+    )
+    UpdateSQL.Strings = (
+      'UPDATE PRODUCT SET'
+      'PROD_CODE = :PROD_CODE,'
+      'PROD_BARCODE = :PROD_BARCODE,'
+      'PROD_NAME = :PROD_NAME,'
+      'PROD_PRESENTATION = :PROD_PRESENTATION,'
+      'PROD_REFERENCE = :PROD_REFERENCE,'
+      'PROD_COST = :PROD_COST,'
+      'PROD_PROVIDER = :PROD_PROVIDER,'
+      'PROD_PROVIDERNAME = :PROD_PROVIDERNAME,'
+      'PROD_LINEGROUP = :PROD_LINEGROUP,'
+      'PROD_LINENAME = :PROD_LINENAME,'
+      'PROD_LOCATION = :PROD_LOCATION,'
+      'PROD_LOCATIONNAME = :PROD_LOCATIONNAME,'
+      'PROD_TAX = :PROD_TAX,'
+      'PROD_INVENTORY = :PROD_INVENTORY,'
+      'PROD_SALE01 = :PROD_SALE01,'
+      'PROD_SALE02 = :PROD_SALE02,'
+      'PROD_SALE03 = :PROD_SALE03,'
+      'PROD_SALE04 = :PROD_SALE04,'
+      'PROD_SALE05 = :PROD_SALE05,'
+      'PROD_SALE06 = :PROD_SALE06,'
+      'PROD_SALE07 = :PROD_SALE07,'
+      'PROD_SALE08 = :PROD_SALE08,'
+      'PROD_SALE09 = :PROD_SALE09,'
+      'PROD_SALE10 = :PROD_SALE10,'
+      'PROD_MINIMAL = :PROD_MINIMAL,'
+      'PROD_GAIN = :PROD_GAIN,'
+      'PROD_DUEDATE = :PROD_GAIN'
+      'WHERE PROD_ID = :PROD_ID;'
+      ''
+    )
+    DeleteSQL.Strings = (
+      'DELETE FROM PRODUCT p WHERE p.PROD_ID = :PROD_ID'
+    )
+    Options = []
+    Params = <>
+    left = 45
+    top = 48
+  end
+  object edTransaction: TSQLTransaction
+    Active = False
+    Options = []
+    left = 128
+    top = 48
+  end
+  object SD: TSaveDialog
+    left = 128
+    top = 104
+  end
+  object edQueryBuscar: TSQLQuery
+    FieldDefs = <>
+    Options = []
+    Params = <>
+    left = 45
+    top = 160
+  end
+end

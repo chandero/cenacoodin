@@ -1,0 +1,329 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{E19ADF39-839C-4298-97DE-E47376B0AB6D}</ProjectGuid>
+			<MainSource>Gerencia.dpr</MainSource>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_UsePackage>vcl;rtl;dbrtl;adortl;vcldb;vclx;bdertl;vcldbx;ibxpress;dsnap;cds;bdecds;qrpt;teeui;teedb;tee;dss;teeqr;visualclx;visualdbclx;dsnapcrba;dsnapcon;VclSmp;vclshlctrls;vclie;xmlrtl;inet;inetdbbde;inetdbxpress;inetdb;nmfast;webdsnap;websnap;soaprtl;dbexpress;dbxcds;indy;dclOffice2k;voipdelphi6;tmodetec;FR6;FRIBX6</DCC_UsePackage>
+			<DCC_DependencyCheckOutputName>Gerencia.exe</DCC_DependencyCheckOutputName>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_Platform>x86</DCC_Platform>
+			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
+			<DCC_N>true</DCC_N>
+			<DCC_S>false</DCC_S>
+			<DCC_K>false</DCC_K>
+			<DCC_E>false</DCC_E>
+			<DCC_F>false</DCC_F>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_DebugInformation>false</DCC_DebugInformation>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="Gerencia.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="Units\unitMain.pas">
+				<Form>frmMain</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitSumatorias.pas">
+				<Form>frmSumatorias</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitdmGeneral.pas">
+				<Form>dmGeneral</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\..\units\Unit_DmComprobante.pas">
+				<Form>DmComprobante</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitDireccionesAsociados.pas">
+				<Form>frmDireccionesAsociado</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitdmCaptacion.pas">
+				<Form>dmCaptacion</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitdmColocacion.pas">
+				<Form>dmColocacion</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitdmPersona.pas">
+				<Form>dmPersona</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitVistaPreliminar.pas">
+				<Form>frmVistaPreliminar</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\unitLogin.pas">
+				<Form>frmLogin</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitPantallaProgreso.pas">
+				<Form>frmProgreso</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitConsultaProductos.pas">
+				<Form>frmConsultaProductos</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitBuscarPersona.pas">
+				<Form>frmBuscarPersona</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitConsultaExtractoCaptacion.pas">
+				<Form>frmConsultaExtractoCaptacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitBuscarTexto.pas">
+				<Form>frmBuscarTexto</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\Consts.pas"/>
+			<DCCReference Include="..\..\units\UnitBuscarColocacion.pas">
+				<Form>frmBusquedadeColocacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitTablaPagoColocacion.pas">
+				<Form>frmTablaPagoColocacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitConsultaGarantias.pas">
+				<Form>frmConsultaGarantias</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\Globales\UnitGlobales.pas"/>
+			<DCCReference Include="..\..\units\UnitCalculoTasas.pas">
+				<Form>frmCalculoTasas</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitExtractoColocacion.pas">
+				<Form>FrmExtractoColocacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitRecuperarLiquidacionColocacion.pas">
+				<Form>frmRecuperarLiquidacionColocacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitConsultaColocacion.pas">
+				<Form>frmConsultaColocacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitTablaLiquidacion.pas">
+				<Form>frmTablaLiquidacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitCambiarContrasena.pas">
+				<Form>frmCambiarContrasena</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitControlCobroCartera.pas">
+				<Form>frmControlCobroCartera</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitObservacionesCambioEstado.pas">
+				<Form>frmObservacionesCambioEstado</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitAgregarObservacion.pas">
+				<Form>frmAgregarObservacionCobro</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitConsultaLiquidacion.pas">
+				<Form>frmConsultaLiquidacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitCreaciondePersona.pas">
+				<Form>frmCreacionPersona</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitBuscarControlCobro.pas">
+				<Form>frmBusquedaControlCobro</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitReLogin.pas">
+				<Form>frmReLogin</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitControldeObservaciones.pas">
+				<Form>frmControldeObservaciones</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitRegistrarObservacion.pas">
+				<Form>frmRegistrarObservacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\Solicitud Creditos\Unit\UnitDmSolicitud.pas">
+				<Form>DmSolicitud</Form>
+				<DesignClass>TDataModule</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\Solicitud Creditos\Unit\UnitAnalisisPago.pas">
+				<Form>FrmAnalisisPago</Form>
+			</DCCReference>
+			<DCCReference Include="..\Solicitud Creditos\Unit\UnitDesreferencias.pas">
+				<Form>FrmReferencias</Form>
+			</DCCReference>
+			<DCCReference Include="..\Solicitud Creditos\Unit\UnitCreditosFianzas.pas">
+				<Form>FrmCreditosFianzas</Form>
+			</DCCReference>
+			<DCCReference Include="..\Solicitud Creditos\Unit\UnitDescObservacion.pas">
+				<Form>FrmDescObsrevacion</Form>
+			</DCCReference>
+			<DCCReference Include="..\Solicitud Creditos\Unit\UnitInfGeneral.pas">
+				<Form>FrmInfGeneral</Form>
+			</DCCReference>
+			<DCCReference Include="..\Modulo Solicitud\Unit\UnitImpresion.pas">
+				<Form>FrmImpresion</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\Videocap.pas"/>
+			<DCCReference Include="..\..\units\UnitTomaHuella.pas">
+				<Form>frmRegister</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitTomarFoto.pas">
+				<Form>frmTomarFoto</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitVerificarHuella.pas">
+				<Form>frmVerify</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\VfW.pas"/>
+			<DCCReference Include="..\..\units\UnitLiquidacionGral.pas">
+				<Form>frmLiquidacionGral</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitRelacionChequesEnCanje.pas">
+				<Form>frmRelacionChequesEnCanje</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitPromedioCaptacion.pas">
+				<Form>frmPromedio</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitReporteReversionCartera.pas">
+				<Form>frmReporteReversionCartera</Form>
+			</DCCReference>
+			<DCCReference Include="UnitInformeAsociadosHabilesInHabiles.pas">
+				<Form>frmInformeAsociadosHabilesInHabiles</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitInformeCarteraPrivilegiados.pas">
+				<Form>frmInformeCarteraPrivilegiados</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitEstadoSolicitud.pas">
+				<Form>FrmEstadoSolicitud</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitConsultaSol.pas">
+				<Form>FrmConsultaSol</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitSolicitudAnulada.pas">
+				<Form>FrmSolicitudAnulada</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitExtractoCredito.pas">
+				<Form>frmExtractoCredito</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitInformeDesembolsosxempleado.pas">
+				<Form>frmInformeDesembolsosxempleado</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitInformeTasasConsolidado.pas">
+				<Form>frmInformeTasasConsolidado</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitLineasVsTotal.pas">
+				<Form>frmLineasVsCartera</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitSaldosCaja.pas">
+				<Form>FrmSaldosCaja</Form>
+			</DCCReference>
+			<DCCReference Include="reporte\UnitInformeGeneraldeCaptaciones1.pas">
+				<Form>frmInformeGeneraldeCaptaciones</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitInfAsociados.pas">
+				<Form>FrmInfAsociados</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitCaptacionesRe.pas">
+				<Form>FrmCaptacionesRe</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\DataSetToExcel.pas"/>
+			<DCCReference Include="..\..\units\UnitInformeAsociadosporMunicipio.pas">
+				<Form>frmInformeAsociadosporMunicipio</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitVencimientoCdat.pas">
+				<Form>FrmVencimientoCdat</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitPlanillaConsolidada.pas">
+				<Form>FrmPlanillaConsolidada</Form>
+			</DCCReference>
+			<DCCReference Include="..\Modulo Cartera\Cambios globales liq por clasificacion\GLOBAL\UnitGlobalesCol.pas"/>
+			<DCCReference Include="..\..\units\UnitSolicitudAprobada.pas">
+				<Form>FrmSolicitudAprobada</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitCambios.pas">
+				<Form>FrmCambios</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitAgregarObservacionSol.pas">
+				<Form>frmAgregarObservacionSol</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitBuscarCiiu.pas">
+				<Form>frmBuscarCIIU</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitCreacionPersonaIndependiente.pas">
+				<Form>frmCreacionPersonaIndependiente</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\units\UnitHabilitarAsociado.pas">
+				<Form>FrmHabilitaAsociado</Form>
+			</DCCReference>
+			<DCCReference Include="UnitInformeAsociadosDetalle.pas">
+				<Form>frmInformeAsociadosDetalle</Form>
+			</DCCReference>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Source>
+						<Source Name="MainSource">Gerencia.dpr</Source>
+					</Source>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<Language>
+						<Language Name="RootDir">\\WINSERVER\Repositorio\Sistemas\Modulos\Modulo Gerencia\</Language>
+					</Language>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">3082</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+				</Delphi.Personality>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

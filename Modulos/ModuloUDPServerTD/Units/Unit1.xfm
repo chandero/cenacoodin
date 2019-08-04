@@ -1,0 +1,28 @@
+object Form1: TForm1
+  Left = 291
+  Top = 474
+  Width = 573
+  Height = 226
+  VertScrollBar.Range = 113
+  HorzScrollBar.Range = 569
+  Caption = 'UDP server windows'
+  Color = clBackground
+  PixelsPerInch = 96
+  TextHeight = 13
+  TextWidth = 6
+  object GroupBox1: TGroupBox
+    Left = 0
+    Top = 0
+    Width = 569
+    Height = 113
+    Caption = 'Fuente en Servicio'
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 12
+      Top = 16
+      Width = 80
+      Height = 13
+      Caption = 'Nombre de Host:'
+    end
+  end
+end

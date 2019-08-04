@@ -1,0 +1,4 @@
+[DBDATA]
+dbhost=localhost
+dbpath=D:\Alexander\Dropbox\SGFT\sgftcooperativo\Lazarus\ActualizadorInventario\
+dbname=articulo.fdb

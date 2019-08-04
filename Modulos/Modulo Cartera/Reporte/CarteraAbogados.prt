@@ -1,0 +1,458 @@
+object TprTxReport
+  FromPage = 1
+  ToPage = 1
+  Title = 'CARTERA EN ABOGADO'
+  Values = <
+    item
+      Group = gAbogado
+      Name = 'vCantidadAbogado'
+      AggFunction = prafCount
+      Formula = 'IBQuery.ID_COLOCACION'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery'
+    end
+    item
+      Group = gAbogado
+      Name = 'vTotalAbogado'
+      Formula = 'IBQuery.VALOR_DESEMBOLSO-IBQuery.ABONOS_CAPITAL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery'
+    end
+    item
+      Name = 'vCantidad'
+      AggFunction = prafCount
+      Formula = 'IBQuery.ID_COLOCACION'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery'
+    end
+    item
+      Name = 'vTotal'
+      Formula = 'IBQuery.VALOR_DESEMBOLSO-IBQuery.ABONOS_CAPITAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery'
+    end>
+  Variables = <
+    item
+      Name = 'EMPRESA'
+      ValueType = 'prvvtString'
+      Value = 'CREDISERVIR LTDA'
+    end
+    item
+      Name = 'NIT'
+      ValueType = 'prvvtString'
+      Value = '890.505.363-6'
+    end>
+  PrinterName = 'EPSON FX-1180+ ESC/P'
+  ESCModelName = 'Epson printers'
+  WrapAfterColumn = 0
+  FromLine = 1
+  ToLine = 1
+  Left = 2
+  Top = 4
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 1'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 1'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.7')
+  object prTxPage1: TprTxPage
+    ColNum = 100
+    object prTxHPageHeaderBand1: TprTxHPageHeaderBand
+      Height = 3
+      PrintOnFirstPage = True
+      object prTxMemoObj16: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[EMPRESA]')
+            hAlign = prhCenter
+            TxFontOptionsEx = (
+              tfoBold)
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 19
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj17: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'INFORME ABOGADOS CON CARTERA EN COBRO')
+          end>
+        dRec.Left = 21
+        dRec.Top = 0
+        dRec.Right = 65
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj18: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<yyyy/mm/dd>StartDateTime]')
+          end>
+        dRec.Left = 66
+        dRec.Top = 0
+        dRec.Right = 79
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj19: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[NIT]')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 19
+        dRec.Bottom = 2
+      end
+      object prTxHLineObj4: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 2
+        dRec.Right = 80
+        dRec.Bottom = 3
+      end
+      object prTxCommandObj1: TprTxCommandObj
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcCondensedOff)
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 1
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHGroupHeaderBand1: TprTxHGroupHeaderBand
+      Height = 2
+      Group = gAbogado
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = True
+      StartNewPage = False
+      ReprintOnEachPage = True
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ABOGADO:')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 8
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj5: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[Trim(IBQuery.NOMBRE1+" "+IBQuery.PRIMER_APELLIDO1+" "+IBQuery.S' +
+                'EGUNDO_APELLIDO1)]')
+          end>
+        dRec.Left = 9
+        dRec.Top = 0
+        dRec.Right = 76
+        dRec.Bottom = 1
+      end
+      object prTxHLineObj2: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 80
+        dRec.Bottom = 2
+      end
+    end
+    object prTxHDetailHeaderBand1: TprTxHDetailHeaderBand
+      Height = 2
+      DetailBand = prTxHDetailBand1
+      object prTxHLineObj1: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 80
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'COLOCACION')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 15
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'VALOR')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 66
+        dRec.Top = 0
+        dRec.Right = 79
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ASOCIADO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 16
+        dRec.Top = 0
+        dRec.Right = 65
+        dRec.Bottom = 1
+      end
+      object prTxVLineObj1: TprTxVLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 15
+        dRec.Top = 0
+        dRec.Right = 16
+        dRec.Bottom = 1
+      end
+      object prTxVLineObj2: TprTxVLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 65
+        dRec.Top = 0
+        dRec.Right = 66
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailBand1: TprTxHDetailBand
+      Height = 1
+      DataSetName = 'IBQuery'
+      Groups = (
+        'gAbogado')
+      Bands = (
+        'prTxHDetailHeaderBand1'
+        'prTxHDetailFooterBand1')
+      object prTxMemoObj6: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery.ID_COLOCACION]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 15
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj7: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[Trim(IBQuery.NOMBRE+" "+IBQuery.PRIMER_APELLIDO+" "+IBQuery.SEG' +
+                'UNDO_APELLIDO)]')
+          end>
+        dRec.Left = 16
+        dRec.Top = 0
+        dRec.Right = 65
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj8: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<$#,#0>IBQuery.VALOR_DESEMBOLSO-IBQuery.ABONOS_CAPITAL]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 66
+        dRec.Top = 0
+        dRec.Right = 79
+        dRec.Bottom = 1
+      end
+      object prTxVLineObj3: TprTxVLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 15
+        dRec.Top = 0
+        dRec.Right = 16
+        dRec.Bottom = 1
+      end
+      object prTxVLineObj4: TprTxVLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 65
+        dRec.Top = 0
+        dRec.Right = 66
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailFooterBand1: TprTxHDetailFooterBand
+      Height = 1
+      DetailBand = prTxHDetailBand1
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      object prTxMemoObj13: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTALES EN ABOGADO')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 18
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj14: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<##0>vCantidad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 61
+        dRec.Top = 0
+        dRec.Right = 65
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj15: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<$#,#0>vTotal]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 66
+        dRec.Top = 0
+        dRec.Right = 79
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHGroupFooterBand1: TprTxHGroupFooterBand
+      Height = 3
+      Group = gAbogado
+      object prTxMemoObj9: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTALES ABOGADO:')
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 16
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj10: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[Trim(IBQuery.NOMBRE1+" "+IBQuery.PRIMER_APELLIDO1+" "+IBQuery.S' +
+                'EGUNDO_APELLIDO1)]')
+          end>
+        dRec.Left = 16
+        dRec.Top = 1
+        dRec.Right = 59
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj11: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<##0>vCantidadAbogado]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 61
+        dRec.Top = 1
+        dRec.Right = 65
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj12: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<$#,#0>vTotalAbogado]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 66
+        dRec.Top = 1
+        dRec.Right = 79
+        dRec.Bottom = 2
+      end
+      object prTxHLineObj3: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 80
+        dRec.Bottom = 1
+      end
+      object prTxHLineObj5: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 2
+        dRec.Right = 80
+        dRec.Bottom = 3
+      end
+    end
+  end
+  object gAbogado: TprGroup
+    Valid = 'IBQuery.ID_ABOGADO'
+    DetailBand = prTxHDetailBand1
+  end
+end

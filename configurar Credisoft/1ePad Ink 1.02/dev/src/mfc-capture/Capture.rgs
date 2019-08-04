@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		{E9290613-8734-4805-8455-8DC992C1805E} = s 'Capture'
+		'Capture.EXE'
+		{
+			val AppID = s {E9290613-8734-4805-8455-8DC992C1805E}
+		}
+	}
+}

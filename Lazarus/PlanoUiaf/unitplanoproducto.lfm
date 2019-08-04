@@ -1,0 +1,195 @@
+object frmPlanoProducto: TfrmPlanoProducto
+  Left = 363
+  Height = 140
+  Top = 277
+  Width = 450
+  Caption = 'Proceso Plano Productos'
+  ClientHeight = 140
+  ClientWidth = 450
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
+  LCLVersion = '1.6.2.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 28
+    Top = 112
+    Width = 450
+    Align = alBottom
+    ClientHeight = 28
+    ClientWidth = 450
+    Color = clSilver
+    ParentColor = False
+    TabOrder = 3
+    object _progressbar: TProgressBar
+      Left = 1
+      Height = 26
+      Top = 1
+      Width = 448
+      Align = alClient
+      TabOrder = 0
+    end
+  end
+  object Panel2: TPanel
+    Left = 344
+    Height = 112
+    Top = 0
+    Width = 106
+    Align = alRight
+    ClientHeight = 112
+    ClientWidth = 106
+    Color = clOlive
+    ParentColor = False
+    TabOrder = 2
+    object btnProcesar: TBitBtn
+      Left = 8
+      Height = 30
+      Top = 8
+      Width = 91
+      Caption = 'Procesar'
+      OnClick = btnProcesarClick
+      TabOrder = 0
+    end
+    object btnCerrar: TBitBtn
+      Left = 8
+      Height = 30
+      Top = 80
+      Width = 91
+      Caption = 'Cerrar'
+      OnClick = btnCerrarClick
+      TabOrder = 1
+    end
+  end
+  object Label1: TLabel
+    Left = 16
+    Height = 15
+    Top = 8
+    Width = 65
+    Caption = 'Fecha Inicial'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 15
+    Top = 40
+    Width = 59
+    Caption = 'Fecha Final'
+    ParentColor = False
+  end
+  object edFechaIni: TDateTimePicker
+    Left = 88
+    Height = 23
+    Top = 8
+    Width = 83
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 0
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 42739
+    Time = 0.839465057870257
+    UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
+    OnKeyPress = edFechaIniKeyPress
+  end
+  object edFechaFin: TDateTimePicker
+    Left = 88
+    Height = 23
+    Top = 40
+    Width = 83
+    CenturyFrom = 1941
+    MaxDate = 2958465
+    MinDate = -53780
+    TabOrder = 1
+    TrailingSeparator = False
+    TextForNullDate = 'NULL'
+    LeadingZeros = True
+    Kind = dtkDate
+    TimeFormat = tf24
+    TimeDisplay = tdHMS
+    DateMode = dmComboBox
+    Date = 42739
+    Time = 0.839584942128567
+    UseDefaultSeparators = True
+    HideDateTimeParts = []
+    MonthNames = 'Long'
+    OnKeyPress = edFechaFinKeyPress
+  end
+  object _transaction: TSQLTransaction
+    Active = False
+    Action = caCommit
+    Database = ConnectionFactory.Connection
+    Options = []
+    left = 200
+    top = 8
+  end
+  object _queryMaestro: TSQLQuery
+    FieldDefs = <>
+    SQL.Strings = (
+      'SELECT'
+      '*'
+      'FROM "cap$maestro" m'
+      'WHERE'
+      'm.ID_TIPO_CAPTACION  > 0'
+      'AND  m.ID_ESTADO IN (1,3,4,5,6,8,12,13,14)'
+      'AND m.FECHA_APERTURA <= :FECHA_APERTURA'
+      'ORDER BY'
+      'm.ID_TIPO_CAPTACION, m.ID_AGENCIA, m.NUMERO_CUENTA'
+    )
+    Options = []
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'FECHA_APERTURA'
+        ParamType = ptInput
+      end>
+    left = 288
+    top = 8
+  end
+  object _queryMaestroTitular: TSQLQuery
+    FieldDefs = <>
+    SQL.Strings = (
+      'SELECT p.* FROM "cap$maestrotitular" m'
+      'INNER JOIN "gen$persona" p ON p.ID_PERSONA = m.ID_PERSONA and p.ID_IDENTIFICACION = m.ID_IDENTIFICACION'
+      'WHERE m.ID_AGENCIA = :ID_AGENCIA and m.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION and m.NUMERO_CUENTA = :NUMERO_CUENTA and m.DIGITO_CUENTA = :DIGITO_CUENTA'
+      'ORDER BY m.NUMERO_TITULAR ASC'
+    )
+    Options = []
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'ID_AGENCIA'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'ID_TIPO_CAPTACION'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'NUMERO_CUENTA'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'DIGITO_CUENTA'
+        ParamType = ptInput
+      end>
+    left = 200
+    top = 64
+  end
+  object SD1: TSaveDialog
+    DefaultExt = '.txt'
+    left = 25
+    top = 64
+  end
+end

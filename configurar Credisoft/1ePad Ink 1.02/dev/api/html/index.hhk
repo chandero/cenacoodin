@@ -1,0 +1,1654 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="absX"><param name="Name" value="absX"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m2"><param name="Name" value="tagDATA_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="absY"><param name="Name" value="absY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m3"><param name="Name" value="tagDATA_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="AddService"><param name="Name" value="AddService"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a3"><param name="Name" value="IIEPadEnum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html"><param name="Name" value="api.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a19"><param name="Name" value="ePadInk_ClrScrn"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a9"><param name="Name" value="ePadInk_CreateContext"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a10"><param name="Name" value="ePadInk_DestroyContext"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a13"><param name="Name" value="ePadInk_GetBlackThreshold"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a20"><param name="Name" value="ePadInk_GetDC"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a15"><param name="Name" value="ePadInk_GetWhiteThreshold"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a18"><param name="Name" value="ePadInk_LoadBitmapToDevice"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a21"><param name="Name" value="ePadInk_ReleaseDC"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a14"><param name="Name" value="ePadInk_SetBlackThreshold"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a12"><param name="Name" value="ePadInk_SetFont"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a16"><param name="Name" value="ePadInk_SetWhiteThreshold"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a17"><param name="Name" value="ePadInk_SyncToDevice"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a11"><param name="Name" value="ePadInk_TextOut"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a0"><param name="Name" value="EXTERN_C"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a1"><param name="Name" value="HEPADINKCONTEXT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a8"><param name="Name" value="SYNC_ALL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23"><param name="Name" value="SYNC_LAYER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a5"><param name="Name" value="SYNC_LAYER_0"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a6"><param name="Name" value="SYNC_LAYER_1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a7"><param name="Name" value="SYNC_LAYER_2"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22"><param name="Name" value="TEXT_LAYER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22a2"><param name="Name" value="TEXT_LAYER0"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22a3"><param name="Name" value="TEXT_LAYER1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22a4"><param name="Name" value="TEXT_LAYER2"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="autoTime_10mSec"><param name="Name" value="autoTime_10mSec"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structBACKLIGHT__INFO.html#m2"><param name="Name" value="BACKLIGHT_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m3"><param name="Name" value="INK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBACKLIGHTINFO.html#m2"><param name="Name" value="tagBACKLIGHTINFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m3"><param name="Name" value="tagINK"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="B_AUTO"><param name="Name" value="B_AUTO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46a27"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88a58"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="B_OFF"><param name="Name" value="B_OFF"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46a25"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88a56"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="B_ON"><param name="Name" value="B_ON"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46a26"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88a57"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="backlight"><param name="Name" value="backlight"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m4"><param name="Name" value="OPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m2"><param name="Name" value="tagOPTIONS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structBACKLIGHT__INFO.html"><param name="Name" value="BACKLIGHT_INFO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structBACKLIGHT__INFO.html#m2"><param name="Name" value="autoTime_10mSec"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structBACKLIGHT__INFO.html#m1"><param name="Name" value="brightness"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structBACKLIGHT__INFO.html#m0"><param name="Name" value="onOffAuto"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a12"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="bData"><param name="Name" value="bData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structT__HANDLE.html#m0"><param name="Name" value="T_HANDLE"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="BITMAP_HEADER"><param name="Name" value="BITMAP_HEADER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a46"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="BITMAP_REPORT"><param name="Name" value="BITMAP_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a47"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="BL_BRIGHT"><param name="Name" value="BL_BRIGHT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a49a34"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a91a65"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="BL_DIM"><param name="Name" value="BL_DIM"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a49a33"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a91a64"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="bReserved"><param name="Name" value="bReserved"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m3"><param name="Name" value="LCD_BITMAP"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m3"><param name="Name" value="LCD_SCREEN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m4"><param name="Name" value="tagBITMAP_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRESET__DEFAULTS__REPORT.html#m1"><param name="Name" value="tagRESET_DEFAULTS_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m4"><param name="Name" value="tagSCRN_HEADER"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="brightness"><param name="Name" value="brightness"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structBACKLIGHT__INFO.html#m1"><param name="Name" value="BACKLIGHT_INFO"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="BRIGHTNESS"><param name="Name" value="BRIGHTNESS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a49"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="brightness"><param name="Name" value="brightness"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBACKLIGHTINFO.html#m1"><param name="Name" value="tagBACKLIGHTINFO"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="BRIGHTNESS"><param name="Name" value="BRIGHTNESS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a91"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="buttonState"><param name="Name" value="buttonState"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagMOUSE__REPORT.html#m0"><param name="Name" value="tagMOUSE_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="BYTES_PER_SCREEN_ID"><param name="Name" value="BYTES_PER_SCREEN_ID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a7"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a5"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="calInfo"><param name="Name" value="calInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYSCAL__REPORT.html#m1"><param name="Name" value="tagSYSCAL_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="CloseConnection"><param name="Name" value="CloseConnection"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a2"><param name="Name" value="gIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a0"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="CloseProvider"><param name="Name" value="CloseProvider"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a7"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="CLRSCRN_REPORT"><param name="Name" value="CLRSCRN_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a34"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="color"><param name="Name" value="color"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m2"><param name="Name" value="INK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagCLRSCRN__REPORT.html#m2"><param name="Name" value="tagCLRSCRN_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m2"><param name="Name" value="tagINK"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m2"><param name="Name" value="tagLINE_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnClrScrn"><param name="Name" value="ConnClrScrn"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a8"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnDrawBitmap"><param name="Name" value="ConnDrawBitmap"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a11"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnDrawLine"><param name="Name" value="ConnDrawLine"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a2"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnDrawScreen"><param name="Name" value="ConnDrawScreen"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a3"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetDataRangeMaxX"><param name="Name" value="ConnGetDataRangeMaxX"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a15"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetDataRangeMaxY"><param name="Name" value="ConnGetDataRangeMaxY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a16"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetDataRangeMaxZ"><param name="Name" value="ConnGetDataRangeMaxZ"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a17"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetDataRangeMinX"><param name="Name" value="ConnGetDataRangeMinX"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a12"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetDataRangeMinY"><param name="Name" value="ConnGetDataRangeMinY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a13"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetDataRangeMinZ"><param name="Name" value="ConnGetDataRangeMinZ"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a14"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetEventNotification"><param name="Name" value="ConnGetEventNotification"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a7"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetLayer"><param name="Name" value="ConnGetLayer"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a13"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetMixCode"><param name="Name" value="ConnGetMixCode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a15"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetMouseOn"><param name="Name" value="ConnGetMouseOn"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a5"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetNumButtons"><param name="Name" value="ConnGetNumButtons"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a18"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetOptions"><param name="Name" value="ConnGetOptions"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a4"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetPhysicalExtents"><param name="Name" value="ConnGetPhysicalExtents"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a12"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetPhysicalX"><param name="Name" value="ConnGetPhysicalX"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a19"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetPhysicalY"><param name="Name" value="ConnGetPhysicalY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a20"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetRanges"><param name="Name" value="ConnGetRanges"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a3"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetReportRate"><param name="Name" value="ConnGetReportRate"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a13"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetSerialNumber"><param name="Name" value="ConnGetSerialNumber"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a8"><param name="Name" value="gIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a11"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnGetSystemCal"><param name="Name" value="ConnGetSystemCal"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a6"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnMapToLCD"><param name="Name" value="ConnMapToLCD"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a16"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnMouseEcho"><param name="Name" value="ConnMouseEcho"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a1"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnPushMouseData"><param name="Name" value="ConnPushMouseData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a9"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnResetDefaults"><param name="Name" value="ConnResetDefaults"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a9"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnSelfTest"><param name="Name" value="ConnSelfTest"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a0"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnSetEventNotification"><param name="Name" value="ConnSetEventNotification"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a6"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnSetLayer"><param name="Name" value="ConnSetLayer"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a12"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnSetMixCode"><param name="Name" value="ConnSetMixCode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a14"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnSetMouseOn"><param name="Name" value="ConnSetMouseOn"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a4"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnSetOptions"><param name="Name" value="ConnSetOptions"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a5"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ConnSetSystemCal"><param name="Name" value="ConnSetSystemCal"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a7"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="cursor"><param name="Name" value="cursor"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m0"><param name="Name" value="tagLAYER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m0"><param name="Name" value="VISIBILITY"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="CURSOR_OFF"><param name="Name" value="CURSOR_OFF"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a35"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a66"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="data"><param name="Name" value="data"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSERIALNUM__REPORT.html#m1"><param name="Name" value="tagSERIALNUM_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="DATA_FLAGS"><param name="Name" value="DATA_FLAGS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a30"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="DATA_REPORT"><param name="Name" value="DATA_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a32"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="DebugDialog"><param name="Name" value="DebugDialog"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a0"><param name="Name" value="gIEDebugGUI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="defaultOptions"><param name="Name" value="defaultOptions"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__FLAGS.html#m2"><param name="Name" value="tagDATA_FLAGS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY.html"><param name="Name" value="DISPLAY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY.html#m1"><param name="Name" value="mixCode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="display"><param name="Name" value="display"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m5"><param name="Name" value="OPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m0"><param name="Name" value="SYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m3"><param name="Name" value="tagOPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m0"><param name="Name" value="tagSYS_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="DISPLAY"><param name="Name" value="DISPLAY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a22"><param name="Name" value="usb_io.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY.html#m0"><param name="Name" value="visCode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="DISPLAY_CAL"><param name="Name" value="DISPLAY_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a48"><param name="Name" value="usb_io.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m2"><param name="Name" value="xGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m0"><param name="Name" value="xOffset"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m3"><param name="Name" value="yGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m1"><param name="Name" value="yOffset"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="DisplayDebugGUI"><param name="Name" value="DisplayDebugGUI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a10"><param name="Name" value="gIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a0"><param name="Name" value="IIEPadEnum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="dx"><param name="Name" value="dx"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagMOUSE__REPORT.html#m1"><param name="Name" value="tagMOUSE_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="dy"><param name="Name" value="dy"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagMOUSE__REPORT.html#m2"><param name="Name" value="tagMOUSE_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ECHO_REPORT"><param name="Name" value="ECHO_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a29"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="EnumSerialNumberHistory"><param name="Name" value="EnumSerialNumberHistory"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a17"><param name="Name" value="gIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a21"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_ClrScrn"><param name="Name" value="ePadInk_ClrScrn"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a19"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_CreateContext"><param name="Name" value="ePadInk_CreateContext"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a9"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_DestroyContext"><param name="Name" value="ePadInk_DestroyContext"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a10"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_GetBlackThreshold"><param name="Name" value="ePadInk_GetBlackThreshold"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a13"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_GetDC"><param name="Name" value="ePadInk_GetDC"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a20"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_GetWhiteThreshold"><param name="Name" value="ePadInk_GetWhiteThreshold"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a15"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_LoadBitmapToDevice"><param name="Name" value="ePadInk_LoadBitmapToDevice"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a18"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_ReleaseDC"><param name="Name" value="ePadInk_ReleaseDC"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a21"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_SetBlackThreshold"><param name="Name" value="ePadInk_SetBlackThreshold"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a14"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_SetFont"><param name="Name" value="ePadInk_SetFont"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a12"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_SetWhiteThreshold"><param name="Name" value="ePadInk_SetWhiteThreshold"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a16"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_SyncToDevice"><param name="Name" value="ePadInk_SyncToDevice"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a17"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ePadInk_TextOut"><param name="Name" value="ePadInk_TextOut"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a11"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="EXTERN_C"><param name="Name" value="EXTERN_C"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a0"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="fDisplayDefaultBitmap"><param name="Name" value="fDisplayDefaultBitmap"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m1"><param name="Name" value="OPTIONS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="filter"><param name="Name" value="filter"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m3"><param name="Name" value="SYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m3"><param name="Name" value="tagSYS_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html"><param name="Name" value="FILTER_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m0"><param name="Name" value="kMax"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m3"><param name="Name" value="kMaxSpeed"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m1"><param name="Name" value="kMin"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m2"><param name="Name" value="kZeroSpeed"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a50"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="flags"><param name="Name" value="flags"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m1"><param name="Name" value="tagDATA_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="fMouseOnOff"><param name="Name" value="fMouseOnOff"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m0"><param name="Name" value="OPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m0"><param name="Name" value="tagOPTIONS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="fTransformInkingArea"><param name="Name" value="fTransformInkingArea"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m2"><param name="Name" value="OPTIONS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetClassID"><param name="Name" value="GetClassID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a2"><param name="Name" value="IIEPadEnum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetDebugParam"><param name="Name" value="GetDebugParam"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a3"><param name="Name" value="gIEDebugGUI"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a9"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetDeviceHandle"><param name="Name" value="GetDeviceHandle"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a1"><param name="Name" value="gIEDebugGUI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetFriendlyName"><param name="Name" value="GetFriendlyName"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a14"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetNumDevices"><param name="Name" value="GetNumDevices"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a0"><param name="Name" value="gIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a10"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetNumProviders"><param name="Name" value="GetNumProviders"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a2"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a1"><param name="Name" value="IIEPadEnum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetProviderClassID"><param name="Name" value="GetProviderClassID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a3"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetProviderDescription"><param name="Name" value="GetProviderDescription"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a4"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a5"><param name="Name" value="IIEPadEnum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="GetSerialNumber"><param name="Name" value="GetSerialNumber"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a16"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html"><param name="Name" value="gIEDebugGUI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a0"><param name="Name" value="DebugDialog"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a3"><param name="Name" value="GetDebugParam"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a1"><param name="Name" value="GetDeviceHandle"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a2"><param name="Name" value="SetDebugParam"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html"><param name="Name" value="gIIEPad"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a2"><param name="Name" value="CloseConnection"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a7"><param name="Name" value="ConnGetEventNotification"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a5"><param name="Name" value="ConnGetMouseOn"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a12"><param name="Name" value="ConnGetPhysicalExtents"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a3"><param name="Name" value="ConnGetRanges"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a13"><param name="Name" value="ConnGetReportRate"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a8"><param name="Name" value="ConnGetSerialNumber"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a9"><param name="Name" value="ConnPushMouseData"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a6"><param name="Name" value="ConnSetEventNotification"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a4"><param name="Name" value="ConnSetMouseOn"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a10"><param name="Name" value="DisplayDebugGUI"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a17"><param name="Name" value="EnumSerialNumberHistory"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a14"><param name="Name" value="GetFriendlyName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a0"><param name="Name" value="GetNumDevices"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a16"><param name="Name" value="GetSerialNumber"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a1"><param name="Name" value="OpenConnection"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a15"><param name="Name" value="SetFriendlyName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a11"><param name="Name" value="ShowConfigDialog"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPadEvent.html"><param name="Name" value="gIIEPadEvent"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPadEvent.html#a0"><param name="Name" value="HandlePadData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a0"><param name="Name" value="CloseConnection"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a7"><param name="Name" value="CloseProvider"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a15"><param name="Name" value="ConnGetDataRangeMaxX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a16"><param name="Name" value="ConnGetDataRangeMaxY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a17"><param name="Name" value="ConnGetDataRangeMaxZ"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a12"><param name="Name" value="ConnGetDataRangeMinX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a13"><param name="Name" value="ConnGetDataRangeMinY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a14"><param name="Name" value="ConnGetDataRangeMinZ"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a18"><param name="Name" value="ConnGetNumButtons"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a19"><param name="Name" value="ConnGetPhysicalX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a20"><param name="Name" value="ConnGetPhysicalY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a11"><param name="Name" value="ConnGetSerialNumber"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a21"><param name="Name" value="EnumSerialNumberHistory"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a9"><param name="Name" value="GetDebugParam"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a10"><param name="Name" value="GetNumDevices"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a2"><param name="Name" value="GetNumProviders"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a3"><param name="Name" value="GetProviderClassID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a4"><param name="Name" value="GetProviderDescription"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a1"><param name="Name" value="OpenConnection"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a6"><param name="Name" value="OpenProvider"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a8"><param name="Name" value="SetDebugParam"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a5"><param name="Name" value="SetProviderDescription"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPadEvents.html"><param name="Name" value="GIIEPADLib::_DGIIEPadEvents"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPadEvents.html#a0"><param name="Name" value="PadData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceGIIEPADLib.html"><param name="Name" value="GIIEPADLib"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceGIIEPADLib.html#a0"><param name="Name" value="importlib"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="HandlePadData"><param name="Name" value="HandlePadData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPadEvent.html#a0"><param name="Name" value="gIIEPadEvent"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="header"><param name="Name" value="header"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__REPORT.html#m0"><param name="Name" value="tagBITMAP_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagWRITE__SCRN__REPORT.html#m0"><param name="Name" value="tagWRITE_SCRN_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="HEPADINKCONTEXT"><param name="Name" value="HEPADINKCONTEXT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a1"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceIEPADENUMLib.html"><param name="Name" value="IEPADENUMLib"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceIEPADENUMLib.html#a1"><param name="Name" value="importlib"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html"><param name="Name" value="IIEPadEnum"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a3"><param name="Name" value="AddService"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a0"><param name="Name" value="DisplayDebugGUI"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a2"><param name="Name" value="GetClassID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a1"><param name="Name" value="GetNumProviders"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a5"><param name="Name" value="GetProviderDescription"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a4"><param name="Name" value="RemoveService"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a6"><param name="Name" value="SetProviderDescription"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="importlib"><param name="Name" value="importlib"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceGIIEPADLib.html#a0"><param name="Name" value="GIIEPADLib"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceIEPADENUMLib.html#a1"><param name="Name" value="IEPADENUMLib"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacePROVIDERLib.html#a1"><param name="Name" value="PROVIDERLib"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ink"><param name="Name" value="ink"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m3"><param name="Name" value="OPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m1"><param name="Name" value="tagOPTIONS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html"><param name="Name" value="INK_INFO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m3"><param name="Name" value="autoTime_10mSec"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m2"><param name="Name" value="color"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m1"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m0"><param name="Name" value="onOffAuto"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m5"><param name="Name" value="region"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a18"><param name="Name" value="usb_io.h"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m4"><param name="Name" value="width"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="INT16S"><param name="Name" value="INT16S"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a8"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="INT16U"><param name="Name" value="INT16U"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a9"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="INT32U"><param name="Name" value="INT32U"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a10"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="INT8S"><param name="Name" value="INT8S"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a12"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="INT8U"><param name="Name" value="INT8U"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a11"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html"><param name="Name" value="IWedge"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a8"><param name="Name" value="ConnClrScrn"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a11"><param name="Name" value="ConnDrawBitmap"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a2"><param name="Name" value="ConnDrawLine"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a3"><param name="Name" value="ConnDrawScreen"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a13"><param name="Name" value="ConnGetLayer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a15"><param name="Name" value="ConnGetMixCode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a4"><param name="Name" value="ConnGetOptions"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a6"><param name="Name" value="ConnGetSystemCal"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a16"><param name="Name" value="ConnMapToLCD"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a1"><param name="Name" value="ConnMouseEcho"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a9"><param name="Name" value="ConnResetDefaults"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a0"><param name="Name" value="ConnSelfTest"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a12"><param name="Name" value="ConnSetLayer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a14"><param name="Name" value="ConnSetMixCode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a5"><param name="Name" value="ConnSetOptions"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a7"><param name="Name" value="ConnSetSystemCal"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a10"><param name="Name" value="SaveDefaults"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="kMax"><param name="Name" value="kMax"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m0"><param name="Name" value="FILTER_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m0"><param name="Name" value="tagFILTER_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="kMaxSpeed"><param name="Name" value="kMaxSpeed"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m3"><param name="Name" value="FILTER_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m3"><param name="Name" value="tagFILTER_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="kMin"><param name="Name" value="kMin"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m1"><param name="Name" value="FILTER_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m1"><param name="Name" value="tagFILTER_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="kZeroSpeed"><param name="Name" value="kZeroSpeed"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structFILTER__CAL.html#m2"><param name="Name" value="FILTER_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m2"><param name="Name" value="tagFILTER_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER1"><param name="Name" value="LAYER1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47a28"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="layer1"><param name="Name" value="layer1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m1"><param name="Name" value="tagLAYER"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER1"><param name="Name" value="LAYER1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89a59"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="layer1"><param name="Name" value="layer1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m1"><param name="Name" value="VISIBILITY"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER2"><param name="Name" value="LAYER2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47a29"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="layer2"><param name="Name" value="layer2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m2"><param name="Name" value="tagLAYER"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER2"><param name="Name" value="LAYER2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89a60"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="layer2"><param name="Name" value="layer2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m2"><param name="Name" value="VISIBILITY"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER3"><param name="Name" value="LAYER3"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47a30"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="layer3"><param name="Name" value="layer3"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m3"><param name="Name" value="tagLAYER"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER3"><param name="Name" value="LAYER3"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89a61"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="layer3"><param name="Name" value="layer3"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m3"><param name="Name" value="VISIBILITY"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="layer"><param name="Name" value="layer"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m1"><param name="Name" value="INK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m0"><param name="Name" value="LCD_BITMAP"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m0"><param name="Name" value="LCD_SCREEN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m1"><param name="Name" value="tagBITMAP_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagCLRSCRN__REPORT.html#m1"><param name="Name" value="tagCLRSCRN_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m1"><param name="Name" value="tagINK"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m1"><param name="Name" value="tagLINE_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m1"><param name="Name" value="tagSCRN_HEADER"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER_CODE"><param name="Name" value="LAYER_CODE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER_FLASH"><param name="Name" value="LAYER_FLASH"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a38"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a69"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER_HALF"><param name="Name" value="LAYER_HALF"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a39"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a70"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER_OFF"><param name="Name" value="LAYER_OFF"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a36"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a67"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LAYER_ON"><param name="Name" value="LAYER_ON"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a37"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a68"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html"><param name="Name" value="LCD_BITMAP"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m3"><param name="Name" value="bReserved"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m0"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m1"><param name="Name" value="originX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m2"><param name="Name" value="originY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m4"><param name="Name" value="rawData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LCD_BITMAP_HEIGHT"><param name="Name" value="LCD_BITMAP_HEIGHT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a5"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a8"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LCD_BITMAP_WIDTH"><param name="Name" value="LCD_BITMAP_WIDTH"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a4"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a7"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LCD_BYTES_PER_LINE"><param name="Name" value="LCD_BYTES_PER_LINE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a6"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LCD_HEIGHT"><param name="Name" value="LCD_HEIGHT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a3"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a3"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LCD_LAYER"><param name="Name" value="LCD_LAYER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LCD_N_LAYERS"><param name="Name" value="LCD_N_LAYERS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a9"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__POINT.html"><param name="Name" value="LCD_POINT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__POINT.html#m0"><param name="Name" value="x"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__POINT.html#m1"><param name="Name" value="y"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__RECT.html"><param name="Name" value="LCD_RECT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__RECT.html#m1"><param name="Name" value="lowerRight"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__RECT.html#m0"><param name="Name" value="upperLeft"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html"><param name="Name" value="LCD_SCREEN"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m3"><param name="Name" value="bReserved"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m0"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m1"><param name="Name" value="originX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m2"><param name="Name" value="originY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m4"><param name="Name" value="rawData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LCD_WIDTH"><param name="Name" value="LCD_WIDTH"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a2"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a2"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="LINE_REPORT"><param name="Name" value="LINE_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a39"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="lowerRight"><param name="Name" value="lowerRight"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__RECT.html#m1"><param name="Name" value="LCD_RECT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRECT.html#m1"><param name="Name" value="tagRECT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="MIX_AND_OR"><param name="Name" value="MIX_AND_OR"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a42"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a73"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="MIX_CODE"><param name="Name" value="MIX_CODE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="MIX_OR"><param name="Name" value="MIX_OR"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a40"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a71"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="MIX_PRI_OR"><param name="Name" value="MIX_PRI_OR"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a43"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a74"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="MIX_XOR_OR"><param name="Name" value="MIX_XOR_OR"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a41"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a72"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="mixCode"><param name="Name" value="mixCode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY.html#m1"><param name="Name" value="DISPLAY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY.html#m1"><param name="Name" value="tagDISPLAY"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="mouse"><param name="Name" value="mouse"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagECHO__REPORT.html#m1"><param name="Name" value="tagECHO_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="MOUSE_REPORT"><param name="Name" value="MOUSE_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a27"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="mouseGain"><param name="Name" value="mouseGain"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m4"><param name="Name" value="SYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m4"><param name="Name" value="tagSYS_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="N_SCREEN_ID"><param name="Name" value="N_SCREEN_ID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a6"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a4"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ON_OFF"><param name="Name" value="ON_OFF"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a14"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a11"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ON_OFF_AUTO"><param name="Name" value="ON_OFF_AUTO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="onOffAuto"><param name="Name" value="onOffAuto"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structBACKLIGHT__INFO.html#m0"><param name="Name" value="BACKLIGHT_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m0"><param name="Name" value="INK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBACKLIGHTINFO.html#m0"><param name="Name" value="tagBACKLIGHTINFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m0"><param name="Name" value="tagINK"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="OpenConnection"><param name="Name" value="OpenConnection"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a1"><param name="Name" value="gIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a1"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="OpenProvider"><param name="Name" value="OpenProvider"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a6"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html"><param name="Name" value="OPTIONS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m4"><param name="Name" value="backlight"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m5"><param name="Name" value="display"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m1"><param name="Name" value="fDisplayDefaultBitmap"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m0"><param name="Name" value="fMouseOnOff"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m2"><param name="Name" value="fTransformInkingArea"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structOPTIONS.html#m3"><param name="Name" value="ink"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="options"><param name="Name" value="options"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS__REPORT.html#m1"><param name="Name" value="tagOPTIONS_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="OPTIONS"><param name="Name" value="OPTIONS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a24"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="OPTIONS_REPORT"><param name="Name" value="OPTIONS_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a36"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="originX"><param name="Name" value="originX"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m1"><param name="Name" value="LCD_BITMAP"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m1"><param name="Name" value="LCD_SCREEN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m2"><param name="Name" value="tagBITMAP_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m2"><param name="Name" value="tagSCRN_HEADER"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="originY"><param name="Name" value="originY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m2"><param name="Name" value="LCD_BITMAP"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m2"><param name="Name" value="LCD_SCREEN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m3"><param name="Name" value="tagBITMAP_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m3"><param name="Name" value="tagSCRN_HEADER"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PadData"><param name="Name" value="PadData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPadEvents.html#a0"><param name="Name" value="GIIEPADLib::_DGIIEPadEvents"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PBACKLIGHT_INFO"><param name="Name" value="PBACKLIGHT_INFO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a15"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a13"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PDATA_FLAGS"><param name="Name" value="PDATA_FLAGS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a31"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PDATA_REPORT"><param name="Name" value="PDATA_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a33"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PDISPLAY"><param name="Name" value="PDISPLAY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a20"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a23"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PDISPLAY_CAL"><param name="Name" value="PDISPLAY_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a22"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a49"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PEN_BLACK"><param name="Name" value="PEN_BLACK"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a48a31"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a90a62"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PEN_COLOR"><param name="Name" value="PEN_COLOR"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a48"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a90"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PEN_WHITE"><param name="Name" value="PEN_WHITE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a48a32"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a90a63"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PFILTER_CAL"><param name="Name" value="PFILTER_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a23"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a51"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PINK_INFO"><param name="Name" value="PINK_INFO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a18"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a19"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PIXELDATA"><param name="Name" value="PIXELDATA"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a13"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PLCD_POINT"><param name="Name" value="PLCD_POINT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a16"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PLCD_RECT"><param name="Name" value="PLCD_RECT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a17"><param name="Name" value="provider.idl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PLINE_REPORT"><param name="Name" value="PLINE_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a40"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PMOUSE_REPORT"><param name="Name" value="PMOUSE_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a28"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="point"><param name="Name" value="point"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m3"><param name="Name" value="tagLINE_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="POINT"><param name="Name" value="POINT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a14"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="POPTIONS"><param name="Name" value="POPTIONS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a21"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a25"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PPOINT"><param name="Name" value="PPOINT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a15"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PRECT"><param name="Name" value="PRECT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a17"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="pressure"><param name="Name" value="pressure"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m4"><param name="Name" value="tagDATA_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="pressureGain"><param name="Name" value="pressureGain"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m2"><param name="Name" value="SYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m2"><param name="Name" value="tagSYS_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="pressureThreshold"><param name="Name" value="pressureThreshold"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m1"><param name="Name" value="SYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m1"><param name="Name" value="tagSYS_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html"><param name="Name" value="provider.idl"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46a27"><param name="Name" value="B_AUTO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46a25"><param name="Name" value="B_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46a26"><param name="Name" value="B_ON"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a49a34"><param name="Name" value="BL_BRIGHT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a49a33"><param name="Name" value="BL_DIM"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a49"><param name="Name" value="BRIGHTNESS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a7"><param name="Name" value="BYTES_PER_SCREEN_ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a35"><param name="Name" value="CURSOR_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a8"><param name="Name" value="INT16S"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a9"><param name="Name" value="INT16U"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a10"><param name="Name" value="INT32U"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a12"><param name="Name" value="INT8S"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a11"><param name="Name" value="INT8U"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47a28"><param name="Name" value="LAYER1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47a29"><param name="Name" value="LAYER2"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47a30"><param name="Name" value="LAYER3"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50"><param name="Name" value="LAYER_CODE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a38"><param name="Name" value="LAYER_FLASH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a39"><param name="Name" value="LAYER_HALF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a36"><param name="Name" value="LAYER_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a50a37"><param name="Name" value="LAYER_ON"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a5"><param name="Name" value="LCD_BITMAP_HEIGHT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a4"><param name="Name" value="LCD_BITMAP_WIDTH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a3"><param name="Name" value="LCD_HEIGHT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a47"><param name="Name" value="LCD_LAYER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a2"><param name="Name" value="LCD_WIDTH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a42"><param name="Name" value="MIX_AND_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51"><param name="Name" value="MIX_CODE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a40"><param name="Name" value="MIX_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a43"><param name="Name" value="MIX_PRI_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a51a41"><param name="Name" value="MIX_XOR_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a6"><param name="Name" value="N_SCREEN_ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a14"><param name="Name" value="ON_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a46"><param name="Name" value="ON_OFF_AUTO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a15"><param name="Name" value="PBACKLIGHT_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a20"><param name="Name" value="PDISPLAY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a22"><param name="Name" value="PDISPLAY_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a48a31"><param name="Name" value="PEN_BLACK"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a48"><param name="Name" value="PEN_COLOR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a48a32"><param name="Name" value="PEN_WHITE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a23"><param name="Name" value="PFILTER_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a18"><param name="Name" value="PINK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a13"><param name="Name" value="PIXELDATA"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a16"><param name="Name" value="PLCD_POINT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a17"><param name="Name" value="PLCD_RECT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a21"><param name="Name" value="POPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a24"><param name="Name" value="PSYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a19"><param name="Name" value="PVISIBILITY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a52a44"><param name="Name" value="STATUS_IO_FAILURE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a52a45"><param name="Name" value="STATUS_OK"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a52"><param name="Name" value="TEST_RESULT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a1"><param name="Name" value="WEDGE_PID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a0"><param name="Name" value="WEDGE_VID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacePROVIDERLib.html"><param name="Name" value="PROVIDERLib"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespacePROVIDERLib.html#a1"><param name="Name" value="importlib"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PSERIALNUM_REPORT"><param name="Name" value="PSERIALNUM_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a42"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PSYS_CAL"><param name="Name" value="PSYS_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a24"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a53"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PSYSCAL_REPORT"><param name="Name" value="PSYSCAL_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a55"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PTEST_REPORT"><param name="Name" value="PTEST_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a38"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PVISIBILITY"><param name="Name" value="PVISIBILITY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a19"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a21"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="PWRITE_SCRN_REPORT"><param name="Name" value="PWRITE_SCRN_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a45"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_BITMAP"><param name="Name" value="R_BITMAP"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a85"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_CLRSCRN"><param name="Name" value="R_CLRSCRN"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a83"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_DATA"><param name="Name" value="R_DATA"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a75"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_DEFAULTS"><param name="Name" value="R_DEFAULTS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a84"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_DRAWLINE"><param name="Name" value="R_DRAWLINE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a79"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_ECHO"><param name="Name" value="R_ECHO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a78"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_OPTIONS"><param name="Name" value="R_OPTIONS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a77"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_SELFTEST"><param name="Name" value="R_SELFTEST"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a76"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_SERIAL"><param name="Name" value="R_SERIAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a80"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_SYSCAL"><param name="Name" value="R_SYSCAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a82"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="R_WRITESCRN"><param name="Name" value="R_WRITESCRN"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a81"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="rawData"><param name="Name" value="rawData"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__BITMAP.html#m4"><param name="Name" value="LCD_BITMAP"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__SCREEN.html#m4"><param name="Name" value="LCD_SCREEN"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="RECT"><param name="Name" value="RECT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a16"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="region"><param name="Name" value="region"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m5"><param name="Name" value="INK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m5"><param name="Name" value="tagINK"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="RemoveService"><param name="Name" value="RemoveService"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a4"><param name="Name" value="IIEPadEnum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="REPORT_ID"><param name="Name" value="REPORT_ID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="reportID"><param name="Name" value="reportID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m0"><param name="Name" value="tagBITMAP_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagCLRSCRN__REPORT.html#m0"><param name="Name" value="tagCLRSCRN_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m0"><param name="Name" value="tagDATA_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagECHO__REPORT.html#m0"><param name="Name" value="tagECHO_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m0"><param name="Name" value="tagLINE_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS__REPORT.html#m0"><param name="Name" value="tagOPTIONS_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRESET__DEFAULTS__REPORT.html#m0"><param name="Name" value="tagRESET_DEFAULTS_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m0"><param name="Name" value="tagSCRN_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSERIALNUM__REPORT.html#m0"><param name="Name" value="tagSERIALNUM_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYSCAL__REPORT.html#m0"><param name="Name" value="tagSYSCAL_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagTEST__REPORT.html#m0"><param name="Name" value="tagTEST_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="RESET_DEFAULTS_REPORT"><param name="Name" value="RESET_DEFAULTS_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a35"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="resultCode"><param name="Name" value="resultCode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagTEST__REPORT.html#m1"><param name="Name" value="tagTEST_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="sampleID"><param name="Name" value="sampleID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m5"><param name="Name" value="tagDATA_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SaveDefaults"><param name="Name" value="SaveDefaults"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIWedge.html#a10"><param name="Name" value="IWedge"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SCRN_HEADER"><param name="Name" value="SCRN_HEADER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a43"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SERIALNUM_REPORT"><param name="Name" value="SERIALNUM_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a41"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SetDebugParam"><param name="Name" value="SetDebugParam"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIEDebugGUI.html#a2"><param name="Name" value="gIEDebugGUI"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a8"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SetFriendlyName"><param name="Name" value="SetFriendlyName"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a15"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SetProviderDescription"><param name="Name" value="SetProviderDescription"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceGIIEPADLib_1_1__DGIIEPad.html#a5"><param name="Name" value="GIIEPADLib::_DGIIEPad"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfaceIIEPadEnum.html#a6"><param name="Name" value="IIEPadEnum"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="ShowConfigDialog"><param name="Name" value="ShowConfigDialog"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="interfacegIIEPad.html#a11"><param name="Name" value="gIIEPad"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="STATUS_IO_FAILURE"><param name="Name" value="STATUS_IO_FAILURE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a52a44"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a95a86"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="STATUS_OK"><param name="Name" value="STATUS_OK"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a52a45"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a95a87"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SYNC_ALL"><param name="Name" value="SYNC_ALL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a8"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SYNC_LAYER"><param name="Name" value="SYNC_LAYER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SYNC_LAYER_0"><param name="Name" value="SYNC_LAYER_0"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a5"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SYNC_LAYER_1"><param name="Name" value="SYNC_LAYER_1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a6"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SYNC_LAYER_2"><param name="Name" value="SYNC_LAYER_2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a23a7"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html"><param name="Name" value="SYS_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m0"><param name="Name" value="display"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m3"><param name="Name" value="filter"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m4"><param name="Name" value="mouseGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m2"><param name="Name" value="pressureGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structSYS__CAL.html#m1"><param name="Name" value="pressureThreshold"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a52"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="SYSCAL_REPORT"><param name="Name" value="SYSCAL_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a54"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structT__HANDLE.html"><param name="Name" value="T_HANDLE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structT__HANDLE.html#m0"><param name="Name" value="bData"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="T_REPORT_ID"><param name="Name" value="T_REPORT_ID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a26"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBACKLIGHTINFO.html"><param name="Name" value="tagBACKLIGHTINFO"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBACKLIGHTINFO.html#m2"><param name="Name" value="autoTime_10mSec"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBACKLIGHTINFO.html#m1"><param name="Name" value="brightness"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBACKLIGHTINFO.html#m0"><param name="Name" value="onOffAuto"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html"><param name="Name" value="tagBITMAP_HEADER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m4"><param name="Name" value="bReserved"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m1"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m2"><param name="Name" value="originX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m3"><param name="Name" value="originY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__HEADER.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__REPORT.html"><param name="Name" value="tagBITMAP_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagBITMAP__REPORT.html#m0"><param name="Name" value="header"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagCLRSCRN__REPORT.html"><param name="Name" value="tagCLRSCRN_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagCLRSCRN__REPORT.html#m2"><param name="Name" value="color"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagCLRSCRN__REPORT.html#m1"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagCLRSCRN__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__FLAGS.html"><param name="Name" value="tagDATA_FLAGS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__FLAGS.html#m2"><param name="Name" value="defaultOptions"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__FLAGS.html#m1"><param name="Name" value="tap"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__FLAGS.html#m0"><param name="Name" value="touch"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html"><param name="Name" value="tagDATA_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m2"><param name="Name" value="absX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m3"><param name="Name" value="absY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m1"><param name="Name" value="flags"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m4"><param name="Name" value="pressure"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__REPORT.html#m5"><param name="Name" value="sampleID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY.html"><param name="Name" value="tagDISPLAY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY.html#m1"><param name="Name" value="mixCode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY.html#m0"><param name="Name" value="visCode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html"><param name="Name" value="tagDISPLAY_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m2"><param name="Name" value="xGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m0"><param name="Name" value="xOffset"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m3"><param name="Name" value="yGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m1"><param name="Name" value="yOffset"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagECHO__REPORT.html"><param name="Name" value="tagECHO_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagECHO__REPORT.html#m1"><param name="Name" value="mouse"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagECHO__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html"><param name="Name" value="tagFILTER_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m0"><param name="Name" value="kMax"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m3"><param name="Name" value="kMaxSpeed"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m1"><param name="Name" value="kMin"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagFILTER__CAL.html#m2"><param name="Name" value="kZeroSpeed"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html"><param name="Name" value="tagINK"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m3"><param name="Name" value="autoTime_10mSec"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m2"><param name="Name" value="color"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m1"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m0"><param name="Name" value="onOffAuto"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m5"><param name="Name" value="region"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m4"><param name="Name" value="width"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html"><param name="Name" value="tagLAYER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m0"><param name="Name" value="cursor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m1"><param name="Name" value="layer1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m2"><param name="Name" value="layer2"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLAYER.html#m3"><param name="Name" value="layer3"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html"><param name="Name" value="tagLINE_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m2"><param name="Name" value="color"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m1"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m3"><param name="Name" value="point"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagLINE__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagMOUSE__REPORT.html"><param name="Name" value="tagMOUSE_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagMOUSE__REPORT.html#m0"><param name="Name" value="buttonState"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagMOUSE__REPORT.html#m1"><param name="Name" value="dx"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagMOUSE__REPORT.html#m2"><param name="Name" value="dy"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html"><param name="Name" value="tagOPTIONS"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m2"><param name="Name" value="backlight"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m3"><param name="Name" value="display"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m0"><param name="Name" value="fMouseOnOff"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS.html#m1"><param name="Name" value="ink"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS__REPORT.html"><param name="Name" value="tagOPTIONS_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS__REPORT.html#m1"><param name="Name" value="options"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagOPTIONS__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagPOINT.html"><param name="Name" value="tagPOINT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagPOINT.html#m0"><param name="Name" value="x"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagPOINT.html#m1"><param name="Name" value="y"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRECT.html"><param name="Name" value="tagRECT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRECT.html#m1"><param name="Name" value="lowerRight"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRECT.html#m0"><param name="Name" value="upperLeft"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRESET__DEFAULTS__REPORT.html"><param name="Name" value="tagRESET_DEFAULTS_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRESET__DEFAULTS__REPORT.html#m1"><param name="Name" value="bReserved"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRESET__DEFAULTS__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html"><param name="Name" value="tagSCRN_HEADER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m4"><param name="Name" value="bReserved"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m1"><param name="Name" value="layer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m2"><param name="Name" value="originX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m3"><param name="Name" value="originY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSCRN__HEADER.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSERIALNUM__REPORT.html"><param name="Name" value="tagSERIALNUM_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSERIALNUM__REPORT.html#m1"><param name="Name" value="data"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSERIALNUM__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html"><param name="Name" value="tagSYS_CAL"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m0"><param name="Name" value="display"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m3"><param name="Name" value="filter"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m4"><param name="Name" value="mouseGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m2"><param name="Name" value="pressureGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYS__CAL.html#m1"><param name="Name" value="pressureThreshold"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYSCAL__REPORT.html"><param name="Name" value="tagSYSCAL_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYSCAL__REPORT.html#m1"><param name="Name" value="calInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagSYSCAL__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagTEST__REPORT.html"><param name="Name" value="tagTEST_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagTEST__REPORT.html#m0"><param name="Name" value="reportID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagTEST__REPORT.html#m1"><param name="Name" value="resultCode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagWRITE__SCRN__REPORT.html"><param name="Name" value="tagWRITE_SCRN_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagWRITE__SCRN__REPORT.html#m0"><param name="Name" value="header"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="tap"><param name="Name" value="tap"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__FLAGS.html#m1"><param name="Name" value="tagDATA_FLAGS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="TEST_REPORT"><param name="Name" value="TEST_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a37"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="TEST_RESULT"><param name="Name" value="TEST_RESULT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a52"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a95"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="TEXT_LAYER0"><param name="Name" value="TEXT_LAYER0"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22a2"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="TEXT_LAYER1"><param name="Name" value="TEXT_LAYER1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22a3"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="TEXT_LAYER2"><param name="Name" value="TEXT_LAYER2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22a4"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="TEXT_LAYER"><param name="Name" value="TEXT_LAYER"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="api_8h.html#a22"><param name="Name" value="api.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="touch"><param name="Name" value="touch"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDATA__FLAGS.html#m0"><param name="Name" value="tagDATA_FLAGS"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="upperLeft"><param name="Name" value="upperLeft"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__RECT.html#m0"><param name="Name" value="LCD_RECT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagRECT.html#m0"><param name="Name" value="tagRECT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="USAGE"><param name="Name" value="USAGE"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a10"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html"><param name="Name" value="usb_io.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88a58"><param name="Name" value="B_AUTO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88a56"><param name="Name" value="B_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88a57"><param name="Name" value="B_ON"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a12"><param name="Name" value="BACKLIGHT_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a46"><param name="Name" value="BITMAP_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a47"><param name="Name" value="BITMAP_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a91a65"><param name="Name" value="BL_BRIGHT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a91a64"><param name="Name" value="BL_DIM"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a91"><param name="Name" value="BRIGHTNESS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a5"><param name="Name" value="BYTES_PER_SCREEN_ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a34"><param name="Name" value="CLRSCRN_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a66"><param name="Name" value="CURSOR_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a30"><param name="Name" value="DATA_FLAGS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a32"><param name="Name" value="DATA_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a22"><param name="Name" value="DISPLAY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a48"><param name="Name" value="DISPLAY_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a29"><param name="Name" value="ECHO_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a50"><param name="Name" value="FILTER_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a18"><param name="Name" value="INK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89a59"><param name="Name" value="LAYER1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89a60"><param name="Name" value="LAYER2"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89a61"><param name="Name" value="LAYER3"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92"><param name="Name" value="LAYER_CODE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a69"><param name="Name" value="LAYER_FLASH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a70"><param name="Name" value="LAYER_HALF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a67"><param name="Name" value="LAYER_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a92a68"><param name="Name" value="LAYER_ON"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a8"><param name="Name" value="LCD_BITMAP_HEIGHT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a7"><param name="Name" value="LCD_BITMAP_WIDTH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a6"><param name="Name" value="LCD_BYTES_PER_LINE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a3"><param name="Name" value="LCD_HEIGHT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a89"><param name="Name" value="LCD_LAYER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a9"><param name="Name" value="LCD_N_LAYERS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a2"><param name="Name" value="LCD_WIDTH"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a39"><param name="Name" value="LINE_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a73"><param name="Name" value="MIX_AND_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93"><param name="Name" value="MIX_CODE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a71"><param name="Name" value="MIX_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a74"><param name="Name" value="MIX_PRI_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a93a72"><param name="Name" value="MIX_XOR_OR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a27"><param name="Name" value="MOUSE_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a4"><param name="Name" value="N_SCREEN_ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a11"><param name="Name" value="ON_OFF"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a88"><param name="Name" value="ON_OFF_AUTO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a24"><param name="Name" value="OPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a36"><param name="Name" value="OPTIONS_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a13"><param name="Name" value="PBACKLIGHT_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a31"><param name="Name" value="PDATA_FLAGS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a33"><param name="Name" value="PDATA_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a23"><param name="Name" value="PDISPLAY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a49"><param name="Name" value="PDISPLAY_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a90a62"><param name="Name" value="PEN_BLACK"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a90"><param name="Name" value="PEN_COLOR"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a90a63"><param name="Name" value="PEN_WHITE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a51"><param name="Name" value="PFILTER_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a19"><param name="Name" value="PINK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a40"><param name="Name" value="PLINE_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a28"><param name="Name" value="PMOUSE_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a14"><param name="Name" value="POINT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a25"><param name="Name" value="POPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a15"><param name="Name" value="PPOINT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a17"><param name="Name" value="PRECT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a42"><param name="Name" value="PSERIALNUM_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a53"><param name="Name" value="PSYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a55"><param name="Name" value="PSYSCAL_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a38"><param name="Name" value="PTEST_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a21"><param name="Name" value="PVISIBILITY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a45"><param name="Name" value="PWRITE_SCRN_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a85"><param name="Name" value="R_BITMAP"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a83"><param name="Name" value="R_CLRSCRN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a75"><param name="Name" value="R_DATA"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a84"><param name="Name" value="R_DEFAULTS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a79"><param name="Name" value="R_DRAWLINE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a78"><param name="Name" value="R_ECHO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a77"><param name="Name" value="R_OPTIONS"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a76"><param name="Name" value="R_SELFTEST"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a80"><param name="Name" value="R_SERIAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a82"><param name="Name" value="R_SYSCAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94a81"><param name="Name" value="R_WRITESCRN"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a16"><param name="Name" value="RECT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a94"><param name="Name" value="REPORT_ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a35"><param name="Name" value="RESET_DEFAULTS_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a43"><param name="Name" value="SCRN_HEADER"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a41"><param name="Name" value="SERIALNUM_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a95a86"><param name="Name" value="STATUS_IO_FAILURE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a95a87"><param name="Name" value="STATUS_OK"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a52"><param name="Name" value="SYS_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a54"><param name="Name" value="SYSCAL_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a26"><param name="Name" value="T_REPORT_ID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a37"><param name="Name" value="TEST_REPORT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a95"><param name="Name" value="TEST_RESULT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a10"><param name="Name" value="USAGE"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a20"><param name="Name" value="VISIBILITY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a1"><param name="Name" value="WEDGE_PID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a0"><param name="Name" value="WEDGE_VID"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a44"><param name="Name" value="WRITE_SCRN_REPORT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="visCode"><param name="Name" value="visCode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY.html#m0"><param name="Name" value="DISPLAY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY.html#m0"><param name="Name" value="tagDISPLAY"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html"><param name="Name" value="VISIBILITY"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m0"><param name="Name" value="cursor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m1"><param name="Name" value="layer1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m2"><param name="Name" value="layer2"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structVISIBILITY.html#m3"><param name="Name" value="layer3"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a20"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="WEDGE_PID"><param name="Name" value="WEDGE_PID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a1"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a1"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="WEDGE_VID"><param name="Name" value="WEDGE_VID"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="provider_8idl.html#a0"><param name="Name" value="provider.idl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a0"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="width"><param name="Name" value="width"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structINK__INFO.html#m4"><param name="Name" value="INK_INFO"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagINK.html#m4"><param name="Name" value="tagINK"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="WRITE_SCRN_REPORT"><param name="Name" value="WRITE_SCRN_REPORT"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="usb__io_8h.html#a44"><param name="Name" value="usb_io.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="x"><param name="Name" value="x"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__POINT.html#m0"><param name="Name" value="LCD_POINT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagPOINT.html#m0"><param name="Name" value="tagPOINT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="xGain"><param name="Name" value="xGain"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m2"><param name="Name" value="DISPLAY_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m2"><param name="Name" value="tagDISPLAY_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="xOffset"><param name="Name" value="xOffset"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m0"><param name="Name" value="DISPLAY_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m0"><param name="Name" value="tagDISPLAY_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="y"><param name="Name" value="y"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structLCD__POINT.html#m1"><param name="Name" value="LCD_POINT"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagPOINT.html#m1"><param name="Name" value="tagPOINT"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="yGain"><param name="Name" value="yGain"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m3"><param name="Name" value="DISPLAY_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m3"><param name="Name" value="tagDISPLAY_CAL"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="See Also" value="yOffset"><param name="Name" value="yOffset"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structDISPLAY__CAL.html#m1"><param name="Name" value="DISPLAY_CAL"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structtagDISPLAY__CAL.html#m1"><param name="Name" value="tagDISPLAY_CAL"></OBJECT>
+</UL>

@@ -1,0 +1,365 @@
+object frmLoadFile: TfrmLoadFile
+  Left = 436
+  Height = 125
+  Top = 352
+  Width = 430
+  Caption = 'Craga de Articulos'
+  ClientHeight = 125
+  ClientWidth = 430
+  LCLVersion = '1.6.2.0'
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 16
+    Width = 108
+    Caption = 'Archivo Plano a Leer'
+    ParentColor = False
+  end
+  object edFile: TEdit
+    Left = 125
+    Height = 23
+    Top = 14
+    Width = 259
+    TabOrder = 0
+  end
+  object btnLoad: TButton
+    Left = 392
+    Height = 25
+    Top = 12
+    Width = 31
+    Caption = '...'
+    OnClick = btnLoadClick
+    TabOrder = 1
+  end
+  object Label2: TLabel
+    Left = 8
+    Height = 15
+    Top = 48
+    Width = 111
+    Caption = 'Separador de Campo'
+    ParentColor = False
+  end
+  object edSeparator: TComboBox
+    Left = 125
+    Height = 23
+    Top = 44
+    Width = 100
+    ItemHeight = 15
+    Items.Strings = (
+      ','
+      ';'
+      'TAB'
+    )
+    TabOrder = 2
+  end
+  object Button1: TButton
+    Left = 8
+    Height = 25
+    Top = 96
+    Width = 75
+    Caption = 'C&argar'
+    OnClick = Button1Click
+    TabOrder = 3
+  end
+  object Button2: TButton
+    Left = 348
+    Height = 25
+    Top = 96
+    Width = 75
+    Caption = 'C&errar'
+    OnClick = Button2Click
+    TabOrder = 4
+  end
+  object edBar: TProgressBar
+    Left = 88
+    Height = 20
+    Top = 99
+    Width = 256
+    TabOrder = 5
+  end
+  object Label3: TLabel
+    Left = 240
+    Height = 15
+    Top = 48
+    Width = 60
+    Caption = 'Omitir Filas'
+    ParentColor = False
+  end
+  object edSkip: TSpinEdit
+    Left = 311
+    Height = 23
+    Top = 44
+    Width = 66
+    Alignment = taRightJustify
+    MaxValue = 1000
+    TabOrder = 6
+  end
+  object edOpenFile: TOpenDialog
+    left = 384
+    top = 56
+  end
+  object edQuery: TSQLQuery
+    FieldDefs = <>
+    SQL.Strings = (
+      'INSERT INTO PRODUCT ('
+      '  PROD_CODE,'
+      '  PROD_BARCODE,'
+      '  PROD_NAME,'
+      '  PROD_PRESENTATION,'
+      '  PROD_REFERENCE,'
+      '  PROD_COST,'
+      '  PROD_PROVIDER,'
+      '  PROD_PROVIDERNAME,'
+      '  PROD_LINEGROUP,'
+      '  PROD_LINENAME,'
+      '  PROD_LOCATION,'
+      '  PROD_LOCATIONNAME,'
+      '  PROD_TAX,'
+      '  PROD_INVENTORY,'
+      '  PROD_SALE01,'
+      '  PROD_SALE02,'
+      '  PROD_SALE03,'
+      '  PROD_SALE04,'
+      '  PROD_SALE05,'
+      '  PROD_SALE06,'
+      '  PROD_SALE07,'
+      '  PROD_SALE08,'
+      '  PROD_SALE09,'
+      '  PROD_SALE10,'
+      '  PROD_MINIMAL,'
+      '  PROD_GAIN,'
+      '  PROD_DUEDATE'
+      '  ) VALUES ('
+      '  :PROD_CODE,'
+      '  :PROD_BARCODE,'
+      '  :PROD_NAME,'
+      '  :PROD_PRESENTATION,'
+      '  :PROD_REFERENCE,'
+      '  :PROD_COST,'
+      '  :PROD_PROVIDER,'
+      '  :PROD_PROVIDERNAME,'
+      '  :PROD_LINEGROUP,'
+      '  :PROD_LINENAME,'
+      '  :PROD_LOCATION,'
+      '  :PROD_LOCATIONNAME,'
+      '  :PROD_TAX,'
+      '  :PROD_INVENTORY,'
+      '  :PROD_SALE01,'
+      '  :PROD_SALE02,'
+      '  :PROD_SALE03,'
+      '  :PROD_SALE04,'
+      '  :PROD_SALE05,'
+      '  :PROD_SALE06,'
+      '  :PROD_SALE07,'
+      '  :PROD_SALE08,'
+      '  :PROD_SALE09,'
+      '  :PROD_SALE10,'
+      '  :PROD_MINIMAL,'
+      '  :PROD_GAIN,'
+      '  :PROD_DUEDATE)'
+    )
+    InsertSQL.Strings = (
+      'INSERT INTO PRODUCT ('
+      '  PROD_CODE,'
+      '  PROD_BARCODE,'
+      '  PROD_NAME,'
+      '  PROD_PRESENTATION,'
+      '  PROD_REFERENCE,'
+      '  PROD_COST,'
+      '  PROD_PROVIDER,'
+      '  PROD_PROVIDERNAME,'
+      '  PROD_LINEGROUP,'
+      '  PROD_LINENAME,'
+      '  PROD_LOCATION,'
+      '  PROD_LOCATIONNAME,'
+      '  PROD_TAX,'
+      '  PROD_INVENTORY,'
+      '  PROD_SALE01,'
+      '  PROD_SALE02,'
+      '  PROD_SALE03,'
+      '  PROD_SALE04,'
+      '  PROD_SALE05,'
+      '  PROD_SALE06,'
+      '  PROD_SALE07,'
+      '  PROD_SALE08,'
+      '  PROD_SALE09,'
+      '  PROD_SALE10,'
+      '  PROD_MINIMAL,'
+      '  PROD_GAIN,'
+      '  PROD_DUEDATE'
+      '  ) VALUES ('
+      '  :PROD_CODE,'
+      '  :PROD_BARCODE,'
+      '  :PROD_NAME,'
+      '  :PROD_PRESENTATION,'
+      '  :PROD_REFERENCE,'
+      '  :PROD_COST,'
+      '  :PROD_PROVIDER,'
+      '  :PROD_PROVIDERNAME,'
+      '  :PROD_LINEGROUP,'
+      '  :PROD_LINENAME,'
+      '  :PROD_LOCATION,'
+      '  :PROD_LOCATIONNAME,'
+      '  :PROD_TAX,'
+      '  :PROD_INVENTORY,'
+      '  :PROD_SALE01,'
+      '  :PROD_SALE02,'
+      '  :PROD_SALE03,'
+      '  :PROD_SALE04,'
+      '  :PROD_SALE05,'
+      '  :PROD_SALE06,'
+      '  :PROD_SALE07,'
+      '  :PROD_SALE08,'
+      '  :PROD_SALE09,'
+      '  :PROD_SALE10,'
+      '  :PROD_MINIMAL,'
+      '  :PROD_GAIN,'
+      '  :PROD_DUEDATE)'
+    )
+    Options = []
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_CODE'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_BARCODE'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_NAME'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_PRESENTATION'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_REFERENCE'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_COST'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_PROVIDER'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_PROVIDERNAME'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_LINEGROUP'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_LINENAME'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_LOCATION'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_LOCATIONNAME'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_TAX'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_INVENTORY'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE01'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE02'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE03'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE04'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE05'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE06'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE07'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE08'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE09'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_SALE10'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_MINIMAL'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_GAIN'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_DUEDATE'
+        ParamType = ptInput
+      end>
+    left = 24
+    top = 64
+  end
+  object edTransaction: TSQLTransaction
+    Active = False
+    Options = []
+    left = 80
+    top = 64
+  end
+end

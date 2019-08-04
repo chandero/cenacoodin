@@ -1,0 +1,19 @@
+
+	// Capture.idl : IDL source for Capture.exe
+//
+// This file will be processed by the MIDL tool to
+// produce the type library (Capture.tlb) and marshalling code.
+import "oaidl.idl";
+import "ocidl.idl";
+[
+	uuid(6189CC5D-152E-4AA5-9E36-A430821DE4B8),
+	version(1.0),
+	helpstring("Capture 1.0 Type Library")
+]
+library CaptureLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+};
+
+	

@@ -1,0 +1,320 @@
+object TprReport
+  FromPage = 1
+  ToPage = 1
+  Values = <>
+  Variables = <
+    item
+      Name = 'EMPRESA'
+      ValueType = 'prvvtString'
+      Value = 'CREDISERVIR LTDA'
+    end>
+  PrinterName = 'PDFCreator'
+  Left = 74
+  Top = 10
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 1'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.7')
+  LOGPIXELSX = 96
+  LOGPIXELSY = 96
+  object prPage1: TprPage
+    Width = 2100
+    Height = 2970
+    PaperSize = 9
+    Orientation = poPortrait
+    lMargin = 10
+    rMargin = 10
+    tMargin = 10
+    bMargin = 10
+    object prHPageHeaderBand1: TprHPageHeaderBand
+      Height = 52
+      PrintOnFirstPage = True
+      object prMemoObj1: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[EMPRESA]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 10
+          end>
+        dRec.Left = 2
+        dRec.Top = 0
+        dRec.Right = 199
+        dRec.Bottom = 23
+      end
+      object prMemoObj2: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'REPORTE DE HUELLAS DACTILARES EMPLEADOS Y DIRECTIVOS')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = []
+            WordWrap = True
+            FontSize = 10
+          end>
+        dRec.Left = 210
+        dRec.Top = 0
+        dRec.Right = 459
+        dRec.Bottom = 47
+      end
+      object prMemoObj3: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'GENERADO EL [:<DDDDDD>StartDateTime]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 468
+        dRec.Top = 0
+        dRec.Right = 713
+        dRec.Bottom = 25
+      end
+      object prShapeObj2: TprShapeObj
+        dRec.Versions = <
+          item
+            Visible = True
+            PenWidth = 2
+          end>
+        dRec.Left = 3
+        dRec.Top = 45
+        dRec.Right = 712
+        dRec.Bottom = 50
+      end
+    end
+    object prHDetailHeaderBand1: TprHDetailHeaderBand
+      Height = 32
+      DetailBand = prHDetailBand1
+      object prMemoObj4: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'IDENTIFICACION Y NOMBRE')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 10
+          end>
+        dRec.Left = 4
+        dRec.Top = 4
+        dRec.Right = 459
+        dRec.Bottom = 23
+      end
+      object prMemoObj5: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'RELACION')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 470
+        dRec.Top = 4
+        dRec.Right = 583
+        dRec.Bottom = 23
+      end
+      object prMemoObj6: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'HUELLA DACTILAR')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 604
+        dRec.Top = 4
+        dRec.Right = 703
+        dRec.Bottom = 23
+      end
+      object prShapeObj1: TprShapeObj
+        dRec.Versions = <
+          item
+            Visible = True
+            PenWidth = 2
+          end>
+        dRec.Left = 4
+        dRec.Top = 26
+        dRec.Right = 713
+        dRec.Bottom = 31
+      end
+    end
+    object prHDetailBand1: TprHDetailBand
+      Height = 102
+      DataSetName = 'IBQuery'
+      Bands = (
+        'prHDetailHeaderBand1')
+      object prImageObj2: TprImageObj
+        dRec.Versions = <
+          item
+            Visible = True
+            ImageSource = isDBFieldName
+            DBFieldName = 'IBQuery.FOTO_HUELLA'
+            FillColor = clNone
+          end>
+        dRec.Left = 610
+        dRec.Top = 4
+        dRec.Right = 691
+        dRec.Bottom = 99
+      end
+      object prMemoObj7: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery.ID_PERSONA]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 10
+          end>
+        dRec.Left = 6
+        dRec.Top = 42
+        dRec.Right = 143
+        dRec.Bottom = 63
+      end
+      object prMemoObj8: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[Trim(IBQuery.PRIMER_APELLIDO + " " + IBQuery.SEGUNDO_APELLIDO +' +
+                ' " " + IBQuery.NOMBRE)]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 10
+          end>
+        dRec.Left = 150
+        dRec.Top = 42
+        dRec.Right = 459
+        dRec.Bottom = 63
+      end
+      object prMemoObj9: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[iif(IBQuery.TIPO = 1,"EMPLEADO",iif(IBQuery.TIPO = 2,"DIRECTIVO' +
+                '","CONYUGE"))]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 10
+          end>
+        dRec.Left = 472
+        dRec.Top = 42
+        dRec.Right = 587
+        dRec.Bottom = 63
+      end
+      object prShapeObj3: TprShapeObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Style = prssBox
+          end>
+        dRec.Left = 608
+        dRec.Top = 4
+        dRec.Right = 691
+        dRec.Bottom = 99
+      end
+    end
+  end
+end

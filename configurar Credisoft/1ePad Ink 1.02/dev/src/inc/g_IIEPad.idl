@@ -1,0 +1,345 @@
+/**
+$Revision: 1.21 $
+*/
+
+/**
+\defgroup Generic Generic ePad Access
+A primitive Generic set of interfaces have been defined to allow an application to
+access a device without any prior knowledge of the physical hardware.  These API's allow
+the software to obtain a list of installed devices and access basic positional data from
+the units.<p>
+Note that specific functionality (such as LCD displays) are <b>not</b> included in these
+interfaces.<p>
+Generally speaking, one should access a device using the following steps:<br>
+<ul>
+<li>Connect up to the IIEPadEnum object and obtain a listing of devices</li>
+<li>Instantiate the gIIEPad interface of desired device(s)</li>
+<li>If desired, instantiate any additional interfaces such as gIEDebugGUI or IWedge against
+the previously instantiated object.</li>
+<li>Open a connection to the desired device (via gIIEPad's OpenConnection).
+Note that in order to use multiple devices one must instantiate multiple
+instances of the service provider.</li>
+</ul>
+@see IIEPadEnum
+@see gIIEPad
+@see gIEDebugGUI
+*/
+
+// IEPad.idl : IDL source for IEPad.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (IEPad.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+/**
+Used to alias HANDLE as idl doesn't like the idea of a
+void pointer.
+*/
+typedef struct {
+    char bData[sizeof(HANDLE)];
+} T_HANDLE;
+
+    [
+        object,
+        uuid(D55113D0-95C8-4427-9AAD-EB8BC1ECB4D9),
+        dual,
+        helpstring("IIEPad Event handler Interface"),
+        pointer_default(unique)
+    ]
+    /**
+    Interface for client handling of pad events.
+    The user-supplied implementation of this I/F will be called every time data
+    is received from the device, if it data reporting is enabled.
+    @see ConnSetEventNotification
+    @see ConnGetEventNotification
+    */
+    interface gIIEPadEvent : IDispatch
+    {
+        /**
+        Pad event data is passed into this method, which must be implemented by the
+        client.
+        */
+        [id(1), helpstring("Handles Incoming PAD data")] HRESULT HandlePadData(int abs_x, 
+                                                                               int abs_y,
+                                                                               int pressure,
+                                                                               boolean fTouch,
+                                                                               boolean fTap,
+                                                                               int buttonState,
+                                                                               unsigned long dwTimeStamp,
+                                                                               unsigned long dwSequenceNum);
+    };
+
+
+    [
+        object,
+        uuid(E41F84E3-F211-4870-99F7-34C5826CEED5),
+        dual,
+        helpstring("Generic Debugging Interface"),
+        pointer_default(unique)
+    ]
+    /**
+    A generic interface for presenting internal diagnostic GUI's for debugging.
+    */
+    interface gIEDebugGUI : IDispatch
+    {
+        /**
+        Displays the component's diagnostic GUI.
+        */
+        [id(1), helpstring("Displays Component debugging GUI")] HRESULT DebugDialog();
+        
+        /**
+        Returns the current HANDLE to the device or NULL if none exists.
+        */
+        [id(2), helpstring("Retrieves the HANDLE to the device")] HRESULT GetDeviceHandle(T_HANDLE *pHandle);
+
+        /**
+        Sets provider-specific parameters for provider instance.  See the description of the
+        provider for specific value-pairs.
+        */
+        [id(3), helpstring("Sets provider-specific parameters")] HRESULT SetDebugParam([in] BSTR key, [in] BSTR value);
+
+        /**
+        Gets provider-specific parameters for provider instance.  See the description of the
+        provider for specific value-pairs.
+        */
+        [id(4), helpstring("Gets provider-specific parameters")] HRESULT GetDebugParam([in] BSTR key, [out] BSTR *p_value);
+    };
+
+    [
+        object,
+        uuid(D85C50ED-C42D-4baa-986C-B9938203C98A),
+        dual,
+        helpstring("Generic IIEPad Interface"),
+        pointer_default(unique)
+    ]
+
+    /**
+    Main provider I/F for implementation.
+    This is what <b>all</b> providers must implement.<p>
+    Pads are physically mapped as follows:<br>
+    <pre>
+    +===============================+
+    + (0,0)                         +
+    +                               +
+    +                               +
+    +                               +
+    +                               +
+    +                               +
+    +                               +
+    +                   (maxX,maxY) +
+    +===============================+
+    </pre><p>
+    It is up to the service provider to translate the low-level data into
+    a compatable format.<br>
+    Note that maxX and maxY do not necessarily indicate the aspect ratio
+    of the device -- this is obtained via the ConnGetAspectRatio method.
+    */
+    interface gIIEPad : IDispatch
+    {
+        /**
+        Returns the number of devices supported by this provider.
+        In most cases this should be the actual number of devices present at the time of
+        the call.
+        @see OpenConnection
+        */
+        [id(1), helpstring("GetNumDevices - Returns the # of devices available.")] 
+            HRESULT GetNumDevices([out] int *p_iNumDevices);
+
+        /**
+        Opens a connection to device instance 'iDeviceNum' where 'iDeviceNum' is within
+        the range of device reported by GetNumDevices.  Caller must provide p_EventHandler
+        method.
+        @see GetNumDevices
+        @see HandlePadData
+        */
+        [id(2), helpstring("OpenConnection - Opens a connection to the give device.")] 
+            HRESULT OpenConnection([in] int iDeviceNum, [in] gIIEPadEvent *p_EventHandler);
+
+        /**
+        Closes an existing connection, if it exists.
+        */
+        [id(3), helpstring("CloseConnection - Closes an open connection")] 
+            HRESULT CloseConnection();
+
+        /**
+        Returns the device-specific information on this device.
+        */
+        [id(4), helpstring("GetDataRanges - Gets data range for device class -- REQUIRES CONNECTION")] 
+            HRESULT ConnGetRanges( [out] int *p_min_x,[out] int *p_max_x,
+                                   [out] int *p_min_y,[out] int *p_max_y,
+                                   [out] int *p_min_press,[out] int *p_max_press,
+                                   [out] int *p_nButtons );
+
+        /**
+        Sets system mouse messaging state.  This <i>may</i> not be supported in all
+        service providers.
+        @see ConnGetMouseOn
+        */
+        [id(5), helpstring("Sets mouse ON|OFF - REQUIRES CONNECTION")] 
+            HRESULT ConnSetMouseOn([in] boolean fState);
+
+        /**
+        Returns the state of system mousing.  If the service provider does not support
+        system mousing this function will always return false.
+        @see ConnSetMouseOn
+        */
+        [id(6), helpstring("Gets current mouse state [ON|OFF] - REQUIRES CONNECTION")] 
+            HRESULT ConnGetMouseOn([out] boolean *p_fState);
+
+        /**
+        Sets client data event message to On | off.  The default is ON so that as
+        soon as the connection is established the user will get callbacks on data
+        events.
+        @see ConnGetEventNotification
+        @see HandlePadData
+        */
+        [id(7), helpstring("Sets event notification ON|OFF - REQUIRES CONNECTION")] 
+            HRESULT ConnSetEventNotification([in] boolean fState);
+
+        /**
+        Returns the current client notifification state.
+        @see ConnSetEventNotification
+        */
+        [id(8), helpstring("Gets current notification state [ON|OFF] - REQUIRES CONNECTION")] 
+            HRESULT ConnGetEventNotification([out] boolean *p_fState);
+
+        /**
+        Returns the unit's unique serial number.  On devices that do not have unique serial
+        numbers.
+        */
+        [id(9), helpstring("Gets Device Serial Number [ON|OFF] - REQUIRES CONNECTION")] 
+            HRESULT ConnGetSerialNumber([out] GUID *p_serialNum);
+
+        /**
+        Pushes user-defined relative mouse data through device stack and back into the
+        bottom of the system's mouse driver stack.
+        This allows a user-mode program to supply system mousing information from the device,
+        regardless of operating system.  This may not be supported by all service providers.
+        */
+        [id(10), helpstring("Pushes user-defined serial data into host stack via device - REQUIRES CONNECTION")] 
+            HRESULT ConnPushMouseData([in] byte dx, [in] byte dy, [in] char bmButtons);
+    
+        /**
+        Displays the internal debugging GUI for the service provider.
+        */
+        [id(11), helpstring("Displays debug dialog")] 
+            HRESULT DisplayDebugGUI();
+
+        /**
+        Displays a pop-up dialog that configures the service provider.
+        If no configuration is required, this shall return E_NOTIMPL.
+        */
+        [id(12), helpstring("Displays configuration dialog")] 
+            HRESULT ShowConfigDialog();
+    
+        /**
+        Gets the unit's physical extents in inches.
+        */
+        [id(13), helpstring("Get physical extends in inches")] 
+            HRESULT ConnGetPhysicalExtents(  [out] double *pExtX,[out] double *pExtY );
+        /**
+        Returns the # of reports per interval.
+        */
+        [id(14), helpstring("Get Report Rate")] 
+            HRESULT ConnGetReportRate(  [out] int *p_nPackets, [out] int *p_milliseconds );
+
+        /**
+        Returns the friendly name of the device.
+        */
+        [id(15), helpstring("Get Friendly Name")] 
+            HRESULT GetFriendlyName(  [in] GUID *pSerialNum, [out] BSTR *pFriendlyName );
+
+        /**
+        Sets the friendly name of the device, if supported.
+        */
+        [id(16), helpstring("Set Friendly Name")] 
+            HRESULT SetFriendlyName(  [in] GUID *pSerialNum, [in] BSTR FriendlyName );
+
+        /**
+        Returns the unit's unique serial number if the device is connected.  This is
+        done as "silently" and quickly as possible.
+        */
+        [id(17), helpstring("Silently Gets Device Serial Number, if device is connected")] 
+            HRESULT GetSerialNumber([in] int iDeviceNum, [out] GUID *p_serialNum);
+        
+        /**
+        Returns history of all unique serial numbers ever plugged into host for this
+        provider.<p>
+        Returns S_OK until the last item is reached.
+        */
+        [id(18), helpstring("Silently Gets Device Serial Number from persistent storage")] 
+            HRESULT EnumSerialNumberHistory([in] int iDeviceNum, [out] GUID *p_serialNum);
+    };
+
+
+/**
+$Log: g_IIEPad.idl,v $
+Revision 1.21  2002/10/15 20:23:24  shier
+Imported files from pid000002-t20021015a
+
+Revision 1.20  2002/10/15 20:08:10  shier
+Updated documentation.
+
+Revision 1.19  2002/08/01 20:05:13  shier
+Corrected API spelling error (s/phyiscal/physical/)
+
+Revision 1.18  2002/07/19 21:02:20  shier
+Changed ConnGetAspectRatio to ConnGetPhysicalExtents and changed input parms to
+double-precision type / inches.
+
+Revision 1.17  2002/07/08 04:28:34  shier
+Added get/set debugparam API's in the debug interface and rebuilt source file.
+
+Revision 1.16  2002/06/28 18:58:46  shier
+Added additional API's to get serial #'s and enumerate history to core API.
+
+Revision 1.15  2002/06/26 20:42:29  shier
+Changed API parms for get/set friendly name.
+
+Revision 1.14  2002/06/14 23:50:44  shier
+Created special T_HANDLE type.
+
+Revision 1.13  2002/06/14 23:42:19  shier
+Updated for friendly name API's to use BSTR, recompiled.
+
+Revision 1.12  2002/06/14 23:37:43  shier
+Added typedef for handle to get it to compile without DDK shell.
+
+Revision 1.11  2002/06/14 22:40:27  shier
+Added get/set friendly name for devices.
+
+Revision 1.10  2002/05/14 15:35:17  shier
+Added getdevicehandle method.
+
+Revision 1.9  2002/05/13 23:53:29  shier
+Added GetReportRate API.
+
+Revision 1.8  2002/05/13 23:08:26  shier
+Updated comments/docs.
+
+Revision 1.7  2002/05/13 22:43:23  shier
+Added ConnGetAspectRatio method.
+
+Revision 1.6  2002/01/11 01:10:17  shier
+Updated docs.
+
+Revision 1.5  2002/01/01 18:30:27  shier
+Added service provider configuration dialog method
+
+Revision 1.4  2001/12/06 19:35:13  shier
+Added gIEDebugGUI Interface.
+
+Revision 1.3  2001/12/04 22:23:06  shier
+Updated API.
+
+Revision 1.2  2001/12/04 17:34:21  shier
+Updated API.
+
+Revision 1.1  2001/12/04 16:47:27  shier
+Initial drop of proposed COM interface into source control.
+
+*/
+

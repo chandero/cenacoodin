@@ -1,0 +1,36 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = Analista.exe Cajas.exe Captaciones.exe Contabilidad.exe Gerencia.exe \
+  Tesoreria.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+Analista.exe: Modulo Analista\Analista.dpr
+  $(DCC)
+
+Cajas.exe: Modulo Cajas\Cajas.dpr
+  $(DCC)
+
+Captaciones.exe: Modulo Captaciones\Captaciones.dpr
+  $(DCC)
+
+Contabilidad.exe: Modulo Contabilidad\Contabilidad.dpr
+  $(DCC)
+
+Gerencia.exe: Modulo Gerencia\Gerencia.dpr
+  $(DCC)
+
+Tesoreria.exe: Modulo Tesoreria\Tesoreria.dpr
+  $(DCC)
+
+

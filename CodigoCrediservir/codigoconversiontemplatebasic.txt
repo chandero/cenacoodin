@@ -1,0 +1,11 @@
+Public Function PlatinumToOTW(ByVal platinumTemplate As object) As Byte() 
+Dim
+ pTemplate As New FPTemplate 
+Dim
+ er As DpSdkEngLib.AIErrors 
+er = pTemplate.Import(platinumTemplate) 
+If er <> Er_OK Then
+ PlatinumToOTW = "": Exit Function
+PlatinumToOTW = Ctype(pTemplate.TemplData,Byte()) 
+End
+Function 

@@ -1,0 +1,142 @@
+
+
+[BlackfishSQLCONNECTION]
+;DelegateConnection=DBXTraceConnection
+DriverName=BlackfishSQL
+HostName=localhost
+port=2508
+Database=databasename
+create=true
+User_Name=sysdba
+Password=masterkey
+BlobSize=-1
+TransIsolation=ReadCommited
+[BlackfishSQLEmployeeCONNECTION]
+;DelegateConnection=DBXTraceConnection
+DriverName=BlackfishSQL
+HostName=localhost
+port=2508
+Database=|DataDirectory|employee
+create=true
+User_Name=sysdba
+Password=masterkey
+BlobSize=-1
+TransIsolation=ReadCommited
+
+[DataSnapCONNECTION]
+;DelegateConnection=DBXTraceConnection
+DriverName=DataSnap
+HostName=localhost
+port=211
+
+[ASAConnection]
+;DelegateConnection=DBXTraceConnection
+DriverName=ASA
+HostName=ServerName
+Database=DBNAME
+User_Name=user
+Password=password
+ConnectionString=
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+ASA TransIsolation=ReadCommited
+
+[ASEConnection]
+;DelegateConnection=DBXTraceConnection
+DriverName=ASE
+HostName=ServerName
+DataBase=Database Name
+User_Name=user
+Password=password
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+ASE TransIsolation=ReadCommited
+
+[DB2Connection]
+;DelegateConnection=DBXTraceConnection
+DriverName=DB2
+Database=DBNAME
+User_Name=user
+Password=password
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+DB2 TransIsolation=ReadCommited
+Decimal Separator=.
+
+[InformixConnection]
+;DelegateConnection=DBXTraceConnection
+DriverName=Informix
+HostName=ServerName
+DataBase=Database Name
+User_Name=user
+Password=password
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+Informix TransIsolation=ReadCommited
+Trim Char=False
+
+[IBConnection]
+;DelegateConnection=DBXTraceConnection
+DriverName=Interbase
+Database=database.gdb
+RoleName=RoleName
+User_Name=sysdba
+Password=masterkey
+ServerCharSet=
+SQLDialect=3
+ErrorResourceFile=
+LocaleCode=0000
+BlobSize=-1
+CommitRetain=False
+WaitOnLocks=True
+Interbase TransIsolation=ReadCommited
+Trim Char=False
+
+[MSSQLConnection]
+SchemaOverride=sa.dbo
+;DelegateConnection=DBXTraceConnection
+DriverName=MSSQL
+HostName=ServerName
+DataBase=Database Name
+User_Name=user
+Password=password
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+MSSQL TransIsolation=ReadCommited
+OS Authentication=False
+Prepare SQL=False
+
+[MySQLConnection]
+;DelegateConnection=DBXTraceConnection
+DriverName=MySQL
+HostName=ServerName
+Database=DBNAME
+User_Name=user
+Password=password
+ServerCharSet=
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+Compressed=False
+Encrypted=False
+
+[OracleConnection]
+;DelegateConnection=DBXTraceConnection
+DriverName=Oracle
+DataBase=Database Name
+User_Name=user
+Password=password
+RowsetSize=20
+BlobSize=-1
+ErrorResourceFile=
+LocaleCode=0000
+Oracle TransIsolation=ReadCommited
+OS Authentication=False
+Multiple Transaction=False
+Trim Char=False
+Decimal Separator=.

@@ -1,0 +1,153 @@
+/**
+$Revision: 1.20 $
+*/
+
+// IePadEnum.idl : IDL source for IePadEnum.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (IePadEnum.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "..\inc\g_IIEPad.idl";
+	
+	[
+		object,
+		uuid(1CCF63C0-E314-46BD-A45A-7493A33FC0F4),
+		dual,
+		helpstring("IIEPadEnum Interface"),
+		pointer_default(unique)
+	]
+    /**
+    Generic interface to enumerate Interlink Electronic service providers.
+    Note that a provider may show up even though they have no devices -- their presence is
+    controlled simply by a registry link, not a physical device.<p>
+    An interested party must use this interface to communicate with the desired service provider
+    to determine if it has any physical devices present:<p>
+    <ul>
+    <li>How to open the enumerator</li>
+    <pre>
+    ...
+    int iResult;
+    HRESULT hr;
+    IEPadEnum *pEPadEnum;
+
+    iResult = 0;
+    if ( FAILED(CoInitialize(NULL)) ) {
+        iResult = -1;
+        printf("Failed to initialize com\\n");
+    } else {
+        pEPadEnum = NULL;
+        hr = CoCreateInstance(  CLSID_IEPadEnum,
+                                NULL,
+                                CLSCTX_INPROC,
+                                IID_IIEPadEnum,
+                                (void **)&pEPadEnum );
+        if ( !FAILED(hr) ) {
+            pEPadEnum->DisplayDebugGUI();
+            pEPadEnum->Release();
+        } else {
+            printf("Failed to create class instance\\n");
+        } // endif
+    } // endif
+
+    CoUninitialize();
+    ...
+    </pre>
+    <li>How to connect to a service provider</li>
+    <pre>
+    ...
+    GUID guid;
+    CString currentService = GetCurrentService(&guid);
+    if (currentService.GetLength()>0) {
+        gIIEPad *pInstance = NULL;
+        HRESULT hr = CoCreateInstance(  guid,
+                                        NULL,
+                                        CLSCTX_INPROC,
+                                        IID_gIIEPad,
+                                        (void **)&pInstance);
+        if ( !FAILED(hr) ) {
+            pInstance->DisplayDebugGUI();
+        } // endif
+        ...
+    } // endif
+    ...
+    </pre>
+    */
+	interface IIEPadEnum : IDispatch
+	{
+        /**
+        Displays (private) debug GUI for debugging purposes.
+        This is <b>not</b> intended to be used by end-users but is useful for system development
+        and <i>may</i> aide technical support.
+        */
+		[id(1), helpstring("Displays an implementation Debug GUI")] HRESULT DisplayDebugGUI();
+        /**
+        Obtains the number of registered service providers.
+        @return # of registered providers
+        */
+		[id(2), helpstring("Returns the # of registered service providers")] HRESULT GetNumProviders(int *pNumProviders);
+        /**
+        Obtains the class GUID for the referenced service provider.
+        Basically one decides which service provider they want to use and then request the GUID so
+        that they can perform a CoCreateInstance against the GUID for the interface.<p>
+        <b>All service providers <b>must</b> implement the gIIEPad interface.</b>
+        */
+		[id(3), helpstring("Provides class GUID -- use for creating desired I/F using provider.")] HRESULT GetClassID(int iProvider, GUID *pClassID);
+        /**
+        This hook allows service providers to register their presence with the enumerator when
+        they themselves are registered.
+        */
+		[id(4), helpstring("method AddService")] HRESULT AddService(GUID *pClassID);
+        /**
+        Allows for a service provider to remove itself from the list of registered service providers.
+        Typically this is done when a service provider is uninstalled (regsvr32 /u).
+        */
+		[id(5), helpstring("method RemoveService")] HRESULT RemoveService(GUID *pClassID);
+        /**
+        Returns a text descriptor of what the serviceprovider is and/or does.
+        May be useful for user GUI's.
+        */
+		[id(6), helpstring("method GetProviderDescription")] HRESULT GetProviderDescription(GUID *pClassID, BSTR *p_bDescription);
+        /**
+        Allows 3rd parties (such as service providers or GUI's) to set the associated text for a
+        service provider.
+        */
+		[id(7), helpstring("method SetProviderDescription")] HRESULT SetProviderDescription(GUID *pClassID, BSTR bDescription);
+	};
+
+[
+	uuid(9046AC26-46D8-4723-B163-26358EB7CB80),
+	version(1.0),
+	helpstring("IePadEnum 1.0 Type Library")
+]
+library IEPADENUMLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	
+	[
+		uuid(705AC2E5-E571-4760-9D9D-3D4D61AFBF15),
+		helpstring("IEPadEnum Class")
+	]
+	coclass IEPadEnum
+	{
+		[default] interface IIEPadEnum;
+		interface gIIEPadEvent;
+		interface gIIEPad;
+        interface gIEDebugGUI;
+	};
+};
+
+/**
+$Log: IePadEnum.idl,v $
+Revision 1.20  2002/10/15 20:23:24  shier
+Imported files from pid000002-t20021015a
+
+Revision 1.6  2002/05/03 17:32:19  shier
+Added comments/docs.
+
+*/
+

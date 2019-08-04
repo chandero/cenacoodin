@@ -1,0 +1,347 @@
+object TprTxReport
+  FromPage = 1
+  ToPage = 1
+  Values = <
+    item
+      Name = 'TARJETAS'
+      AggFunction = prafCount
+      Formula = 'IBQuery1.ID_TARJETA'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end>
+  Variables = <
+    item
+      Name = 'EMPRESA'
+      ValueType = 'prvvtString'
+      Value = 'CREDISERVIR LTDA'
+    end
+    item
+      Name = 'NIT'
+      ValueType = 'prvvtString'
+      Value = '890.505.363-6'
+    end
+    item
+      Name = 'FECHA'
+      ValueType = 'prvvtDateTime'
+      Value = 38482d
+    end
+    item
+      Name = 'ESTADO'
+      ValueType = 'prvvtString'
+      Value = 'TODAS'
+    end>
+  PrinterName = 'Epson FX-1170'
+  ESCModelName = 'Epson printers'
+  WrapAfterColumn = 0
+  FromLine = 1
+  ToLine = 15
+  Left = 218
+  Top = 62
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 1'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.7')
+  object prTxPage1: TprTxPage
+    ColNum = 133
+    object prTxHPageHeaderBand1: TprTxHPageHeaderBand
+      Height = 2
+      PrintOnFirstPage = True
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[EMPRESA]')
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 17
+        dRec.Bottom = 1
+      end
+      object prTxCommandObj1: TprTxCommandObj
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcCondensedOn)
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 1
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'INFORME DE TARJETA DEBITO')
+          end>
+        dRec.Left = 28
+        dRec.Top = 0
+        dRec.Right = 54
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Impreso: [:<yyyy/mm/dd>StartDateTime]')
+          end>
+        dRec.Left = 94
+        dRec.Top = 0
+        dRec.Right = 116
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Pag:[:<000>Page]')
+          end>
+        dRec.Left = 117
+        dRec.Top = 0
+        dRec.Right = 126
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj5: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ESTADO : [ESTADO]')
+          end>
+        dRec.Left = 55
+        dRec.Top = 0
+        dRec.Right = 75
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj16: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[NIT]')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 17
+        dRec.Bottom = 2
+      end
+    end
+    object prTxHDetailHeaderBand1: TprTxHDetailHeaderBand
+      Height = 4
+      DetailBand = prTxHDetailBand1
+      object prTxHLineObj1: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 133
+        dRec.Bottom = 1
+      end
+      object prTxHLineObj2: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = -1
+        dRec.Top = 3
+        dRec.Right = 132
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj6: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TARJETA No.')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 20
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj7: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CUENTA No.')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 21
+        dRec.Top = 1
+        dRec.Right = 36
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj8: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TITULAR DE LA TARJETA')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 37
+        dRec.Top = 1
+        dRec.Right = 97
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj9: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ESTADO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 120
+        dRec.Top = 1
+        dRec.Right = 132
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj10: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ULTIMA'
+              'NOVEDAD')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 109
+        dRec.Top = 1
+        dRec.Right = 119
+        dRec.Bottom = 3
+      end
+    end
+    object prTxHDetailBand1: TprTxHDetailBand
+      Height = 1
+      DataSetName = 'IBQuery1'
+      Bands = (
+        'prTxHDetailHeaderBand1'
+        'prTxHDetailFooterBand1')
+      object prTxMemoObj11: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.ID_TARJETA]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 20
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj12: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[IBQuery1.ID_TIPO_CAPTACION][IBQuery1.ID_AGENCIA]-[:<0000000>IBQ' +
+                'uery1.NUMERO_CUENTA]-[IBQuery1.DIGITO_CUENTA]')
+          end>
+        dRec.Left = 21
+        dRec.Top = 0
+        dRec.Right = 36
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj13: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.NOMBRE]')
+          end>
+        dRec.Left = 37
+        dRec.Top = 0
+        dRec.Right = 97
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj14: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[:<yyyy/mm/dd>iif(IBQuery1.FECHA_BLOQUEO > IBQuery1.FECHA_ASIGNA' +
+                'CION,IBQuery1.FECHA_BLOQUEO,iif(IBQuery1.FECHA_CANCELADA > IBQue' +
+                'ry1.FECHA_ASIGNACION,IBQuery1.FECHA_CANCELADA,IBQuery1.FECHA_ASI' +
+                'GNACION))]')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 109
+        dRec.Top = 0
+        dRec.Right = 119
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj15: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION]')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 120
+        dRec.Top = 0
+        dRec.Right = 132
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailFooterBand1: TprTxHDetailFooterBand
+      Height = 5
+      DetailBand = prTxHDetailBand1
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      object prTxHLineObj3: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 133
+        dRec.Bottom = 1
+      end
+      object prTxHLineObj4: TprTxHLineObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 0
+        dRec.Top = 2
+        dRec.Right = 133
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj17: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL TARJETAS: [:<#0>TARJETAS]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 26
+        dRec.Bottom = 2
+      end
+    end
+  end
+end

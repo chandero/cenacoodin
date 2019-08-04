@@ -1,0 +1,195 @@
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Lazarus\Modulo SIPLA\SIPLA.dpr *
+Hint: Encontrar todos los ficheros unidad
+Hint: * Arreglando las unidades usadas para el archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Lazarus\Modulo SIPLA\SIPLA.dpr *
+Hint: 
+Hint: *** Convirtiendo ficheros de unidad pertenecientes al proyecto/paquete ***
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Lazarus\Modulo SIPLA\Units\unitMain.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobales" a "UnitGlobales".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitdmGeneral" a "UnitdmGeneral".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitConsultaProductos" a "UnitConsultaProductos".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitConsultaExtractoCaptacion" a "UnitConsultaExtractoCaptacion".
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\units\Consts.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\Unit_BuscarClave.pas *
+Hint: Reemplazada unidad "Mask" con "MaskEdit" en sección 'uses'.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\Unit_BuscarCodigo.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobales" a "UnitGlobales".
+Hint: Reemplazada unidad "Mask" con "MaskEdit" en sección 'uses'.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\Unit_DmComprobante.pas *
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBTable" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitdmGeneral.pas *
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBDatabase" de la sección uses.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitdmColocacion.pas *
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitReLogin.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitMain" a "unitMain".
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\unitLogin.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobales" a "UnitGlobales".
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitConsultaExtractoCaptacion.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Reemplazada unidad "IBDatabase" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitConsultaProductos.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitdmGeneral" a "UnitdmGeneral".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobales" a "UnitGlobales".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitBuscarPersona" a "UnitBuscarPersona".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobalesCol" a "UnitGlobalesCol".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitDmColocacion" a "UnitdmColocacion".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitObservacionesCambioEstado" a "UnitObservacionesCambioEstado".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitControlDeObservaciones" a "UnitControldeObservaciones".
+Hint: Eliminada unidad "Jpeg" de la sección uses.
+Hint: Reemplazada unidad "ADODB" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBDatabase" de la sección uses.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitBuscarPersona.pas *
+Hint: Reemplazada unidad "IBStoredProc" con "sqldb" en sección 'uses'.
+Hint: Reemplazada unidad "DBLocalI" con "IBConnection" en sección 'uses'.
+Hint: Eliminada unidad "IBTable" de la sección uses.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitObservacionesCambioEstado.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBDatabase" de la sección uses.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Globales\UnitGlobales.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: Reemplazada unidad "IBDataBase" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBStoredProc" de la sección uses.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitCambiarContrasena.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobales" a "UnitGlobales".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitOperacionesEfectivo.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitDmGeneral" a "UnitdmGeneral".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobales" a "UnitGlobales".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitPantallaProgreso" a "UnitPantallaProgreso".
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitActualizacionSDN.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: Eliminada unidad "ShellApi" de la sección uses.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitPantallaProgreso.pas *
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitOperacionesAcumulada.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBSQL" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Lazarus\Modulo SIPLA\Units\UnitCompararPersonas.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitMain" a "unitMain".
+Hint: Reemplazada unidad "IBQuery" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitRegistrarObservacion.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "unitGlobales" a "UnitGlobales".
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitControldeObservaciones.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBDatabase" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitExtractoColocacion.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBDatabase" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Mask" con "MaskEdit" en sección 'uses'.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitVistaPreliminar.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitBuscarTexto.pas *
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Globales\UnitGlobalesCol.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBQuery" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBDatabase" de la sección uses.
+Hint: Eliminada unidad "IBSQL" de la sección uses.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitRelacionChequesEnCanje.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBDatabase" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitExtractoCredito.pas *
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Cambiada la codificación para cp1252 a UTF-8
+Hint: Arregladas las mayúsculas o minúsculas de la unidad "UnitDmGeneral" a "UnitdmGeneral".
+Hint: Reemplazada unidad "IBDatabase" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBQuery" de la sección uses.
+Hint: Eliminada unidad "IBCustomDataSet" de la sección uses.
+Hint: Reemplazada unidad "Mask" con "MaskEdit" en sección 'uses'.
+Hint: Reemplazada unidad "Windows" con "LCLIntf, LCLType, LMessages" en sección 'uses'.
+Hint: * Convirtiendo archivo D:\Alexander\Dropbox\SGFT\sgftcooperativo\Units\UnitGuardaImagen.pas *
+Hint: Reemplazada unidad "IBQuery" con "sqldb" en sección 'uses'.
+Hint: Eliminada unidad "IBDatabase" de la sección uses.
+Hint: 
+Hint: *** Reparando unidades utilizadas y ficheros de formulario ***
+Hint: * Reparando archivo de formulario D:\Alexander\Dropbox\SGFT\sgftcooperativo\Lazarus\Modulo SIPLA\Units\unitMain.lfm *
+Hint: Tipo reemplazado "TIBSQL" con "TSQLQuery".
+Hint: Propiedad eliminada "TextHeight".
+Hint: Propiedad eliminada "OldCreateOrder".
+Hint: Propiedad eliminada "Icon.Data".
+Hint: Conversión tuvo: 00:01:20
+Hint: Conversion Preparada.

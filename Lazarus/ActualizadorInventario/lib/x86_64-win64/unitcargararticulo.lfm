@@ -1,0 +1,208 @@
+object frmCargaArticulo: TfrmCargaArticulo
+  Left = 476
+  Height = 207
+  Top = 253
+  Width = 495
+  Caption = 'Cargar Artículo'
+  ClientHeight = 207
+  ClientWidth = 495
+  OnCreate = FormCreate
+  OnShow = FormShow
+  LCLVersion = '1.6.2.0'
+  object Label1: TLabel
+    Left = 16
+    Height = 15
+    Top = 8
+    Width = 82
+    Caption = 'Código / Barras'
+    ParentColor = False
+  end
+  object edCodigo: TEdit
+    Left = 104
+    Height = 23
+    Top = 8
+    Width = 376
+    OnExit = edCodigoExit
+    OnKeyPress = edCodigoKeyPress
+    TabOrder = 0
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 15
+    Top = 144
+    Width = 48
+    Caption = 'Cantidad'
+    ParentColor = False
+  end
+  object edCantidad: TSpinEdit
+    Left = 104
+    Height = 23
+    Top = 144
+    Width = 82
+    Alignment = taRightJustify
+    OnKeyPress = edCantidadKeyPress
+    TabOrder = 1
+    Value = 1
+  end
+  object Label3: TLabel
+    Left = 16
+    Height = 15
+    Top = 48
+    Width = 42
+    Caption = 'Artículo'
+    ParentColor = False
+  end
+  object edArticulo: TEdit
+    Left = 104
+    Height = 23
+    Top = 48
+    Width = 376
+    OnChange = edArticuloChange
+    ReadOnly = True
+    TabStop = False
+    TabOrder = 2
+  end
+  object Label4: TLabel
+    Left = 16
+    Height = 15
+    Top = 80
+    Width = 68
+    Caption = 'Presentación'
+    ParentColor = False
+  end
+  object edPresentacion: TEdit
+    Left = 104
+    Height = 23
+    Top = 80
+    Width = 376
+    ReadOnly = True
+    TabStop = False
+    TabOrder = 3
+  end
+  object btnAgregar: TButton
+    Left = 16
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = '&Agregar'
+    OnClick = btnAgregarClick
+    OnKeyPress = btnAgregarKeyPress
+    TabOrder = 4
+  end
+  object btnLimpiar: TButton
+    Left = 320
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = 'Limpiar'
+    OnClick = btnLimpiarClick
+    TabOrder = 5
+  end
+  object btnSalir: TButton
+    Left = 405
+    Height = 25
+    Top = 168
+    Width = 75
+    Caption = '&Salir'
+    OnClick = btnSalirClick
+    TabOrder = 6
+  end
+  object Label5: TLabel
+    Left = 16
+    Height = 15
+    Top = 114
+    Width = 33
+    Caption = 'Precio'
+    ParentColor = False
+  end
+  object edPrecio: TEdit
+    Left = 104
+    Height = 23
+    Top = 114
+    Width = 120
+    Alignment = taRightJustify
+    ReadOnly = True
+    TabStop = False
+    TabOrder = 7
+  end
+  object Label6: TLabel
+    Left = 359
+    Height = 15
+    Top = 114
+    Width = 10
+    Caption = 'Id'
+    ParentColor = False
+  end
+  object edId: TEdit
+    Left = 376
+    Height = 23
+    Top = 114
+    Width = 80
+    ReadOnly = True
+    TabStop = False
+    TabOrder = 8
+  end
+  object edQuery: TSQLQuery
+    FieldDefs = <>
+    SQL.Strings = (
+      'SELECT p.* FROM PRODUCT p'
+      'WHERE p.PROD_CODE = :CODE or p.PROD_BARCODE = :CODE'
+    )
+    Options = []
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'CODE'
+        ParamType = ptInput
+      end>
+    left = 248
+    top = 112
+  end
+  object edTransaction: TSQLTransaction
+    Active = False
+    Options = []
+    left = 312
+    top = 112
+  end
+  object edQueryInsert: TSQLQuery
+    FieldDefs = <>
+    SQL.Strings = (
+      'INSERT INTO MOVEMENT (MOVE_DATE, MOVE_TIME, PROD_ID, MOVE_QUANTITY, EMPL_ID)'
+      'VALUES (:MOVE_DATE, :MOVE_TIME, :PROD_ID, :MOVE_QUANTITY, :EMPL_ID)'
+    )
+    Options = []
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'MOVE_DATE'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'MOVE_TIME'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'PROD_ID'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'MOVE_QUANTITY'
+        ParamType = ptInput
+      end    
+      item
+        DataType = ftUnknown
+        Name = 'EMPL_ID'
+        ParamType = ptInput
+      end>
+    left = 248
+    top = 160
+  end
+  object MemDataset1: TMemDataset
+    FieldDefs = <>
+    left = 128
+    top = 168
+  end
+end

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 14.3-b01 (Sun Microsystems Inc.)
+Main-Class: coodinreporteuiaf.CoodinReporteUiafApp
+Class-Path: lib/appframework-1.0.3.jar lib/swing-worker-1.1.jar lib/to
+ plink-essentials.jar lib/toplink-essentials-agent.jar lib/jaybird-ful
+ l-2.1.6.jar lib/jcalendar-1.3.3.jar lib/looks-2.0.1.jar
+X-COMMENT: Main-Class will be added automatically by build
+

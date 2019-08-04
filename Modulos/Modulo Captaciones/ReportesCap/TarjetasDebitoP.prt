@@ -1,0 +1,516 @@
+object TprReport
+  Values = <
+    item
+      Name = 'TARJETAS'
+      AggFunction = prafCount
+      Formula = 'IBQuery1.ID_TARJETA'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end>
+  Variables = <
+    item
+      Name = 'EMPRESA'
+      ValueType = 'prvvtString'
+      Value = 'CREDISERVIR LTDA'
+    end
+    item
+      Name = 'NIT'
+      ValueType = 'prvvtString'
+      Value = '890.505.363-6'
+    end
+    item
+      Name = 'ESTADO'
+      ValueType = 'prvvtString'
+      Value = 'TODAS'
+    end>
+  PrinterName = 'Epson FX-1170'
+  Left = 248
+  Top = 62
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 1'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.7')
+  LOGPIXELSX = 96
+  LOGPIXELSY = 96
+  object prPage1: TprPage
+    Width = 2100
+    Height = 2970
+    PaperSize = 9
+    Orientation = poPortrait
+    lMargin = 10
+    rMargin = 10
+    tMargin = 10
+    bMargin = 10
+    object prHPageHeaderBand1: TprHPageHeaderBand
+      Height = 40
+      PrintOnFirstPage = True
+      object prMemoObj1: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[EMPRESA]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            FontSize = 10
+          end>
+        dRec.Left = 4
+        dRec.Top = 2
+        dRec.Right = 153
+        dRec.Bottom = 23
+      end
+      object prMemoObj2: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'INFORME TARJETAS DEBITO EN ESTADO [ESTADO]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 10
+          end>
+        dRec.Left = 156
+        dRec.Top = 2
+        dRec.Right = 525
+        dRec.Bottom = 23
+      end
+      object prMemoObj3: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'IMPRESO: [StartDateTime]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 530
+        dRec.Top = 2
+        dRec.Right = 639
+        dRec.Bottom = 19
+      end
+      object prMemoObj4: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'P'#225'g:[:<000>Page]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 642
+        dRec.Top = 2
+        dRec.Right = 715
+        dRec.Bottom = 19
+      end
+      object prMemoObj7: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[NIT]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 7
+          end>
+        dRec.Left = 16
+        dRec.Top = 16
+        dRec.Right = 143
+        dRec.Bottom = 33
+      end
+    end
+    object prHDetailHeaderBand1: TprHDetailHeaderBand
+      Height = 44
+      DetailBand = prHDetailBand1
+      object prShapeObj1: TprShapeObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 2
+        dRec.Top = -6
+        dRec.Right = 717
+        dRec.Bottom = 13
+      end
+      object prMemoObj5: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TARJETA')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            FontSize = 8
+          end>
+        dRec.Left = 2
+        dRec.Top = 6
+        dRec.Right = 117
+        dRec.Bottom = 25
+      end
+      object prMemoObj6: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CUENTA')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            FontSize = 8
+          end>
+        dRec.Left = 118
+        dRec.Top = 6
+        dRec.Right = 207
+        dRec.Bottom = 23
+      end
+      object prMemoObj8: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TITULAR DE LA TARJETA')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            FontSize = 8
+          end>
+        dRec.Left = 210
+        dRec.Top = 6
+        dRec.Right = 525
+        dRec.Bottom = 23
+      end
+      object prShapeObj2: TprShapeObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 3
+        dRec.Top = 35
+        dRec.Right = 718
+        dRec.Bottom = 44
+      end
+      object prMemoObj9: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ULTIMA'
+              'NOVEDAD')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            FontSize = 8
+          end>
+        dRec.Left = 530
+        dRec.Top = 6
+        dRec.Right = 619
+        dRec.Bottom = 37
+      end
+      object prMemoObj10: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ESTADO')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            FontSize = 8
+          end>
+        dRec.Left = 623
+        dRec.Top = 6
+        dRec.Right = 712
+        dRec.Bottom = 23
+      end
+    end
+    object prHDetailBand1: TprHDetailBand
+      Height = 16
+      DataSetName = 'IBQuery1'
+      Bands = (
+        'prHDetailHeaderBand1'
+        'prHDetailFooterBand1')
+      object prMemoObj11: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.ID_TARJETA]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 4
+        dRec.Top = 2
+        dRec.Right = 113
+        dRec.Bottom = 15
+      end
+      object prMemoObj12: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[IBQuery1.ID_TIPO_CAPTACION][IBQuery1.ID_AGENCIA]-[:<0000000>IBQ' +
+                'uery1.NUMERO_CUENTA]-[IBQuery1.DIGITO_CUENTA]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 117
+        dRec.Top = 2
+        dRec.Right = 208
+        dRec.Bottom = 17
+      end
+      object prMemoObj13: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.NOMBRE]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 210
+        dRec.Top = 2
+        dRec.Right = 521
+        dRec.Bottom = 17
+      end
+      object prMemoObj14: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[:<yyyy/mm/dd>iif(IBQuery1.FECHA_BLOQUEO > IBQuery1.FECHA_ASIGNA' +
+                'CION,IBQuery1.FECHA_BLOQUEO,iif(IBQuery1.FECHA_CANCELADA > IBQue' +
+                'ry1.FECHA_ASIGNACION,IBQuery1.FECHA_CANCELADA,IBQuery1.FECHA_ASI' +
+                'GNACION))]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 530
+        dRec.Top = 1
+        dRec.Right = 619
+        dRec.Bottom = 16
+      end
+      object prMemoObj15: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            hAlign = prhCenter
+            vAlign = prvCenter
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 621
+        dRec.Top = 2
+        dRec.Right = 710
+        dRec.Bottom = 17
+      end
+    end
+    object prHDetailFooterBand1: TprHDetailFooterBand
+      Height = 40
+      DetailBand = prHDetailBand1
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      object prShapeObj3: TprShapeObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 2
+        dRec.Top = 0
+        dRec.Right = 717
+        dRec.Bottom = 11
+      end
+      object prShapeObj4: TprShapeObj
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 3
+        dRec.Top = 21
+        dRec.Right = 718
+        dRec.Bottom = 30
+      end
+      object prMemoObj16: TprMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL TARJETAS : [:<#0>TARJETAS]')
+            lBorder.Width = 1
+            rBorder.Width = 1
+            tBorder.Width = 1
+            bBorder.Width = 1
+            FillColor = clWhite
+            vAlign = prvTop
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = []
+            FontSize = 8
+          end>
+        dRec.Left = 8
+        dRec.Top = 6
+        dRec.Right = 165
+        dRec.Bottom = 23
+      end
+    end
+  end
+end

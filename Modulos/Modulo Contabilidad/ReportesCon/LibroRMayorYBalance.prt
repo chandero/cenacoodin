@@ -1,0 +1,1288 @@
+object TprTxReport
+  ShowProgress = True
+  FromPage = 1
+  ToPage = 1
+  Title = 'Liquidaci'#243'n'
+  ExportFromPage = 0
+  ExportToPage = 0
+  Values = <
+    item
+      Name = 'TotalDebitoAnt'
+      Formula = 'IBQTabla.DEBITOANT'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla'
+      Accumulate = True
+    end
+    item
+      Name = 'TotalCreditoAnt'
+      Formula = 'IBQTabla.CREDITOANT'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla'
+    end
+    item
+      Name = 'TotalDebitoMov'
+      Formula = 'IBQTabla.DEBITOMOV'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla'
+    end
+    item
+      Name = 'TotalCreditoMov'
+      Formula = 'IBQTabla.CREDITOMOV'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla'
+    end
+    item
+      Name = 'TotalDebitoAct'
+      Formula = 'IBQTabla.DEBITOACT'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla'
+      Accumulate = True
+    end
+    item
+      Name = 'TotalCreditoAct'
+      Formula = 'IBQTabla.CREDITOACT'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla'
+    end
+    item
+      Name = 'TotalDebitoAnt1'
+      Formula = 'IBQTabla1.DEBITOANT'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla1'
+      Accumulate = True
+    end
+    item
+      Name = 'TotalCreditoAnt1'
+      Formula = 'IBQTabla1.CREDITOANT'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla1'
+      Accumulate = True
+    end
+    item
+      Name = 'TotalDebitoAct1'
+      Formula = 'IBQTabla1.DEBITOACT'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla1'
+      Accumulate = True
+    end
+    item
+      Name = 'TotalCreditoAct1'
+      Formula = 'IBQTabla1.CREDITOACT'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla1'
+      Accumulate = True
+    end
+    item
+      Name = 'TotalDebitoMov1'
+      Formula = 'IBQTabla1.DEBITOMOV'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla1'
+      Accumulate = True
+    end
+    item
+      Name = 'TotalCreditoMov1'
+      Formula = 'IBQTabla1.CREDITOMOV'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQTabla1'
+      Accumulate = True
+    end>
+  Variables = <
+    item
+      Name = 'Empresa'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'Hoy'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'empleado'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'Mes'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'AnoCorte'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'Nit'
+      ValueType = 'prvvtString'
+      Value = ''
+    end>
+  PrinterName = '\\DEPARTAS02\Epson LX-300'
+  ESCModelName = 'Epson printers'
+  WrapAfterColumn = 0
+  EjectPageAfterPrint = False
+  LinesOnPage = 0
+  FromLine = 0
+  ToLine = 0
+  ExportFromLine = 0
+  ExportToLine = 0
+  Left = 313
+  Top = 3
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 1'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.7')
+  object prTxPage1: TprTxPage
+    ColNum = 236
+    object prTxHPageHeaderBand1: TprTxHPageHeaderBand
+      Height = 8
+      PrintOnFirstPage = True
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 5
+        dRec.Right = 221
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj7: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Corte a : [Mes] de [AnoCorte]'
+              '      ')
+            DeleteEmptyLinesAtEnd = True
+            DeleteEmptyLines = True
+            CanResizeX = True
+            CanResizeY = True
+            WordWrap = True
+          end>
+        dRec.Left = 54
+        dRec.Top = 6
+        dRec.Right = 100
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj9: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 7
+        dRec.Right = 221
+        dRec.Bottom = 8
+      end
+      object prTxCommandObj5: TprTxCommandObj
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcCondensedOn)
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 1
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailHeaderBand1: TprTxHDetailHeaderBand
+      Height = 3
+      DetailBand = prTxHDetailBand1
+      object prTxMemoObj11: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 6
+        dRec.Top = 1
+        dRec.Right = 7
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj12: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'NOMBRE')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 7
+        dRec.Top = 1
+        dRec.Right = 70
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj14: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'MES ANTERIOR')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 71
+        dRec.Top = 0
+        dRec.Right = 120
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj16: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'DEBITO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 71
+        dRec.Top = 1
+        dRec.Right = 95
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj18: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 95
+        dRec.Top = 1
+        dRec.Right = 96
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj22: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CREDITO')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 96
+        dRec.Top = 1
+        dRec.Right = 120
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj23: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|'
+              '|')
+          end>
+        dRec.Left = 120
+        dRec.Top = 0
+        dRec.Right = 121
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj24: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'MOVIMIENTOS DEL MES')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 121
+        dRec.Top = 0
+        dRec.Right = 170
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj26: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'DEBITO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 121
+        dRec.Top = 1
+        dRec.Right = 145
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj27: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 145
+        dRec.Top = 1
+        dRec.Right = 146
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj28: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CREDITO')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 146
+        dRec.Top = 1
+        dRec.Right = 170
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj29: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'SALDO ACTUAL')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 171
+        dRec.Top = 0
+        dRec.Right = 220
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj30: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'DEBITO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 171
+        dRec.Top = 1
+        dRec.Right = 195
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj34: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 195
+        dRec.Top = 1
+        dRec.Right = 196
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj35: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CREDITO')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 196
+        dRec.Top = 1
+        dRec.Right = 220
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj21: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 221
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CTA')
+            hAlign = prhCenter
+            vAlign = prvCenter
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 6
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|'
+              '|')
+          end>
+        dRec.Left = 70
+        dRec.Top = 0
+        dRec.Right = 71
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|'
+              '|')
+          end>
+        dRec.Left = 170
+        dRec.Top = 0
+        dRec.Right = 171
+        dRec.Bottom = 2
+      end
+    end
+    object prTxHDetailBand1: TprTxHDetailBand
+      Height = 1
+      DataSetName = 'IBQTabla'
+      ColCount = 1
+      Bands = (
+        'prTxHDetailHeaderBand1'
+        'prTxHDetailFooterBand2')
+      object prTxMemoObj36: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQTabla.CODIGO]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 6
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj37: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 6
+        dRec.Top = 0
+        dRec.Right = 7
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj38: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQTabla.NOMBRE]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 7
+        dRec.Top = 0
+        dRec.Right = 70
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj39: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 70
+        dRec.Top = 0
+        dRec.Right = 71
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj40: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla.DEBITOANT]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 71
+        dRec.Top = 0
+        dRec.Right = 95
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj41: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 95
+        dRec.Top = 0
+        dRec.Right = 96
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj42: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla.CREDITOANT]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 96
+        dRec.Top = 0
+        dRec.Right = 120
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj43: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 120
+        dRec.Top = 0
+        dRec.Right = 121
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj44: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla.DEBITOMOV]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 121
+        dRec.Top = 0
+        dRec.Right = 145
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj45: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 145
+        dRec.Top = 0
+        dRec.Right = 146
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj46: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla.CREDITOMOV]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 146
+        dRec.Top = 0
+        dRec.Right = 170
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj47: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 170
+        dRec.Top = 0
+        dRec.Right = 171
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj48: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[:<#,##0.00>iif(((IBQTabla.DEBITOANT - IBQTabla.CREDITOANT)+ (IB' +
+                'QTabla.DEBITOMOV - IBQTabla.CREDITOMOV))>0,((IBQTabla.DEBITOANT ' +
+                '- IBQTabla.CREDITOANT)+ (IBQTabla.DEBITOMOV - IBQTabla.CREDITOMO' +
+                'V)),0)]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 171
+        dRec.Top = 0
+        dRec.Right = 195
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj49: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 195
+        dRec.Top = 0
+        dRec.Right = 196
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj50: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[:<#,##0.00>iif(((IBQTabla.DEBITOANT - IBQTabla.CREDITOANT)+ (IB' +
+                'QTabla.DEBITOMOV - IBQTabla.CREDITOMOV))<0,-((IBQTabla.DEBITOANT' +
+                ' - IBQTabla.CREDITOANT)+ (IBQTabla.DEBITOMOV - IBQTabla.CREDITOM' +
+                'OV)),0)]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 196
+        dRec.Top = 0
+        dRec.Right = 220
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailBand2: TprTxHDetailBand
+      Height = 1
+      DataSetName = 'IBQTabla1'
+      Bands = (
+        'prTxHDetailFooterBand3')
+      object prTxMemoObj61: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQTabla1.CODIGO]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 6
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj62: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 6
+        dRec.Top = 0
+        dRec.Right = 7
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj63: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQTabla1.NOMBRE]')
+            vAlign = prvCenter
+          end>
+        dRec.Left = 7
+        dRec.Top = 0
+        dRec.Right = 70
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj64: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 70
+        dRec.Top = 0
+        dRec.Right = 71
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj65: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla1.DEBITOANT]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 71
+        dRec.Top = 0
+        dRec.Right = 95
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj66: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 95
+        dRec.Top = 0
+        dRec.Right = 96
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj67: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla1.CREDITOANT]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 96
+        dRec.Top = 0
+        dRec.Right = 120
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj68: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 120
+        dRec.Top = 0
+        dRec.Right = 121
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj69: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla1.DEBITOMOV]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 121
+        dRec.Top = 0
+        dRec.Right = 145
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj70: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>IBQTabla1.CREDITOMOV]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 146
+        dRec.Top = 0
+        dRec.Right = 170
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj71: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 145
+        dRec.Top = 0
+        dRec.Right = 146
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj72: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 170
+        dRec.Top = 0
+        dRec.Right = 171
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj73: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[:<#,##0.00>iif(((IBQTabla1.DEBITOANT - IBQTabla1.CREDITOANT)+ (' +
+                'IBQTabla1.DEBITOMOV - IBQTabla1.CREDITOMOV))>0,((IBQTabla1.DEBIT' +
+                'OANT - IBQTabla1.CREDITOANT)+ (IBQTabla1.DEBITOMOV - IBQTabla1.C' +
+                'REDITOMOV)),0)]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 171
+        dRec.Top = 0
+        dRec.Right = 195
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj74: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 195
+        dRec.Top = 0
+        dRec.Right = 196
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj75: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[:<#,##0.00>iif(((IBQTabla1.DEBITOANT - IBQTabla1.CREDITOANT)+ (' +
+                'IBQTabla1.DEBITOMOV - IBQTabla1.CREDITOMOV))<0,-((IBQTabla1.DEBI' +
+                'TOANT - IBQTabla1.CREDITOANT)+ (IBQTabla1.DEBITOMOV - IBQTabla1.' +
+                'CREDITOMOV)),0)]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 196
+        dRec.Top = 0
+        dRec.Right = 220
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailFooterBand2: TprTxHDetailFooterBand
+      Height = 3
+      DetailBand = prTxHDetailBand1
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      object prTxMemoObj19: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 221
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj20: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTALES -->')
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 27
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj31: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalDebitoAnt]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 71
+        dRec.Top = 1
+        dRec.Right = 95
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj32: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 95
+        dRec.Top = 1
+        dRec.Right = 96
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj52: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalCreditoAnt]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 96
+        dRec.Top = 1
+        dRec.Right = 120
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj53: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 120
+        dRec.Top = 1
+        dRec.Right = 121
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj54: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalDebitoMov]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 121
+        dRec.Top = 1
+        dRec.Right = 145
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj55: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 145
+        dRec.Top = 1
+        dRec.Right = 146
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj56: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalCreditoMov]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 146
+        dRec.Top = 1
+        dRec.Right = 170
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj57: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 170
+        dRec.Top = 1
+        dRec.Right = 171
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj58: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalDebitoAct]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 171
+        dRec.Top = 1
+        dRec.Right = 195
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj59: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 195
+        dRec.Top = 1
+        dRec.Right = 196
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj60: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalCreditoAct]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 196
+        dRec.Top = 1
+        dRec.Right = 220
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj89: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '================================================================' +
+                '================================================================' +
+                '================================================================' +
+                '========================================')
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 221
+        dRec.Bottom = 3
+      end
+    end
+    object prTxHDetailFooterBand3: TprTxHDetailFooterBand
+      Height = 3
+      DetailBand = prTxHDetailBand2
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      object prTxMemoObj76: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------')
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 221
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj77: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTALES -->')
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 27
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj78: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalDebitoAnt1]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 71
+        dRec.Top = 1
+        dRec.Right = 95
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj79: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 95
+        dRec.Top = 1
+        dRec.Right = 96
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj80: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalCreditoAnt1]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 96
+        dRec.Top = 1
+        dRec.Right = 120
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj81: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 120
+        dRec.Top = 1
+        dRec.Right = 121
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj82: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalDebitoMov1]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 121
+        dRec.Top = 1
+        dRec.Right = 145
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj83: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 145
+        dRec.Top = 1
+        dRec.Right = 146
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj84: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalCreditoMov1]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 146
+        dRec.Top = 1
+        dRec.Right = 170
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj85: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 170
+        dRec.Top = 1
+        dRec.Right = 171
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj86: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalDebitoAct1]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 171
+        dRec.Top = 1
+        dRec.Right = 195
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj87: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+          end>
+        dRec.Left = 195
+        dRec.Top = 1
+        dRec.Right = 196
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj88: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0.00>TotalCreditoAct1]')
+            hAlign = prhRight
+            vAlign = prvCenter
+          end>
+        dRec.Left = 196
+        dRec.Top = 1
+        dRec.Right = 220
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj90: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '================================================================' +
+                '================================================================' +
+                '================================================================' +
+                '========================================')
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 221
+        dRec.Bottom = 3
+      end
+    end
+  end
+end

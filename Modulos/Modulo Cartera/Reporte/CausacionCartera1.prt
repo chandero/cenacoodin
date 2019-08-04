@@ -1,0 +1,2492 @@
+object TprTxReport
+  FromPage = 1
+  ToPage = 1
+  PrintPagesMode = ppmPagesRange
+  ExportFromPage = 0
+  ExportToPage = 0
+  Values = <
+    item
+      Group = gEdad
+      Name = 'tValorEdad'
+      Formula = 'IBQuery1.VALOR'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tSaldoEdad'
+      Formula = 'IBQuery1.DEUDA'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tAnticipadoEdad'
+      Formula = 'IBQuery1.ANTICIPADOS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tCausadoEdad'
+      Formula = 'IBQuery1.CAUSADOS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tContingenciaEdad'
+      Formula = 'IBQuery1.CONTINGENCIAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tAportesEdad'
+      Formula = 'IBQuery1.APORTES'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tCapitalEdad'
+      Formula = 'IBQuery1.PCAPITAL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tInteresEdad'
+      Formula = 'IBQuery1.PINTERES'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tPcostasEdad'
+      Formula = 'IBQuery1.PCOSTAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tCortoEdad'
+      Formula = 'IBQuery1.CORTO_PL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tLargoEdad'
+      Formula = 'IBQuery1.LARGO_PL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gEdad
+      Name = 'tCostasEdad'
+      Formula = 'IBQuery1.COSTAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tValorGarantia'
+      Formula = 'IBQuery1.VALOR'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tSaldoGarantia'
+      Formula = 'IBQuery1.DEUDA'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tAnticipadoGarantia'
+      Formula = 'IBQuery1.ANTICIPADOS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tCausadoGarantia'
+      Formula = 'IBQuery1.CAUSADOS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tContingenciaGarantia'
+      Formula = 'IBQuery1.CONTINGENCIAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tAportesGarantia'
+      Formula = 'IBQuery1.APORTES'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tCapitalGarantia'
+      Formula = 'IBQuery1.PCAPITAL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tInteresGarantia'
+      Formula = 'IBQuery1.PINTERES'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tPcostasGarantia'
+      Formula = 'IBQuery1.PCOSTAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tCortoGarantia'
+      Formula = 'IBQuery1.CORTO_PL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tLargoGarantia'
+      Formula = 'IBQuery1.LARGO_PL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tCostasGarantia'
+      Formula = 'IBQuery1.COSTAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tValorClasificacion'
+      Formula = 'IBQuery1.VALOR'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tSaldoClasificacion'
+      Formula = 'IBQuery1.DEUDA'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tAnticipadoClasificacion'
+      Formula = 'IBQuery1.ANTICIPADOS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCausadoClasificacion'
+      Formula = 'IBQuery1.CAUSADOS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tContingenciaClasificacion'
+      Formula = 'IBQuery1.CONTINGENCIAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tAportesClasificacion'
+      Formula = 'IBQuery1.APORTES'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCapitalClasificacion'
+      Formula = 'IBQuery1.PCAPITAL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tInteresClasificacion'
+      Formula = 'IBQuery1.PINTERES'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tPcostasClasificacion'
+      Formula = 'IBQuery1.PCOSTAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCortoClasificacion'
+      Formula = 'IBQuery1.CORTO_PL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tLargoClasificacion'
+      Formula = 'IBQuery1.LARGO_PL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCostasClasificacion'
+      Formula = 'IBQuery1.COSTAS'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gGarantia
+      Name = 'tValor'
+      Formula = 'IBQuery1.VALOR'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tSaldo'
+      Formula = 'IBQuery1.DEUDA'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tAnticipado'
+      Formula = 'IBQuery1.ANTICIPADOS'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCausado'
+      Formula = 'IBQuery1.CAUSADOS'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tContingencia'
+      Formula = 'IBQuery1.CONTINGENCIAS'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tAportes'
+      Formula = 'IBQuery1.APORTES'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCapital'
+      Formula = 'IBQuery1.PCAPITAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tInteres'
+      Formula = 'IBQuery1.PINTERES'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tPcostas'
+      Formula = 'IBQuery1.PCOSTAS'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCorto'
+      Formula = 'IBQuery1.CORTO_PL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tLargo'
+      Formula = 'IBQuery1.LARGO_PL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end
+    item
+      Group = gClasificacion
+      Name = 'tCostas'
+      Formula = 'IBQuery1.COSTAS'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery1'
+    end>
+  Variables = <
+    item
+      Name = 'Empresa'
+      ValueType = 'prvvtString'
+      Value = 'COOPSERVIR LTDA'
+    end
+    item
+      Name = 'Agencia'
+      ValueType = 'prvvtInteger'
+      Value = 1
+    end
+    item
+      Name = 'FechaCorte'
+      ValueType = 'prvvtDateTime'
+      Value = 38016d
+    end>
+  PrinterName = '\\cooperativa\Sistemas'
+  ESCModelName = 'Epson printers'
+  WrapAfterColumn = 0
+  EjectPageAfterPrint = False
+  LinesOnPage = 0
+  FromLine = 0
+  ToLine = 0
+  ExportFromLine = 0
+  ExportToLine = 0
+  Left = 364
+  Top = 186
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 2'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.7')
+  object prTxPage1: TprTxPage
+    ColNum = 233
+    DsgnLineNum = 81
+    DefTxFontStyleEx = tfsNormal
+    object prTxHPageHeaderBand1: TprTxHPageHeaderBand
+      Height = 1
+      PrintOnFirstPage = True
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[Empresa]')
+            TxFontOptionsEx = (
+              tfoBold
+              tfoWide)
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 21
+        dRec.Bottom = 1
+      end
+      object prTxCommandObj1: TprTxCommandObj
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcNormal
+              txcCondensedOn)
+          end>
+        dRec.Left = 21
+        dRec.Top = 0
+        dRec.Right = 22
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CALIFICACION, CAUSACION Y PROVISION DE COLOCACIONES')
+          end>
+        dRec.Left = 25
+        dRec.Top = 0
+        dRec.Right = 77
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'AGENCIA:[:<00>Agencia]')
+          end>
+        dRec.Left = 78
+        dRec.Top = 0
+        dRec.Right = 88
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'FECHA DE CORTE:[:<yyyy/MM/dd>FechaCorte]')
+          end>
+        dRec.Left = 89
+        dRec.Top = 0
+        dRec.Right = 114
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj5: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Pag:[:<000>Page]')
+          end>
+        dRec.Left = 115
+        dRec.Top = 0
+        dRec.Right = 124
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHDetailBand1: TprTxHDetailBand
+      Height = 1
+      DataSetName = 'IBQuery1'
+      ColCount = 1
+      Groups = (
+        'gClasificacion'
+        'gGarantia'
+        'gEdad')
+      Bands = (
+        'prTxHDetailHeaderBand1')
+      object prTxMemoObj26: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.ID_COLOCACION]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 12
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj27: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[IBQuery1.PRIMER_APELLIDO] [IBQuery1.SEGUNDO_APELLIDO] [IBQuery1' +
+                '.NOMBRE]')
+          end>
+        dRec.Left = 13
+        dRec.Top = 0
+        dRec.Right = 62
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj29: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.VALOR]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 78
+        dRec.Top = 0
+        dRec.Right = 92
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj30: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.DEUDA]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 93
+        dRec.Top = 0
+        dRec.Right = 107
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj31: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<yyyy/mm/dd>IBQuery1.FECHA_INTERES]')
+          end>
+        dRec.Left = 108
+        dRec.Top = 0
+        dRec.Right = 118
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj32: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DIAS]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 119
+        dRec.Top = 0
+        dRec.Right = 123
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj33: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.ANTICIPADOS]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 124
+        dRec.Top = 0
+        dRec.Right = 134
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj34: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.CAUSADOS]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 135
+        dRec.Top = 0
+        dRec.Right = 145
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj35: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.CONTINGENCIAS]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 146
+        dRec.Top = 0
+        dRec.Right = 156
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj36: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.APORTES]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 157
+        dRec.Top = 0
+        dRec.Right = 167
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj37: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.PCAPITAL]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 168
+        dRec.Top = 0
+        dRec.Right = 178
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj38: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.PINTERES]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 179
+        dRec.Top = 0
+        dRec.Right = 189
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj39: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.PCOSTAS]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 190
+        dRec.Top = 0
+        dRec.Right = 200
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj40: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.CORTO_PL]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 201
+        dRec.Top = 0
+        dRec.Right = 211
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj41: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.LARGO_PL]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 212
+        dRec.Top = 0
+        dRec.Right = 222
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj42: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>IBQuery1.COSTAS]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 223
+        dRec.Top = 0
+        dRec.Right = 233
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj28: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.ID_PERSONA]')
+          end>
+        dRec.Left = 63
+        dRec.Top = 0
+        dRec.Right = 77
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHGroupHeaderBand1: TprTxHGroupHeaderBand
+      Height = 2
+      Group = gClasificacion
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      StartNewPage = False
+      ReprintOnEachPage = False
+      object prTxMemoObj6: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CLASIFICACION:[IBQuery1.ID_CLASIFICACION]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 15
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj146: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CLASIFICACION]')
+          end>
+        dRec.Left = 16
+        dRec.Top = 0
+        dRec.Right = 45
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj72: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_GARANTIA]')
+          end>
+        dRec.Left = 46
+        dRec.Top = 0
+        dRec.Right = 75
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj73: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CATEGORIA]')
+          end>
+        dRec.Left = 76
+        dRec.Top = 0
+        dRec.Right = 105
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHGroupFooterBand1: TprTxHGroupFooterBand
+      Height = 13
+      Group = gClasificacion
+      object prTxMemoObj94: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Valor           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 1
+        dRec.Right = 86
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj95: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Saldo           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 2
+        dRec.Right = 86
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj96: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Anticipado      :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 3
+        dRec.Right = 86
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj97: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Causado         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 4
+        dRec.Right = 86
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj98: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Contingencia    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 5
+        dRec.Right = 86
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj99: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Aportes         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 6
+        dRec.Right = 86
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj100: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Capital   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 7
+        dRec.Right = 86
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj101: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Interes   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 8
+        dRec.Right = 86
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj102: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Costas    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 9
+        dRec.Right = 86
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj103: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Corto Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 10
+        dRec.Right = 86
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj104: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Largo Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 11
+        dRec.Right = 86
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj105: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Costas          :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 12
+        dRec.Right = 86
+        dRec.Bottom = 13
+      end
+      object prTxMemoObj9: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CLASIFICACION:[IBQuery1.ID_CLASIFICACION]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 21
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj10: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CLASIFICACION]')
+          end>
+        dRec.Left = 22
+        dRec.Top = 1
+        dRec.Right = 51
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj17: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tValorClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 1
+        dRec.Right = 105
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj18: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tSaldoClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 2
+        dRec.Right = 105
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj19: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tAnticipadoClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 3
+        dRec.Right = 105
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj20: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCausadoClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 4
+        dRec.Right = 105
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj21: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tContingenciaClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 5
+        dRec.Right = 105
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj22: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tAportesClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 6
+        dRec.Right = 105
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj23: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCapitalClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 7
+        dRec.Right = 105
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj24: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tInteresClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 8
+        dRec.Right = 105
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj25: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tPcostasClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 9
+        dRec.Right = 105
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj45: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCortoClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 10
+        dRec.Right = 105
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj49: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tLargoClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 11
+        dRec.Right = 105
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj71: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCostasClasificacion]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 12
+        dRec.Right = 105
+        dRec.Bottom = 13
+      end
+    end
+    object prTxHGroupHeaderBand2: TprTxHGroupHeaderBand
+      Height = 2
+      Group = gEdad
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = True
+      StartNewPage = False
+      ReprintOnEachPage = True
+      object prTxMemoObj7: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CALIFICACION :[IBQuery1.ID_ARRASTRE]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 15
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj147: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CATEGORIA]')
+          end>
+        dRec.Left = 16
+        dRec.Top = 0
+        dRec.Right = 45
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHGroupFooterBand2: TprTxHGroupFooterBand
+      Height = 13
+      Group = gEdad
+      ColCount = 1
+      LinkToDetail = True
+      object prTxMemoObj118: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Valor           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 1
+        dRec.Right = 86
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj119: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Saldo           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 2
+        dRec.Right = 86
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj120: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Anticipado      :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 3
+        dRec.Right = 86
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj121: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Causado         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 4
+        dRec.Right = 86
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj122: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Contingencia    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 5
+        dRec.Right = 86
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj123: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Aportes         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 6
+        dRec.Right = 86
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj124: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Capital   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 7
+        dRec.Right = 86
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj125: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Interes   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 8
+        dRec.Right = 86
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj126: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Costas    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 9
+        dRec.Right = 86
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj127: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Corto Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 10
+        dRec.Right = 86
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj128: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Largo Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 11
+        dRec.Right = 86
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj129: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Costas          :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 12
+        dRec.Right = 86
+        dRec.Bottom = 13
+      end
+      object prTxMemoObj143: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CALIFICACION :[IBQuery1.ID_ARRASTRE]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 21
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj153: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CATEGORIA]')
+          end>
+        dRec.Left = 22
+        dRec.Top = 1
+        dRec.Right = 51
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj15: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CLASIFICACION:[IBQuery1.ID_CLASIFICACION]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 3
+        dRec.Right = 21
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj16: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CLASIFICACION]')
+          end>
+        dRec.Left = 22
+        dRec.Top = 3
+        dRec.Right = 51
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj43: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tValorEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 1
+        dRec.Right = 105
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj47: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tSaldoEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 2
+        dRec.Right = 105
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj51: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tAnticipadoEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 3
+        dRec.Right = 105
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj52: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCausadoEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 4
+        dRec.Right = 105
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj53: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tContingenciaEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 5
+        dRec.Right = 105
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj54: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tAportesEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 6
+        dRec.Right = 105
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj55: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCapitalEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 7
+        dRec.Right = 105
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj56: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tInteresEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 8
+        dRec.Right = 105
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj57: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tPcostasEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 9
+        dRec.Right = 105
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj58: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCortoEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 10
+        dRec.Right = 105
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj59: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tLargoEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 11
+        dRec.Right = 105
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj60: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCostasEdad]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 12
+        dRec.Right = 105
+        dRec.Bottom = 13
+      end
+      object prTxMemoObj11: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_GARANTIA]')
+          end>
+        dRec.Left = 22
+        dRec.Top = 2
+        dRec.Right = 51
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj12: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL GARANTIA     :[IBQuery1.ID_GARANTIA]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 2
+        dRec.Right = 21
+        dRec.Bottom = 3
+      end
+    end
+    object prTxHGroupHeaderBand3: TprTxHGroupHeaderBand
+      Height = 2
+      Group = gGarantia
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      StartNewPage = False
+      ReprintOnEachPage = False
+      object prTxMemoObj8: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'GARANTIA     :[IBQuery1.ID_GARANTIA]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 15
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj148: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_GARANTIA]')
+          end>
+        dRec.Left = 16
+        dRec.Top = 0
+        dRec.Right = 45
+        dRec.Bottom = 1
+      end
+      object prTxMemoObj74: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CATEGORIA]')
+          end>
+        dRec.Left = 46
+        dRec.Top = 0
+        dRec.Right = 75
+        dRec.Bottom = 1
+      end
+    end
+    object prTxHGroupFooterBand3: TprTxHGroupFooterBand
+      Height = 14
+      Group = gGarantia
+      ColCount = 1
+      object prTxMemoObj44: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tValorGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 1
+        dRec.Right = 105
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj48: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tSaldoGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 2
+        dRec.Right = 105
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj61: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tAnticipadoGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 3
+        dRec.Right = 105
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj62: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCausadoGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 4
+        dRec.Right = 105
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj63: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tContingenciaGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 5
+        dRec.Right = 105
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj64: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tAportesGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 6
+        dRec.Right = 105
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj65: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCapitalGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 7
+        dRec.Right = 105
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj66: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tInteresGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 8
+        dRec.Right = 105
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj67: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tPcostasGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 9
+        dRec.Right = 105
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj68: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCortoGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 10
+        dRec.Right = 105
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj69: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tLargoGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 11
+        dRec.Right = 105
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj70: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tCostasGarantia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 12
+        dRec.Right = 105
+        dRec.Bottom = 13
+      end
+      object prTxMemoObj92: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL GARANTIA     :[IBQuery1.ID_GARANTIA]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 21
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj106: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Valor           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 1
+        dRec.Right = 86
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj107: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Saldo           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 2
+        dRec.Right = 86
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj108: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Anticipado      :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 3
+        dRec.Right = 86
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj109: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Causado         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 4
+        dRec.Right = 86
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj110: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Contingencia    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 5
+        dRec.Right = 86
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj111: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Aportes         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 6
+        dRec.Right = 86
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj112: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Capital   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 7
+        dRec.Right = 86
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj113: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Interes   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 8
+        dRec.Right = 86
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj114: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Costas    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 9
+        dRec.Right = 86
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj115: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Corto Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 10
+        dRec.Right = 86
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj116: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Largo Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 11
+        dRec.Right = 86
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj117: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Costas          :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 12
+        dRec.Right = 86
+        dRec.Bottom = 13
+      end
+      object prTxMemoObj150: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_GARANTIA]')
+          end>
+        dRec.Left = 22
+        dRec.Top = 1
+        dRec.Right = 51
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj13: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CLASIFICACION:[IBQuery1.ID_CLASIFICACION]')
+          end>
+        dRec.Left = 0
+        dRec.Top = 2
+        dRec.Right = 21
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj14: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery1.DESCRIPCION_CLASIFICACION]')
+          end>
+        dRec.Left = 22
+        dRec.Top = 2
+        dRec.Right = 51
+        dRec.Bottom = 3
+      end
+    end
+    object prTxHSummaryBand1: TprTxHSummaryBand
+      Height = 13
+      object prTxMemoObj46: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tValor]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 1
+        dRec.Right = 105
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj50: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>tSaldo]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 2
+        dRec.Right = 105
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj81: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tAnticipado]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 3
+        dRec.Right = 105
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj82: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tCausado]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 4
+        dRec.Right = 105
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj83: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tContingencia]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 5
+        dRec.Right = 105
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj84: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tAportes]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 6
+        dRec.Right = 105
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj85: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tCapital]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 7
+        dRec.Right = 105
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj86: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tInteres]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 8
+        dRec.Right = 105
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj87: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tPcostas]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 9
+        dRec.Right = 105
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj88: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tCorto]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 10
+        dRec.Right = 105
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj89: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tLargo]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 11
+        dRec.Right = 105
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj90: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,0>tCostas]')
+            hAlign = prhRight
+          end>
+        dRec.Left = 87
+        dRec.Top = 12
+        dRec.Right = 105
+        dRec.Bottom = 13
+      end
+      object prTxMemoObj130: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Valor           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 1
+        dRec.Right = 86
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj131: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Saldo           :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 2
+        dRec.Right = 86
+        dRec.Bottom = 3
+      end
+      object prTxMemoObj132: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Anticipado      :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 3
+        dRec.Right = 86
+        dRec.Bottom = 4
+      end
+      object prTxMemoObj133: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Causado         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 4
+        dRec.Right = 86
+        dRec.Bottom = 5
+      end
+      object prTxMemoObj134: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Contingencia    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 5
+        dRec.Right = 86
+        dRec.Bottom = 6
+      end
+      object prTxMemoObj135: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Aportes         :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 6
+        dRec.Right = 86
+        dRec.Bottom = 7
+      end
+      object prTxMemoObj136: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Capital   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 7
+        dRec.Right = 86
+        dRec.Bottom = 8
+      end
+      object prTxMemoObj137: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Interes   :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 8
+        dRec.Right = 86
+        dRec.Bottom = 9
+      end
+      object prTxMemoObj138: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Prov. Costas    :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 9
+        dRec.Right = 86
+        dRec.Bottom = 10
+      end
+      object prTxMemoObj139: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Corto Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 10
+        dRec.Right = 86
+        dRec.Bottom = 11
+      end
+      object prTxMemoObj140: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Largo Plazo     :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 11
+        dRec.Right = 86
+        dRec.Bottom = 12
+      end
+      object prTxMemoObj141: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Total Costas          :')
+          end>
+        dRec.Left = 63
+        dRec.Top = 12
+        dRec.Right = 86
+        dRec.Bottom = 13
+      end
+      object prTxMemoObj145: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTALES GENERALES')
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 18
+        dRec.Bottom = 2
+      end
+    end
+    object prTxHDetailHeaderBand1: TprTxHDetailHeaderBand
+      Height = 3
+      DetailBand = prTxHDetailBand1
+      ReprintOnEachPage = True
+      LinkToDetail = True
+      object prTxMemoObj155: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'COLOCACION')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 0
+        dRec.Top = 1
+        dRec.Right = 12
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj156: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ASOCIADO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 13
+        dRec.Top = 1
+        dRec.Right = 62
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj157: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'IDENTIFICACION')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 63
+        dRec.Top = 1
+        dRec.Right = 77
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj158: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'VALOR')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 78
+        dRec.Top = 1
+        dRec.Right = 92
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj159: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'SALDO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 93
+        dRec.Top = 1
+        dRec.Right = 107
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj160: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'F.INTERES')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 108
+        dRec.Top = 1
+        dRec.Right = 118
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj161: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'DIAS')
+          end>
+        dRec.Left = 119
+        dRec.Top = 1
+        dRec.Right = 123
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj162: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ANTICIPADO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 124
+        dRec.Top = 1
+        dRec.Right = 134
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj163: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CAUSADO')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 135
+        dRec.Top = 1
+        dRec.Right = 145
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj164: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CONTINGENCIA')
+          end>
+        dRec.Left = 146
+        dRec.Top = 1
+        dRec.Right = 156
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj165: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'APORTES')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 157
+        dRec.Top = 1
+        dRec.Right = 167
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj166: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'PR.CAPITAL')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 168
+        dRec.Top = 1
+        dRec.Right = 178
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj167: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'PR.INTERES')
+          end>
+        dRec.Left = 179
+        dRec.Top = 1
+        dRec.Right = 189
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj168: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'PR.COSTAS')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 190
+        dRec.Top = 1
+        dRec.Right = 200
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj169: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CORTO PL')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 201
+        dRec.Top = 1
+        dRec.Right = 211
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj170: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'LARGO PL')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 212
+        dRec.Top = 1
+        dRec.Right = 222
+        dRec.Bottom = 2
+      end
+      object prTxMemoObj171: TprTxMemoObj
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'COSTAS')
+            hAlign = prhCenter
+          end>
+        dRec.Left = 223
+        dRec.Top = 1
+        dRec.Right = 233
+        dRec.Bottom = 2
+      end
+    end
+    object prTxHPageFooterBand1: TprTxHPageFooterBand
+      Height = 1
+    end
+  end
+  object gClasificacion: TprGroup
+    Valid = 'IBQuery1.ID_CLASIFICACION'
+    DetailBand = prTxHDetailBand1
+  end
+  object gGarantia: TprGroup
+    Valid = 'IBQuery1.ID_GARANTIA'
+    DetailBand = prTxHDetailBand1
+  end
+  object gEdad: TprGroup
+    Valid = 'IBQuery1.ID_ARRASTRE'
+    DetailBand = prTxHDetailBand1
+  end
+end

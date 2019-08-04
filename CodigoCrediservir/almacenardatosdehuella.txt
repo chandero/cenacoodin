@@ -1,0 +1,62 @@
+var
+    vrnt : Variant; // Template Fingerprint
+    m_loop:Integer;
+    Bitmap:TBitmap;
+    frmRegister:TfrmRegister;
+    vt : integer ;
+    vtByteBuf : PByteArray;  //Reference to the raw data array in the variant
+    aryLow : integer;
+    aryHigh : integer;
+    rawDataSize: integer;
+    loopIndex : integer;
+
+begin
+        for m_loop := 0 to 2047 do
+           pvData[m_loop] := 0;
+        frmRegister := TfrmRegister.Create(self);
+        frmRegister.ShowModal;
+        hayHuella := False;
+        if frmRegister.Valido then begin
+        try
+         vrnt := frmRegister.Template;
+                 //Se necesita un array de bytes para guardar en la base de datos.
+         aryLow:=VarArrayLowBound(vrnt,1);
+         aryHigh:=varArrayHighBound(vrnt,1);
+         aryHigh:=aryHigh-aryLow;
+
+         vtByteBuf:=VarArrayLock(vrnt);  //bloqueamos el array
+
+         for loopIndex := 0 to aryHigh - 1 do
+               pvData[loopIndex]:=vtByteBuf[loopIndex];
+
+         VarArrayUnlock(vrnt);
+         hayHuella := True;
+        except on e: Exception do
+           begin
+            ShowMessage('Error convirtiendo datos de la huella');
+            hayHuella := False;
+           end;
+        end;
+
+// crear bitmap en blanco
+         Bitmap := nil;
+         Bitmap := TBitmap.Create;
+         Bitmap.Width := 100;
+         Bitmap.Height := 135;
+         ImgHuellaC.Picture.Graphic := Bitmap;
+
+// finalizar bitmap en blanco
+        ImgHuellaC.Picture.Bitmap.Canvas.Draw(0,0,frmRegister.Image1.Picture.Graphic);
+        // ImgHuellaC.Canvas.CopyRect(rect(0,0,100,135), frmRegister.Image1.Canvas, rect(0,0,100,135));
+         //Proceso Captura Firma jpg
+         //SetOlePicture(ImgHuellaC.Picture, IPictureDisp(frmRegister.Image));
+
+         _jHuella := TJPEGImage.Create;
+         _jHuella.Assign(ImgHuellaC.Picture.Bitmap);
+
+         // fin proceso huella
+         end
+        else
+         blobSize := 0;
+
+        FreeAndNil(frmRegister);
