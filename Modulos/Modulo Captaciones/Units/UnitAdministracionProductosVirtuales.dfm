@@ -1,6 +1,6 @@
 object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   Left = 443
-  Top = 129
+  Top = 121
   Width = 693
   Height = 509
   Caption = 'Administraci'#243'n de Productos Virtuales'
@@ -747,7 +747,8 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       
         'INNER JOIN "cap$maestro" m ON m.ID_AGENCIA = t.ID_AGENCIA and m.' +
         'ID_TIPO_CAPTACION = t.ID_TIPO_CAPTACION and m.NUMERO_CUENTA = t.' +
-        'NUMERO_CUENTA and m.DIGITO_CUENTA = t.DIGITO_CUENTA'
+        'NUMERO_CUENTA and m.DIGITO_CUENTA = t.DIGITO_CUENTA and t.TIPO_T' +
+        'ITULAR = 1'
       
         'INNER JOIN "cap$tipocaptacion" c ON c.ID_TIPO_CAPTACION = m.ID_T' +
         'IPO_CAPTACION'

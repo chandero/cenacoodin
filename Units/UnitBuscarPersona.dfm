@@ -1,6 +1,6 @@
 object frmBuscarPersona: TfrmBuscarPersona
   Left = 361
-  Top = 184
+  Top = 172
   BorderStyle = bsDialog
   Caption = 'Buscar Persona Por Apellidos o Nombres'
   ClientHeight = 359
