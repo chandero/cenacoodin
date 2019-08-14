@@ -737,7 +737,7 @@ begin
                  IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_CUENTA_CANAL (VICU_ID, VICA_ID, VICC_MONTO, VICC_NOPE, VICC_ESLEIDO) VALUES (');
                  IBQGuardar.SQL.Add(':VICU_ID, :VICA_ID, :VICC_MONTO, :VICC_NOPE, :VICC_ESLEIDO)');
                  IBQGuardar.ParamByName('VICU_ID').AsInteger := _vicu_id;
-                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 2;
+                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 3;
                  IBQGuardar.ParamByName('VICC_MONTO').AsCurrency := edTopeIVR.Value;
                  IBQGuardar.ParamByName('VICC_NOPE').AsInteger := edNopeIVR.Value;
                  IBQGuardar.ParamByName('VICC_ESLEIDO').AsInteger := 0;
@@ -752,7 +752,7 @@ begin
                  IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_CUENTA_CANAL (VICU_ID, VICA_ID, VICC_MONTO, VICC_NOPE, VICC_ESLEIDO) VALUES (');
                  IBQGuardar.SQL.Add(':VICU_ID, :VICA_ID, :VICC_MONTO, :VICC_NOPE, :VICC_ESLEIDO)');
                  IBQGuardar.ParamByName('VICU_ID').AsInteger := _vicu_id;
-                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 2;
+                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 4;
                  IBQGuardar.ParamByName('VICC_MONTO').AsCurrency := edTopeWEB.Value;
                  IBQGuardar.ParamByName('VICC_NOPE').AsInteger := edNopeWEB.Value;
                  IBQGuardar.ParamByName('VICC_ESLEIDO').AsInteger := 0;
@@ -767,7 +767,7 @@ begin
                  IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_CUENTA_CANAL (VICU_ID, VICA_ID, VICC_MONTO, VICC_NOPE, VICC_ESLEIDO) VALUES (');
                  IBQGuardar.SQL.Add(':VICU_ID, :VICA_ID, :VICC_MONTO, :VICC_NOPE, :VICC_ESLEIDO)');
                  IBQGuardar.ParamByName('VICU_ID').AsInteger := _vicu_id;
-                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 2;
+                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 5;
                  IBQGuardar.ParamByName('VICC_MONTO').AsCurrency := edTopeMOV.Value;
                  IBQGuardar.ParamByName('VICC_NOPE').AsInteger := edNopeMOV.Value;
                  IBQGuardar.ParamByName('VICC_ESLEIDO').AsInteger := 0;
@@ -782,7 +782,7 @@ begin
                  IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_CUENTA_CANAL (VICU_ID, VICA_ID, VICC_MONTO, VICC_NOPE, VICC_ESLEIDO) VALUES (');
                  IBQGuardar.SQL.Add(':VICU_ID, :VICA_ID, :VICC_MONTO, :VICC_NOPE, :VICC_ESLEIDO)');
                  IBQGuardar.ParamByName('VICU_ID').AsInteger := _vicu_id;
-                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 2;
+                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 6;
                  IBQGuardar.ParamByName('VICC_MONTO').AsCurrency := edTopeOFI.Value;
                  IBQGuardar.ParamByName('VICC_NOPE').AsInteger := edNopeOFI.Value;
                  IBQGuardar.ParamByName('VICC_ESLEIDO').AsInteger := 0;
@@ -797,7 +797,7 @@ begin
                  IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_CUENTA_CANAL (VICU_ID, VICA_ID, VICC_MONTO, VICC_NOPE, VICC_ESLEIDO) VALUES (');
                  IBQGuardar.SQL.Add(':VICU_ID, :VICA_ID, :VICC_MONTO, :VICC_NOPE, :VICC_ESLEIDO)');
                  IBQGuardar.ParamByName('VICU_ID').AsInteger := _vicu_id;
-                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 2;
+                 IBQGuardar.ParamByName('VICA_ID').AsInteger := 7;
                  IBQGuardar.ParamByName('VICC_MONTO').AsCurrency := edTopeCNB.Value;
                  IBQGuardar.ParamByName('VICC_NOPE').AsInteger := edNopeCNB.Value;
                  IBQGuardar.ParamByName('VICC_ESLEIDO').AsInteger := 0;                 
