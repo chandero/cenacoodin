@@ -1,6 +1,6 @@
 object frmSumatorias: TfrmSumatorias
-  Left = 253
-  Top = 137
+  Left = 558
+  Top = 268
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Sumatoria de Productos'
@@ -95,7 +95,7 @@ object frmSumatorias: TfrmSumatorias
       Caption = 'Fecha y Hora de Corte'
     end
     object CmdActualizar: TBitBtn
-      Left = 279
+      Left = 327
       Top = 2
       Width = 81
       Height = 21
@@ -146,16 +146,37 @@ object frmSumatorias: TfrmSumatorias
         5D52525B360F110A0C5C5C5C295D5D5D5D5D5D5D4C1316145C5C5C5C29575757
         575757574C131A5C5C5C5C5C291C1C1C1C1C1C1C1C135C5C5C5C}
     end
-    object EdFecha: TStaticText
-      Left = 122
+    object edFecha: TJvDateTimePicker
+      Left = 120
       Top = 2
-      Width = 151
+      Width = 89
       Height = 21
-      AutoSize = False
-      BorderStyle = sbsSunken
-      Color = clBtnHighlight
-      ParentColor = False
+      CalAlignment = dtaLeft
+      Date = 43693.6592813889
+      Time = 43693.6592813889
+      DateFormat = dfShort
+      DateMode = dmComboBox
+      Kind = dtkDate
+      ParseInput = False
       TabOrder = 1
+      DropDownDate = 43693
+      NullText = '(none)'
+    end
+    object edHora: TJvDateTimePicker
+      Left = 208
+      Top = 1
+      Width = 73
+      Height = 21
+      CalAlignment = dtaLeft
+      Date = 43693.9999884259
+      Time = 43693.9999884259
+      DateFormat = dfShort
+      DateMode = dmComboBox
+      Kind = dtkTime
+      ParseInput = False
+      TabOrder = 2
+      DropDownDate = 43693
+      NullText = '(none)'
     end
   end
   object DBGrid1: TDBGrid

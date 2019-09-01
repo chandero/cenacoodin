@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, DateUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, StdCtrls, DB, IBCustomDataSet, IBQuery, ExtCtrls,
-  Buttons, IBSQL, ComCtrls, XStringGrid, IBStoredProc;
+  Buttons, IBSQL, ComCtrls, XStringGrid, IBStoredProc, JvDateTimePicker;
 
 type
   TfrmSumatorias = class(TForm)
@@ -16,11 +16,12 @@ type
     Panel4: TPanel;
     Label3: TLabel;
     CmdActualizar: TBitBtn;
-    EdFecha: TStaticText;
     DBGrid1: TDBGrid;
     IBQuery1TIPO_CAPTACION: TIBStringField;
     IBQuery1SALDO_ACTUAL: TIBBCDField;
     IBQuery1NUMERO: TIntegerField;
+    edFecha: TJvDateTimePicker;
+    edHora: TJvDateTimePicker;
     procedure FormShow(Sender: TObject);
     procedure CmdActualizarClick(Sender: TObject);
     procedure BtnAceptarClick(Sender: TObject);
@@ -48,10 +49,14 @@ end;
 procedure TfrmSumatorias.CmdActualizarClick(Sender: TObject);
 var Saldo:Currency;
     I :Integer;
+    _fecha: TDateTime;
 begin
         CmdActualizar.Enabled := False;
         Application.ProcessMessages;
         Screen.Cursor := crHourGlass;
+
+        TryEncodeDateTime(YearOf(edFecha.Date), MonthOf(edFecha.Date), DayOfTheMonth(edFecha.Date), HourOf(edHora.Date), MinuteOf(edHora.Date), SecondOf(edHora.Date), 999, _fecha);
+
         with IBQuery1 do
         begin
           if Transaction.InTransaction then
@@ -60,8 +65,8 @@ begin
           Close;
           SQL.Clear;
           SQL.Add('select * from SUMATORIAS_DIARIA(:ANOP,:FECHA_INICIAL,:FECHADIA)');
-          ParamByName('FECHADIA').AsDateTime := StrToDateTime(IntToStr(YearOf(fFechaActual)) + '/01/01 00:00:00');
-          ParamByName('FECHA_INICIAL').AsDateTime := fFechaActual + Time;
+          ParamByName('FECHADIA').AsDateTime := StrToDateTime(IntToStr(YearOf(edFecha.Date)) + '/01/01 00:00:00');
+          ParamByName('FECHA_INICIAL').AsDateTime := _fecha;
           ParamByName('ANOP').AsString := FloatToStr(YearOf(Date));
           try
             Open;
@@ -83,7 +88,7 @@ end;
 
 procedure TfrmSumatorias.FormCreate(Sender: TObject);
 begin
-        EdFecha.Caption := DateTimeToStr(fFechaActual + Time);
+        EdFecha.DateTime := fFechaHoraActual;
 end;
 
 end.

@@ -142,7 +142,8 @@ uses
   UnitArchivoFinancieroAsociado in 'Units\UnitArchivoFinancieroAsociado.pas' {frmArchivoFinancieroAsociado},
   UnitReimprimirCDAT in 'Units\UnitReimprimirCDAT.pas' {frmReimprimirCDAT},
   UnitDeJuvenilaAsociado in 'Units\UnitDeJuvenilaAsociado.pas' {frmDeJuvenilaAsociado},
-  UnitAdministracionProductosVirtuales in 'Units\UnitAdministracionProductosVirtuales.pas' {frmAdministracionProductosVirtuales};
+  UnitAdministracionProductosVirtuales in 'Units\UnitAdministracionProductosVirtuales.pas' {frmAdministracionProductosVirtuales},
+  UnitConciliacionServiciosVirtuales in 'Units\UnitConciliacionServiciosVirtuales.pas' {frmConciliacionServiciosVirtuales};
 
 {$R *.res}
 
@@ -152,6 +153,7 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmConciliacionServiciosVirtuales, frmConciliacionServiciosVirtuales);
   Application.Run;
 end.
 

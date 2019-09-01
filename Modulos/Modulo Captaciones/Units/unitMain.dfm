@@ -318,6 +318,10 @@ object frmMain: TfrmMain
         Caption = 'Consignaci'#243'n Nacional'
         OnClick = ConsignacinNacional1Click
       end
+      object ComprobanteConciliacin1: TMenuItem
+        Caption = 'Comprobante Conciliaci'#243'n Servicios Virtuales'
+        OnClick = ComprobanteConciliacin1Click
+      end
       object N7: TMenuItem
         Caption = '-'
       end

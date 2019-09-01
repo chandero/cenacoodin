@@ -139,12 +139,11 @@ begin
             SQL.Add('LEFT JOIN "cap$maestro" ON ("caj$movimiento".ID_AGENCIA = "cap$maestro".ID_AGENCIA) AND ("caj$movimiento".ID_TIPO_CAPTACION = "cap$maestro".ID_TIPO_CAPTACION) AND ');
             SQL.Add('("caj$movimiento".NUMERO_CUENTA = "cap$maestro".NUMERO_CUENTA) AND ("caj$movimiento".DIGITO_CUENTA = "cap$maestro".DIGITO_CUENTA)');
             SQL.Add('LEFT JOIN "cap$maestrotitular" ON ("cap$maestro".ID_AGENCIA = "cap$maestrotitular".ID_AGENCIA) AND ("cap$maestro".ID_TIPO_CAPTACION = "cap$maestrotitular".ID_TIPO_CAPTACION) AND ');
-            SQL.Add('("cap$maestro".NUMERO_CUENTA = "cap$maestrotitular".NUMERO_CUENTA) AND ("cap$maestro".DIGITO_CUENTA = "cap$maestrotitular".DIGITO_CUENTA)');
+            SQL.Add('("cap$maestro".NUMERO_CUENTA = "cap$maestrotitular".NUMERO_CUENTA) AND ("cap$maestro".DIGITO_CUENTA = "cap$maestrotitular".DIGITO_CUENTA) AND "cap$maestrotitular".NUMERO_TITULAR = 1 ');
             SQL.Add('LEFT JOIN "gen$persona" ON ("cap$maestrotitular".ID_IDENTIFICACION = "gen$persona".ID_IDENTIFICACION) AND ("cap$maestrotitular".ID_PERSONA = "gen$persona".ID_PERSONA)');
             SQL.Add('WHERE');
             SQL.Add('(FECHA_MOV BETWEEN :FECHA1 AND :FECHA2) AND');
-            SQL.Add('("caj$movimiento".ID_CAJA = :ID_CAJA) AND');
-            SQL.Add('("cap$maestrotitular".NUMERO_TITULAR = 1)');
+            SQL.Add('("caj$movimiento".ID_CAJA = :ID_CAJA)');
             SQL.Add('ORDER BY');
             SQL.Add('"caj$movimiento".ORIGEN_MOVIMIENTO,');
             SQL.Add('"caj$movimiento".ID_TIPO_MOVIMIENTO,');

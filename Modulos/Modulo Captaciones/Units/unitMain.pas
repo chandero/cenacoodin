@@ -167,6 +167,7 @@ type
     ActualizarFechasdeVerificacindeDatos1: TMenuItem;
     Juveniles1: TMenuItem;
     DeJuvenilaAsociadoProyeccin1: TMenuItem;
+    ComprobanteConciliacin1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -273,6 +274,7 @@ type
     procedure ArchivoInformacinFinanciera1Click(Sender: TObject);
     procedure ReimprimirCDAT1Click(Sender: TObject);
     procedure DeJuvenilaAsociadoProyeccin1Click(Sender: TObject);
+    procedure ComprobanteConciliacin1Click(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -324,7 +326,7 @@ uses unitLogin, unitdmColocacion, IniFiles,
      UnitConsultaJuvenil, UnitPlanillaConsolidada,UnitAbonoContractual,UnitDescuentoContractual,
      UnitInformeGeneraldeCaptaciones1,UnitRegistroIncapacitados,
      UnitTarjetaSinMovimiento, UnitSorteoCumpleanhos, UnitSaldoPorRangos, UnitArchivoTransacciones, UnitArchivoFinancieroAsociado, UnitReimprimirCDAT,
-     UnitDeJuvenilaAsociado, UnitAdministracionProductosVirtuales;
+     UnitDeJuvenilaAsociado, UnitAdministracionProductosVirtuales, UnitConciliacionServiciosVirtuales;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1350,6 +1352,13 @@ var
 begin
    frmDeJuvenilaAsociado := TfrmDeJuvenilaAsociado.Create(self);
    frmDeJuvenilaAsociado.ShowModal;
+end;
+
+procedure TfrmMain.ComprobanteConciliacin1Click(Sender: TObject);
+var frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales;
+begin
+      frmConciliacionServiciosVirtuales := TfrmConciliacionServiciosVirtuales.Create(self);
+      frmConciliacionServiciosVirtuales.ShowModal;
 end;
 
 end.
