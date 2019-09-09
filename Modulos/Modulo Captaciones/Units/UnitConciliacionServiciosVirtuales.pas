@@ -131,6 +131,8 @@ var
     vOperacion: String;
     vSecuencia: String;
     vDocumento: String;
+    vDescripcion: String;
+    vDispositivo: String;
     vCuenta: String;
     vCanal: String;
     vTipo: String;
@@ -194,6 +196,8 @@ begin
            vOperacion := IBQrecibir.FieldByName('OPERACION').AsString;
            vSecuencia := IBQrecibir.FieldByName('SECUENCIA').AsString;
            vDocumento := IBQrecibir.FieldByName('DOCUMENTO').AsString;
+           vDescripcion := IBQrecibir.FieldByName('DESCRIPCION').AsString;
+           vDispositivo := IBQrecibir.FieldByName('DISPOSITIVO').AsString;
            vCuenta := IBQrecibir.FieldByName('CUENTA').AsString;
            vCanal := IBQrecibir.FieldByName('CANAL').AsString;
            vValor := IBQrecibir.FieldByName('VALOR').AsInteger / 100;
@@ -247,6 +251,7 @@ begin
                          END;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) and (vDispositivo = 'PROPIO') then
                             vTotalCajaDebito := vTotalCajaDebito + vValor;
                          END;
                        END
@@ -266,6 +271,7 @@ begin
                          END;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) and (vDispositivo = 'PROPIO') then
                             vTotalCajaCredito := vTotalCajaCredito + vValor;
                          END;
                        END;
@@ -288,6 +294,7 @@ begin
                          END;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) and (vDispositivo = 'PROPIO') then
                             vTotalCajaCredito := vTotalCajaCredito + vValor;
                          END;
                        END
@@ -307,6 +314,7 @@ begin
                          END ;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) and (vDispositivo = 'PROPIO') then
                             vTotalCajaDebito := vTotalCajaDebito + vValor;
                          END;
                        END;
@@ -341,12 +349,12 @@ begin
                          vTotalCreditoComision := vTotalCreditoComision + vComision;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros + vComision;
+                            vTotalAhorros := vTotalAhorros - vComision;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
                          BEGIN
-                            vTotalSubCuenta := vTotalSubCuenta + vComision;
+                            vTotalSubCuenta := vTotalSubCuenta - vComision;
                          END;
                        END
                        ELSE
@@ -356,12 +364,12 @@ begin
                          vTotalDebitoComision := vTotalDebitoComision + vComision;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros - vComision;
+                            vTotalAhorros := vTotalAhorros + vComision;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
                          BEGIN
-                            vTotalSubCuenta := vTotalSubCuenta - vComision;
+                            vTotalSubCuenta := vTotalSubCuenta + vComision;
                          END;
                        END;
                        CDSdata.Post;
@@ -429,6 +437,7 @@ begin
            vOperacion := IBQrecibir.FieldByName('OPERACION').AsString;
            vSecuencia := IBQrecibir.FieldByName('SECUENCIA').AsString;
            vDocumento := IBQrecibir.FieldByName('DOCUMENTO').AsString;
+           vDescripcion := IBQrecibir.FieldByName('DESCRIPCION').AsString;
            vCuenta := '';
            vCanal := 'OFI';
            vValor := IBQrecibir.FieldByName('VALOR').AsInteger / 100;
@@ -470,6 +479,7 @@ begin
                          // vTotalCreditoMovimiento := vTotalCreditoMovimiento + vValor;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) then
                             vTotalCajaDebito := vTotalCajaDebito + vValor;
                          END
                        END
@@ -480,6 +490,7 @@ begin
                          // vTotalDebitoMovimiento := vTotalDebitoMovimiento + vValor;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) then
                             vTotalCajaCredito := vTotalCajaCredito + vValor;
                          END
                        END;
@@ -493,6 +504,7 @@ begin
                          // vTotalDebitoMovimiento := vTotalDebitoMovimiento + vValor;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) then
                             vTotalCajaCredito := vTotalCajaCredito + vValor;
                          END
                        END
@@ -503,6 +515,7 @@ begin
                          // vTotalCreditoMovimiento := vTotalCreditoMovimiento + vValor;
                          IF vCanal = 'OFI' THEN
                          BEGIN
+                           if (not AnsiContainsText(vDescripcion, 'Transferencia')) then
                             vTotalCajaDebito := vTotalCajaDebito + vValor;
                          END                         
                        END;
@@ -659,7 +672,7 @@ begin
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoGanadiario;
-            FieldByName('DEBITO').AsCurrency := vTotalAhorros;
+            FieldByName('DEBITO').AsCurrency := -vTotalAhorros;
             FieldByName('CREDITO').AsCurrency := 0;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
@@ -698,9 +711,9 @@ begin
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoSubcuenta;
-            FieldByName('DEBITO').AsCurrency := vTotalSubCuenta;
+            FieldByName('DEBITO').AsCurrency := -vTotalSubCuenta;
             FieldByName('CREDITO').AsCurrency := 0;
-            FieldByName('ID_CUENTA').AsInteger :=0;
+            FieldByName('ID_CUENTA').AsInteger := 0;
             FieldByName('ID_COLOCACION').AsString := '';
             FieldByName('ID_IDENTIFICACION').AsInteger := 0;
             FieldByName('ID_PERSONA').AsString := '';
@@ -738,7 +751,7 @@ begin
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoCaja;
             FieldByName('DEBITO').AsCurrency := 0;
-            FieldByName('CREDITO').AsCurrency := vTotalCaja;
+            FieldByName('CREDITO').AsCurrency := -vTotalCaja;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
             FieldByName('ID_IDENTIFICACION').AsInteger := 0;
@@ -776,7 +789,7 @@ begin
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoComision;
-            FieldByName('DEBITO').AsCurrency := vTotalComision;
+            FieldByName('DEBITO').AsCurrency := -vTotalComision;
             FieldByName('CREDITO').AsCurrency := 0;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
@@ -815,7 +828,7 @@ begin
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoTemporal;
-            FieldByName('DEBITO').AsCurrency := vTotalTemporal;
+            FieldByName('DEBITO').AsCurrency := -vTotalTemporal;
             FieldByName('CREDITO').AsCurrency := 0;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
