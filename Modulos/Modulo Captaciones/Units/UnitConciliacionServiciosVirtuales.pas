@@ -349,12 +349,12 @@ begin
                          vTotalCreditoComision := vTotalCreditoComision + vComision;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros - vComision;
+                            vTotalAhorros := vTotalAhorros + vComision;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
                          BEGIN
-                            vTotalSubCuenta := vTotalSubCuenta - vComision;
+                            vTotalSubCuenta := vTotalSubCuenta + vComision;
                          END;
                        END
                        ELSE
@@ -364,12 +364,12 @@ begin
                          vTotalDebitoComision := vTotalDebitoComision + vComision;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros + vComision;
+                            vTotalAhorros := vTotalAhorros - vComision;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
                          BEGIN
-                            vTotalSubCuenta := vTotalSubCuenta + vComision;
+                            vTotalSubCuenta := vTotalSubCuenta - vComision;
                          END;
                        END;
                        CDSdata.Post;
@@ -563,14 +563,14 @@ begin
         END;
 
 
-        vTotalMovimiento := vTotalCreditoMovimiento - vTotalDebitoMovimiento + vTotalCreditoGmf - vTotalDebitoGmf;
-        vTotalComision := vTotalCreditoComision - vTotalDebitoComision;
+        vTotalMovimiento := vTotalAhorros + vTotalSubCuenta;
+        vTotalComision := vTotalDebitoComision - vTotalCreditoComision;
         vTotalGmf := vTotalDebitoGmf - vTotalCreditoGmf;
         vTotalTemporal := 0;
 
         vTotalCaja := vTotalCajaDebito - vTotalCajaCredito;
 
-        edMovimiento.Value := vTotalMovimiento - vTotalCaja;
+        edMovimiento.Value := vTotalMovimiento - vTotalCaja - vTotalComision;
         edComision.Value := vTotalComision;
         edGMF.Value := vTotalGmf;
         edCaja.Value := vTotalCaja;
@@ -619,7 +619,7 @@ begin
         IBQCuenta.Open;
         CodigoSubcuenta := IBQCuenta.FieldByName('CODIGO_CONTABLE').AsString;
 
-        vTotalTemporal := vTotalCaja - vTotalAhorros - vTotalSubCuenta - vTotalComision;
+        vTotalTemporal := -(vTotalAhorros + vTotalSubCuenta - vTotalComision - vTotalCaja);
 
         // CONTABILIZAR
       if chkComprobante.Checked then
