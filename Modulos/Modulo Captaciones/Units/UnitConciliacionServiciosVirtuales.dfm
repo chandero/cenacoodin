@@ -2,7 +2,7 @@ object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
   Left = 302
   Top = 207
   Width = 942
-  Height = 307
+  Height = 301
   Caption = 'Conciliaci'#243'n Servicios Virtuales'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -103,7 +103,7 @@ object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
     Left = 0
     Top = 41
     Width = 934
-    Height = 164
+    Height = 143
     Align = alClient
     DataSource = DSdata
     TabOrder = 1
@@ -115,9 +115,9 @@ object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
   end
   object Panel1: TPanel
     Left = 0
-    Top = 205
+    Top = 184
     Width = 934
-    Height = 68
+    Height = 83
     Align = alBottom
     Color = clOlive
     TabOrder = 2

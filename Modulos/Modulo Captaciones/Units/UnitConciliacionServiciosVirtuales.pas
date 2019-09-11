@@ -156,7 +156,7 @@ var
     vTotalCajaDebito: Currency;
     vTotalCajaCredito: Currency;
 
-    vTotalAhorros: Currency;
+    vTotalGanadiario: Currency;
     vTotalSubCuenta: Currency;
 
     vTotalTemporal: Currency;
@@ -169,7 +169,7 @@ begin
         vTotalCreditoComision := 0;
         vTotalDebitoGmf := 0;
         vTotalCreditoGmf := 0;
-        vTotalAhorros := 0;
+        vTotalGanadiario := 0;
         vTotalSubCuenta := 0;
         vTotalCajaDebito := 0;
         vTotalCajaCredito := 0;
@@ -242,7 +242,7 @@ begin
                          vTotalCreditoMovimiento := vTotalCreditoMovimiento + vValor;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros + vValor;
+                            vTotalGanadiario := vTotalGanadiario + vValor;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -262,7 +262,7 @@ begin
                          vTotalDebitoMovimiento := vTotalDebitoMovimiento + vValor;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros - vValor;
+                            vTotalGanadiario := vTotalGanadiario - vValor;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -285,7 +285,7 @@ begin
                          vTotalDebitoMovimiento := vTotalDebitoMovimiento + vValor;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros - vValor;
+                            vTotalGanadiario := vTotalGanadiario - vValor;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -305,7 +305,7 @@ begin
                          vTotalCreditoMovimiento := vTotalCreditoMovimiento + vValor;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros + vValor;
+                            vTotalGanadiario := vTotalGanadiario + vValor;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -349,7 +349,7 @@ begin
                          vTotalCreditoComision := vTotalCreditoComision + vComision;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros + vComision;
+                            vTotalGanadiario := vTotalGanadiario + vComision;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -364,7 +364,7 @@ begin
                          vTotalDebitoComision := vTotalDebitoComision + vComision;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros - vComision;
+                            vTotalGanadiario := vTotalGanadiario - vComision;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -394,7 +394,7 @@ begin
                          vTotalCreditoGmf := vTotalCreditoGmf + vGmf;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros + vGmf;
+                            vTotalGanadiario := vTotalGanadiario + vGmf;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -409,7 +409,7 @@ begin
                          vTotalDebitoGmf := vTotalDebitoGmf + vGmf;
                          IF vTipoAH = '2' THEN
                          BEGIN
-                            vTotalAhorros := vTotalAhorros - vGmf;
+                            vTotalGanadiario := vTotalGanadiario - vGmf;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -563,19 +563,19 @@ begin
         END;
 
 
-        vTotalMovimiento := vTotalAhorros + vTotalSubCuenta;
+        vTotalMovimiento := vTotalGanadiario + vTotalSubCuenta;
         vTotalComision := vTotalDebitoComision - vTotalCreditoComision;
         vTotalGmf := vTotalDebitoGmf - vTotalCreditoGmf;
-        vTotalTemporal := 0;
-
         vTotalCaja := vTotalCajaDebito - vTotalCajaCredito;
 
-        edMovimiento.Value := vTotalMovimiento - vTotalCaja - vTotalComision;
+        vTotalTemporal := vTotalCaja - vTotalComision - vTotalGanadiario - vTotalSubCuenta;
+        vTotalTemporal := vTotalTemporal * -1;
+        edMovimiento.Value := vTotalTemporal;
         edComision.Value := vTotalComision;
         edGMF.Value := vTotalGmf;
         edCaja.Value := vTotalCaja;
 
-        edGanadiario.Value := vTotalAhorros;
+        edGanadiario.Value := vTotalGanadiario;
         edSubCuenta.Value := vTotalSubCuenta;
 
         btnExcel.Enabled := True;
@@ -619,7 +619,7 @@ begin
         IBQCuenta.Open;
         CodigoSubcuenta := IBQCuenta.FieldByName('CODIGO_CONTABLE').AsString;
 
-        vTotalTemporal := -(vTotalAhorros + vTotalSubCuenta - vTotalComision - vTotalCaja);
+
 
         // CONTABILIZAR
       if chkComprobante.Checked then
@@ -646,7 +646,7 @@ begin
         with IBDAuxiliar do
         begin
            Open;
-           if vTotalAhorros > 0 then
+           if vTotalGanadiario > 0 then
            begin
             Append;
             FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
@@ -654,7 +654,7 @@ begin
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoGanadiario;
             FieldByName('DEBITO').AsCurrency := 0;
-            FieldByName('CREDITO').AsCurrency := vTotalAhorros;
+            FieldByName('CREDITO').AsCurrency := vTotalGanadiario;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
             FieldByName('ID_IDENTIFICACION').AsInteger := 0;
@@ -665,14 +665,14 @@ begin
             FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
             Post;
            end
-           else if vTotalAhorros < 0 then
+           else if vTotalGanadiario < 0 then
            begin
             Append;
             FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoGanadiario;
-            FieldByName('DEBITO').AsCurrency := -vTotalAhorros;
+            FieldByName('DEBITO').AsCurrency := -vTotalGanadiario;
             FieldByName('CREDITO').AsCurrency := 0;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
@@ -809,8 +809,8 @@ begin
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoTemporal;
-            FieldByName('DEBITO').AsCurrency := 0;
-            FieldByName('CREDITO').AsCurrency := vTotalTemporal;
+            FieldByName('DEBITO').AsCurrency := vTotalTemporal;
+            FieldByName('CREDITO').AsCurrency := 0;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
             FieldByName('ID_IDENTIFICACION').AsInteger := 0;
@@ -828,8 +828,8 @@ begin
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoTemporal;
-            FieldByName('DEBITO').AsCurrency := -vTotalTemporal;
-            FieldByName('CREDITO').AsCurrency := 0;
+            FieldByName('DEBITO').AsCurrency := 0;
+            FieldByName('CREDITO').AsCurrency := -vTotalTemporal;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
             FieldByName('ID_IDENTIFICACION').AsInteger := 0;
@@ -851,7 +851,6 @@ begin
       end
       else
         btnComprobante.Enabled := false;
-      edMovimiento.Value := vTotalTemporal;
       IBTransaction1.Commit;
 end;
 
