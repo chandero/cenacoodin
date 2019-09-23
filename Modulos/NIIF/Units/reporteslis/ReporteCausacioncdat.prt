@@ -1,0 +1,2865 @@
+object TprTxReport
+  ShowProgress = True
+  FromPage = 1
+  ToPage = 1
+  Title = 'Informe Diario de Cartera'
+  ExportFromPage = 0
+  ExportToPage = 0
+  Values = <
+    item
+      Group = gEdad
+      Name = 'pTotalEdad'
+      AggFunction = prafSum
+      Formula = 'IBReporte.VALOR_INICIAL'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end
+    item
+      Group = gEdad
+      Name = 'pConteoEdad'
+      AggFunction = prafCount
+      Formula = 'IBReporte.NUMERO_CUENTA'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end
+    item
+      Name = 'pTotalCdat'
+      AggFunction = prafSum
+      Formula = 'IBReporte.VALOR_INICIAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+      Accumulate = True
+    end
+    item
+      Name = 'pConteoCdat'
+      AggFunction = prafCount
+      Formula = 'IBReporte.NUMERO_CUENTA'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+      Accumulate = True
+    end
+    item
+      Name = 'pTotalProvision'
+      AggFunction = prafSum
+      Formula = 'IBReporte.CAUSACION_TOTAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end
+    item
+      Name = 'pTotalProvisionMes'
+      AggFunction = prafSum
+      Formula = 'IBReporte.CAUSACION_MENSUAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end
+    item
+      Name = 'pTotalRetefuenteMes'
+      AggFunction = prafSum
+      Formula = 'IBReporte.RETEFUENTE_MENSUAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end
+    item
+      Name = 'pTotalNetoCausar'
+      AggFunction = prafSum
+      Formula = 'IBReporte.NETO_MENSUAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end
+    item
+      Name = 'pTotalRetefuente'
+      AggFunction = prafSum
+      Formula = 'IBReporte.RETEFUENTE_TOTAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end
+    item
+      Name = 'pNetoTotal'
+      AggFunction = prafSum
+      Formula = 'IBReporte.NETO_TOTAL'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBReporte'
+    end>
+  Variables = <
+    item
+      Name = 'Empresa'
+      ValueType = 'prvvtString'
+      Value = 'COOPSERVIR LTDA'
+    end
+    item
+      Name = 'FechaCorte'
+      ValueType = 'prvvtDateTime'
+      Value = 38046d
+    end
+    item
+      Name = 'pTotal180'
+      ValueType = 'prvvtDouble'
+      Value = 0
+    end
+    item
+      Name = 'pTotal360'
+      ValueType = 'prvvtDouble'
+      Value = 0
+    end
+    item
+      Name = 'pMenos6m'
+      ValueType = 'prvvtDouble'
+      Value = 0
+    end
+    item
+      Name = 'p6y12m'
+      ValueType = 'prvvtDouble'
+      Value = 0
+    end
+    item
+      Name = 'p12y18m'
+      ValueType = 'prvvtDouble'
+      Value = 0
+    end
+    item
+      Name = 'p18m'
+      ValueType = 'prvvtDouble'
+      Value = 0
+    end
+    item
+      Name = 'pRetefuenteAcumulada'
+      ValueType = 'prvvtString'
+      Value = ''
+    end>
+  PrinterName = '\\DEPARTAS02\Epson LX-300'
+  ESCModelName = 'Epson printers'
+  WrapAfterColumn = 0
+  EjectPageAfterPrint = False
+  LinesOnPage = 0
+  FromLine = 0
+  ToLine = 0
+  ExportFromLine = 0
+  ExportToLine = 0
+  Left = 110
+  Top = 424
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 2'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.4')
+  object prTxPage1: TprTxPage
+    PageType = tptPage
+    LineNum = 60
+    ColNum = 235
+    object prTxHPageHeaderBand1: TprTxHPageHeaderBand
+      Height = 2
+      UseVerticalBands = False
+      PrintOnFirstPage = True
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[Empresa]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+            TxFontOptionsEx = (
+              tfoBold
+              tfoWide)
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 17
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxCommandObj2: TprTxCommandObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 70
+        dRec.Top = 0
+        dRec.Right = 71
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj32: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CDATS POR EDADES A FECHA : [FechaCorte]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 20
+        dRec.Top = 0
+        dRec.Right = 70
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj13: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '---')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = -28
+        dRec.Top = 1
+        dRec.Right = 231
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj14: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Formula = 'PagePagesCountPage'
+            Visible = True
+            Memo.Strings = (
+              'Pagina [Page] de [Pagescount]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 100
+        dRec.Top = 0
+        dRec.Right = 119
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxCommandObj1: TprTxCommandObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcNormal
+              txcCondensedOn)
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 1
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHDetailHeaderBand1: TprTxHDetailHeaderBand
+      Height = 2
+      UseVerticalBands = False
+      DetailBand = prTxHDetailBand1
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      ReprintOnEachPage = True
+      LinkToDetail = True
+      object prTxMemoObj7: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CDAT No')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 3
+        dRec.Top = 0
+        dRec.Right = 12
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj34: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 78
+        dRec.Top = 0
+        dRec.Right = 79
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj36: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 83
+        dRec.Top = 0
+        dRec.Right = 84
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'A.')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 2
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 2
+        dRec.Top = 0
+        dRec.Right = 3
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 12
+        dRec.Top = 0
+        dRec.Right = 13
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj54: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ASOCIADO')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 24
+        dRec.Top = 0
+        dRec.Right = 57
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj55: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 57
+        dRec.Top = 0
+        dRec.Right = 58
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj56: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'VALOR')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 64
+        dRec.Top = 0
+        dRec.Right = 78
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj9: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TASA')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 79
+        dRec.Top = 0
+        dRec.Right = 83
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj10: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'PLAZO')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 84
+        dRec.Top = 0
+        dRec.Right = 89
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj63: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = -1
+        dRec.Top = 1
+        dRec.Right = 1
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj12: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'ULTIMO PAGO')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 145
+        dRec.Top = 0
+        dRec.Right = 156
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj37: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'NIT /C.C.')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 13
+        dRec.Top = 0
+        dRec.Right = 23
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj47: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 23
+        dRec.Top = 0
+        dRec.Right = 24
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj51: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CTA')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 58
+        dRec.Top = 0
+        dRec.Right = 63
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj53: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 63
+        dRec.Top = 0
+        dRec.Right = 64
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj8: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 89
+        dRec.Top = 0
+        dRec.Right = 90
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj11: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'AMORT')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 90
+        dRec.Top = 0
+        dRec.Right = 95
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj15: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '---------------------------------------')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 231
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj30: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 103
+        dRec.Top = 0
+        dRec.Right = 104
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj38: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 95
+        dRec.Top = 0
+        dRec.Right = 96
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj41: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'APERTURA')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 96
+        dRec.Top = 0
+        dRec.Right = 106
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj44: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'VENCIMIENTO')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 107
+        dRec.Top = 0
+        dRec.Right = 117
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj61: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 117
+        dRec.Top = 0
+        dRec.Right = 118
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj62: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'U. PRORROGA')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 118
+        dRec.Top = 0
+        dRec.Right = 128
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj66: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 128
+        dRec.Top = 0
+        dRec.Right = 129
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj67: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'V. PRORROGA')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 129
+        dRec.Top = 0
+        dRec.Right = 139
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj70: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 156
+        dRec.Top = 0
+        dRec.Right = 157
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj71: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 139
+        dRec.Top = 0
+        dRec.Right = 140
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj79: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'DIAS')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 140
+        dRec.Top = 0
+        dRec.Right = 144
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj80: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 144
+        dRec.Top = 0
+        dRec.Right = 145
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj81: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CAUS. TOTAL')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 157
+        dRec.Top = 0
+        dRec.Right = 169
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj82: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 182
+        dRec.Top = 0
+        dRec.Right = 183
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj89: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'CAUS. MES')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 183
+        dRec.Top = 0
+        dRec.Right = 195
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj91: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 195
+        dRec.Top = 0
+        dRec.Right = 196
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj92: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'RTE MENSUAL')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 196
+        dRec.Top = 0
+        dRec.Right = 208
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj93: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 221
+        dRec.Top = 0
+        dRec.Right = 222
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj94: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'NETO A CAUSAR')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 222
+        dRec.Top = 0
+        dRec.Right = 234
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj105: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 169
+        dRec.Top = 0
+        dRec.Right = 170
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj107: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'RTE ACUM.')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 170
+        dRec.Top = 0
+        dRec.Right = 182
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj109: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 208
+        dRec.Top = 0
+        dRec.Right = 209
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj112: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'NETO ACUM')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 209
+        dRec.Top = 0
+        dRec.Right = 221
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxVLineObj3: TprTxVLineObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 106
+        dRec.Top = 0
+        dRec.Right = 107
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHDetailBand1: TprTxHDetailBand
+      VisibleFormula = 'IBReporte.VALOR_INICIAL > 0'
+      Height = 1
+      UseVerticalBands = False
+      DataSetName = 'IBReporte'
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      Groups = (
+        'gEdad')
+      Bands = (
+        'prTxHDetailHeaderBand1')
+      object prTxMemoObj18: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBReporte.ID_AGENCIA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 2
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj57: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 2
+        dRec.Top = 0
+        dRec.Right = 3
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj58: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBReporte.NUMERO_CUENTA]-[IBReporte.DIGITO_CUENTA]')
+            DeleteEmptyLinesAtEnd = True
+            DeleteEmptyLines = True
+            CanResizeX = True
+            CanResizeY = True
+            hAlign = prhLeft
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = True
+          end>
+        dRec.Left = 3
+        dRec.Top = 0
+        dRec.Right = 12
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj59: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 12
+        dRec.Top = 0
+        dRec.Right = 13
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj60: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[IBReporte.NOMBRE]  [IBReporte.PRIMER_APELLIDO]  [IBReporte.SEGU' +
+                'NDO_APELLIDO] ')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = True
+          end>
+        dRec.Left = 24
+        dRec.Top = 0
+        dRec.Right = 57
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj19: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 57
+        dRec.Top = 0
+        dRec.Right = 58
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj20: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBReporte.PLAZO_CUENTA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = True
+          end>
+        dRec.Left = 84
+        dRec.Top = 0
+        dRec.Right = 89
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj21: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 89
+        dRec.Top = 0
+        dRec.Right = 90
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj24: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<yyyy/mm/dd>IBReporte.FECHA_ULTIMO_PAGO]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 145
+        dRec.Top = 0
+        dRec.Right = 156
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj39: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 63
+        dRec.Top = 0
+        dRec.Right = 64
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj45: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##>IBReporte.VALOR_INICIAL]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 64
+        dRec.Top = 0
+        dRec.Right = 78
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj26: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<00000>IBReporte.NUMERO_CUENTA_ABONO]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 58
+        dRec.Top = 0
+        dRec.Right = 63
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj48: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBReporte.ID_PERSONA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 13
+        dRec.Top = 0
+        dRec.Right = 23
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj49: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 23
+        dRec.Top = 0
+        dRec.Right = 24
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj46: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 78
+        dRec.Top = 0
+        dRec.Right = 79
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj29: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 83
+        dRec.Top = 0
+        dRec.Right = 84
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj27: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#0.00>IBReporte.TASA_EFECTIVA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 79
+        dRec.Top = 0
+        dRec.Right = 83
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj22: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBReporte.AMORTIZACION]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 90
+        dRec.Top = 0
+        dRec.Right = 95
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj40: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 95
+        dRec.Top = 0
+        dRec.Right = 96
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj42: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<yyyy/MM/dd>IBReporte.FECHA_APERTURA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 96
+        dRec.Top = 0
+        dRec.Right = 106
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj50: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 106
+        dRec.Top = 0
+        dRec.Right = 107
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj52: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<yyyy/MM/dd>IBReporte.FECHA_VENCIMIENTO]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 107
+        dRec.Top = 0
+        dRec.Right = 117
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj64: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 117
+        dRec.Top = 0
+        dRec.Right = 118
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj65: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '[iif(IBReporte.FECHA_PRORROGA="1899/12/30"," ",IBReporte.FECHA_P' +
+                'RORROGA)]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 118
+        dRec.Top = 0
+        dRec.Right = 128
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj69: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<yyyy/MM/dd>IBReporte.FECHA_VENCIMIENTO_PRORROGA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 129
+        dRec.Top = 0
+        dRec.Right = 139
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj72: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 139
+        dRec.Top = 0
+        dRec.Right = 140
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj83: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBReporte.DIAS]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 140
+        dRec.Top = 0
+        dRec.Right = 144
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj84: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 144
+        dRec.Top = 0
+        dRec.Right = 145
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj85: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##>IBReporte.CAUSACION_TOTAL]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 157
+        dRec.Top = 0
+        dRec.Right = 169
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj86: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 182
+        dRec.Top = 0
+        dRec.Right = 183
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj90: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##>IBReporte.CAUSACION_MENSUAL]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 183
+        dRec.Top = 0
+        dRec.Right = 195
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj96: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##>IBReporte.RETEFUENTE_MENSUAL]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 196
+        dRec.Top = 0
+        dRec.Right = 208
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj97: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 221
+        dRec.Top = 0
+        dRec.Right = 222
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj98: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##>IBReporte.NETO_MENSUAL]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 222
+        dRec.Top = 0
+        dRec.Right = 234
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj95: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 195
+        dRec.Top = 0
+        dRec.Right = 196
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxVLineObj1: TprTxVLineObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 128
+        dRec.Top = 0
+        dRec.Right = 129
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxVLineObj2: TprTxVLineObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 156
+        dRec.Top = 0
+        dRec.Right = 157
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj106: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 169
+        dRec.Top = 0
+        dRec.Right = 170
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj108: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##>IBReporte.RETEFUENTE_TOTAL]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 170
+        dRec.Top = 0
+        dRec.Right = 182
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj110: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '|')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 208
+        dRec.Top = 0
+        dRec.Right = 209
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj111: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##>IBReporte.NETO_TOTAL]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 209
+        dRec.Top = 0
+        dRec.Right = 221
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHGroupFooterBand1: TprTxHGroupFooterBand
+      Height = 1
+      UseVerticalBands = False
+      Group = gEdad
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = True
+      object prTxMemoObj6: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalEdad]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 71
+        dRec.Top = 0
+        dRec.Right = 88
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj16: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[pConteoEdad]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 61
+        dRec.Top = 0
+        dRec.Right = 70
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj17: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL DEL GRUPO')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 45
+        dRec.Top = 0
+        dRec.Right = 60
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHGroupHeaderBand1: TprTxHGroupHeaderBand
+      Height = 1
+      UseVerticalBands = False
+      Group = gEdad
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = True
+      StartNewPage = False
+      ReprintOnEachPage = True
+      object prTxMemoObj5: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>gEdad.GroupValue()]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 86
+        dRec.Top = 0
+        dRec.Right = 91
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHSummaryBand1: TprTxHSummaryBand
+      Height = 14
+      UseVerticalBands = False
+      object prTxMemoObj23: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CDATS                                              :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 59
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj25: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL EMITIDOS MENOS 6 MESES                             :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 10
+        dRec.Right = 59
+        dRec.Bottom = 11
+        Visible = False
+      end
+      object prTxMemoObj28: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL EMITIDOS IGUAL A 6 MESES Y MENOR E IGUAL A 12 MESES:')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 11
+        dRec.Right = 59
+        dRec.Bottom = 12
+        Visible = False
+      end
+      object prTxMemoObj31: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL EMITIDOS MAYOR A 12 MESES Y MENOR DE 18 MESES      :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 12
+        dRec.Right = 59
+        dRec.Bottom = 13
+        Visible = False
+      end
+      object prTxMemoObj33: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL EMITIDOS IGUAL O SUPERIOR DE 18 MESES              :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 13
+        dRec.Right = 59
+        dRec.Bottom = 14
+        Visible = False
+      end
+      object prTxMemoObj35: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalCdat]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 1
+        dRec.Right = 77
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj73: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '---------------------------------------')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 231
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj74: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pMenos6m]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 10
+        dRec.Right = 77
+        dRec.Bottom = 11
+        Visible = False
+      end
+      object prTxMemoObj75: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>p6y12m]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 11
+        dRec.Right = 77
+        dRec.Bottom = 12
+        Visible = False
+      end
+      object prTxMemoObj76: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>p12y18m]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 12
+        dRec.Right = 77
+        dRec.Bottom = 13
+        Visible = False
+      end
+      object prTxMemoObj77: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>p18m]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 13
+        dRec.Right = 77
+        dRec.Bottom = 14
+        Visible = False
+      end
+      object prTxMemoObj78: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[pConteoCdat]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 78
+        dRec.Top = 1
+        dRec.Right = 87
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj87: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CAUSACION CDATS                                    :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 59
+        dRec.Bottom = 3
+        Visible = False
+      end
+      object prTxMemoObj88: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalProvision]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 2
+        dRec.Right = 77
+        dRec.Bottom = 3
+        Visible = False
+      end
+      object prTxMemoObj99: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL RETEFUENTE MENSUAL                                       :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 7
+        dRec.Right = 59
+        dRec.Bottom = 8
+        Visible = False
+      end
+      object prTxMemoObj100: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalRetefuenteMes]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 7
+        dRec.Right = 77
+        dRec.Bottom = 8
+        Visible = False
+      end
+      object prTxMemoObj101: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CAUSACION CDATS MENSUAL                            :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 6
+        dRec.Right = 59
+        dRec.Bottom = 7
+        Visible = False
+      end
+      object prTxMemoObj102: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalProvisionMes]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 6
+        dRec.Right = 77
+        dRec.Bottom = 7
+        Visible = False
+      end
+      object prTxMemoObj103: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL NETO A CAUSAR                                      :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 8
+        dRec.Right = 59
+        dRec.Bottom = 9
+        Visible = False
+      end
+      object prTxMemoObj104: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalNetoCausar]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 8
+        dRec.Right = 77
+        dRec.Bottom = 9
+        Visible = False
+      end
+      object prTxMemoObj43: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL CAUSACION CDATS ACUMULADA                          :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 3
+        dRec.Right = 59
+        dRec.Bottom = 4
+        Visible = False
+      end
+      object prTxMemoObj68: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalProvision - pTotalProvisionMes]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 3
+        dRec.Right = 77
+        dRec.Bottom = 4
+        Visible = False
+      end
+      object prTxMemoObj113: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL RETEFUENTE ACUMULADA                               :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 4
+        dRec.Right = 59
+        dRec.Bottom = 5
+        Visible = False
+      end
+      object prTxMemoObj114: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pTotalRetefuente - pTotalRetefuenteMes]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 4
+        dRec.Right = 77
+        dRec.Bottom = 5
+        Visible = False
+      end
+      object prTxMemoObj115: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL NETO ACUMULADO                                     :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 5
+        dRec.Right = 59
+        dRec.Bottom = 6
+        Visible = False
+      end
+      object prTxMemoObj116: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,#0>pNetoTotal]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 59
+        dRec.Top = 5
+        dRec.Right = 77
+        dRec.Bottom = 6
+        Visible = False
+      end
+      object prTxHLineObj1: TprTxHLineObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 1
+        dRec.Top = 9
+        dRec.Right = 77
+        dRec.Bottom = 10
+        Visible = False
+      end
+    end
+  end
+  object gEdad: TprGroup
+    Valid = 'IBReporte.PLAZO_CUENTA'
+    DetailBand = prTxHDetailBand1
+  end
+end

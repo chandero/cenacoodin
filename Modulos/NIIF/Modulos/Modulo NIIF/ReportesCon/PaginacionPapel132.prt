@@ -1,0 +1,149 @@
+object TprTxReport
+  Values = <>
+  Variables = <
+    item
+      Name = 'EMPRESA'
+      ValueType = 'prvvtString'
+      Value = 'CREDISERVIR LTDA'
+    end
+    item
+      Name = 'NIT'
+      ValueType = 'prvvtString'
+      Value = '890.505363-6'
+    end
+    item
+      Name = 'ENCABEZADO'
+      ValueType = 'prvvtString'
+      Value = 'MAYOR Y BALANCE'
+    end>
+  EjectPageAfterPrint = False
+  Left = 274
+  Top = 38
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 2'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.4')
+  object prTxPage1: TprTxPage
+    PageType = tptPage
+    LineNum = 60
+    ColNum = 132
+    object prTxHDetailBand1: TprTxHDetailBand
+      Height = 1
+      UseVerticalBands = False
+      DataSetName = 'CDS'
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      StartNewPage = True
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Pag # [:<0000>CDS.ID_PAGINA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 91
+        dRec.Top = 0
+        dRec.Right = 106
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[ENCABEZADO]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = True
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 29
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[EMPRESA]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 30
+        dRec.Top = 0
+        dRec.Right = 60
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'NIT [NIT]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 61
+        dRec.Top = 0
+        dRec.Right = 86
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxCommandObj1: TprTxCommandObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcReset
+              txcCondensedOff
+              txcNormal)
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 1
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+  end
+end

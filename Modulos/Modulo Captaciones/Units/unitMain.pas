@@ -168,6 +168,7 @@ type
     Juveniles1: TMenuItem;
     DeJuvenilaAsociadoProyeccin1: TMenuItem;
     ComprobanteConciliacin1: TMenuItem;
+    MarcarTarjeta1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

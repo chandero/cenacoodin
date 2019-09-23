@@ -1,0 +1,30 @@
+[DSP upload]
+Filename=exe_calc.exe
+Replacements=
+Version=1.0
+FileURL=
+Description=Calculator (visible component) with on-screen history ticket,  ticket printing, user definable precision and 1 memory  register.  It can hold values with up to 13 significant digits.  Complete sources and stand alone executable version  i
+ncluded.
+Delphi 1.0=N
+Delphi 2.0=Y
+Delphi 3.0=N
+C++Builder 1.0=N
+File Status=Freeware
+Full Source=Included
+Category=Visible Components
+Note=An e-mail with comments is most appreciated.
+Additional info=
+
+[DSP Support]
+DSP Support=Y
+
+[Versions available]
+Delphi 1.0=
+Delphi 2.0=
+Delphi 3.0=
+C++Builder 1.0=
+
+[Uploader]
+Author name=ExEntryC
+Author E-mail=exentryc@ping.be
+Author URL=www.ping.be/exentryc

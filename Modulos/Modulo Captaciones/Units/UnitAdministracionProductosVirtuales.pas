@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls, ExtCtrls, Buttons, JvEdit, JvTypedEdit,
-  Grids, DBGrids, DB, IBCustomDataSet, IBQuery, UnitDmGeneral, UnitDmPersona, UnitGlobales;
+  Grids, DBGrids, DB, IBCustomDataSet, IBQuery, UnitDmGeneral, UnitDmPersona, UnitGlobales,
+  FR_Class;
 
 type
   TfrmAdministracionProductosVirtuales = class(TForm)
@@ -77,6 +78,9 @@ type
     IBQCaptacion: TIBQuery;
     IBQTipoIdentificacion: TIBQuery;
     DSTipoIdentificacion: TDataSource;
+    IBQCuentaCanal: TIBQuery;
+    btnMarcar: TBitBtn;
+    frReport1: TfrReport;
     procedure CmdCerrarClick(Sender: TObject);
     procedure EdIdentificacionExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -86,6 +90,7 @@ type
     procedure btnReasignarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnMarcarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -120,7 +125,7 @@ implementation
 
 {$R *.dfm}
 
-uses IBDatabase, UnitBuscarPersona;
+uses IBDatabase, UnitBuscarPersona, unitMain;
 
 procedure TfrmAdministracionProductosVirtuales.CmdCerrarClick(Sender: TObject);
 begin
@@ -178,12 +183,12 @@ begin
         _vTipo      := DataSet.FieldByName('ID_TIPO_CAPTACION').AsInteger;
         _vNumero    := DataSet.FieldByName('NUMERO_CUENTA').AsInteger;
         _vDigito    := DataSet.FieldByName('DIGITO_CUENTA').AsInteger;
-        IBQCanal.Close;
-        IBQCanal.ParamByName('ID_AGENCIA').AsInteger := DataSet.FieldByName('ID_AGENCIA').AsInteger;
-        IBQCanal.ParamByName('ID_TIPO_CAPTACION').AsInteger := DataSet.FieldByName('ID_TIPO_CAPTACION').AsInteger;
-        IBQCanal.ParamByName('NUMERO_CUENTA').AsInteger := DataSet.FieldByName('NUMERO_CUENTA').AsInteger;
-        IBQCanal.ParamByName('DIGITO_CUENTA').AsInteger := DataSet.FieldByName('DIGITO_CUENTA').AsInteger;
-        IBQCanal.Open;
+        IBQCuentaCanal.Close;
+        IBQCuentaCanal.ParamByName('ID_AGENCIA').AsInteger := DataSet.FieldByName('ID_AGENCIA').AsInteger;
+        IBQCuentaCanal.ParamByName('ID_TIPO_CAPTACION').AsInteger := DataSet.FieldByName('ID_TIPO_CAPTACION').AsInteger;
+        IBQCuentaCanal.ParamByName('NUMERO_CUENTA').AsInteger := DataSet.FieldByName('NUMERO_CUENTA').AsInteger;
+        IBQCuentaCanal.ParamByName('DIGITO_CUENTA').AsInteger := DataSet.FieldByName('DIGITO_CUENTA').AsInteger;
+        IBQCuentaCanal.Open;
 
         IBQCaptacion.Close;
         IBQCaptacion.ParamByName('ID_AGENCIA').AsInteger := DataSet.FieldByName('ID_AGENCIA').AsInteger;
@@ -215,12 +220,14 @@ begin
           edTarjetaDebito.Text := IBQTarjeta.FieldByName('VITA_TARJETA').AsString;
           _vita_id := IBQTarjeta.FieldByName('VITA_ID').AsInteger;
           btnReasignar.Enabled := True;
+          btnMarcar.Enabled := True;
           _Atm := True;
         end
         else
         begin
           edTarjetaDebito.Text := '';
           btnReasignar.Enabled := False;
+          btnMarcar.Enabled := False;
           _Atm := False;
         end;
 
@@ -246,64 +253,113 @@ begin
         edNopeCNB.Value := 0;
         edTopeCNB.Value := 0;
 
+        IBQCuentaCanal.Last;
+        IBQCuentaCanal.First;
 
-
+      if (IBQCuentaCanal.RecordCount > 0) then
+      begin
         while not IBQCanal.Eof do
         begin
           _vModificar := True;
           btnGrabar.Caption := 'Actualizar';
-          if (IBQCanal.FieldByName('VICA_ID').AsInteger = 1) then
+          if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 1) then
           begin
               chkATM.Checked := True;
-              edNopeATM.Value := IBQCanal.FieldByName('VICC_NOPE').AsInteger;
-              edTopeATM.Value := IBQCanal.FieldByName('VICC_MONTO').AsCurrency;
+              edNopeATM.Value := IBQCuentaCanal.FieldByName('VICC_NOPE').AsInteger;
+              edTopeATM.Value := IBQCuentaCanal.FieldByName('VICC_MONTO').AsCurrency;
               _Atm := True;
+          end;
+          if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 2) then
+          begin
+              chkPOS.Checked := True;
+              edNopePOS.Value := IBQCuentaCanal.FieldByName('VICC_NOPE').AsInteger;
+              edTopePOS.Value := IBQCuentaCanal.FieldByName('VICC_MONTO').AsCurrency;
+              _Pos := True;
+          end;
+          if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 3) then
+          begin
+              chkIVR.Checked := True;
+              edNopeIVR.Value := IBQCuentaCanal.FieldByName('VICC_NOPE').AsInteger;
+              edTopeIVR.Value := IBQCuentaCanal.FieldByName('VICC_MONTO').AsCurrency;
+              _Ivr := True;
+          end;
+          if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 4) then
+          begin
+              chkWEB.Checked := True;
+              edNopeWEB.Value := IBQCuentaCanal.FieldByName('VICC_NOPE').AsInteger;
+              edTopeWEB.Value := IBQCuentaCanal.FieldByName('VICC_MONTO').AsCurrency;
+              _Web := True;
+          end;
+          if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 5) then
+          begin
+              chkMOV.Checked := True;
+              edNopeMOV.Value := IBQCuentaCanal.FieldByName('VICC_NOPE').AsInteger;
+              edTopeMOV.Value := IBQCuentaCanal.FieldByName('VICC_MONTO').AsCurrency;
+              _Mov := True;
+          end;
+          if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 6) then
+          begin
+              chkOFI.Checked := True;
+              edNopeOFI.Value := IBQCuentaCanal.FieldByName('VICC_NOPE').AsInteger;
+              edTopeOFI.Value := IBQCuentaCanal.FieldByName('VICC_MONTO').AsCurrency;
+              _Ofi := True;
+          end;
+          if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 7) then
+          begin
+              chkCNB.Checked := True;
+              edNopeCNB.Value := IBQCuentaCanal.FieldByName('VICC_NOPE').AsInteger;
+              edTopeCNB.Value := IBQCuentaCanal.FieldByName('VICC_MONTO').AsCurrency;
+              _Cnb := True;
+          end;
+          IBQCuentaCanal.Next;
+        end;
+      end
+      else
+      begin
+          IBQCanal.Open;
+          while not IBQCanal.Eof do
+          begin
+          if (IBQCanal.FieldByName('VICA_ID').AsInteger = 1) then
+          begin
+              edNopeATM.Value := IBQCanal.FieldByName('VICA_NOPE').AsInteger;
+              edTopeATM.Value := IBQCanal.FieldByName('VICA_MONTO').AsCurrency;
           end;
           if (IBQCanal.FieldByName('VICA_ID').AsInteger = 2) then
           begin
-              chkPOS.Checked := True;
-              edNopePOS.Value := IBQCanal.FieldByName('VICC_NOPE').AsInteger;
-              edTopePOS.Value := IBQCanal.FieldByName('VICC_MONTO').AsCurrency;
-              _Pos := True;
+              edNopePOS.Value := IBQCanal.FieldByName('VICA_NOPE').AsInteger;
+              edTopePOS.Value := IBQCanal.FieldByName('VICA_MONTO').AsCurrency;
           end;
           if (IBQCanal.FieldByName('VICA_ID').AsInteger = 3) then
           begin
-              chkIVR.Checked := True;
-              edNopeIVR.Value := IBQCanal.FieldByName('VICC_NOPE').AsInteger;
-              edTopeIVR.Value := IBQCanal.FieldByName('VICC_MONTO').AsCurrency;
-              _Ivr := True;
+              edNopeIVR.Value := IBQCanal.FieldByName('VICA_NOPE').AsInteger;
+              edTopeIVR.Value := IBQCanal.FieldByName('VICA_MONTO').AsCurrency;
           end;
           if (IBQCanal.FieldByName('VICA_ID').AsInteger = 4) then
           begin
-              chkWEB.Checked := True;
-              edNopeWEB.Value := IBQCanal.FieldByName('VICC_NOPE').AsInteger;
-              edTopeWEB.Value := IBQCanal.FieldByName('VICC_MONTO').AsCurrency;
-              _Web := True;
+              edNopeWEB.Value := IBQCanal.FieldByName('VICA_NOPE').AsInteger;
+              edTopeWEB.Value := IBQCanal.FieldByName('VICA_MONTO').AsCurrency;
           end;
           if (IBQCanal.FieldByName('VICA_ID').AsInteger = 5) then
           begin
-              chkMOV.Checked := True;
-              edNopeMOV.Value := IBQCanal.FieldByName('VICC_NOPE').AsInteger;
-              edTopeMOV.Value := IBQCanal.FieldByName('VICC_MONTO').AsCurrency;
-              _Mov := True;
+              edNopeMOV.Value := IBQCanal.FieldByName('VICA_NOPE').AsInteger;
+              edTopeMOV.Value := IBQCanal.FieldByName('VICA_MONTO').AsCurrency;
           end;
           if (IBQCanal.FieldByName('VICA_ID').AsInteger = 6) then
           begin
-              chkOFI.Checked := True;
-              edNopeOFI.Value := IBQCanal.FieldByName('VICC_NOPE').AsInteger;
-              edTopeOFI.Value := IBQCanal.FieldByName('VICC_MONTO').AsCurrency;
-              _Ofi := True;
+              edNopeOFI.Value := IBQCanal.FieldByName('VICA_NOPE').AsInteger;
+              edTopeOFI.Value := IBQCanal.FieldByName('VICA_MONTO').AsCurrency;
           end;
           if (IBQCanal.FieldByName('VICA_ID').AsInteger = 7) then
           begin
-              chkCNB.Checked := True;
-              edNopeCNB.Value := IBQCanal.FieldByName('VICC_NOPE').AsInteger;
-              edTopeCNB.Value := IBQCanal.FieldByName('VICC_MONTO').AsCurrency;
-              _Cnb := True;
+              edNopeCNB.Value := IBQCanal.FieldByName('VICA_NOPE').AsInteger;
+              edTopeCNB.Value := IBQCanal.FieldByName('VICA_MONTO').AsCurrency;
           end;
-          IBQCanal.Next;
-        end;
-        
+              IBQCanal.Next;
+          end;
+          IBQCanal.Close;
+      end;
+      chkATM.Checked := True;
+
 
 end;
 
@@ -808,6 +864,11 @@ begin
            IBQGuardar.Transaction.Commit;
            btnGrabar.Enabled := False;
            ShowMessage('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!');
+
+           dmGeneral.IBTransaction1.StartTransaction;
+           IBQTipoIdentificacion.Close;
+           IBQTipoIdentificacion.Open;
+           IBQTipoIdentificacion.Last;
         end;
 end;
 
@@ -849,6 +910,15 @@ begin
         begin
           dmGeneral.IBTransaction1.Commit;
         end;
+end;
+
+procedure TfrmAdministracionProductosVirtuales.btnMarcarClick(
+  Sender: TObject);
+begin
+        frReport1.LoadFromFile(frmMain.ruta1 + 'ReportesCap\MarcarPlasticoTD.frf');
+        frReport1.Dictionary.Variables.Variable['NOMBRE'] := QuotedStr(EdNombres.Text + ' ' + EdPrimerApellido.Text + ' ' + EdSegundoApellido.Text);
+        if (frReport1.PrepareReport) then
+           frReport1.ShowPreparedReport;
 end;
 
 end.

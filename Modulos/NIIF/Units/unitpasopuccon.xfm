@@ -1,0 +1,163 @@
+object frmImportarPuc: TfrmImportarPuc
+  Left = 235
+  Top = 156
+  Width = 347
+  Height = 131
+  VertScrollBar.Range = 123
+  HorzScrollBar.Range = 341
+  ActiveControl = Ed1
+  Caption = 'Importar Puc Oficinas'
+  Color = clBackground
+  OnClose = FormClose
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  TextWidth = 6
+  object Bar1: TProgressBar
+    Left = 4
+    Top = 86
+    Width = 333
+    Height = 18
+    BorderWidth = 1
+    Color = clOlive
+    FillColor = clPurple
+    ParentColor = False
+  end
+  object Bar: TProgressBar
+    Left = 4
+    Top = 106
+    Width = 333
+    Height = 17
+    FillColor = clFuchsia
+  end
+  object Label1: TLabel
+    Left = 4
+    Top = 4
+    Width = 89
+    Height = 13
+    Caption = 'Archivo a Importar:'
+  end
+  object Ed1: TEdit
+    Left = 2
+    Top = 20
+    Width = 213
+    Height = 21
+    TabOrder = 1
+  end
+  object BtnExaminar: TButton
+    Left = 218
+    Top = 22
+    Width = 19
+    Height = 19
+    Caption = '...'
+    TabOrder = 2
+    OnClick = BtnExaminarClick
+  end
+  object Label2: TLabel
+    Left = 236
+    Top = 4
+    Width = 102
+    Height = 13
+    Caption = 'N'#250'mero de  Registros'
+  end
+  object Ed2: TMaskEdit
+    Left = 236
+    Top = 20
+    Width = 101
+    Height = 21
+    EditMask = '!99999;1;_'
+    MaxLength = 5
+    TabOrder = 4
+    Text = '     '
+  end
+  object BitBtn1: TBitBtn
+    Left = 218
+    Top = 44
+    Width = 123
+    Height = 27
+    Caption = 'Iniciar Importaci'#243'n'
+    TabOrder = 5
+    OnClick = BitBtn1Click
+  end
+  object Label3: TLabel
+    Left = 4
+    Top = 48
+    Width = 39
+    Height = 13
+    Caption = 'Agencia'
+  end
+  object EdAgencia: TEdit
+    Left = 48
+    Top = 44
+    Width = 21
+    Height = 21
+    TabOrder = 7
+    Text = '1'
+  end
+  object Label4: TLabel
+    Left = 79
+    Top = 48
+    Width = 20
+    Height = 13
+    Caption = 'Mes'
+  end
+  object EdMes: TEdit
+    Left = 113
+    Top = 44
+    Width = 21
+    Height = 21
+    TabOrder = 9
+    Text = '1'
+  end
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = IBDatabase1
+    Params.Strings = (
+      '')
+    Left = 80
+    Top = 72
+  end
+  object Dataset: TIBSQL
+    Database = IBDatabase1
+    SQL.Strings = (
+      'insert into "con$puccon" ('
+      '"con$puccon".CODIGO,'
+      '"con$puccon".ID_AGENCIA,'
+      '"con$puccon".MES,'
+      '"con$puccon".NOMBRE,'
+      '"con$puccon".TIPO,'
+      '"con$puccon".CODIGOMAYOR,'
+      '"con$puccon".MOVIMIENTO,'
+      '"con$puccon".ESBANCO,'
+      '"con$puccon".INFORME,'
+      '"con$puccon".NIVEL,'
+      '"con$puccon".NATURALEZA,'
+      '"con$puccon".CENTROCOSTO,'
+      '"con$puccon".SALDOACTUAL,'
+      '"con$puccon".ESCAPTACION,'
+      '"con$puccon".ESCOLOCACION)'
+      'VALUES ('
+      ':"CODIGO", :"ID_AGENCIA",:"MES",'
+      ':"NOMBRE", :"TIPO", :"CODIGOMAYOR",'
+      ':"MOVIMIENTO", :"ESBANCO", :"INFORME",'
+      ':"NIVEL", :"NATURALEZA", :"CENTROCOSTO", '
+      ':"SALDOACTUAL", :"ESCAPTACION", :"ESCOLOCACION")')
+    Transaction = IBTransaction1
+    Left = 32
+    Top = 68
+  end
+  object OpenDialog1: TOpenDialog
+    Title = 'Open'
+    Left = 4
+    Top = 68
+  end
+  object IBDatabase1: TIBDatabase
+    DatabaseName = '192.168.1.2:/var/db/fbird/database.fdb'
+    Params.Strings = (
+      'user_name=SYSDBA'
+      'password=masterkey'
+      'lc_ctype=ISO8859_1')
+    LoginPrompt = False
+    Left = 58
+    Top = 68
+  end
+end

@@ -337,9 +337,9 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Text = '0000000000000000000'
     end
     object btnReasignar: TBitBtn
-      Left = 513
+      Left = 576
       Top = 9
-      Width = 120
+      Width = 57
       Height = 25
       Caption = 'ReAsignar'
       Enabled = False
@@ -352,6 +352,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
+      Enabled = False
       TabOrder = 2
     end
     object edNopeATM: TJvIntegerEdit
@@ -584,6 +585,16 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       HasMaxValue = False
       HasMinValue = False
     end
+    object btnMarcar: TBitBtn
+      Left = 512
+      Top = 9
+      Width = 57
+      Height = 25
+      Caption = '&Marcar'
+      Enabled = False
+      TabOrder = 23
+      OnClick = btnMarcarClick
+    end
   end
   object GroupBox3: TGroupBox
     Left = 1
@@ -777,37 +788,9 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
     SQL.Strings = (
-      'SELECT * FROM VIRTUAL_CUENTA vc'
-      'LEFT JOIN VIRTUAL_CUENTA_CANAL vcc ON vcc.VICU_ID = vc.VICU_ID'
-      
-        'WHERE vc.VICU_ID_AGENCIA = :ID_AGENCIA and vc.VICU_TIPO_CUENTA =' +
-        ' :ID_TIPO_CAPTACION and'
-      'vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and'
-      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA and'
-      'vcc.VICC_ESTADO <> 9')
+      'SELECT * FROM VIRTUAL_CANAL')
     Left = 200
     Top = 152
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'ID_AGENCIA'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'ID_TIPO_CAPTACION'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'NUMERO_CUENTA'
-        ParamType = ptUnknown
-      end
-      item
-        DataType = ftUnknown
-        Name = 'DIGITO_CUENTA'
-        ParamType = ptUnknown
-      end>
   end
   object IBQTarjeta: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -918,5 +901,60 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     DataSet = IBQTipoIdentificacion
     Left = 120
     Top = 56
+  end
+  object IBQCuentaCanal: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    SQL.Strings = (
+      'SELECT * FROM VIRTUAL_CUENTA vc'
+      'LEFT JOIN VIRTUAL_CUENTA_CANAL vcc ON vcc.VICU_ID = vc.VICU_ID'
+      
+        'WHERE vc.VICU_ID_AGENCIA = :ID_AGENCIA and vc.VICU_TIPO_CUENTA =' +
+        ' :ID_TIPO_CAPTACION and'
+      'vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and'
+      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA and'
+      'vcc.VICC_ESTADO <> 9')
+    Left = 272
+    Top = 152
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_AGENCIA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_TIPO_CAPTACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUMERO_CUENTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DIGITO_CUENTA'
+        ParamType = ptUnknown
+      end>
+  end
+  object frReport1: TfrReport
+    InitialZoom = pzDefault
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    StoreInDFM = True
+    RebuildPrinter = False
+    Left = 560
+    Top = 168
+    ReportForm = {
+      1900000031010000190000000001000100FFFFFFFFFF00010000520300001C02
+      0000160000000E000000190000000B00000001FFFF00000000FFFF0000000000
+      00000000000000030400466F726D000F000080DC000000780000007C0100002C
+      010000040000000000E500000005004D656D6F3200020016000000A500000000
+      010000140000000300000001000000000000000000FFFFFF1F2E020000000000
+      010008005B4E4F4D4252455D00000000FFFF0000000000020000000100000000
+      0500417269616C000A000000020000000000000000000100020000000000FFFF
+      FF000000000200000000000000FEFEFF0200000008002047656E6572616C0000
+      000006004E4F4D425245000000000000000000000000FC000000000000000000
+      000000000000004D000717B6C7545DE3409DAA68F1755AE540}
   end
 end

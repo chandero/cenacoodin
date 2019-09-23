@@ -1,0 +1,589 @@
+object TprTxReport
+  ShowProgress = True
+  Title = 'Informe Diario de Cartera'
+  ExportFromPage = 0
+  ExportToPage = 0
+  Values = <
+    item
+      Group = funcionario
+      Name = 'TNoxFuncionario'
+      AggFunction = prafCount
+      Formula = 'IBQuery2.ID_COLOCACION'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery2'
+    end
+    item
+      Group = funcionario
+      Name = 'TValorxFuncionario'
+      AggFunction = prafSum
+      Formula = 'IBQuery2.VALOR_DESEMBOLSO'
+      ResetOn = rvtGroup
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery2'
+    end
+    item
+      Name = 'TotalDesembolsos'
+      AggFunction = prafCount
+      Formula = 'IBQuery2.ID_COLOCACION'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery2'
+    end
+    item
+      Name = 'ValorDesembolsos'
+      AggFunction = prafSum
+      Formula = 'IBQuery2.VALOR_DESEMBOLSO'
+      ResetOn = rvtReport
+      CalcOn = cvtDataSetNext
+      DataSetName = 'IBQuery2'
+    end>
+  Variables = <
+    item
+      Name = 'Empresa'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'Hoy'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'empleado'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'usuario'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'FechaInicial'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'FechaFinal'
+      ValueType = 'prvvtString'
+      Value = ''
+    end
+    item
+      Name = 'Nit'
+      ValueType = 'prvvtString'
+      Value = ''
+    end>
+  WrapAfterColumn = 0
+  EjectPageAfterPrint = False
+  LinesOnPage = 0
+  FromLine = 0
+  ToLine = 0
+  ExportFromLine = 0
+  ExportToLine = 0
+  Left = 110
+  Top = 424
+  SystemInfo = (
+    'OS: WIN32_NT 5.1.2600 Service Pack 2'
+    ''
+    'PageSize: 4096'
+    'ActiveProcessorMask: $1000'
+    'NumberOfProcessors: 2'
+    'ProcessorType: 586'
+    ''
+    'Compiler version: Delphi6'
+    'PReport version: 1.9.4')
+  object prTxPage1: TprTxPage
+    PageType = tptPage
+    LineNum = 60
+    ColNum = 80
+    object prTxHPageHeaderBand1: TprTxHPageHeaderBand
+      Height = 3
+      UseVerticalBands = False
+      PrintOnFirstPage = True
+      object prTxMemoObj1: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[Empresa]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 27
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxCommandObj1: TprTxCommandObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcWideOn)
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 1
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxCommandObj2: TprTxCommandObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            TxCommands = (
+              txcWideOff
+              txcCondensedOn)
+          end>
+        dRec.Left = 79
+        dRec.Top = 0
+        dRec.Right = 80
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj30: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Fecha Informe :  [:<yyyy/mm/dd>Hoy]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 36
+        dRec.Bottom = 3
+        Visible = False
+      end
+      object prTxMemoObj32: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                'INFORME DE DESEMBOLSOS DIARIOS POR EMPLEADO ENTRE [:<yyyy/mm/dd>' +
+                'FechaInicial] y [:<yyyy/mm/dd>FechaFinal]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhCenter
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 80
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj79: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'P'#225'gina [Page] de [PagesCount]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 54
+        dRec.Top = 2
+        dRec.Right = 80
+        dRec.Bottom = 3
+        Visible = False
+      end
+      object prTxMemoObj13: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Nit. [Nit]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 55
+        dRec.Top = 0
+        dRec.Right = 79
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHDetailBand1: TprTxHDetailBand
+      Visible = False
+      Height = 1
+      UseVerticalBands = False
+      DataSetName = 'IBQuery2'
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      Groups = (
+        'Fecha'
+        'funcionario')
+      object prTxMemoObj18: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery2.ID_COLOCACION]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 14
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj42: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0>IBQuery2.VALOR_DESEMBOLSO]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 15
+        dRec.Top = 0
+        dRec.Right = 35
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHGroupFooterBand1: TprTxHGroupFooterBand
+      Height = 1
+      UseVerticalBands = False
+      Group = funcionario
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      object prTxMemoObj6: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0>TValorxFuncionario]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 53
+        dRec.Top = 0
+        dRec.Right = 73
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj5: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[TNoxFuncionario]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 39
+        dRec.Top = 0
+        dRec.Right = 52
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj2: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery2.NOMBRE_EMPLEADO]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 38
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHGroupHeaderBand2: TprTxHGroupHeaderBand
+      Height = 3
+      UseVerticalBands = False
+      Group = Fecha
+      ColCount = 1
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      StartNewPage = False
+      ReprintOnEachPage = False
+      object prTxMemoObj4: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[IBQuery2.FECHA_DESEMBOLSO]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 51
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxHLineObj3: TprTxHLineObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 80
+        dRec.Bottom = 3
+        Visible = False
+      end
+      object prTxHLineObj4: TprTxHLineObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 1
+        dRec.Top = 0
+        dRec.Right = 80
+        dRec.Bottom = 1
+        Visible = False
+      end
+    end
+    object prTxHSummaryBand1: TprTxHSummaryBand
+      Height = 4
+      UseVerticalBands = False
+      object prTxMemoObj3: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              
+                '----------------------------------------------------------------' +
+                '----------------------------------------------------------------' +
+                '---------')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 0
+        dRec.Top = 0
+        dRec.Right = 80
+        dRec.Bottom = 1
+        Visible = False
+      end
+      object prTxMemoObj7: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'TOTAL :')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 1
+        dRec.Right = 8
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj8: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[TotalDesembolsos]')
+            DeleteEmptyLinesAtEnd = True
+            DeleteEmptyLines = True
+            CanResizeX = True
+            CanResizeY = True
+            hAlign = prhLeft
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = True
+          end>
+        dRec.Left = 39
+        dRec.Top = 1
+        dRec.Right = 52
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxMemoObj9: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              '[:<#,##0>ValorDesembolsos]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhRight
+            vAlign = prvCenter
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 53
+        dRec.Top = 1
+        dRec.Right = 73
+        dRec.Bottom = 2
+        Visible = False
+      end
+      object prTxHLineObj2: TprTxHLineObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+          end>
+        dRec.Left = 1
+        dRec.Top = 2
+        dRec.Right = 80
+        dRec.Bottom = 3
+        Visible = False
+      end
+      object prTxMemoObj10: TprTxMemoObj
+        dRec.DefVersion = 0
+        dRec.Versions = <
+          item
+            Visible = True
+            Memo.Strings = (
+              'Elabor'#243' :  [empleado]')
+            DeleteEmptyLinesAtEnd = False
+            DeleteEmptyLines = False
+            CanResizeX = False
+            CanResizeY = False
+            hAlign = prhLeft
+            vAlign = prvTop
+            DefaultFont = False
+            WordWrap = False
+          end>
+        dRec.Left = 1
+        dRec.Top = 3
+        dRec.Right = 45
+        dRec.Bottom = 4
+        Visible = False
+      end
+    end
+    object prTxHGroupFooterBand2: TprTxHGroupFooterBand
+      Visible = False
+      Height = 1
+      UseVerticalBands = False
+      Group = Fecha
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+    end
+    object prTxHGroupHeaderBand3: TprTxHGroupHeaderBand
+      Visible = False
+      Height = 1
+      UseVerticalBands = False
+      Group = funcionario
+      ColCount = 0
+      ColDirection = prcdTopBottomLeftRight
+      LinkToDetail = False
+      StartNewPage = False
+      ReprintOnEachPage = False
+    end
+  end
+  object Fecha: TprGroup
+    Valid = 'IBQuery2.FECHA_DESEMBOLSO'
+    DetailBand = prTxHDetailBand1
+  end
+  object funcionario: TprGroup
+    Valid = 'IBQuery2.ID_EMPLEADO'
+    DetailBand = prTxHDetailBand1
+  end
+end

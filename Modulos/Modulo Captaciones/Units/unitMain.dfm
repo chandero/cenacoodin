@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 161
-  Top = 179
+  Left = 506
+  Top = 191
   Width = 632
   Height = 393
   Caption = 'Modulo Captaciones - '
@@ -260,10 +260,12 @@ object frmMain: TfrmMain
         object SolicitarNuevasTarjetas1: TMenuItem
           Tag = 102030702
           Caption = 'Solicitar Nuevas Tarjetas'
+          Visible = False
           OnClick = SolicitarNuevasTarjetas1Click
         end
         object Barrido1: TMenuItem
           Caption = 'Barrido'
+          Visible = False
           OnClick = Barrido1Click
         end
         object ConfigurarImpresora2: TMenuItem
@@ -271,7 +273,11 @@ object frmMain: TfrmMain
         end
         object ReporteTarjetassinMovimiento1: TMenuItem
           Caption = 'Barrido Tarjetas sin Movimiento'
+          Visible = False
           OnClick = ReporteTarjetassinMovimiento1Click
+        end
+        object MarcarTarjeta1: TMenuItem
+          Caption = 'Marcar Tarjeta'
         end
       end
     end

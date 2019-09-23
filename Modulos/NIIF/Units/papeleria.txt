@@ -1,0 +1,16 @@
+        if ChkPapeleria.Checked then
+         begin
+           with IBSQL1 do begin
+             Close;
+             SQL.Clear;
+             SQL.Add('select VALOR_MINIMO from "gen$minimos" where ID_MINIMO = 4');
+             ExecQuery;
+             vPapeleria := FieldByName('VALOR_MINIMO').AsCurrency;
+             Close;
+           end;
+         end
+        else
+           vPapeleria := 0;
+        TGeneral := vAbonoCapital + vAbonoInteresCausado + vAbonoInteresContingente + vAbonoInteresCorriente +
+                    vAbonoInteresAnticipado + vAbonoInteresMora + vInteresCobrado - vInteresDevuelto + vPapeleria + vExAsociados + vcostas;
+        EdTotalColManual.Caption := FormatCurr('#,0.00',TGeneral);

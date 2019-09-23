@@ -153,7 +153,6 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmConciliacionServiciosVirtuales, frmConciliacionServiciosVirtuales);
   Application.Run;
 end.
 

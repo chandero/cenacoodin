@@ -162,6 +162,8 @@ var
     vTotalTemporal: Currency;
     CodigoGanadiario, CodigoSubcuenta, CodigoCaja, CodigoTemporal, CodigoComision: String;
 
+    vTotalNota: Currency;
+
 begin
         vTotalDebitoMovimiento := 0;
         vTotalCreditoMovimiento := 0;
@@ -178,6 +180,8 @@ begin
         vTotalComision := 0;
         vTotalGmf := 0;
         vTotalCaja := 0;
+
+        vTotalNota := 0;
         
         CDSdata.Close;
         CDSdata.Open;
@@ -625,24 +629,6 @@ begin
       if chkComprobante.Checked then
       begin
         Comprobante := ObtenerConsecutivo(IBSQL1);
-        with IBDComprobante do
-        begin
-           Open;
-           Append;
-           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
-           FieldByName('ID_AGENCIA').AsInteger := Agencia;
-           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
-           FieldByName('FECHADIA').AsDateTime := EdFechaNota.Date;
-           FieldByName('DESCRIPCION').AsString := 'Conciliacion Servicios Virtuales De Fecha ' + DateToStr(edFecha.Date);
-           FieldByName('TOTAL_DEBITO').AsCurrency := 0;
-           FieldByName('TOTAL_CREDITO').AsCurrency := 0;
-           FieldByName('ESTADO').AsString := 'O';
-           FieldByName('IMPRESO').AsInteger := 1;
-           FieldByName('ANULACION').AsString := '';
-           FieldByName('ID_EMPLEADO').AsString := DBAlias;
-           Post;
-        end;
-
         with IBDAuxiliar do
         begin
            Open;
@@ -683,6 +669,7 @@ begin
             FieldByName('ESTADOAUX').AsString := 'O';
             FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
             Post;
+            vTotalNota := vTotalNota + (-vTotalGanadiario);
            end;
 
            if vTotalSubCuenta > 0 then
@@ -722,6 +709,7 @@ begin
             FieldByName('ESTADOAUX').AsString := 'O';
             FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
             Post;
+            vTotalNota := vTotalNota + (-vTotalSubCuenta);
            end;
 
            if vTotalCaja > 0 then
@@ -742,6 +730,7 @@ begin
             FieldByName('ESTADOAUX').AsString := 'O';
             FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
             Post;
+            vTotalNota := vTotalNota + vTotalCaja;
            end
            else if vTotalCaja < 0 then
            begin
@@ -800,6 +789,7 @@ begin
             FieldByName('ESTADOAUX').AsString := 'O';
             FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
             Post;
+            vTotalNota := vTotalNota + (-vTotalComision);
            end;
 
            if vTotalTemporal > 0 then
@@ -820,6 +810,7 @@ begin
             FieldByName('ESTADOAUX').AsString := 'O';
             FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
             Post;
+            vTotalNota := vTotalNota + vTotalTemporal;
            end
            else if vTotalTemporal < 0 then
            begin
@@ -841,6 +832,25 @@ begin
             Post;
            end;
         end;
+
+        with IBDComprobante do
+        begin
+           Open;
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+           FieldByName('FECHADIA').AsDateTime := EdFechaNota.Date;
+           FieldByName('DESCRIPCION').AsString := 'Conciliacion Servicios Virtuales De Fecha ' + DateToStr(edFecha.Date);
+           FieldByName('TOTAL_DEBITO').AsCurrency := vTotalNota;
+           FieldByName('TOTAL_CREDITO').AsCurrency := vTotalNota;
+           FieldByName('ESTADO').AsString := 'O';
+           FieldByName('IMPRESO').AsInteger := 1;
+           FieldByName('ANULACION').AsString := '';
+           FieldByName('ID_EMPLEADO').AsString := DBAlias;
+           Post;
+        end;
+
         btnComprobante.Enabled := true;
         IBQrecibir.Close;
         IBQrecibir.SQL.Clear;
