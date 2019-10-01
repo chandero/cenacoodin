@@ -278,6 +278,11 @@ object frmMain: TfrmMain
         end
         object MarcarTarjeta1: TMenuItem
           Caption = 'Marcar Tarjeta'
+          Visible = False
+        end
+        object ActualizarSaldoCuenta1: TMenuItem
+          Caption = 'Actualizar Saldo Cuenta'
+          OnClick = ActualizarSaldoCuenta1Click
         end
       end
     end

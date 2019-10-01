@@ -912,8 +912,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
         'WHERE vc.VICU_ID_AGENCIA = :ID_AGENCIA and vc.VICU_TIPO_CUENTA =' +
         ' :ID_TIPO_CAPTACION and'
       'vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and'
-      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA and'
-      'vcc.VICC_ESTADO <> 9')
+      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA')
     Left = 272
     Top = 152
     ParamData = <
@@ -946,7 +945,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     Left = 560
     Top = 168
     ReportForm = {
-      1900000031010000190000000001000100FFFFFFFFFF00010000520300001C02
+      1900000031010000190000000001000100FFFFFFFFFF00010000520300002003
       0000160000000E000000190000000B00000001FFFF00000000FFFF0000000000
       00000000000000030400466F726D000F000080DC000000780000007C0100002C
       010000040000000000E500000005004D656D6F3200020016000000A500000000
@@ -955,6 +954,40 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0500417269616C000A000000020000000000000000000100020000000000FFFF
       FF000000000200000000000000FEFEFF0200000008002047656E6572616C0000
       000006004E4F4D425245000000000000000000000000FC000000000000000000
-      000000000000004D000717B6C7545DE3409DAA68F1755AE540}
+      000000000000004D000717B6C7545DE3409AA923EA6D5BE540}
+  end
+  object IBQvCuenta: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    SQL.Strings = (
+      
+        'SELECT COUNT(*) AS EXISTE FROM VIRTUAL_CUENTA vc WHERE vc.VICU_I' +
+        'D_AGENCIA = :ID_AGENCIA and vc.VICU_TIPO_CUENTA = :ID_TIPO_CAPTA' +
+        'CION and'
+      'vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and'
+      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA')
+    Left = 240
+    Top = 184
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_AGENCIA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_TIPO_CAPTACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUMERO_CUENTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DIGITO_CUENTA'
+        ParamType = ptUnknown
+      end>
   end
 end

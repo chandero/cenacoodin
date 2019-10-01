@@ -143,7 +143,8 @@ uses
   UnitReimprimirCDAT in 'Units\UnitReimprimirCDAT.pas' {frmReimprimirCDAT},
   UnitDeJuvenilaAsociado in 'Units\UnitDeJuvenilaAsociado.pas' {frmDeJuvenilaAsociado},
   UnitAdministracionProductosVirtuales in 'Units\UnitAdministracionProductosVirtuales.pas' {frmAdministracionProductosVirtuales},
-  UnitConciliacionServiciosVirtuales in 'Units\UnitConciliacionServiciosVirtuales.pas' {frmConciliacionServiciosVirtuales};
+  UnitConciliacionServiciosVirtuales in 'Units\UnitConciliacionServiciosVirtuales.pas' {frmConciliacionServiciosVirtuales},
+  UnitActualizarSaldoCuentaServiciosVirtuales in 'Units\UnitActualizarSaldoCuentaServiciosVirtuales.pas' {frmActualizarSaldoCuentaServiciosVirtuales};
 
 {$R *.res}
 

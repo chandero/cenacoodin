@@ -6,7 +6,7 @@ object dmGeneral: TdmGeneral
   Width = 171
   object IBDatabase1: TIBDatabase
     Connected = True
-    DatabaseName = '10.0.2.2:C:\OPT\DB\COODINLOCAL.FDB'
+    DatabaseName = '10.0.2.2:C:\OPT\DB\COODINDEV.FDB'
     Params.Strings = (
       'lc_ctype=ISO8859_1'
       'user_name=SYSDBA'
