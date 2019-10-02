@@ -485,9 +485,10 @@ begin
                    if (_Reasignar = True) then
                    begin
                      IBQGuardar.SQL.Clear;
-                     IBQGuardar.SQL.Add('UPDATE VIRTUAL_TARJETA_CUENTA SET VITC_ESTADO = :VITC_ESTADO, VITC_ESLEIDO = :VITC_ESLEIDO WHERE VITA_ID = :VITA_ID');
+                     IBQGuardar.SQL.Add('UPDATE VIRTUAL_TARJETA_CUENTA SET VITC_ESTADO = :VITC_ESTADO, VITC_ESLEIDO = :VITC_ESLEIDO, VITC_FECHACANCELACION = :VITC_FECHACANCELACION WHERE VITA_ID = :VITA_ID');
                      IBQGuardar.ParamByName('VITC_ESTADO').AsInteger := 9;
                      IBQGuardar.ParamByName('VITC_ESLEIDO').AsInteger := 0;
+                     IBQGuardar.ParamByName('VITC_FECHACANCELACION').AsDateTime := fFechaHoraActual;
                      IBQGuardar.ParamByName('VITA_ID').AsInteger := _vita_id;
                      IBQGuardar.ExecSQL;
                      IBQGuardar.Close;
@@ -513,9 +514,10 @@ begin
                 if (_eAtm = True) then
                 begin
                      IBQGuardar.SQL.Clear;
-                     IBQGuardar.SQL.Add('UPDATE VIRTUAL_TARJETA_CUENTA SET VITC_ESTADO = :VITC_ESTADO, VITC_ESTADO = :VITC_ESTADO WHERE VITA_ID = :VITA_ID');
+                     IBQGuardar.SQL.Add('UPDATE VIRTUAL_TARJETA_CUENTA SET VITC_ESTADO = :VITC_ESTADO, VITC_ESTADO = :VITC_ESTADO, VITC_FECHACANCELACION = :VITC_FECHACANCELACION WHERE VITA_ID = :VITA_ID');
                      IBQGuardar.ParamByName('VITC_ESTADO').AsInteger := 9;
                      IBQGuardar.ParamByName('VITC_ESLEIDO').AsInteger := 0;
+                     IBQGuardar.ParamByName('VITC_FECHACANCELACION').AsDateTime := fFechaHoraActual;                     
                      IBQGuardar.ParamByName('VITA_ID').AsInteger := _vita_id;
                      IBQGuardar.ExecSQL;
                      IBQGuardar.Close;

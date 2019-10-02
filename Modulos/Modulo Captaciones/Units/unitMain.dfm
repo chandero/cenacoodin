@@ -284,6 +284,10 @@ object frmMain: TfrmMain
           Caption = 'Actualizar Saldo Cuenta'
           OnClick = ActualizarSaldoCuenta1Click
         end
+        object CancelarServiciosVirtuales1: TMenuItem
+          Caption = 'Cancelar Servicios Virtuales'
+          OnClick = CancelarServiciosVirtuales1Click
+        end
       end
     end
     object Gestiones1: TMenuItem

@@ -1,9 +1,9 @@
-object frmActualizarSaldoCuentaServiciosVirtuales: TfrmActualizarSaldoCuentaServiciosVirtuales
-  Left = 404
-  Top = 227
-  Width = 945
-  Height = 283
-  Caption = 'Actualizar Saldo de Cuenta'
+object frmCancelarServiciosVirtuales: TfrmCancelarServiciosVirtuales
+  Left = 393
+  Top = 206
+  Width = 957
+  Height = 281
+  Caption = 'Cancelar Servicios Virtuales'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,14 +17,14 @@ object frmActualizarSaldoCuentaServiciosVirtuales: TfrmActualizarSaldoCuentaServ
   object GroupBox4: TGroupBox
     Left = 5
     Top = 8
-    Width = 924
+    Width = 940
     Height = 201
     Caption = 'Cuentas con Servicios'
     TabOrder = 0
     object DBGCuentas: TDBGrid
       Left = 8
       Top = 16
-      Width = 905
+      Width = 921
       Height = 177
       DataSource = DSCuentas
       TabOrder = 0
@@ -44,28 +44,28 @@ object frmActualizarSaldoCuentaServiciosVirtuales: TfrmActualizarSaldoCuentaServ
           Expanded = False
           FieldName = 'NOMBRE'
           Title.Caption = 'ASOCIADO'
-          Width = 237
+          Width = 245
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VICU_TIPO_CUENTA'
           Title.Caption = 'TIPO_CUENTA'
-          Width = 98
+          Width = 124
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VICU_NUMERO_CUENTA'
           Title.Caption = 'NUMERO_CUENTA'
-          Width = 104
+          Width = 145
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VICU_DIGITO_CUENTA'
           Title.Caption = 'DIGITO_CUENTA'
-          Width = 95
+          Width = 129
           Visible = True
         end
         item
@@ -78,7 +78,7 @@ object frmActualizarSaldoCuentaServiciosVirtuales: TfrmActualizarSaldoCuentaServ
           Expanded = False
           FieldName = 'VICU_FECHA_REGISTRO'
           Title.Caption = 'FECHA_REGISTRO'
-          Width = 138
+          Width = 107
           Visible = True
         end>
     end
@@ -96,18 +96,9 @@ object frmActualizarSaldoCuentaServiciosVirtuales: TfrmActualizarSaldoCuentaServ
     Top = 216
     Width = 105
     Height = 25
-    Caption = 'Actualizar Selecci'#243'n'
+    Caption = 'Cancelar Servicios'
     TabOrder = 2
     OnClick = btnActualizarUnoClick
-  end
-  object btnActualizarTodos: TButton
-    Left = 272
-    Top = 216
-    Width = 105
-    Height = 25
-    Caption = 'Actualizar Todas'
-    TabOrder = 3
-    OnClick = btnActualizarTodosClick
   end
   object CmdCerrar: TBitBtn
     Left = 619
@@ -115,7 +106,7 @@ object frmActualizarSaldoCuentaServiciosVirtuales: TfrmActualizarSaldoCuentaServ
     Width = 75
     Height = 25
     Caption = '&Cerrar'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = CmdCerrarClick
     Glyph.Data = {
       36050000424D3605000000000000360400002800000010000000100000000100

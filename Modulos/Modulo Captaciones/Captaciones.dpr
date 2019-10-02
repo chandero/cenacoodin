@@ -144,7 +144,8 @@ uses
   UnitDeJuvenilaAsociado in 'Units\UnitDeJuvenilaAsociado.pas' {frmDeJuvenilaAsociado},
   UnitAdministracionProductosVirtuales in 'Units\UnitAdministracionProductosVirtuales.pas' {frmAdministracionProductosVirtuales},
   UnitConciliacionServiciosVirtuales in 'Units\UnitConciliacionServiciosVirtuales.pas' {frmConciliacionServiciosVirtuales},
-  UnitActualizarSaldoCuentaServiciosVirtuales in 'Units\UnitActualizarSaldoCuentaServiciosVirtuales.pas' {frmActualizarSaldoCuentaServiciosVirtuales};
+  UnitActualizarSaldoCuentaServiciosVirtuales in 'Units\UnitActualizarSaldoCuentaServiciosVirtuales.pas' {frmActualizarSaldoCuentaServiciosVirtuales},
+  UnitCancelarServiciosVirtuales in 'Units\UnitCancelarServiciosVirtuales.pas' {frmCancelarServiciosVirtuales};
 
 {$R *.res}
 
