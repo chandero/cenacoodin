@@ -145,6 +145,5 @@ begin
   Application.Title := 'Creditos';
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmRestructurar, frmRestructurar);
   Application.Run;
 end.

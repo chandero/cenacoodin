@@ -166,7 +166,7 @@ object frmMain: TfrmMain
         Caption = '-'
       end
       object SalirdePSI1: TMenuItem
-        Caption = '&Salir de Crediservir'
+        Caption = '&Salir de Cena'
         OnClick = SalirdePSI1Click
       end
     end

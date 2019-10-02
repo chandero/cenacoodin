@@ -316,6 +316,8 @@ type
     DbCuentas: TDBGrid;
     CDgarantiarealID_PERSONA: TStringField;
     CDgarantiarealID_IDENTIFICACION: TSmallintField;
+    btnModPlazo: TBitBtn;
+    btnModValor: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure CBtiposidEnter(Sender: TObject);
     procedure CBtiposidKeyPress(Sender: TObject; var Key: Char);
@@ -373,6 +375,9 @@ type
     procedure BTJudCasClick(Sender: TObject);
     procedure BTBancoldexClick(Sender: TObject);
     procedure BTfngClick(Sender: TObject);
+    procedure btnModPlazoClick(Sender: TObject);
+    procedure EDplazoExit(Sender: TObject);
+    procedure btnModValorClick(Sender: TObject);
   private
     vvalorpuntos: single;
     vCapitalizaAcumulada:Boolean;
@@ -455,6 +460,7 @@ type
     function vFianza(vId_Colocacion: string): boolean;
     function FianzaDescuento(vId_Colocaicon: string): boolean;
     procedure GrabarGarantiaReal;
+    procedure CalculoCuota;
     { Private declarations }
   public
   published
@@ -489,6 +495,8 @@ var
   NoBancoldex : string;
   vPeriodoGracia : Integer;
   vFechaGracia : TDate;
+  vDesembolsoReal: Currency;
+  vPlazoReal: Integer;
 implementation
 
 uses UnitdmColocacion, unitGlobales, UnitdmGeneral, UnitDmSolicitud, unitGlobalesCol,
@@ -848,6 +856,7 @@ begin
             ParamByName('ID_SOLICITUD').AsString := vIdSolicitud;
             ExecQuery;
             vDesembolso := FieldByName('VALOR_APROBADO').AsCurrency;
+            vDesembolsoReal := vDesembolso;
             vLinea := FieldByName('LINEA').AsInteger;
 {            if vLinea = 15 then
             begin
@@ -878,6 +887,7 @@ begin
             vGarantia := FieldByName('GARANTIA').AsInteger;
             EDvalorcolocacion.Value := vDesembolso;
             vPlazo := FieldByName('PLAZO_APROBADO').AsInteger;
+            vPlazoReal := vPlazo;
             EDplazo.Text := IntToStr(vPlazo);
             vAmortizaCapital := FieldByName('AMORTIZACION').AsInteger;
             EDamortizacap.Text := IntToStr(vAmortizaCapital);
@@ -4999,9 +5009,17 @@ begin
             EDvalorcolocacion.SetFocus;
             Exit;
           end;
+        end
+        else
+        begin
+           if (EDvalorcolocacion.Value > vDesembolsoReal) then
+           begin
+               EDvalorcolocacion.Value := vDesembolsoReal;
+           end;
         end;
         vDesembolso := EDvalorcolocacion.Value;
         //EDtasaefectivaexit(Self);
+        CalculoCuota;
 end;
 
 function TFrmDesembolso.extrae_valor: currency;
@@ -5842,6 +5860,117 @@ begin
            end;
         end;
 
+end;
+
+procedure TFrmDesembolso.btnModPlazoClick(Sender: TObject);
+begin
+        if ValidarOpcion(btnModPlazo.Tag) then begin
+          EDplazo.ReadOnly := False;
+        end
+        else
+        begin
+          EDplazo.ReadOnly := True;
+        end;
+end;
+
+procedure TFrmDesembolso.EDplazoExit(Sender: TObject);
+var
+  _plazo : Integer;
+begin
+     _plazo := StrToInt(edPlazo.Text);
+     if (_plazo > vPlazoReal) then
+     begin
+         EdPlazo.Text := IntToStr(vPlazoReal);
+     end
+     else
+     begin
+         vPlazo := _plazo;
+     end;
+     CalculoCuota;
+end;
+
+procedure TFrmDesembolso.btnModValorClick(Sender: TObject);
+begin
+        if ValidarOpcion(btnModValor.Tag) then begin
+          EDvalorcolocacion.ReadOnly := False;
+        end
+        else
+        begin
+          EDvalorcolocacion.ReadOnly := True;
+        end;
+end;
+
+procedure TFrmDesembolso.CalculoCuota;
+var
+  Plazo: Integer;
+begin
+        if DmColocacion.IBDStipocuota.Locate('ID_TIPOS_CUOTA',VarArrayOf([vTipoCuota]),[loCaseInsensitive]) = True then
+        begin
+           vCapitalVencido := DmColocacion.IBDStipocuota.FieldByName('CAPITAL').AsString;
+           vInteresVencido := DMColocacion.IBDStipocuota.FieldByName('INTERES').AsString;
+           vCuotaTipo := DMColocacion.IBDStipocuota.FieldByName('TIPO_CUOTA').AsString;
+        end
+        else
+        begin
+           vCapitalVencido := 'V';
+           vInteresVencido := 'V';
+           vCuotaTipo      := 'F';
+        end;
+        {
+        if vLinea = 7 then
+        begin
+           EdAmortizaCap.Text := FormatCurr('#',vAmortizaCapital);
+           vAmortizaInteres := 30;
+           EdAmortizaInt.Text := FormatCurr('#',vAmortizaInteres);
+        end;
+        }
+///*****************fin tipo de cuota
+
+        Plazo := vPlazo;
+        {
+         if vLinea = 13 then
+          Plazo := Plazo - ((vPeriodoGracia div vAmortizaCapital) * vAmortizaCapital);
+        }
+
+        if vCuotaTipo = 'F' then
+        begin
+          vAmortizaCapital := vAmortizaInteres;
+          EdAmortizaCap.Text := FormatCurr('#0',vAmortizaCapital);
+          vValorCuota := CuotaFija(vDesembolso,Plazo,vTasaEfectiva,vAmortizaInteres);
+        end
+        else
+        begin
+          vValorCuota := CuotaVariable(vDesembolso,Plazo,vTasaEfectiva,vAmortizaCapital);
+        end;
+
+        if vCapitalVencido = 'V' then
+           vTasaNominal := (TasaNominalVencida(vTasaEfectiva,vAmortizaInteres) + vPuntosAdicionales)
+        else
+           vTasaNominal := (TasaNominalAnticipada(vTasaEfectiva,vAmortizaInteres)+ vPuntosAdicionales);
+        EDtasanom.Text  := FormatCurr('#0.00%',vTasaNominal);
+        EdValorCuota.Caption := FormatCurr('$#,##0',vValorCuota);
+        vFechaVencimiento := vFechaDesembolso;
+        vFechaVencimiento := CalculoFecha(vFechaVencimiento,vPlazo+vPeriodoGracia);
+        DateTime_SetFormat(EdFechaVencimiento.Handle,'yyyy/MM/dd');
+        EdFechaVencimiento.Date := vFechaVencimiento;
+        if vInteresVencido = 'V' then
+        begin
+                vFechaCapital := CalculoFecha(vFechaDesembolso,vPeriodoGracia);
+                vFechaInteres := CalculoFecha(vFechaDesembolso,vPeriodoGracia);
+        end
+        else
+        begin
+                vFechaCapital := CalculoFecha(vFechaDesembolso,vAmortizaCapital+vPeriodoGracia);
+                vFechaInteres := CalculoFecha(vFechaDesembolso,vAmortizaInteres+vPeriodoGracia);
+        end;
+        DateTime_SetFormat(EdFechaCapital.Handle,'yyyy/MM/dd');
+        EdFechaCapital.Date := vFechaCapital;
+        DateTime_SetFormat(EdFechaInteres.Handle,'yyyy/MM/dd');
+        EdFechaInteres.Date := vFechaInteres;
+        if vId_vida then
+           vSeguro_vida := seguro(3);
+        if vId_exequial then
+           vSeguro_exequial := seguro(4);
 end;
 
 end.
