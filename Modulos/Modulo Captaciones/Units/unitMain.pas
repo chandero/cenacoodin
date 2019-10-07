@@ -171,6 +171,7 @@ type
     MarcarTarjeta1: TMenuItem;
     ActualizarSaldoCuenta1: TMenuItem;
     CancelarServiciosVirtuales1: TMenuItem;
+    ArchivoPlanoMovimientos1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -332,7 +333,7 @@ uses unitLogin, unitdmColocacion, IniFiles,
      UnitInformeGeneraldeCaptaciones1,UnitRegistroIncapacitados,
      UnitTarjetaSinMovimiento, UnitSorteoCumpleanhos, UnitSaldoPorRangos, UnitArchivoTransacciones, UnitArchivoFinancieroAsociado, UnitReimprimirCDAT,
      UnitDeJuvenilaAsociado, UnitAdministracionProductosVirtuales, UnitConciliacionServiciosVirtuales, UnitActualizarSaldoCuentaServiciosVirtuales,
-     UnitCancelarServiciosVirtuales;
+     UnitCancelarServiciosVirtuales, UnitArchivoPlanoMovimientosTarjetas;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin

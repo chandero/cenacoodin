@@ -288,6 +288,9 @@ object frmMain: TfrmMain
           Caption = 'Cancelar Servicios Virtuales'
           OnClick = CancelarServiciosVirtuales1Click
         end
+        object ArchivoPlanoMovimientos1: TMenuItem
+          Caption = 'Archivo Plano Movimientos'
+        end
       end
     end
     object Gestiones1: TMenuItem

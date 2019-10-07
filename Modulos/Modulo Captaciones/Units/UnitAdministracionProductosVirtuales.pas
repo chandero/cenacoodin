@@ -460,10 +460,11 @@ begin
                    edTarjetaDebito.Text := _Tarjeta.Tarjeta;
 
                    IBQGuardar.SQL.Clear;
-                   IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_TARJETA_CUENTA (VICU_ID, VITA_ID, VITC_ESTADO, VITC_ESLEIDO) VALUES (');
-                   IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_ESTADO)');
+                   IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_TARJETA_CUENTA (VICU_ID, VITA_ID, VITC_FECHAREGISTRO, VITC_ESTADO, VITC_ESLEIDO) VALUES (');
+                   IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_FECHAREGISTRO, :VITC_ESTADO)');
                    IBQGuardar.ParamByName('VICU_ID').AsInteger := _vVicu_id;
                    IBQGuardar.ParamByName('VITA_ID').AsInteger := _Tarjeta.Id;
+                   IBQGuardar.ParamByName('VITC_FECHAREGISTRO').AsDate := fFechaActual;
                    IBQGuardar.ParamByName('VITC_ESTADO').AsInteger := 0;
                    IBQGuardar.ParamByName('VITC_ESLEIDO').AsInteger := 0;
                    IBQGuardar.ExecSQL;
@@ -497,10 +498,11 @@ begin
                      edTarjetaDebito.Text := _Tarjeta.Tarjeta;
 
                      IBQGuardar.SQL.Clear;
-                     IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_TARJETA_CUENTA (VICU_ID, VITA_ID, VITC_ESTADO, VITC_ESLEIDO) VALUES (');
-                     IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_ESTADO, :VITC_ESLEIDO)');
+                     IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_TARJETA_CUENTA (VICU_ID, VITA_ID, VITC_FECHAREGISTRO, VITC_ESTADO, VITC_ESLEIDO) VALUES (');
+                     IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_FECHAREGISTRO, :VITC_ESTADO, :VITC_ESLEIDO)');
                      IBQGuardar.ParamByName('VICU_ID').AsInteger := _vVicu_id;
                      IBQGuardar.ParamByName('VITA_ID').AsInteger := _Tarjeta.Id;
+                     IBQGuardar.ParamByName('VITC_FECHAREGISTRO').AsDate := fFechaActual;
                      IBQGuardar.ParamByName('VITC_ESTADO').AsInteger := 0;
                      IBQGuardar.ParamByName('VITC_ESLEIDO').AsInteger := 0;
                      IBQGuardar.ExecSQL;
@@ -684,7 +686,7 @@ begin
                else
                begin
                  IBQGuardar.SQL.Clear;
-                 IBQGuardar.SQL.Add('UPDATE VIRTUAL_CUENTA_CANAL SET VICC_MONTO = :VICC_MONTO, VICC_NOPE = :VICC_NOPE, VICC_ESLEIDO = :VICC_ESLEIDO WHERE VICU_ID = :VICU_ID AND VICA_ID = :VICA_ID');
+                 IBQGuardar.SQL.Add('UPDATE VIRTUAL_CUENTA_CANAL SET VICC_MONTO = :VICC_MONTO, VICC_NOPE = :VICC_NOPE, VICC_ESTADO = :VICC_ESTADO, VICC_ESLEIDO = :VICC_ESLEIDO WHERE VICU_ID = :VICU_ID AND VICA_ID = :VICA_ID');
                  IBQGuardar.ParamByName('VICU_ID').AsInteger := _vVicu_id;
                  IBQGuardar.ParamByName('VICA_ID').AsInteger := 5;
                  IBQGuardar.ParamByName('VICC_MONTO').AsCurrency := edTopeWEB.Value;
@@ -847,10 +849,11 @@ begin
                    edTarjetaDebito.Text := _Tarjeta.Tarjeta;
 
                    IBQGuardar.SQL.Clear;
-                   IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_TARJETA_CUENTA (VICU_ID, VITA_ID, VITC_ESTADO, VITC_ESLEIDO) VALUES (');
-                   IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_ESTADO, :VITC_ESLEIDO)');
+                   IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_TARJETA_CUENTA (VICU_ID, VITA_ID, VITC_FECHAREGISTRO, VITC_ESTADO, VITC_ESLEIDO) VALUES (');
+                   IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_FECHAREGISTRO, :VITC_ESTADO, :VITC_ESLEIDO)');
                    IBQGuardar.ParamByName('VICU_ID').AsInteger := _vicu_id;
                    IBQGuardar.ParamByName('VITA_ID').AsInteger := _Tarjeta.Id;
+                   IBQGuardar.ParamByName('VITC_FECHAREGISTRO').AsDate := fFechaActual;
                    IBQGuardar.ParamByName('VITC_ESTADO').AsInteger := 0;
                    IBQGuardar.ParamByName('VITC_ESLEIDO').AsInteger := 0;
                    IBQGuardar.ExecSQL;
