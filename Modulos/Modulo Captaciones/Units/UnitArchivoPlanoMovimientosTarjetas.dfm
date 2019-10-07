@@ -35,7 +35,7 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
       Height = 13
       Caption = 'Hasta'
     end
-    object DateTimePicker1: TDateTimePicker
+    object edFechaInicial: TDateTimePicker
       Left = 64
       Top = 16
       Width = 89
@@ -49,7 +49,7 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
       ParseInput = False
       TabOrder = 0
     end
-    object DateTimePicker2: TDateTimePicker
+    object edFechaFinal: TDateTimePicker
       Left = 208
       Top = 16
       Width = 89
@@ -70,6 +70,7 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
       Height = 25
       Caption = 'Procesar'
       TabOrder = 2
+      OnClick = btnProcesarClick
     end
   end
   object Panel1: TPanel
@@ -89,13 +90,29 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
       TabOrder = 0
       OnClick = btnCerrarClick
     end
+    object ProgressBar1: TProgressBar
+      Left = 8
+      Top = 6
+      Width = 305
+      Height = 17
+      Min = 0
+      Max = 100
+      Step = 1
+      TabOrder = 1
+    end
   end
   object IBQmovs: TIBQuery
     Database = dmGeneral.IBDatabase1
     Transaction = IBTransaction1
     SQL.Strings = (
-      'SELECT * FROM RECIBIR r'
-      'WHERE r.FECHA BETWEEN :FECHA_INICIAL AND :FECHA_FINAL')
+      'SELECT * FROM RECIBIR r '
+      'WHERE '
+      'r.ESTADO = '#39'APROBADA'#39' AND '
+      'r.CANAL IN ('#39'POS'#39','#39'ATM'#39','#39'OFI'#39') AND '
+      'r.VALOR <> 0 AND '
+      'UPPER(r.DESCRIPCION) NOT LIKE '#39'%SIN TARJETA%'#39' AND '
+      'r.FECHA_REGISTRO BETWEEN :FECHA_INICIAL  AND :FECHA_FINAL'
+      'ORDER BY r.FECHA_REGISTRO DESC')
     Left = 56
     Top = 40
     ParamData = <
@@ -114,5 +131,58 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
     DefaultDatabase = dmGeneral.IBDatabase1
     Left = 96
     Top = 40
+  end
+  object IBQpersona: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTransaction1
+    Left = 136
+    Top = 40
+  end
+  object IBQsaldo: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTransaction1
+    SQL.Strings = (
+      
+        'SELECT SALDO_ACTUAL FROM SALDO_ACTUAL(:ID_AGENCIA,:ID_TIPO_CUENT' +
+        'A,:NUMERO_CUENTA,:DIGITO_CUENTA,:ANHO,:FECHA_INICIAL,:FECHA_FINA' +
+        'L)')
+    Left = 176
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_AGENCIA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_TIPO_CUENTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUMERO_CUENTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DIGITO_CUENTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ANHO'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'FECHA_INICIAL'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'FECHA_FINAL'
+        ParamType = ptUnknown
+      end>
   end
 end
