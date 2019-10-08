@@ -290,6 +290,7 @@ object frmMain: TfrmMain
         end
         object ArchivoPlanoMovimientos1: TMenuItem
           Caption = 'Archivo Plano Movimientos'
+          OnClick = ArchivoPlanoMovimientos1Click
         end
       end
     end

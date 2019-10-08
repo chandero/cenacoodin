@@ -8,7 +8,7 @@ uses
   IBQuery, ExtCtrls, StrUtils, DateUtils;
 
 type
-  TfrmArchivoPlanoMovimeintosTarjetas = class(TForm)
+  TfrmArchivoPlanoMovimientosTarjetas = class(TForm)
     GroupBox1: TGroupBox;
     edFechaInicial: TDateTimePicker;
     Label1: TLabel;
@@ -22,6 +22,7 @@ type
     ProgressBar1: TProgressBar;
     IBQpersona: TIBQuery;
     IBQsaldo: TIBQuery;
+    IBQmaestro: TIBQuery;
     procedure FormShow(Sender: TObject);
     procedure btnCerrarClick(Sender: TObject);
     procedure btnProcesarClick(Sender: TObject);
@@ -73,7 +74,7 @@ type
 end;
 
 var
-  frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas;
+  frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas;
 
 implementation
 
@@ -81,18 +82,18 @@ uses UnitDmGeneral, UnitGlobales;
 
 {$R *.dfm}
 
-procedure TfrmArchivoPlanoMovimeintosTarjetas.FormShow(Sender: TObject);
+procedure TfrmArchivoPlanoMovimientosTarjetas.FormShow(Sender: TObject);
 begin
         IBTransaction1.StartTransaction;
 end;
 
-procedure TfrmArchivoPlanoMovimeintosTarjetas.btnCerrarClick(
+procedure TfrmArchivoPlanoMovimientosTarjetas.btnCerrarClick(
   Sender: TObject);
 begin
         Close;
 end;
 
-procedure TfrmArchivoPlanoMovimeintosTarjetas.btnProcesarClick(
+procedure TfrmArchivoPlanoMovimientosTarjetas.btnProcesarClick(
   Sender: TObject);
 var
    vFechaInicial, vFechaFinal : String;
@@ -106,11 +107,18 @@ var
    _valor: LongInt;
    _saldo: LongInt;
    _fechacorte: String;
-   _fechainicial: Date;
+   _fechainicial: TDate;
 
    _header: THeader;
    _record: TRegistro;
    _foot : TFooter;
+
+   _id_identificacion : Integer;
+   _id_persona: String;
+
+   _fechatmp: String;
+
+   _consecutivo: Integer;
 begin
         Lista := TStringList.Create;
         DateTimeToString(vFechaInicial, 'yyyyMMdd', edFechaInicial.Date);
@@ -141,26 +149,65 @@ begin
         begin
           _documento := IBQmovs.FieldByName('DOCUMENTO').AsString;
           _cuenta := IBQmovs.FieldByName('CUENTA').AsString;
-          _tipo := StrToInt(LeftStr(_cuenta,1));
-          _agencia := StrToInt(MidStr(_cuenta,2,2);
+          _tipocuenta := StrToInt(LeftStr(_cuenta,1));
+          _agencia := StrToInt(MidStr(_cuenta,2,2));
           _numerocuenta := StrToInt(MidStr(_cuenta,4,6));
           _digitocuenta := StrToInt(RightStr(_cuenta,1));
 
-          edFechaFinal.Date
           IBQsaldo.Close;
           IBQsaldo.ParamByName('ID_AGENCIA').AsInteger := _agencia;
-          IBQsaldo.ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipo;
+          IBQsaldo.ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipocuenta;
           IBQsaldo.ParamByName('NUMERO_CUENTA').AsInteger := _numerocuenta;
           IBQsaldo.ParamByName('DIGITO_CUENTA').AsInteger := _digitocuenta;
           IBQsaldo.ParamByName('ANHO').AsInteger := YearOf(edFechaFinal.Date);
           IBQsaldo.ParamByName('FECHA_INICIAL').AsDate := _fechainicial;
-          IBQsaldo.ParamByName('FECHA_FINAL').AsDate := _fechafinal;
+          IBQsaldo.ParamByName('FECHA_FINAL').AsDate := edFechaFinal.Date;
           IBQsaldo.Open;
           _saldo := IBQsaldo.FieldByName('SALDO_ACTUAL').AsInteger;
 
+          IBQmaestro.Close;
+          IBQmaestro.ParamByName('ID_AGENCIA').AsInteger := _agencia;
+          IBQmaestro.ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipocuenta;
+          IBQmaestro.ParamByName('NUMERO_CUENTA').AsInteger := _numerocuenta;
+          IBQmaestro.ParamByName('DIGITO_CUENTA').AsInteger := _digitocuenta;
+          IBQmaestro.Open;
+
+          _id_identificacion := IBQmaestro.FieldByName('ID_IDENTIFICACION').AsInteger;
+          _id_persona := IBQmaestro.FieldByName('ID_PERSONA').AsString;
+
           IBQpersona.Close;
-          IBQpersona.ParamByName('ID_PERSONA').AsString := _idpersona;
+          IBQpersona.ParamByName('ID_IDENTIFICACION').AsInteger := _id_identificacion;
+          IBQpersona.ParamByName('ID_PERSONA').AsString := _id_persona;
           IBQpersona.Open;
+
+          _record.Consecutivo := '';
+          _record.FechaTransaccion := '';
+          _record.ValorTransaccion := '';
+          _record.TipoTransaccion := '';
+          _record.PaisTransaccion := '';
+          _record.CodigoDeptoMuni := '';
+          _record.TipoTarjeta := '';
+          _record.NumeroTarjeta := '';
+          _record.ValorCupo := '';
+          _record.CodigoFranquicia := '';
+          _record.SaldoTarjeta := '';
+          _record.TipoIdentificacion := '';
+          _record.NumeroIdentificacion := '';
+          _record.DigitoVerificacion := '';
+          _record.PrimerApellido := '';
+          _record.SegundoApellido := '';
+          _record.PrimerNombre := '';
+          _record.SegundoNombre := '';
+          _record.RazonSocial := '';
+
+          _record.Consecutivo := Format('%.10d', [IBQmovs.RecNo]);
+          _fechatmp := IBQmovs.FieldByName('FECHA_REGISTRO').AsString;
+          _fechatmp := LeftStr(_fechatmp, 4) + '-' + MidStr(_fechatmp, 5, 2) + '-' + RightStr(_fechatmp, 2);
+          _record.FechaTransaccion := fechatmp;
+          _record.ValorTransaccion := Format('%.20d', [IBQmovs.FieldByName('VALOR').AsInteger]);
+          _record.TipoTransaccion := ''; // Mirar Tabla
+          _record.PaisTransaccion := IBQmovs.FieldByName('TERMINAL_PAIS').AsString;
+          _record.CodigoDeptoMuni := 
 
         end;
 end;

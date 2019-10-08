@@ -1,7 +1,7 @@
-object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
+object frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas
   Left = 479
   Top = 321
-  Width = 426
+  Width = 436
   Height = 112
   Caption = 'Archivo Plano Movimientos Tarjetas'
   Color = clBtnFace
@@ -76,7 +76,7 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
   object Panel1: TPanel
     Left = 0
     Top = 51
-    Width = 418
+    Width = 428
     Height = 27
     Align = alBottom
     Color = clOlive
@@ -135,8 +135,23 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
   object IBQpersona: TIBQuery
     Database = dmGeneral.IBDatabase1
     Transaction = IBTransaction1
+    SQL.Strings = (
+      
+        'SELECT * FROM "gen$persona" p WHERE p.ID_IDENTIFICACION = :ID_ID' +
+        'ENTIFICACION AND p.ID_PERSONA = :ID_PERSONA')
     Left = 136
     Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_IDENTIFICACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_PERSONA'
+        ParamType = ptUnknown
+      end>
   end
   object IBQsaldo: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -182,6 +197,44 @@ object frmArchivoPlanoMovimeintosTarjetas: TfrmArchivoPlanoMovimeintosTarjetas
       item
         DataType = ftUnknown
         Name = 'FECHA_FINAL'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQmaestro: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTransaction1
+    SQL.Strings = (
+      'SELECT mt.ID_IDENTIFICACION, mt.ID_PERSONA FROM'
+      '"cap$maestrotitular" mt'
+      
+        'LEFT JOIN "gen$persona" p ON p.ID_IDENTIFICACION = mt.ID_IDENTIF' +
+        'ICACION AND p.ID_PERSONA = mt.ID_PERSONA'
+      
+        'WHERE mt.ID_AGENCIA = :ID_AGENCIA AND mt.ID_TIPO_CAPTACION = :ID' +
+        '_TIPO_CAPTACION AND mt.NUMERO_CUENTA = :NUMERO_CUENTA AND mt.DIG' +
+        'ITO_CUENTA = :DIGITO_CUENTA'
+      'AND mt.NUMERO_TITULAR = 1')
+    Left = 216
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_AGENCIA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_TIPO_CAPTACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUMERO_CUENTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DIGITO_CUENTA'
         ParamType = ptUnknown
       end>
   end

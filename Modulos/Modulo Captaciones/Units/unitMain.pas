@@ -281,6 +281,7 @@ type
     procedure ComprobanteConciliacin1Click(Sender: TObject);
     procedure ActualizarSaldoCuenta1Click(Sender: TObject);
     procedure CancelarServiciosVirtuales1Click(Sender: TObject);
+    procedure ArchivoPlanoMovimientos1Click(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -1383,6 +1384,14 @@ var
 begin
      frmCancelarServiciosVirtuales := TfrmCancelarServiciosVirtuales.Create(self);
      frmCancelarServiciosVirtuales.ShowModal;
+end;
+
+procedure TfrmMain.ArchivoPlanoMovimientos1Click(Sender: TObject);
+var
+  frmArchivoPlanoMovimientosTarjetas : TfrmArchivoPlanoMovimientosTarjetas;
+begin
+  frmArchivoPlanoMovimientosTarjetas := TfrmArchivoPlanoMovimientosTarjetas.Create(self);
+  frmArchivoPlanoMovimientosTarjetas.ShowModal;
 end;
 
 end.
