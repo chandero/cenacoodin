@@ -111,8 +111,10 @@ object frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas
       'r.CANAL IN ('#39'POS'#39','#39'ATM'#39','#39'OFI'#39') AND '
       'r.VALOR <> 0 AND '
       'UPPER(r.DESCRIPCION) NOT LIKE '#39'%SIN TARJETA%'#39' AND '
-      'r.FECHA_REGISTRO BETWEEN :FECHA_INICIAL  AND :FECHA_FINAL'
-      'ORDER BY r.FECHA_REGISTRO DESC')
+      
+        'r.FECHA_REGISTRO BETWEEN :FECHA_INICIAL  AND :FECHA_FINAL AND r.' +
+        'OPERACION = '#39'DEBITO'#39
+      'ORDER BY r.FECHA_REGISTRO ASC')
     Left = 56
     Top = 40
     ParamData = <
@@ -158,9 +160,9 @@ object frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas
     Transaction = IBTransaction1
     SQL.Strings = (
       
-        'SELECT SALDO_ACTUAL FROM SALDO_ACTUAL(:ID_AGENCIA,:ID_TIPO_CUENT' +
-        'A,:NUMERO_CUENTA,:DIGITO_CUENTA,:ANHO,:FECHA_INICIAL,:FECHA_FINA' +
-        'L)')
+        'SELECT SALDO_ACTUAL FROM SALDO_ACTUAL(:ID_AGENCIA,:ID_TIPO_CAPTA' +
+        'CION,:NUMERO_CUENTA,:DIGITO_CUENTA,:ANHO,:FECHA_INICIAL,:FECHA_F' +
+        'INAL)')
     Left = 176
     Top = 40
     ParamData = <
@@ -171,7 +173,7 @@ object frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas
       end
       item
         DataType = ftUnknown
-        Name = 'ID_TIPO_CUENTA'
+        Name = 'ID_TIPO_CAPTACION'
         ParamType = ptUnknown
       end
       item
@@ -237,5 +239,50 @@ object frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas
         Name = 'DIGITO_CUENTA'
         ParamType = ptUnknown
       end>
+  end
+  object IBQtarjeta: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTransaction1
+    SQL.Strings = (
+      'SELECT FIRST 1 vt.VITA_TARJETA FROM VIRTUAL_TARJETA vt'
+      
+        'INNER JOIN VIRTUAL_TARJETA_CUENTA vtc ON vtc.VITA_ID = vt.VITA_I' +
+        'D'
+      'INNER JOIN VIRTUAL_CUENTA vc ON vc.VICU_ID = vtc.VICU_ID'
+      'WHERE '
+      '    vc.VICU_ID_AGENCIA = :ID_AGENCIA and '
+      '    vc.VICU_TIPO_CUENTA = :ID_TIPO_CAPTACION and'
+      '    vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and'
+      '    vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA and'
+      '    vtc.VITC_ESTADO = 0')
+    Left = 256
+    Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_AGENCIA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_TIPO_CAPTACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'NUMERO_CUENTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'DIGITO_CUENTA'
+        ParamType = ptUnknown
+      end>
+  end
+  object SD1: TSaveDialog
+    Filter = 'Archivo de Texto|*.txt'
+    InitialDir = 'C:\'
+    Left = 24
+    Top = 32
   end
 end

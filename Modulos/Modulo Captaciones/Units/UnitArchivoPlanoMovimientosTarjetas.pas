@@ -23,6 +23,8 @@ type
     IBQpersona: TIBQuery;
     IBQsaldo: TIBQuery;
     IBQmaestro: TIBQuery;
+    IBQtarjeta: TIBQuery;
+    SD1: TSaveDialog;
     procedure FormShow(Sender: TObject);
     procedure btnCerrarClick(Sender: TObject);
     procedure btnProcesarClick(Sender: TObject);
@@ -75,6 +77,7 @@ end;
 
 var
   frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas;
+  _datos : TStringList;
 
 implementation
 
@@ -97,7 +100,6 @@ procedure TfrmArchivoPlanoMovimientosTarjetas.btnProcesarClick(
   Sender: TObject);
 var
    vFechaInicial, vFechaFinal : String;
-   Lista: TStringList;
    _documento: String;
    _cuenta: String;
    _agencia: Integer;
@@ -108,6 +110,8 @@ var
    _saldo: LongInt;
    _fechacorte: String;
    _fechainicial: TDate;
+   _tarjeta: String;
+   _tipo_transaccion: String;
 
    _header: THeader;
    _record: TRegistro;
@@ -117,10 +121,18 @@ var
    _id_persona: String;
 
    _fechatmp: String;
+   _departamento, _municipio: Integer;
 
    _consecutivo: Integer;
+   _nombrecompleto, _nombre, _otro : String;
+   _listnombre : TStringList;
+   Buffer: String;
+   _descripcion: String;
+
+   _records : array of TRegistro;
 begin
-        Lista := TStringList.Create;
+        _listnombre := TStringList.Create;
+        _datos := TStringList.Create;
         DateTimeToString(vFechaInicial, 'yyyyMMdd', edFechaInicial.Date);
         DateTimeToString(vFechaFinal, 'yyyyMMdd', edFechaFinal.Date);
         IBQmovs.Close;
@@ -135,18 +147,24 @@ begin
 
         _header.Consecutivo := Format('%.10d',[0]);
         _header.CodigoEntidad := '06007002';
+        _header.NumeroMovs := Format('%.10d', [IBQmovs.RecordCount]);
         DateTimeToString(_fechacorte, 'yyyy-MM-dd', edFechaFinal.Date);
         _header.FechaCorte := _fechacorte;
-        _header.FinRegistro := Format('%263s', ['X']);
+        _header.FinRegistro := RightStr(StringOfChar('X',263) + 'X', 263 ); // Format('%.*s', [263, 'X']);
 
         _foot.Consecutivo := Format('%.10d',[0]);
         _foot.CodigoEntidad := '06007002';
-        _foot.FinRegistro := Format('%273s', ['X']);
+        _foot.NumeroMovs := Format('%.10d', [IBQmovs.RecordCount]);
+        _foot.FinRegistro := RightStr(StringOfChar('X',273) + 'X', 273 ); // Format('%.*s', [273, 'X']);
 
         _fechainicial := EncodeDate(YearOf(edFechaFinal.Date),01,01);
 
+        _datos.Add(_header.Consecutivo + _header.CodigoEntidad + _header.FechaCorte + _header.NumeroMovs + _header.FinRegistro);
+
         while not IBQmovs.Eof do
         begin
+          Application.ProcessMessages;
+          ProgressBar1.Position := IBQmovs.RecNo;
           _documento := IBQmovs.FieldByName('DOCUMENTO').AsString;
           _cuenta := IBQmovs.FieldByName('CUENTA').AsString;
           _tipocuenta := StrToInt(LeftStr(_cuenta,1));
@@ -171,9 +189,17 @@ begin
           IBQmaestro.ParamByName('NUMERO_CUENTA').AsInteger := _numerocuenta;
           IBQmaestro.ParamByName('DIGITO_CUENTA').AsInteger := _digitocuenta;
           IBQmaestro.Open;
-
           _id_identificacion := IBQmaestro.FieldByName('ID_IDENTIFICACION').AsInteger;
           _id_persona := IBQmaestro.FieldByName('ID_PERSONA').AsString;
+          
+
+          IBQtarjeta.Close;
+          IBQtarjeta.ParamByName('ID_AGENCIA').AsInteger := _agencia;
+          IBQtarjeta.ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipocuenta;
+          IBQtarjeta.ParamByName('NUMERO_CUENTA').AsInteger := _numerocuenta;
+          IBQtarjeta.ParamByName('DIGITO_CUENTA').AsInteger := _digitocuenta;
+          IBQtarjeta.Open;
+          _tarjeta := IBQtarjeta.FieldByName('VITA_TARJETA').AsString;
 
           IBQpersona.Close;
           IBQpersona.ParamByName('ID_IDENTIFICACION').AsInteger := _id_identificacion;
@@ -199,16 +225,109 @@ begin
           _record.PrimerNombre := '';
           _record.SegundoNombre := '';
           _record.RazonSocial := '';
+          _nombre := '';
+          _otro := '';
 
           _record.Consecutivo := Format('%.10d', [IBQmovs.RecNo]);
           _fechatmp := IBQmovs.FieldByName('FECHA_REGISTRO').AsString;
           _fechatmp := LeftStr(_fechatmp, 4) + '-' + MidStr(_fechatmp, 5, 2) + '-' + RightStr(_fechatmp, 2);
-          _record.FechaTransaccion := fechatmp;
-          _record.ValorTransaccion := Format('%.20d', [IBQmovs.FieldByName('VALOR').AsInteger]);
-          _record.TipoTransaccion := ''; // Mirar Tabla
-          _record.PaisTransaccion := IBQmovs.FieldByName('TERMINAL_PAIS').AsString;
-          _record.CodigoDeptoMuni := 
+          _record.FechaTransaccion := _fechatmp;
+          _valor := IBQmovs.FieldByName('VALOR').AsInteger div 100;
+          _record.ValorTransaccion := Format('%20d', [_valor]);
+          _descripcion := UpperCase(IBQmovs.FieldByname('DESCRIPCION').AsString);
+          if (StrPos(PChar(_descripcion), PChar('RETIRO')) <> nil) then
+          begin
+             _tipo_transaccion := '01';
+          end
+          else if (StrPos(PChar(_descripcion), PChar('CONSIGNACION')) <> nil) then
+          begin
+               _tipo_transaccion := '10';
+          end
+          else if (StrPos(PChar(_descripcion), PChar('COMPRA')) <> nil) then
+          begin
+               _tipo_transaccion := '06';
+          end
+          else if (StrPos(PChar(_descripcion), PChar('PAGO')) <> nil) then
+          begin
+               _tipo_transaccion := '02';
+          end
+          else if (StrPos(PChar(_descripcion), PChar('TRANSFERENCIA')) <> nil) then
+          begin
+               _tipo_transaccion := '03';
+          end
+          else
+          begin
+              _tipo_transaccion := '10';
+          end;
 
+          _record.TipoTransaccion := _tipo_transaccion; // Mirar Tabla
+          _record.PaisTransaccion := IBQmovs.FieldByName('TERMINAL_PAIS').AsString;
+          _departamento := IBQmovs.FieldByName('TERMINAL_DEPARTAMENTO').AsInteger;
+          _municipio := IBQmovs.FieldByName('TERMINAL_CIUDAD').AsInteger;
+          if (_record.PaisTransaccion <> 'CO') then
+          begin
+                  _record.CodigoDeptoMuni := '00099';
+          end
+          else
+          begin
+                  _record.CodigoDeptoMuni := Format('%.2d%.3d', [_departamento, _municipio]);
+          end;
+          _record.TipoTarjeta := '01';
+          _record.NumeroTarjeta := LeftStr( trim(_tarjeta) + StringOfChar(' ',20), 20 ); //Format('%.20d', [StrToInt64(_tarjeta)]);
+          _record.ValorCupo := '                   0';
+          _record.CodigoFranquicia := '01';
+          _record.SaldoTarjeta := Format('%20d', [_saldo]);
+          case _id_identificacion of
+            2: _record.TipoIdentificacion := '12';
+            3: _record.TipoIdentificacion := '13';
+            4: _record.TipoIdentificacion := '31';
+            6: _record.TipoIdentificacion := '22';
+            8: _record.TipoIdentificacion := '41';
+          end;
+          _record.NumeroIdentificacion := Format('%15s', [_id_persona]);
+          _record.DigitoVerificacion := ' ';
+          if (_id_identificacion <> 4) then
+          begin
+                  _record.PrimerApellido := LeftStr( trim(IBQpersona.FieldByName('PRIMER_APELLIDO').AsString) + StringOfChar(' ',30), 30 );// Format('%.30s', [trim(IBQpersona.FieldByName('PRIMER_APELLIDO').AsString)]);
+                  _record.SegundoApellido := LeftStr( trim(IBQPersona.FieldByName('SEGUNDO_APELLIDO').AsString) + StringOfChar(' ', 30), 30);
+                  _nombrecompleto := IBQpersona.FieldByName('NOMBRE').AsString;
+                  Buffer := _nombrecompleto;
+                  _listnombre.Clear;
+                  While pos(' ',Buffer) > 0 do
+                  begin
+                    _listnombre.Add(Copy(buffer,0,pos(' ',buffer)-1));
+                    Buffer := Copy(buffer,pos(' ',buffer)+1,Length(buffer));
+                  end;
+                  _listnombre.Add(Copy(buffer,0,Length(buffer)));
+                  _nombre := _listnombre.Strings[0];
+                  if (_listnombre.Count > 1) then
+                      _otro := _listnombre.Strings[1];
+                  _record.PrimerNombre := LeftStr( trim(_nombre) + StringOfChar(' ',30), 30 );//Format('%.30s', [trim(_nombre)]);
+                  _record.SegundoNombre := LeftStr( trim(_otro) + StringOfChar(' ',40), 40 ); //Format('%.30s', [trim(_otro)]);
+                  _record.RazonSocial := LeftStr( trim('') + StringOfChar(' ',40), 40 );
+          end
+          else
+          begin
+                  _record.PrimerApellido := LeftStr( trim('') + StringOfChar(' ',30), 30 );// Format('%.30s', [trim(IBQpersona.FieldByName('PRIMER_APELLIDO').AsString)]);
+                  _record.SegundoApellido := LeftStr( trim('') + StringOfChar(' ',30), 30 );// Format('%.30s', [trim(IBQpersona.FieldByName('PRIMER_APELLIDO').AsString)]);
+                  _nombrecompleto := IBQpersona.FieldByName('NOMBRE').AsString;
+                  _record.PrimerNombre := LeftStr( trim('') + StringOfChar(' ',30), 30 );// Format('%.30s', [trim(IBQpersona.FieldByName('PRIMER_APELLIDO').AsString)]);
+                  _record.SegundoNombre := LeftStr( trim('') + StringOfChar(' ',40), 40 );// Format('%.30s', [trim(IBQpersona.FieldByName('PRIMER_APELLIDO').AsString)]);
+                  _record.RazonSocial := LeftStr( trim(_nombrecompleto) + StringOfChar(' ',40), 40 );// Format('%.30s', [trim(IBQpersona.FieldByName('PRIMER_APELLIDO').AsString)]);
+          end;
+          _record.PrimerApellido := StringReplace(_record.PrimerApellido, 'Ñ', 'N', [rfReplaceAll]);
+          _record.SegundoApellido := StringReplace(_record.SegundoApellido, 'Ñ', 'N', [rfReplaceAll]);
+          _record.PrimerNombre := StringReplace(_record.PrimerNombre, 'Ñ', 'N', [rfReplaceAll]);
+          _record.SegundoNombre := StringReplace(_record.SegundoNombre, 'Ñ', 'N', [rfReplaceAll]);
+          _record.RazonSocial := StringReplace(_record.RazonSocial, 'Ñ', 'N', [rfReplaceAll]);                    
+          _datos.Add(_record.Consecutivo + _record.FechaTransaccion + _record.ValorTransaccion + _record.TipoTransaccion + _record.PaisTransaccion + _record.CodigoDeptoMuni + _record.TipoTarjeta + _record.NumeroTarjeta + _record.ValorCupo + _record.CodigoFranquicia + _record.SaldoTarjeta + _record.TipoIdentificacion + _record.NumeroIdentificacion + _record.DigitoVerificacion + _record.PrimerApellido + _record.SegundoApellido + _record.PrimerNombre + _record.SegundoNombre + _record.RazonSocial );
+          IBQmovs.Next;
+        end;
+        _datos.Add(_foot.Consecutivo + _foot.CodigoEntidad + _foot.NumeroMovs + _foot.FinRegistro);
+
+        if (SD1.Execute) then
+        begin
+            _datos.SaveToFile(SD1.FileName);
         end;
 end;
 
