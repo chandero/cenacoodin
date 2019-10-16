@@ -1010,9 +1010,64 @@ end;
 
 procedure TfrmAdministracionProductosVirtuales.btnMarcarClick(
   Sender: TObject);
+var
+  _nombres, _texto, _nombreA, _nombreB, _nombreC, _nombreD: String;
+  _cuenta: String;
+  ListOfStrings : TStrings;
 begin
+
+        _nombres := EdNombres.Text + ' ' + EdPrimerApellido.Text + ' ' + EdSegundoApellido.Text;
+        _nombres := TitleCase(_nombres);
+        if (_nombres.Length > 21) then
+        begin
+          ListOfStrings := TStrings.Create;
+          ListOfStrings.Clear;
+          ListOfStrings.Delimiter := ' ';
+          ListOfStrings.DelimitedText := _nombres;
+          if (ListOfStrings.Count > 3) then
+          begin
+             _nombreA := ListOfStrings.Strings[0];
+             _nombreB := ListOfStrings.Strings[1];
+             _nombreC := ListOfStrings.Strings[2];
+             _nombreD := ListOfStrings.Strings[3];
+             if (_nombreA.Length < 21) then
+             begin
+                 _texto := _nombreA + ' ' + _nombreB + ' ' + _nombreC + ' ' + _nombreD;
+                 if (_texto.Length > 21) then
+                 begin
+                    _texto := _nombreA + ' ' + _nombreB + ' ' + _nombreC;
+                    if (_texto.Length > 21) then
+                    begin
+                        _texto := _nombreA + ' ' + _nombreB;
+                        if (_texto.Length > 21) then
+                        begin
+                            _texto
+                        end;
+                    end;
+                 end;
+
+             end;
+          end
+          else
+          if (ListOfStrings.Count > 2) then
+          begin
+             _nombreA := ListOfStrings.Strings[0];
+             _nombreB := ListOfStrings.Strings[1];
+             _nombreC := ListOfStrings.Strings[2];
+          end
+          else
+          if (ListOfStrings.Count > 1) then
+          begin
+             _nombreA := ListOfStrings.Strings[0];
+             _nombreB := ListOfStrings.Strings[1];
+          end
+          else
+          begin
+             _nombreA := _nombres;
+          end;
+        end;
         frReport1.LoadFromFile(frmMain.ruta1 + 'ReportesCap\MarcarPlasticoTD.frf');
-        frReport1.Dictionary.Variables.Variable['NOMBRE'] := QuotedStr(EdNombres.Text + ' ' + EdPrimerApellido.Text + ' ' + EdSegundoApellido.Text);
+        frReport1.Dictionary.Variables.Variable['NOMBRE'] := QuotedStr(_nombres);
         if (frReport1.PrepareReport) then
            frReport1.ShowPreparedReport;
 end;

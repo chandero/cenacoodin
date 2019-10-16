@@ -314,14 +314,35 @@ function BuscaServicio(Id_Agencia, Id_Servicio: integer): tservicio;
 function ValidaCon(Nm:Integer;Tp:integer; Dg:integer): Currency;
 function vContabilizaCon(Nm, Tp, Dg: integer): Boolean;
 procedure FechaCierre(CdFecha: TClientDataSet);
+function TitleCase(const s : string) : string;
 
 implementation
 
 uses UnitGlobalesCol,UnitdmGeneral;
 
 
-function TarjetaDebito: TTarjetaDebito;
+function TitleCase(const s : string) : string;
 var
+   i : integer;
+begin
+   if s = '' then
+     Result := ''
+   else begin
+     Result := Uppercase(s[1]);
+     for i := 2 to Length(s) do
+       if s[i - 1] = ' ' then
+         Result := Result + Uppercase(s[i])
+       else
+         Result := Result + Lowercase(s[i]);
+   end;
+end;
+
+function TarjetaDebito: TTarjetaDebito;
+const ntMaxTries = 100;
+var
+  I, WaitCount, Tries,Consecutivo:Integer;
+  RecordLocked:Boolean;
+  ErrorMsg:string;
   IBQ: TIBQuery;
   IBT: TIBTransaction;
   Id: Integer;
@@ -333,25 +354,55 @@ begin
         IBT.DefaultDatabase := dmGeneral.IBDatabase1;
         IBQ.Database := dmGeneral.IBDatabase1;
 
+       Result.Id := 0;
+       Result.Tarjeta := ''; 
+       Tries := 0;
+       while True do
+       begin
+        if IBT.InTransaction then
+          IBT.Commit;
         IBT.StartTransaction;
-        IBQ.SQL.Clear;
-        IBQ.SQL.Add('SELECT FIRST 1 * FROM VIRTUAL_TARJETA WHERE VITA_ASIGNADA = 0');
-        IBQ.Open;
+        try
+          IBQ.SQL.Clear;
+          IBQ.SQL.Add('SELECT FIRST 1 * FROM VIRTUAL_TARJETA WHERE VITA_ASIGNADA = 0');
+          IBQ.Open;
 
-        Id := IBQ.FieldByName('VITA_ID').AsInteger;
-        Tarjeta := IBQ.FieldByName('VITA_TARJETA').AsString;
+          Id := IBQ.FieldByName('VITA_ID').AsInteger;
+          Tarjeta := IBQ.FieldByName('VITA_TARJETA').AsString;
 
-        IBQ.Close;
+          IBQ.Close;
 
-        IBQ.SQL.Clear;
-        IBQ.SQL.Add('UPDATE VIRTUAL_TARJETA SET VITA_ASIGNADA = 1 WHERE VITA_ID = :VITA_ID');
-        IBQ.ParamByName('VITA_ID').AsInteger := Id;
-        IBQ.ExecSQL;
-        IBQ.Close;
-        IBT.Commit;
+          IBQ.SQL.Clear;
+          IBQ.SQL.Add('UPDATE VIRTUAL_TARJETA SET VITA_ASIGNADA = 1 WHERE VITA_ID = :VITA_ID');
+          IBQ.ParamByName('VITA_ID').AsInteger := Id;
+          IBQ.ExecSQL;
+          IBQ.Close;
+          IBT.Commit;
 
-        Result.Id := Id;
-        Result.Tarjeta := Tarjeta;
+          Result.Id := Id;
+          Result.Tarjeta := Tarjeta;
+          break;
+        except
+           on E: EIBInterBaseError do
+           begin
+            RecordLocked := False;
+            if E.SQLCode = -913 then RecordLocked := True;
+            if RecordLocked then
+             begin
+              WaitCount := Random(20);
+              for I := 1 to WaitCount do
+              Application.ProcessMessages;
+              Continue;
+             end
+            else
+             begin
+              ErrorMsg := ErrorMsg + E.Message +
+              ' (' + IntToStr(E.IBErrorCode ) + '). ';
+              MessageDlg(ErrorMsg,mterror,[mbOk],0);
+             end;
+           end;
+        end;
+      end;
 
 end;
 
