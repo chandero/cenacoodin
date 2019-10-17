@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls, ExtCtrls, Buttons, JvEdit, JvTypedEdit,
   Grids, DBGrids, DB, IBCustomDataSet, IBQuery, UnitDmGeneral, UnitDmPersona, UnitGlobales,
-  FR_Class;
+  FR_Class, StrUtils;
 
 type
   TfrmAdministracionProductosVirtuales = class(TForm)
@@ -1018,7 +1018,7 @@ begin
 
         _nombres := EdNombres.Text + ' ' + EdPrimerApellido.Text + ' ' + EdSegundoApellido.Text;
         _nombres := TitleCase(_nombres);
-        if (_nombres.Length > 21) then
+        if (Length(_nombres) > 21) then
         begin
           ListOfStrings := TStrings.Create;
           ListOfStrings.Clear;
@@ -1030,22 +1030,30 @@ begin
              _nombreB := ListOfStrings.Strings[1];
              _nombreC := ListOfStrings.Strings[2];
              _nombreD := ListOfStrings.Strings[3];
-             if (_nombreA.Length < 21) then
+             _nombres := ListOfStrings.Strings[0] + ' ' + ListOfStrings.Strings[1] + ' ' +  ListOfStrings.Strings[2] + ' ' + ListOfStrings.Strings[3];
+             if (Length(_nombres) < 21) then
              begin
-                 _texto := _nombreA + ' ' + _nombreB + ' ' + _nombreC + ' ' + _nombreD;
-                 if (_texto.Length > 21) then
+                 _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC + ' ' + _nombreD;
+                 if (Length(_nombres) > 21) then
                  begin
-                    _texto := _nombreA + ' ' + _nombreB + ' ' + _nombreC;
-                    if (_texto.Length > 21) then
+                    _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC;
+                    if (Length(_nombres) > 21) then
                     begin
-                        _texto := _nombreA + ' ' + _nombreB;
-                        if (_texto.Length > 21) then
+                        _nombres := _nombreA + ' ' + _nombreB[1] + '. ' + _nombreC;
+                        if (Length(_nombres) > 21) then
                         begin
-                            _texto
+                           _nombres := _nombreA +  ' ' + _nombreC;
+                           if (Length(_nombres) > 21) then
+                           begin
+                               _nombres := _nombreA + ' ' + _nombreC[1];
+                               if (Length(_nombres) > 21) then
+                               begin
+                                  _nombres := LeftStr(_nombreA, 21);
+                               end;
+                           end;
                         end;
                     end;
                  end;
-
              end;
           end
           else
@@ -1054,20 +1062,53 @@ begin
              _nombreA := ListOfStrings.Strings[0];
              _nombreB := ListOfStrings.Strings[1];
              _nombreC := ListOfStrings.Strings[2];
+             _nombres := ListOfStrings.Strings[0] + ' ' + ListOfStrings.Strings[1] + ' ' +  ListOfStrings.Strings[2];
+             if (Length(_nombres)  < 21) then
+             begin
+                 _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC;
+                 if (Length(_nombres) > 21) then
+                 begin
+                   _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC[1] + '.';
+                   if (Length(_nombres) > 21) then
+                   begin
+                      _nombres := _nombreA +  ' ' + _nombreB;
+                      if (Length(_nombres) > 21) then
+                      begin
+                        _nombres := _nombreA + ' ' + _nombreB[1];
+                        if (Length(_nombres) > 21) then
+                        begin
+                          _nombres := LeftStr(_nombreA, 21);
+                        end;
+                      end;
+                   end;
+                 end
+             end;
           end
           else
           if (ListOfStrings.Count > 1) then
           begin
              _nombreA := ListOfStrings.Strings[0];
              _nombreB := ListOfStrings.Strings[1];
+             _nombres := ListOfStrings.Strings[0] + ' ' + ListOfStrings.Strings[1];
+             if (Length(_nombres) > 21) then
+             begin
+               _nombres := _nombreA + ' ' + _nombreB[1];
+               if (Length(_nombres) > 21) then
+               begin
+                 _nombres := LeftStr(_nombreA, 21);
+               end;
+             end;
           end
           else
           begin
              _nombreA := _nombres;
           end;
         end;
+
+        _cuenta := Format('%d%0.2d%0.6d%d' , [_vTipo, _vIdAgencia, _vNumero, _vDigito]);
+
         frReport1.LoadFromFile(frmMain.ruta1 + 'ReportesCap\MarcarPlasticoTD.frf');
-        frReport1.Dictionary.Variables.Variable['NOMBRE'] := QuotedStr(_nombres);
+        frReport1.Dictionary.Variables.Variable['NOMBRE'] := QuotedStr(_nombres + ' ' + _cuenta);
         if (frReport1.PrepareReport) then
            frReport1.ShowPreparedReport;
 end;
