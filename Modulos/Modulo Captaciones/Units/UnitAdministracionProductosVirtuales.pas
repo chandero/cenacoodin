@@ -1015,14 +1015,13 @@ var
   _cuenta: String;
   ListOfStrings : TStrings;
 begin
-
+        ListOfStrings := TStringList.Create;
+        ListOfStrings.Delimiter := ' ';        
         _nombres := EdNombres.Text + ' ' + EdPrimerApellido.Text + ' ' + EdSegundoApellido.Text;
         _nombres := TitleCase(_nombres);
         if (Length(_nombres) > 21) then
         begin
-          ListOfStrings := TStrings.Create;
-          ListOfStrings.Clear;
-          ListOfStrings.Delimiter := ' ';
+
           ListOfStrings.DelimitedText := _nombres;
           if (ListOfStrings.Count > 3) then
           begin
@@ -1031,24 +1030,24 @@ begin
              _nombreC := ListOfStrings.Strings[2];
              _nombreD := ListOfStrings.Strings[3];
              _nombres := ListOfStrings.Strings[0] + ' ' + ListOfStrings.Strings[1] + ' ' +  ListOfStrings.Strings[2] + ' ' + ListOfStrings.Strings[3];
-             if (Length(_nombres) < 21) then
+             if (Length(_nombres) > 23) then
              begin
-                 _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC + ' ' + _nombreD;
-                 if (Length(_nombres) > 21) then
+                 _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC + ' ' + _nombreD[1] + '.';
+                 if (Length(_nombres) > 24) then
                  begin
-                    _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC;
-                    if (Length(_nombres) > 21) then
+                    _nombres := _nombreA + ' ' + _nombreB[1] + '. ' + _nombreC + ' ' + _nombreD[1] + '.';
+                    if (Length(_nombres) > 24) then
                     begin
                         _nombres := _nombreA + ' ' + _nombreB[1] + '. ' + _nombreC;
-                        if (Length(_nombres) > 21) then
+                        if (Length(_nombres) > 24) then
                         begin
                            _nombres := _nombreA +  ' ' + _nombreC;
-                           if (Length(_nombres) > 21) then
+                           if (Length(_nombres) > 24) then
                            begin
                                _nombres := _nombreA + ' ' + _nombreC[1];
-                               if (Length(_nombres) > 21) then
+                               if (Length(_nombres) > 24) then
                                begin
-                                  _nombres := LeftStr(_nombreA, 21);
+                                  _nombres := LeftStr(_nombreA, 24);
                                end;
                            end;
                         end;
@@ -1063,21 +1062,21 @@ begin
              _nombreB := ListOfStrings.Strings[1];
              _nombreC := ListOfStrings.Strings[2];
              _nombres := ListOfStrings.Strings[0] + ' ' + ListOfStrings.Strings[1] + ' ' +  ListOfStrings.Strings[2];
-             if (Length(_nombres)  < 21) then
+             if (Length(_nombres)  > 24) then
              begin
-                 _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC;
-                 if (Length(_nombres) > 21) then
+                 _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC[1] + '.';
+                 if (Length(_nombres) > 24) then
                  begin
-                   _nombres := _nombreA + ' ' + _nombreB + ' ' + _nombreC[1] + '.';
-                   if (Length(_nombres) > 21) then
+                   _nombres := _nombreA + ' ' + _nombreB;
+                   if (Length(_nombres) > 24) then
                    begin
-                      _nombres := _nombreA +  ' ' + _nombreB;
-                      if (Length(_nombres) > 21) then
+                      _nombres := _nombreA +  ' ' + _nombreB[1] + '.';
+                      if (Length(_nombres) > 24) then
                       begin
-                        _nombres := _nombreA + ' ' + _nombreB[1];
-                        if (Length(_nombres) > 21) then
+                        _nombres := _nombreA;
+                        if (Length(_nombres) > 24) then
                         begin
-                          _nombres := LeftStr(_nombreA, 21);
+                          _nombres := LeftStr(_nombreA, 24);
                         end;
                       end;
                    end;
@@ -1090,12 +1089,12 @@ begin
              _nombreA := ListOfStrings.Strings[0];
              _nombreB := ListOfStrings.Strings[1];
              _nombres := ListOfStrings.Strings[0] + ' ' + ListOfStrings.Strings[1];
-             if (Length(_nombres) > 21) then
+             if (Length(_nombres) > 24) then
              begin
-               _nombres := _nombreA + ' ' + _nombreB[1];
-               if (Length(_nombres) > 21) then
+               _nombres := _nombreA + ' ' + _nombreB[1] + '.';
+               if (Length(_nombres) > 24) then
                begin
-                 _nombres := LeftStr(_nombreA, 21);
+                 _nombres := LeftStr(_nombreA, 24);
                end;
              end;
           end
