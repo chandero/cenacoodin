@@ -82,6 +82,9 @@ type
     btnMarcar: TBitBtn;
     frReport1: TfrReport;
     IBQvCuenta: TIBQuery;
+    BitBtn1: TBitBtn;
+    btnFormato: TBitBtn;
+    frFormatoSolicitudTD: TfrReport;
     procedure CmdCerrarClick(Sender: TObject);
     procedure EdIdentificacionExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -92,6 +95,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnMarcarClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -140,7 +144,11 @@ uses IBDatabase, UnitBuscarPersona, unitMain;
 
 procedure TfrmAdministracionProductosVirtuales.CmdCerrarClick(Sender: TObject);
 begin
-      Close;
+     if (IBQGuardar.Transaction.InTransaction) then
+     begin
+         IBQGuardar.Transaction.Commit;
+     end;
+     Close;
 end;
 
 procedure TfrmAdministracionProductosVirtuales.EdIdentificacionExit(Sender: TObject);
@@ -956,15 +964,14 @@ begin
                  IBQGuardar.ExecSQL;
                  IBQGuardar.Close;
              end;
+
+             btnMarcar.Enabled := True;
            end;
-           IBQGuardar.Transaction.Commit;
            btnGrabar.Enabled := False;
            ShowMessage('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!');
 
-           dmGeneral.IBTransaction1.StartTransaction;
-           IBQTipoIdentificacion.Close;
-           IBQTipoIdentificacion.Open;
-           IBQTipoIdentificacion.Last;
+           btnMarcar.Click;
+
         end;
 end;
 
@@ -1111,6 +1118,16 @@ begin
         frReport1.Dictionary.Variables.Variable['NOMBRE'] := QuotedStr(_nombres + ' ' + _cuenta);
         if (frReport1.PrepareReport) then
            frReport1.ShowPreparedReport;
+end;
+
+procedure TfrmAdministracionProductosVirtuales.BitBtn1Click(
+  Sender: TObject);
+begin
+     IBQGuardar.Transaction.Commit;
+     dmGeneral.IBTransaction1.StartTransaction;
+     IBQTipoIdentificacion.Close;
+     IBQTipoIdentificacion.Open;
+     IBQTipoIdentificacion.Last;
 end;
 
 end.

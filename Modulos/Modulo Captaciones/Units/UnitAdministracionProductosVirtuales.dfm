@@ -337,9 +337,9 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Text = '0000000000000000000'
     end
     object btnReasignar: TBitBtn
-      Left = 576
+      Left = 618
       Top = 9
-      Width = 57
+      Width = 52
       Height = 25
       Caption = 'ReAsignar'
       Enabled = False
@@ -588,12 +588,21 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     object btnMarcar: TBitBtn
       Left = 512
       Top = 9
-      Width = 57
+      Width = 49
       Height = 25
       Caption = '&Marcar'
       Enabled = False
       TabOrder = 23
       OnClick = btnMarcarClick
+    end
+    object btnFormato: TBitBtn
+      Left = 565
+      Top = 9
+      Width = 49
+      Height = 25
+      Caption = '&Formato'
+      Enabled = False
+      TabOrder = 24
     end
   end
   object GroupBox3: TGroupBox
@@ -690,6 +699,15 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
         2921013C3D3D3D3B031A1A1A032734352F24013C3D3D3D3B031A1A1A03273338
         3625013C3D3D3D3B031A1A1A03032E33392C013C3D3D3D3B031A1A1A1A1A0306
         1B1C010303030303031A1A1A1A1A1A1A0303011A1A1A1A1A1A1A}
+    end
+    object BitBtn1: TBitBtn
+      Left = 514
+      Top = 14
+      Width = 75
+      Height = 25
+      Caption = 'Nuevo'
+      TabOrder = 2
+      OnClick = BitBtn1Click
     end
   end
   object GroupBox4: TGroupBox
@@ -958,7 +976,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0001000000000500417269616C000A0000000200000000000000000001000200
       00000000FFFFFF000000000200000000000000FEFEFF0200000008002047656E
       6572616C0000000006004E4F4D425245000000000000000000000000FC000000
-      000000000000000000000000004D000717B6C7545DE3406AB7AB4C6E5DE540}
+      000000000000000000000000004D000717B6C7545DE3405325DE418F5DE540}
   end
   object IBQvCuenta: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -993,5 +1011,13 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
         Name = 'DIGITO_CUENTA'
         ParamType = ptUnknown
       end>
+  end
+  object frFormatoSolicitudTD: TfrReport
+    InitialZoom = pzDefault
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    RebuildPrinter = False
+    Left = 616
+    Top = 176
+    ReportForm = {19000000}
   end
 end
