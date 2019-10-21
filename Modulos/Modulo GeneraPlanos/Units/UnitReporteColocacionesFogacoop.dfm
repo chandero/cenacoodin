@@ -283,22 +283,4 @@ object frmReporteColocacionesFogacoop: TfrmReporteColocacionesFogacoop
     Left = 96
     Top = 72
   end
-  object IBQnovado: TIBQuery
-    Database = Database
-    Transaction = Transaction
-    SQL.Strings = (
-      'SELECT COUNT(*) AS CANTIDAD FROM "col$desembolsoparcial" dp'
-      
-        'LEFT JOIN "gen$infcrediticia" ic ON ic.ID_SOLICITUD = dp.ID_SOLI' +
-        'CITUD'
-      'WHERE dp.ID_COLOCACION = :ID_COLOCACION and ic.ES_DESCUENTO = 1')
-    Left = 128
-    Top = 48
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'ID_COLOCACION'
-        ParamType = ptUnknown
-      end>
-  end
 end

@@ -29,7 +29,6 @@ type
     IBQuery3: TIBQuery;
     IBAgencia: TIBQuery;
     IBSQL3: TIBSQL;
-    IBQnovado: TIBQuery;
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdProcesarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -454,19 +453,7 @@ begin
               end;
 
 // Fin Estado del credito
-              Lineas.Reestructurado := '4';
-              IBQnovado.Database := Database;
-              IBQnovado.Transaction := Transaction;
-              IBQnovado.Close;
-              IBQnovado.ParamByName('ID_COLOCACION').AsString := FieldByName('ID_COLOCACION').AsString;
-              IBQnovado.Open;
-              if (IBQnovado.RecordCount > 0) then
-              begin
-                if (IBQnovado.FieldByName('CANTIDAD').AsInteger > 0) then
-                begin
-                    Lineas.Reestructurado := '3';
-                end;
-              end;
+              Lineas.Reestructurado := '0';
               Lineas.Numero_Credito := IntToStr(FieldByName('ID_AGENCIA').AsInteger) + FieldByName('ID_COLOCACION').AsString;
               IBSQL1.Close;
               IBSQL1.SQL.Clear;

@@ -96,6 +96,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnMarcarClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure btnFormatoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -1127,6 +1128,12 @@ begin
      IBQTipoIdentificacion.Close;
      IBQTipoIdentificacion.Open;
      IBQTipoIdentificacion.Last;
+end;
+
+procedure TfrmAdministracionProductosVirtuales.btnFormatoClick(
+  Sender: TObject);
+begin
+        frFormatoSolicitudTD.Dictionary.Variables['CUENTA'] := QuotedStr(Format('%d%0.2d%0.6d%d' , [_vTipo, _vIdAgencia, _vNumero, _vDigito]));
 end;
 
 end.
