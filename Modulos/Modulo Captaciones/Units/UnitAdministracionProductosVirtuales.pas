@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls, ExtCtrls, Buttons, JvEdit, JvTypedEdit,
   Grids, DBGrids, DB, IBCustomDataSet, IBQuery, UnitDmGeneral, UnitDmPersona, UnitGlobales,
-  FR_Class, StrUtils;
+  FR_Class, StrUtils, DateUtils;
 
 type
   TfrmAdministracionProductosVirtuales = class(TForm)
@@ -85,6 +85,7 @@ type
     BitBtn1: TBitBtn;
     btnFormato: TBitBtn;
     frFormatoSolicitudTD: TfrReport;
+    IBQDireccion: TIBQuery;
     procedure CmdCerrarClick(Sender: TObject);
     procedure EdIdentificacionExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -176,6 +177,12 @@ begin
                IBQCuentas.ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
                IBQCuentas.Open;
 
+               IBQDireccion.Close;
+               IBQDireccion.ParamByName('ID_IDENTIFICACION').AsInteger := CBTiposIdentificacion.KeyValue;
+               IBQDireccion.ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
+               IBQDireccion.Open;
+
+
             end;
         end;
 
@@ -261,6 +268,7 @@ begin
           _vita_id := IBQTarjeta.FieldByName('VITA_ID').AsInteger;
           btnReasignar.Enabled := True;
           btnMarcar.Enabled := True;
+          btnFormato.Enabled := True;
           _Atm := True;
         end
         else
@@ -268,6 +276,7 @@ begin
           edTarjetaDebito.Text := '';
           btnReasignar.Enabled := False;
           btnMarcar.Enabled := False;
+          btnFormato.Enabled := False;
           _Atm := False;
         end;
 
@@ -967,6 +976,7 @@ begin
              end;
 
              btnMarcar.Enabled := True;
+             btnFormato.Enabled := True;
            end;
            btnGrabar.Enabled := False;
            ShowMessage('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!');
@@ -1024,7 +1034,7 @@ var
   ListOfStrings : TStrings;
 begin
         ListOfStrings := TStringList.Create;
-        ListOfStrings.Delimiter := ' ';        
+        ListOfStrings.Delimiter := ' ';
         _nombres := EdNombres.Text + ' ' + EdPrimerApellido.Text + ' ' + EdSegundoApellido.Text;
         _nombres := TitleCase(_nombres);
         if (Length(_nombres) > 21) then
@@ -1132,8 +1142,32 @@ end;
 
 procedure TfrmAdministracionProductosVirtuales.btnFormatoClick(
   Sender: TObject);
+  var
+    _direccion, _ciudad_asociado, _telefono: String;
 begin
+
+        _direccion := IBQDireccion.FieldByName('DIRECCION').AsString + ' ' + IBQDireccion.FieldByName('BARRIO').AsString;
+        _ciudad_asociado := IBQDireccion.FieldByName('MUNICIPIO').AsString;
+        _telefono := IBQDireccion.FieldByName('TELEFONO1').AsString;
+        frFormatoSolicitudTD.LoadFromFile(frmMain.ruta1 + 'ReportesCap\FormatoSolicitudTarjetaDebito.frf');
+        frFormatoSolicitudTD.Dictionary.Variables['OFICINA'] := QuotedStr(Ciudad);
+        frFormatoSolicitudTD.Dictionary.Variables['CIUDAD'] := QuotedStr(Ciudad);
+        frFormatoSolicitudTD.Dictionary.Variables['FECHA'] := QuotedStr(FormatDateTime('yyyy/MM/dd', fFechaActual));
+        frFormatoSolicitudTD.Dictionary.Variables['ASOCIADO'] := QuotedStr(EdNombres.Text + ' ' + EdPrimerApellido.Text + ' ' + EdSegundoApellido.Text);
+        frFormatoSolicitudTD.Dictionary.Variables['DOCUMENTO'] := QuotedStr(EdIdentificacion.Text);
         frFormatoSolicitudTD.Dictionary.Variables['CUENTA'] := QuotedStr(Format('%d%0.2d%0.6d%d' , [_vTipo, _vIdAgencia, _vNumero, _vDigito]));
+        frFormatoSolicitudTD.Dictionary.Variables['TARJETA'] := QuotedStr(edTarjetaDebito.Text);
+        frFormatoSolicitudTD.Dictionary.Variables['DIRECCION'] := QuotedStr(_direccion);
+        frFormatoSolicitudTD.Dictionary.Variables['TELEFONO'] := QuotedStr(_telefono);
+        frFormatoSolicitudTD.Dictionary.Variables['CIUDAD_ASOCIADO'] := QuotedStr(LeftStr(_ciudad_asociado, 20));
+        frFormatoSolicitudTD.Dictionary.Variables['ATM'] := QuotedStr(FormatCurr('$#,##0', edTopeATM.Value));
+        frFormatoSolicitudTD.Dictionary.Variables['POS'] := QuotedStr(FormatCurr('$#,##0', edTopePOS.Value));
+        frFormatoSolicitudTD.Dictionary.Variables['WEB'] := QuotedStr(FormatCurr('$#,##0', edTopeWEB.Value));
+        frFormatoSolicitudTD.Dictionary.Variables['OFI'] := QuotedStr(FormatCurr('$#,##0', edTopeOFI.Value));
+        if (frFormatoSolicitudTD.PrepareReport) then
+        begin
+          frFormatoSolicitudTD.ShowPreparedReport;
+        end;
 end;
 
 end.

@@ -977,7 +977,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0001000000000500417269616C00080000000200000000000000000001000200
       00000000FFFFFF000000000200000000000000FEFEFF0200000008002047656E
       6572616C0000000006004E4F4D425245000000000000000000000000FC000000
-      000000000000000000000000004D000717B6C7545DE340FA1CF7BEF65DE540}
+      000000000000000000000000004D000717B6C7545DE34025B713BA145EE540}
   end
   object IBQvCuenta: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -1020,5 +1020,26 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     Left = 616
     Top = 176
     ReportForm = {19000000}
+  end
+  object IBQDireccion: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    SQL.Strings = (
+      'SELECT FIRST 1 * FROM "gen$direccion" d'
+      'WHERE d.ID_IDENTIFICACION = :ID_IDENTIFICACION and'
+      'd.ID_PERSONA = :ID_PERSONA and d.ID_DIRECCION = 1')
+    Left = 128
+    Top = 184
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_IDENTIFICACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_PERSONA'
+        ParamType = ptUnknown
+      end>
   end
 end
