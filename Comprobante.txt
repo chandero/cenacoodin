@@ -1,0 +1,16 @@
+ COODIN           NIT:  800.038.375-3      Comprobante No.:007031  Tipo de Comprobante:NOTA CONTABLE                                
+ FECHA: 2019/08/31 AGENCIA:LA PLAYA DE BELE
+ Descripción:CANCELACION TRANSITORIA DE MOVIMIENTOS Y COMISIONES DIA 21 DE AGOSTO DE 2019 SEGUN ANEXO                               
+
+ -----------------------------------------------------------------------------------------------------------------------------------
+      CODIGO     |                CUENTA CONTABLE                |No. Cta/Credito|   Ident.   |      DEBITO      |     CREDITO      
+ -----------------------------------------------------------------------------------------------------------------------------------
+ 1110250100000000|RED COOPCENTRAL COMPENSADORA                   |               |            |              0.00|          1,606.00
+ 1110250100000000|RED COOPCENTRAL COMPENSADORA                   |               |            |              0.00|        131,990.00
+ 2445951000000000|TRANSITORIA MOVIMIENTOS                        |               |            |        131,990.00|              0.00
+ 2445951100000000|TRANSITORIA COMISIONES                         |               |            |          1,700.00|              0.00
+ 4220100600000000|INGRESOS POR TARJETA DEBITO                    |               |            |              0.00|             94.00
+ -----------------------------------------------------------------------------------------------------------------------------------
+ Fecha de Impresión :2019/09/17                                           SUMAS IGUALES       :        133,690.00         133,690.00
+ -----------------------------------------------------------------------------------------------------------------------------------
+ ELABORO:CARRASCAL  MARCIA                                                

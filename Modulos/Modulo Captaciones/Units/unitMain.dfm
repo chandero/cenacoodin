@@ -341,6 +341,10 @@ object frmMain: TfrmMain
         Caption = 'Comprobante Conciliaci'#243'n Servicios Virtuales'
         OnClick = ComprobanteConciliacin1Click
       end
+      object ConciliacinBancariaServiciosVirtuales1: TMenuItem
+        Caption = 'Conciliaci'#243'n Bancaria Servicios Virtuales'
+        OnClick = ConciliacinBancariaServiciosVirtuales1Click
+      end
       object N7: TMenuItem
         Caption = '-'
       end

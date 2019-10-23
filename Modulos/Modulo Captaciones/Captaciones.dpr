@@ -146,7 +146,8 @@ uses
   UnitConciliacionServiciosVirtuales in 'Units\UnitConciliacionServiciosVirtuales.pas' {frmConciliacionServiciosVirtuales},
   UnitActualizarSaldoCuentaServiciosVirtuales in 'Units\UnitActualizarSaldoCuentaServiciosVirtuales.pas' {frmActualizarSaldoCuentaServiciosVirtuales},
   UnitCancelarServiciosVirtuales in 'Units\UnitCancelarServiciosVirtuales.pas' {frmCancelarServiciosVirtuales},
-  UnitArchivoPlanoMovimientosTarjetas in 'Units\UnitArchivoPlanoMovimientosTarjetas.pas' {frmArchivoPlanoMovimientosTarjetas};
+  UnitArchivoPlanoMovimientosTarjetas in 'Units\UnitArchivoPlanoMovimientosTarjetas.pas' {frmArchivoPlanoMovimientosTarjetas},
+  UnitConciliacionBancariaServiciosVirtuales in 'Units\UnitConciliacionBancariaServiciosVirtuales.pas' {frmConciliacionBancariaServiciosVirtuales};
 
 {$R *.res}
 
@@ -156,7 +157,6 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmArchivoPlanoMovimientosTarjetas, frmArchivoPlanoMovimientosTarjetas);
   Application.Run;
 end.
 

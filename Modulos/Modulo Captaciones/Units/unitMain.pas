@@ -172,6 +172,7 @@ type
     ActualizarSaldoCuenta1: TMenuItem;
     CancelarServiciosVirtuales1: TMenuItem;
     ArchivoPlanoMovimientos1: TMenuItem;
+    ConciliacinBancariaServiciosVirtuales1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -282,6 +283,7 @@ type
     procedure ActualizarSaldoCuenta1Click(Sender: TObject);
     procedure CancelarServiciosVirtuales1Click(Sender: TObject);
     procedure ArchivoPlanoMovimientos1Click(Sender: TObject);
+    procedure ConciliacinBancariaServiciosVirtuales1Click(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -334,7 +336,7 @@ uses unitLogin, unitdmColocacion, IniFiles,
      UnitInformeGeneraldeCaptaciones1,UnitRegistroIncapacitados,
      UnitTarjetaSinMovimiento, UnitSorteoCumpleanhos, UnitSaldoPorRangos, UnitArchivoTransacciones, UnitArchivoFinancieroAsociado, UnitReimprimirCDAT,
      UnitDeJuvenilaAsociado, UnitAdministracionProductosVirtuales, UnitConciliacionServiciosVirtuales, UnitActualizarSaldoCuentaServiciosVirtuales,
-     UnitCancelarServiciosVirtuales, UnitArchivoPlanoMovimientosTarjetas;
+     UnitCancelarServiciosVirtuales, UnitArchivoPlanoMovimientosTarjetas, UnitConciliacionBancariaServiciosVirtuales;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1392,6 +1394,15 @@ var
 begin
   frmArchivoPlanoMovimientosTarjetas := TfrmArchivoPlanoMovimientosTarjetas.Create(self);
   frmArchivoPlanoMovimientosTarjetas.ShowModal;
+end;
+
+procedure TfrmMain.ConciliacinBancariaServiciosVirtuales1Click(
+  Sender: TObject);
+ var
+   frmConciliacionBancariaServiciosVirtuales: TfrmConciliacionBancariaServiciosVirtuales;
+begin
+   frmConciliacionBancariaServiciosVirtuales := TfrmConciliacionBancariaServiciosVirtuales.Create(self);
+   frmConciliacionBancariaServiciosVirtuales.ShowModal;
 end;
 
 end.
