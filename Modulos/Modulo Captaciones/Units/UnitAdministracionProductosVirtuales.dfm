@@ -46,6 +46,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       ListField = 'DESCRIPCION_IDENTIFICACION'
       ListSource = DSTipoIdentificacion
       TabOrder = 0
+      OnExit = CBTiposIdentificacionExit
     end
     object EdIdentificacion: TMemo
       Left = 174
@@ -977,7 +978,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0001000000000500417269616C00080000000200000000000000000001000200
       00000000FFFFFF000000000200000000000000FEFEFF0200000008002047656E
       6572616C0000000006004E4F4D425245000000000000000000000000FC000000
-      000000000000000000000000004D000717B6C7545DE34025B713BA145EE540}
+      000000000000000000000000004D000717B6C7545DE340E5F9838A535EE540}
   end
   object IBQvCuenta: TIBQuery
     Database = dmGeneral.IBDatabase1

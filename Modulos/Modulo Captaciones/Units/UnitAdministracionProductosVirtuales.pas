@@ -98,8 +98,11 @@ type
     procedure btnMarcarClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure btnFormatoClick(Sender: TObject);
+    procedure CBTiposIdentificacionExit(Sender: TObject);
   private
     { Private declarations }
+    procedure Ubicar;
+    procedure Reubicar;
   public
     { Public declarations }
   end;
@@ -138,6 +141,10 @@ var
   _vita_id: Integer;
   _vVicu_id: Integer;
 
+  _id_identificacion : Integer;
+  _id_persona: String;
+  _numero_cuenta: Integer;
+
 implementation
 
 {$R *.dfm}
@@ -155,37 +162,9 @@ end;
 
 procedure TfrmAdministracionProductosVirtuales.EdIdentificacionExit(Sender: TObject);
 begin
+        _id_persona := EdIdentificacion.Text;
         vIdentificacion := EdIdentificacion.Text;
-        with dmPersona.IBQuery do
-        begin
-            Close;
-            SQL.Clear;
-            SQL.Add('select * from "gen$persona" where ');
-            SQL.Add('ID_IDENTIFICACION = :"ID_IDENTIFICACION" and ID_PERSONA = :"ID_PERSONA"');
-            ParamByName('ID_IDENTIFICACION').AsInteger := CBTiposIdentificacion.KeyValue;
-            ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
-            Open;
-            if RecordCount > 0 then
-            begin
-               EdPrimerApellido.Text  := FieldByName('PRIMER_APELLIDO').AsString;
-               EdSegundoApellido.Text := FieldByName('SEGUNDO_APELLIDO').AsString;
-               EdNombres.Text := FieldByName('NOMBRE').AsString;
-               // Buscar Información de Productos Virtuales
-
-               IBQCuentas.Close;
-               IBQCuentas.ParamByName('ID_IDENTIFICACION').AsInteger := CBTiposIdentificacion.KeyValue;
-               IBQCuentas.ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
-               IBQCuentas.Open;
-
-               IBQDireccion.Close;
-               IBQDireccion.ParamByName('ID_IDENTIFICACION').AsInteger := CBTiposIdentificacion.KeyValue;
-               IBQDireccion.ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
-               IBQDireccion.Open;
-
-
-            end;
-        end;
-
+        Ubicar;
 end;
 
 procedure TfrmAdministracionProductosVirtuales.FormShow(Sender: TObject);
@@ -212,6 +191,8 @@ begin
         _vTipo      := DataSet.FieldByName('ID_TIPO_CAPTACION').AsInteger;
         _vNumero    := DataSet.FieldByName('NUMERO_CUENTA').AsInteger;
         _vDigito    := DataSet.FieldByName('DIGITO_CUENTA').AsInteger;
+
+        _numero_cuenta := _vNumero;
 
         IBQvCuenta.Close;
         IBQvCuenta.ParamByName('ID_AGENCIA').AsInteger := DataSet.FieldByName('ID_AGENCIA').AsInteger;
@@ -978,10 +959,11 @@ begin
              btnMarcar.Enabled := True;
              btnFormato.Enabled := True;
            end;
+           IBQGuardar.Transaction.Commit;
            btnGrabar.Enabled := False;
            ShowMessage('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!');
 
-           btnMarcar.Click;
+           Reubicar;
 
         end;
 end;
@@ -1167,6 +1149,66 @@ begin
         if (frFormatoSolicitudTD.PrepareReport) then
         begin
           frFormatoSolicitudTD.ShowPreparedReport;
+        end;
+end;
+
+procedure TfrmAdministracionProductosVirtuales.Reubicar;
+begin
+       if ( dmGeneral.IBTransaction1.InTransaction ) then
+       begin
+           dmGeneral.IBTransaction1.Commit;
+       end;
+       dmGeneral.IBTransaction1.StartTransaction;
+       IBQTipoIdentificacion.Close;
+       IBQTipoIdentificacion.Open;
+       IBQTipoIdentificacion.Last;
+       _vModificar := False;
+       _Reasignar := False;
+       CBTiposIdentificacion.KeyValue := _id_identificacion;
+       EdIdentificacion.Text := _id_persona;
+       EdIdentificacion.OnExit(self);
+       IBQCuentas.Locate('NUMERO_CUENTA', VarArrayOf([_numero_cuenta]),  [loCaseInsensitive]);
+end;
+
+procedure TfrmAdministracionProductosVirtuales.Ubicar;
+begin
+        _id_persona := EdIdentificacion.Text;
+        with dmPersona.IBQuery do
+        begin
+            Close;
+            SQL.Clear;
+            SQL.Add('select * from "gen$persona" where ');
+            SQL.Add('ID_IDENTIFICACION = :"ID_IDENTIFICACION" and ID_PERSONA = :"ID_PERSONA"');
+            ParamByName('ID_IDENTIFICACION').AsInteger := CBTiposIdentificacion.KeyValue;
+            ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
+            Open;
+            if RecordCount > 0 then
+            begin
+               EdPrimerApellido.Text  := FieldByName('PRIMER_APELLIDO').AsString;
+               EdSegundoApellido.Text := FieldByName('SEGUNDO_APELLIDO').AsString;
+               EdNombres.Text := FieldByName('NOMBRE').AsString;
+               // Buscar Información de Productos Virtuales
+
+               IBQCuentas.Close;
+               IBQCuentas.ParamByName('ID_IDENTIFICACION').AsInteger := CBTiposIdentificacion.KeyValue;
+               IBQCuentas.ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
+               IBQCuentas.Open;
+
+               IBQDireccion.Close;
+               IBQDireccion.ParamByName('ID_IDENTIFICACION').AsInteger := CBTiposIdentificacion.KeyValue;
+               IBQDireccion.ParamByName('ID_PERSONA').AsString := EdIdentificacion.Text;
+               IBQDireccion.Open;
+            end;
+        end;
+
+end;
+
+procedure TfrmAdministracionProductosVirtuales.CBTiposIdentificacionExit(
+  Sender: TObject);
+begin
+        if (not VarIsNull(CBTiposIdentificacion.KeyValue)) then
+        begin
+                _id_identificacion := CBTiposIdentificacion.KeyValue;
         end;
 end;
 
