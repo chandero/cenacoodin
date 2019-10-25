@@ -365,7 +365,7 @@ object frmBuscarPersona: TfrmBuscarPersona
   end
   object IBDataSet1: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     ForcedRefresh = True
     AfterScroll = IBDataSet1AfterScroll
     SQL.Strings = (
@@ -432,5 +432,10 @@ object frmBuscarPersona: TfrmBuscarPersona
       Origin = 'cap$maestrotitular.NUMERO_CUENTA'
       DisplayFormat = '0000000'
     end
+  end
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = dmGeneral.IBDatabase1
+    Left = 408
+    Top = 88
   end
 end

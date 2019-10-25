@@ -7,7 +7,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, ExtCtrls, DB, IBCustomDataSet, IBQuery, StdCtrls,
   Buttons, IBSQL, IBTable, Provider, DBClient, DBLocal, DBLocalI,
-  IBStoredProc;
+  IBStoredProc, IBDatabase;
 
 type
   TfrmBuscarPersona = class(TForm)
@@ -29,6 +29,7 @@ type
     IBDataSet1SEGUNDO_APELLIDO: TIBStringField;
     IBDataSet1NOMBRE: TIBStringField;
     IBDataSet1NUMERO_CUENTA: TIntegerField;
+    IBTransaction1: TIBTransaction;
     procedure EdPrimerApellidoChange(Sender: TObject);
     procedure EdSegundoApellidoChange(Sender: TObject);
     procedure EdNombreChange(Sender: TObject);
@@ -186,8 +187,7 @@ end;
 
 procedure TfrmBuscarPersona.FormShow(Sender: TObject);
 begin
-        if dmGeneral.IBTransaction1.InTransaction then
-           dmGeneral.IBTransaction1.CommitRetaining;
+        IBTransaction1.StartTransaction;
 end;
 
 end.

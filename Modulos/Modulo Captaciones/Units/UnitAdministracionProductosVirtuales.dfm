@@ -702,14 +702,14 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
         3625013C3D3D3D3B031A1A1A03032E33392C013C3D3D3D3B031A1A1A1A1A0306
         1B1C010303030303031A1A1A1A1A1A1A0303011A1A1A1A1A1A1A}
     end
-    object BitBtn1: TBitBtn
+    object btnNuevo: TBitBtn
       Left = 514
       Top = 14
       Width = 75
       Height = 25
       Caption = 'Nuevo'
       TabOrder = 2
-      OnClick = BitBtn1Click
+      OnClick = btnNuevoClick
     end
   end
   object GroupBox4: TGroupBox
@@ -771,7 +771,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQCuentas: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     AfterScroll = IBQCuentasAfterScroll
     SQL.Strings = (
       'SELECT * FROM "cap$maestrotitular" t'
@@ -806,7 +806,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQCanal: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SQL.Strings = (
       'SELECT * FROM VIRTUAL_CANAL')
     Left = 200
@@ -814,7 +814,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQTarjeta: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SQL.Strings = (
       
         'SELECT FIRST 1 vt.VITA_ID, vt.VITA_TARJETA FROM VIRTUAL_CUENTA v' +
@@ -858,7 +858,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQGuardar: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     Left = 176
     Top = 304
     ParamData = <
@@ -874,7 +874,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQCaptacion: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SQL.Strings = (
       'SELECT * FROM VIRTUAL_CUENTA'
       'WHERE '
@@ -911,7 +911,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQTipoIdentificacion: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SQL.Strings = (
       'SELECT * FROM "gen$tiposidentificacion"')
     Left = 152
@@ -924,7 +924,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQCuentaCanal: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SQL.Strings = (
       'SELECT * FROM VIRTUAL_CUENTA vc'
       'LEFT JOIN VIRTUAL_CUENTA_CANAL vcc ON vcc.VICU_ID = vc.VICU_ID'
@@ -978,11 +978,11 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0001000000000500417269616C00080000000200000000000000000001000200
       00000000FFFFFF000000000200000000000000FEFEFF0200000008002047656E
       6572616C0000000006004E4F4D425245000000000000000000000000FC000000
-      000000000000000000000000004D000717B6C7545DE340E5F9838A535EE540}
+      000000000000000000000000004D000717B6C7545DE340FE02CA7D6C5EE540}
   end
   object IBQvCuenta: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SQL.Strings = (
       
         'SELECT COUNT(*) AS EXISTE FROM VIRTUAL_CUENTA vc WHERE vc.VICU_I' +
@@ -1024,7 +1024,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object IBQDireccion: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SQL.Strings = (
       'SELECT FIRST 1 * FROM "gen$direccion" d'
       'WHERE d.ID_IDENTIFICACION = :ID_IDENTIFICACION and'
@@ -1042,5 +1042,14 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
         Name = 'ID_PERSONA'
         ParamType = ptUnknown
       end>
+  end
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = dmGeneral.IBDatabase1
+    Left = 200
+    Top = 40
+  end
+  object IBTransaction2: TIBTransaction
+    Left = 384
+    Top = 125
   end
 end

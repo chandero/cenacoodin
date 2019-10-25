@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls, ExtCtrls, Buttons, JvEdit, JvTypedEdit,
   Grids, DBGrids, DB, IBCustomDataSet, IBQuery, UnitDmGeneral, UnitDmPersona, UnitGlobales,
-  FR_Class, StrUtils, DateUtils;
+  FR_Class, StrUtils, DateUtils, IBDatabase;
 
 type
   TfrmAdministracionProductosVirtuales = class(TForm)
@@ -82,10 +82,12 @@ type
     btnMarcar: TBitBtn;
     frReport1: TfrReport;
     IBQvCuenta: TIBQuery;
-    BitBtn1: TBitBtn;
+    btnNuevo: TBitBtn;
     btnFormato: TBitBtn;
     frFormatoSolicitudTD: TfrReport;
     IBQDireccion: TIBQuery;
+    IBTransaction1: TIBTransaction;
+    IBTransaction2: TIBTransaction;
     procedure CmdCerrarClick(Sender: TObject);
     procedure EdIdentificacionExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -96,7 +98,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnMarcarClick(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure btnNuevoClick(Sender: TObject);
     procedure btnFormatoClick(Sender: TObject);
     procedure CBTiposIdentificacionExit(Sender: TObject);
   private
@@ -149,7 +151,7 @@ implementation
 
 {$R *.dfm}
 
-uses IBDatabase, UnitBuscarPersona, unitMain;
+uses UnitBuscarPersona, unitMain;
 
 procedure TfrmAdministracionProductosVirtuales.CmdCerrarClick(Sender: TObject);
 begin
@@ -961,7 +963,7 @@ begin
            end;
            IBQGuardar.Transaction.Commit;
            btnGrabar.Enabled := False;
-           ShowMessage('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!');
+           MessageDlg('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!', mtConfirmation, [mbOk], 0);
 
            Reubicar;
 
@@ -1112,14 +1114,50 @@ begin
            frReport1.ShowPreparedReport;
 end;
 
-procedure TfrmAdministracionProductosVirtuales.BitBtn1Click(
+procedure TfrmAdministracionProductosVirtuales.btnNuevoClick(
   Sender: TObject);
 begin
-     IBQGuardar.Transaction.Commit;
-     dmGeneral.IBTransaction1.StartTransaction;
+     if (IBTransaction1.InTransaction) then
+        IBQGuardar.Transaction.Commit;
+     IBTransaction1.StartTransaction;
+     IBQCuentas.Close;
+     IBQDireccion.Close;
+     IBQCanal.Close;
+     IBQTarjeta.Close;
+     IBQCaptacion.Close;
+     IBQvCuenta.Close;
+     IBQCuentaCanal.Close;
      IBQTipoIdentificacion.Close;
      IBQTipoIdentificacion.Open;
      IBQTipoIdentificacion.Last;
+     CBTiposIdentificacion.KeyValue := -1;
+     EdIdentificacion.Text := '';
+     EdPrimerApellido.Text := '';
+     EdSegundoApellido.Text := '';
+     EdNombres.Text := '';
+     edTarjetaDebito.Text := '';
+     chkATM.Checked := False;
+     chkPOS.Checked := False;
+     chkIVR.Checked := False;
+     chkWEB.Checked := False;
+     chkMOV.Checked := False;
+     chkOFI.Checked := False;
+     chkCNB.Checked := False;
+     edNopeATM.Value := 0;
+     edNopePOS.Value := 0;
+     edNopeIVR.Value := 0;
+     edNopeWEB.Value := 0;
+     edNopeMOV.Value := 0;
+     edNopeOFI.Value := 0;
+     edNopeCNB.Value := 0;
+     edTopeATM.Value := 0;
+     edTopePOS.Value := 0;
+     edTopeIVR.Value := 0;
+     edTopeWEB.Value := 0;
+     edTopeMOV.Value := 0;
+     edTopeOFI.Value := 0;
+     edTopeCNB.Value := 0;
+     CBTiposIdentificacion.SetFocus;
 end;
 
 procedure TfrmAdministracionProductosVirtuales.btnFormatoClick(
@@ -1154,16 +1192,7 @@ end;
 
 procedure TfrmAdministracionProductosVirtuales.Reubicar;
 begin
-       if ( dmGeneral.IBTransaction1.InTransaction ) then
-       begin
-           dmGeneral.IBTransaction1.Commit;
-       end;
-       dmGeneral.IBTransaction1.StartTransaction;
-       IBQTipoIdentificacion.Close;
-       IBQTipoIdentificacion.Open;
-       IBQTipoIdentificacion.Last;
-       _vModificar := False;
-       _Reasignar := False;
+       btnNuevo.Click;
        CBTiposIdentificacion.KeyValue := _id_identificacion;
        EdIdentificacion.Text := _id_persona;
        EdIdentificacion.OnExit(self);
@@ -1172,6 +1201,7 @@ end;
 
 procedure TfrmAdministracionProductosVirtuales.Ubicar;
 begin
+        _id_identificacion := CBTiposIdentificacion.KeyValue;
         _id_persona := EdIdentificacion.Text;
         with dmPersona.IBQuery do
         begin
