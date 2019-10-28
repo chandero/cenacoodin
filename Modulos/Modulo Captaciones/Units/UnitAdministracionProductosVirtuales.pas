@@ -194,8 +194,6 @@ begin
         _vNumero    := DataSet.FieldByName('NUMERO_CUENTA').AsInteger;
         _vDigito    := DataSet.FieldByName('DIGITO_CUENTA').AsInteger;
 
-        _numero_cuenta := _vNumero;
-
         IBQvCuenta.Close;
         IBQvCuenta.ParamByName('ID_AGENCIA').AsInteger := DataSet.FieldByName('ID_AGENCIA').AsInteger;
         IBQvCuenta.ParamByName('ID_TIPO_CAPTACION').AsInteger := DataSet.FieldByName('ID_TIPO_CAPTACION').AsInteger;
@@ -204,7 +202,9 @@ begin
         IBQvCuenta.Open;
 
         if (IBQvCuenta.FieldByName('EXISTE').AsInteger > 0) then
-           _vModificar := True; 
+           _vModificar := True
+        else
+           _vModificar := False;
 
         IBQCuentaCanal.Close;
         IBQCuentaCanal.ParamByName('ID_AGENCIA').AsInteger := DataSet.FieldByName('ID_AGENCIA').AsInteger;
@@ -293,6 +293,7 @@ begin
         while not IBQCuentaCanal.Eof do
         begin
           btnGrabar.Caption := 'Actualizar';
+          btnGrabar.Enabled := True;
           vccEstado := IBQCuentaCanal.FieldByName('VICC_ESTADO').AsInteger;
           if (IBQCuentaCanal.FieldByName('VICA_ID').AsInteger = 1) then
           begin
@@ -376,6 +377,8 @@ begin
       end
       else
       begin
+          btnGrabar.Caption := 'Grabar';
+          btnGrabar.Enabled := True;
           IBQCanal.Open;
           while not IBQCanal.Eof do
           begin
@@ -462,7 +465,7 @@ begin
 
                    IBQGuardar.SQL.Clear;
                    IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_TARJETA_CUENTA (VICU_ID, VITA_ID, VITC_FECHAREGISTRO, VITC_ESTADO, VITC_ESLEIDO) VALUES (');
-                   IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_FECHAREGISTRO, :VITC_ESTADO)');
+                   IBQGuardar.SQL.Add(':VICU_ID, :VITA_ID, :VITC_FECHAREGISTRO, :VITC_ESTADO, :VITC_ESLEIDO)');
                    IBQGuardar.ParamByName('VICU_ID').AsInteger := _vVicu_id;
                    IBQGuardar.ParamByName('VITA_ID').AsInteger := _Tarjeta.Id;
                    IBQGuardar.ParamByName('VITC_FECHAREGISTRO').AsDate := fFechaActual;
@@ -517,7 +520,7 @@ begin
                 if (_eAtm = True) then
                 begin
                      IBQGuardar.SQL.Clear;
-                     IBQGuardar.SQL.Add('UPDATE VIRTUAL_TARJETA_CUENTA SET VITC_ESTADO = :VITC_ESTADO, VITC_ESTADO = :VITC_ESTADO, VITC_FECHACANCELACION = :VITC_FECHACANCELACION WHERE VITA_ID = :VITA_ID');
+                     IBQGuardar.SQL.Add('UPDATE VIRTUAL_TARJETA_CUENTA SET VITC_ESTADO = :VITC_ESTADO, VITC_ESLEIDO = :VITC_ESLEIDO, VITC_FECHACANCELACION = :VITC_FECHACANCELACION WHERE VITA_ID = :VITA_ID');
                      IBQGuardar.ParamByName('VITC_ESTADO').AsInteger := 9;
                      IBQGuardar.ParamByName('VITC_ESLEIDO').AsInteger := 0;
                      IBQGuardar.ParamByName('VITC_FECHACANCELACION').AsDateTime := fFechaHoraActual;                     
@@ -808,7 +811,6 @@ begin
                end;
              end;
            IBQGuardar.Transaction.Commit;
-           btnGrabar.Enabled := False;
            ShowMessage('Proceso de Actualización de Cuenta Finalizado con exito!!!');
         end
         else
@@ -957,17 +959,17 @@ begin
                  IBQGuardar.ExecSQL;
                  IBQGuardar.Close;
              end;
+             IBQGuardar.Transaction.Commit;
+             ShowMessage('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!');
 
-             btnMarcar.Enabled := True;
-             btnFormato.Enabled := True;
            end;
-           IBQGuardar.Transaction.Commit;
+        end;
+           btnMarcar.Enabled := True;
+           btnFormato.Enabled := True;
+
            btnGrabar.Enabled := False;
-           MessageDlg('Proceso de Registro de Nueva Cuenta Finalizado con exito!!!', mtConfirmation, [mbOk], 0);
 
            Reubicar;
-
-        end;
 end;
 
 procedure TfrmAdministracionProductosVirtuales.btnBuscarClick(
@@ -1192,6 +1194,9 @@ end;
 
 procedure TfrmAdministracionProductosVirtuales.Reubicar;
 begin
+       _vModificar := False;
+       _Reasignar := False;
+       _numero_cuenta := _vNumero;
        btnNuevo.Click;
        CBTiposIdentificacion.KeyValue := _id_identificacion;
        EdIdentificacion.Text := _id_persona;
