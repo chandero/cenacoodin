@@ -511,7 +511,8 @@ begin
 
               Lineas.Dias := IntToStr(Dia);
               Lineas.Morosidad := IntToStr(FieldByName('MOROSIDAD').AsInteger);
-              if (StrToInt(Lineas.Morosidad) < 30) then Lineas.Morosidad := '0';
+              // if (StrToInt(Lineas.Morosidad) < 30) then Lineas.Morosidad := '0';
+              if (StrToInt(Lineas.Morosidad) < 0) then Lineas.Morosidad := '0';
               if IBQuery2.FieldByName('ID_TIPO_CUOTA').AsInteger = 1 then
                   Lineas.Tipo_Cuota := '1'
               else
