@@ -99,7 +99,8 @@ type TColocacion = Record
      DesGarantia,
      ValorAporteSocial,
      NumClasificacion, //Numeros de Créditos por Clasificación
-     EstadoColocacion :string;
+     EstadoColocacion: String;
+     LineaColocacion: Integer;
 end;
 
 
@@ -229,7 +230,6 @@ begin
               'IDENTIFICACION' + #9 +
               'NOMBRE' + #9 +
               'CLASIFICACION' + #9 +
-              'LINEA' + #9 +
               'CALIFICACION' + #9 +
               'CODIGO' + #9 +
               'REESTRUCTURADO' + #9 +
@@ -283,7 +283,8 @@ begin
               'DESGARANTIA' + #9 +
               'VALOR APORTES' + #9 +
               'CREDCLASIFICACION' + #9 +
-              'ESTADO';
+              'ESTADO' + #9 +
+              'LINEA';
 
     Writeln(Archivo,Cadena);
 
@@ -453,7 +454,24 @@ begin
               end;
 
 // Fin Estado del credito
-              Lineas.Reestructurado := '0';
+              Lineas.Reestructurado := '4';
+
+              IBQuery2.Close;
+              IBQuery2.SQL.Clear;
+              IBQuery2.SQL.Add('SELECT * FROM "col$desembolsoparcial" p');
+              IBQuery2.SQL.Add(' LEFT JOIN "gen$infcrediticia" i ON i.ID_SOLICITUD = p.ID_SOLICITUD');
+              IBQuery2.SQL.Add(' WHERE p.ID_COLOCACION = :ID_COLOCACION AND i.ES_DESCUENTO = 1');
+              IBQuery2.ParamByName('ID_COLOCACION').AsString := FieldByName('ID_COLOCACION').AsString;
+              try
+                IBQuery2.Open;
+                if IBQuery2.RecordCount > 0 then
+                begin
+                  Lineas.Reestructurado := '3';
+                end;
+              except
+                Transaction.Rollback;
+                raise;
+              end;
               Lineas.Numero_Credito := IntToStr(FieldByName('ID_AGENCIA').AsInteger) + FieldByName('ID_COLOCACION').AsString;
               IBSQL1.Close;
               IBSQL1.SQL.Clear;
@@ -896,7 +914,6 @@ begin
                           Lineas.Numero_Identificacion + #9 +
                           Lineas.Nombre + #9 +
                           Lineas.Clasificacion + #9 +
-                          Lineas.Linea + #9 +                          
                           Lineas.Calificacion + #9 +
                           Lineas.Codigo_Contable + #9 +
                           Lineas.Reestructurado + #9 +
@@ -950,7 +967,8 @@ begin
                           Lineas.DesGarantia + #9 +
                           Lineas.ValorAporteSocial+ #9 +
                           Lineas.NumClasificacion + #9 +
-                          Lineas.EstadoColocacion;
+                          Lineas.EstadoColocacion + #9 +
+                          Lineas.Linea;
               Writeln(Archivo,Cadena);
             Next;
            end; // del while
