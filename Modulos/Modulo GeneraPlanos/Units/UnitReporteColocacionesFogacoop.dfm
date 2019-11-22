@@ -1,6 +1,6 @@
 object frmReporteColocacionesFogacoop: TfrmReporteColocacionesFogacoop
-  Left = 547
-  Top = 120
+  Left = 611
+  Top = 247
   Width = 312
   Height = 155
   AutoSize = True

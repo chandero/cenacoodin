@@ -1,6 +1,6 @@
 object frmReporteCaptacionesFogacoop: TfrmReporteCaptacionesFogacoop
-  Left = 241
-  Top = 164
+  Left = 545
+  Top = 230
   Width = 357
   Height = 135
   Caption = 'Reporte de Captaciones para Fogacoop'

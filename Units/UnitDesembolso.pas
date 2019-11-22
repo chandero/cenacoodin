@@ -3672,6 +3672,9 @@ var i:Integer;
     vVecesMin,vSalarioMin :Currency;
     vDiasIntAnt:Integer;
     vFechaGracia :TDate;
+    _vCodigo : String;
+    _vDebito : Currency;
+    _vCredito : Currency;
 begin
   try
         vSeDescuenta := True;
@@ -3718,11 +3721,17 @@ begin
             SQL.Add(':"FECHA_Y_HORA")');
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
             ParamByName('ID_COLOCACION').AsString := vIdColocacion;
-            ParamByName('CODIGO').AsString := recupera_codigo(18);
-            ParamByName('DEBITO').AsCurrency := 0;
-            ParamByName('CREDITO').AsCurrency := ValorSolicitud;//seguro(8);
-            ParamByName('FECHA_Y_HORA').AsDateTime := vfechahora;
-            ExecSQL;
+            _vCodigo := recupera_codigo(18);
+            _vDebito := 0;
+            _vCredito := ValorSolicitud;
+            if (_vDebito > 0) or (_vCredito > 0) then
+            begin
+              ParamByName('CODIGO').AsString := _vCodigo;
+              ParamByName('DEBITO').AsCurrency := _vDebito;
+              ParamByName('CREDITO').AsCurrency := _vCredito;
+              ParamByName('FECHA_Y_HORA').AsDateTime := vfechahora;
+              ExecSQL;
+            end;
             Close;
             SQL.Clear;
             SQL.Add('insert into "col$concol" ("ID_AGENCIA","ID_COLOCACION","CODIGO",');
@@ -3732,11 +3741,17 @@ begin
             SQL.Add(':"FECHA_Y_HORA")');
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
             ParamByName('ID_COLOCACION').AsString := vIdColocacion;
-            ParamByName('CODIGO').AsString := recupera_codigo(11);
-            ParamByName('DEBITO').AsCurrency := 0;
-            ParamByName('CREDITO').AsCurrency := ValorIva;//seguro(8);
-            ParamByName('FECHA_Y_HORA').AsDateTime := vfechahora;
-            ExecSQL;
+            _vCodigo := recupera_codigo(11);
+            _vDebito := 0;
+            _vCredito := ValorIva;
+            if (_vDebito > 0) or (_vCredito > 0) then
+            begin
+              ParamByName('CODIGO').AsString := _vCodigo;
+              ParamByName('DEBITO').AsCurrency := _vDebito;
+              ParamByName('CREDITO').AsCurrency := _vCredito;
+              ParamByName('FECHA_Y_HORA').AsDateTime := vfechahora;
+              ExecSQL;
+            end;
             Close;
             vCaja := vCaja - seguro(8);
           end;
@@ -3754,11 +3769,17 @@ begin
             SQL.Add(':"FECHA_Y_HORA")');
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
             ParamByName('ID_COLOCACION').AsString := vIdColocacion;
-            ParamByName('CODIGO').AsString := recupera_codigo(14);// ojo actualizar con los nuevos codigos
-            ParamByName('DEBITO').AsCurrency := 0;
-            ParamByName('CREDITO').AsCurrency := seguro(5);
-            ParamByName('FECHA_Y_HORA').AsDateTime := vfechahora;
-            Open;
+            _vCodigo := recupera_codigo(14);
+            _vDebito := 0;
+            _vCredito := seguro(5);
+            if (_vDebito > 0) or (_vCredito > 0) then
+            begin
+              ParamByName('CODIGO').AsString := _vCodigo;
+              ParamByName('DEBITO').AsCurrency := _vDebito;
+              ParamByName('CREDITO').AsCurrency := _vCredito;
+              ParamByName('FECHA_Y_HORA').AsDateTime := vfechahora;
+              ExecSQL;
+            end;
             Close;
             vCaja := vCaja - seguro(5);
           end;
@@ -3772,11 +3793,17 @@ begin
             SQL.Add(':"FECHA_Y_HORA")');
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
             ParamByName('ID_COLOCACION').AsString := vIdColocacion;
-            ParamByName('CODIGO').AsString := recupera_codigo(15);// actualizar con los nuevos codigos
-            ParamByName('DEBITO').AsCurrency := 0;
-            ParamByName('CREDITO').AsCurrency := seguro(6);
-            ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
-            Open;
+            _vCodigo := recupera_codigo(15);
+            _vDebito := 0;
+            _vCredito := seguro(6);
+            if (_vDebito > 0) or (_vCredito > 0) then
+            begin
+              ParamByName('CODIGO').AsString := _vCodigo;
+              ParamByName('DEBITO').AsCurrency := _vDebito;
+              ParamByName('CREDITO').AsCurrency := _vCredito;
+              ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
+              ExecSQL;
+            end;
             Close;
             vCaja := vCaja - seguro(6);
           end;
@@ -3869,11 +3896,17 @@ begin
                     SQL.Add(':"FECHA_Y_HORA")');
                     ParamByName('ID_AGENCIA').AsInteger := Agencia;
                     ParamByName('ID_COLOCACION').AsString := vIdColocacion;
-                    ParamByName('CODIGO').AsString := IBSQL3.FieldByName('CODIGO').AsString;
-                    ParamByName('DEBITO').AsCurrency := 0;
-                    ParamByName('CREDITO').AsCurrency := vDescuento;
-                    ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
-                    ExecQuery;
+                    _vCodigo := IBSQL3.FieldByName('CODIGO').AsString;
+                    _vDebito := 0;
+                    _vCredito := vDescuento;
+                    if (_vDebito > 0) or (_vCredito > 0) then
+                    begin
+                      ParamByName('CODIGO').AsString := _vCodigo;
+                      ParamByName('DEBITO').AsCurrency := _vDebito;
+                      ParamByName('CREDITO').AsCurrency := _vCredito;
+                      ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
+                      ExecQuery;
+                    end;
                   end;
                end;
               vDescuento := 0;
@@ -4020,11 +4053,17 @@ begin
                  SQL.Add(':"FECHA_Y_HORA")');
                  ParamByName('ID_AGENCIA').AsInteger := Agencia;
                  ParamByName('ID_COLOCACION').AsString := vIdColocacion;
-                 ParamByName('CODIGO').AsString := vCodigoIntereses;
-                 ParamByName('DEBITO').AsCurrency := 0;
-                 ParamByName('CREDITO').AsCurrency := vDescuento;
-                 ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
-                 ExecQuery;
+                 _vCodigo := vCodigoIntereses;
+                 _vDebito := 0;
+                 _vCredito := vDescuento;
+                 if (_vDebito > 0) or (_vCredito > 0) then
+                 begin
+                   ParamByName('CODIGO').AsString := _vCodigo;
+                   ParamByName('DEBITO').AsCurrency := _vDebito;
+                   ParamByName('CREDITO').AsCurrency := _vCredito;
+                   ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
+                   ExecQuery;
+                 end;
                end;
 
               // extracto interes por fecha de pago
@@ -4895,6 +4934,8 @@ end;
 
 procedure TFrmDesembolso.contabilizar_descuentos;
 var    i :Integer;
+_vCodigo: String;
+_vDebito, _vCredito: Currency;
 begin
         for i := 0 to 1 do
         begin
@@ -4927,11 +4968,17 @@ begin
                   SQL.Add(':"FECHA_Y_HORA")');
                   ParamByName('ID_AGENCIA').AsInteger := Agencia;
                   ParamByName('ID_COLOCACION').AsString := vIdColocacion;
-                  ParamByName('CODIGO').AsString := DmSolicitud.IBSolicitud1.FieldByName('CODIGO_PUC').AsString;
-                  ParamByName('DEBITO').AsCurrency := DmSolicitud.IBSolicitud1.FieldByName('debito').AsCurrency;
-                  ParamByName('CREDITO').AsCurrency := DmSolicitud.IBSolicitud1.FieldByName('credito').AsCurrency;
-                  ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
-                  Open;
+                  _vCodigo := DmSolicitud.IBSolicitud1.FieldByName('CODIGO_PUC').AsString;
+                  _vDebito := DmSolicitud.IBSolicitud1.FieldByName('debito').AsCurrency;
+                  _vCredito := DmSolicitud.IBSolicitud1.FieldByName('credito').AsCurrency;
+                  if (_vDebito > 0) or (_vCredito > 0) then
+                  begin
+                    ParamByName('CODIGO').AsString := _vCodigo;
+                    ParamByName('DEBITO').AsCurrency := _vDebito;
+                    ParamByName('CREDITO').AsCurrency := _vCredito;
+                    ParamByName('FECHA_Y_HORA').AsDateTime := vFechaHora;
+                    ExecSQL;
+                  end;
                 end;
             Next;
            end;
