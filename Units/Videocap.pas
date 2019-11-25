@@ -287,8 +287,8 @@ end;
 constructor TVideoCap.Create(aowner:TComponent);
 begin
     inherited create(aowner);
-    height                  := 240;
-    width                   := 320;
+    height                  := 720;
+    width                   := 720;
     Color                   := clWhite;
     fVideoDriverName        := '';
     fdriverindex            := -1 ;
@@ -940,7 +940,8 @@ begin
         exit;
     end;
     if value < 1800 then value := 1800;
-    if value > 324000 then value := 324000;
+    // if value > 324000 then value := 324000;
+    if value > 720000 then value := 720000;
     findexsize:= value;
 end;
 
@@ -1014,7 +1015,8 @@ begin
     CapParms.vKeyAbort        := VK_ESCAPE;
     CapParms.dwIndexSize := findexSize;
     if CapParms.dwIndexSize < 1800 then CapParms.dwIndexSize:= 1800;
-    if CapParms.dwIndexSize > 324000 then CapParms.dwIndexSize:= 324000;
+    // if CapParms.dwIndexSize > 324000 then CapParms.dwIndexSize:= 324000;
+    if CapParms.dwIndexSize > 720000 then CapParms.dwIndexSize:= 720000;    
     capCaptureSetSetup(fhCapWnd, @CapParms, sizeof(TCAPTUREPARMS));
     result:= capCaptureSingleFrameOpen(fhcapWnd);
 end;

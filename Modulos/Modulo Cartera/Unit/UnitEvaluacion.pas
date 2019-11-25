@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, StdCtrls, ExtCtrls, DB, DBClient, IBCustomDataSet,
   IBQuery, Provider, IBDatabase, JvEdit, JvFloatEdit, Grids, DBGrids,
-  JvTypedEdit, Buttons, IBSQL;
+  JvTypedEdit, Buttons, IBSQL, IBTable, DBCtrls;
 
 type
   TfrmEvaluacion = class(TForm)
@@ -69,6 +69,13 @@ type
     IBQuery2: TIBQuery;
     ClientDataSet1CLASIFICACION: TIntegerField;
     ClientDataSet1GARANTIA: TIntegerField;
+    PageControl1: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    IBPorc: TIBTable;
+    DSporc: TDataSource;
+    DBGPorc: TDBGrid;
+    DBNavigator1: TDBNavigator;
     procedure FormCreate(Sender: TObject);
     procedure btnCargarClick(Sender: TObject);
     procedure edEvaluacionChange(Sender: TObject);
@@ -106,9 +113,12 @@ begin
 
         If IBTransaction1.InTransaction then
         begin
-            IBTransaction1.Rollback;
+            IBTransaction1.Commit;
             IBTransaction1.StartTransaction;
         end;
+        IBPorc.Open;
+        edFecha.Date := fFechaActual;
+        edFechaComprobante.Date := edFecha.Date;
 end;
 
 procedure TfrmEvaluacion.btnCargarClick(Sender: TObject);
@@ -370,12 +380,12 @@ begin
             IBTransaction1.Commit;
             btnAplicar.Enabled := False;
             Panel2.Enabled := False;
-            ShowMessage('Evaluaci�n Aplicada con Exito!!');
+            ShowMessage('Evaluacion Aplicada con Exito!!');
           end
           else
           begin
               IBTransaction1.Rollback;
-              ShowMessage('Error al Aplicar Evaluaci�n');
+              ShowMessage('Error al Aplicar Evaluacion');
           end;
 
           LimpiarCampos;
@@ -406,7 +416,7 @@ begin
            edNuevaProvision.Value := Round(edSaldo.Value * edPorc.Value / 100);
         end
         else
-           ShowMessage('Valor no V�lido. Verifique');
+           ShowMessage('Valor no Valido. Verifique');
 end;
 
 procedure TfrmEvaluacion.btnHabilitarClick(Sender: TObject);

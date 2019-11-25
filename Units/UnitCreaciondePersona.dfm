@@ -35,10 +35,10 @@ object frmCreacionPersona: TfrmCreacionPersona
       Top = 1
       Width = 740
       Height = 257
-      ActivePage = InfoLaboral
+      ActivePage = InfoImagenes
       Align = alClient
       Images = Images
-      TabIndex = 1
+      TabIndex = 10
       TabOrder = 0
       OnDrawTab = PageControlDrawTab
       object InfoConyuge: TTabSheet
