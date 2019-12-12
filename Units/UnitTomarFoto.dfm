@@ -1,8 +1,8 @@
 object frmTomarFoto: TfrmTomarFoto
-  Left = 329
-  Top = -10
-  Width = 849
-  Height = 764
+  Left = 337
+  Top = 5
+  Width = 842
+  Height = 754
   Caption = 'Adquirir Fotografia del Asociado'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,18 +16,18 @@ object frmTomarFoto: TfrmTomarFoto
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
-    Left = 0
+    Left = -8
     Top = 35
     Width = 720
-    Height = 720
+    Height = 670
     Caption = 'Vista Previa de Video en Vivo'
     TabOrder = 0
   end
   object Panel2: TPanel
-    Left = 734
+    Left = 744
     Top = 0
     Width = 90
-    Height = 755
+    Height = 720
     Align = alRight
     TabOrder = 1
     object CmdTomarFoto: TBitBtn

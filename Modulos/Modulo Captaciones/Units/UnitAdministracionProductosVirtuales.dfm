@@ -337,16 +337,6 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       TabOrder = 0
       Text = '0000000000000000000'
     end
-    object btnReasignar: TBitBtn
-      Left = 618
-      Top = 9
-      Width = 52
-      Height = 25
-      Caption = 'ReAsignar'
-      Enabled = False
-      TabOrder = 1
-      OnClick = btnReasignarClick
-    end
     object chkATM: TCheckBox
       Left = 263
       Top = 35
@@ -354,7 +344,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 17
       Caption = 'Activar'
       Enabled = False
-      TabOrder = 2
+      TabOrder = 1
     end
     object edNopeATM: TJvIntegerEdit
       Left = 440
@@ -363,7 +353,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 3
+      TabOrder = 2
       Value = 0
       MaxValue = 0
       MinValue = 0
@@ -377,7 +367,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 4
+      TabOrder = 3
       Value = 1
       HasMaxValue = False
       HasMinValue = False
@@ -388,7 +378,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
-      TabOrder = 5
+      TabOrder = 4
     end
     object edNopePOS: TJvIntegerEdit
       Left = 440
@@ -397,7 +387,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 6
+      TabOrder = 5
       Value = 0
       MaxValue = 0
       MinValue = 0
@@ -411,7 +401,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 7
+      TabOrder = 6
       Value = 1
       HasMaxValue = False
       HasMinValue = False
@@ -422,7 +412,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
-      TabOrder = 8
+      TabOrder = 7
     end
     object edNopeIVR: TJvIntegerEdit
       Left = 440
@@ -431,7 +421,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 9
+      TabOrder = 8
       Value = 0
       MaxValue = 0
       MinValue = 0
@@ -445,7 +435,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 10
+      TabOrder = 9
       Value = 1
       HasMaxValue = False
       HasMinValue = False
@@ -456,7 +446,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
-      TabOrder = 11
+      TabOrder = 10
     end
     object edNopeWEB: TJvIntegerEdit
       Left = 440
@@ -465,7 +455,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 12
+      TabOrder = 11
       Value = 0
       MaxValue = 0
       MinValue = 0
@@ -479,7 +469,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 13
+      TabOrder = 12
       Value = 1
       HasMaxValue = False
       HasMinValue = False
@@ -490,7 +480,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
-      TabOrder = 14
+      TabOrder = 13
     end
     object edNopeMOV: TJvIntegerEdit
       Left = 440
@@ -499,7 +489,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 15
+      TabOrder = 14
       Value = 0
       MaxValue = 0
       MinValue = 0
@@ -513,7 +503,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 16
+      TabOrder = 15
       Value = 1
       HasMaxValue = False
       HasMinValue = False
@@ -524,7 +514,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
-      TabOrder = 17
+      TabOrder = 16
     end
     object edNopeOFI: TJvIntegerEdit
       Left = 440
@@ -533,7 +523,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 18
+      TabOrder = 17
       Value = 0
       MaxValue = 0
       MinValue = 0
@@ -547,7 +537,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 19
+      TabOrder = 18
       Value = 1
       HasMaxValue = False
       HasMinValue = False
@@ -558,7 +548,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
-      TabOrder = 20
+      TabOrder = 19
     end
     object edNopeCNB: TJvIntegerEdit
       Left = 440
@@ -567,7 +557,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 21
+      TabOrder = 20
       Value = 0
       MaxValue = 0
       MinValue = 0
@@ -581,7 +571,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
-      TabOrder = 22
+      TabOrder = 21
       Value = 1
       HasMaxValue = False
       HasMinValue = False
@@ -593,7 +583,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 25
       Caption = '&Marcar'
       Enabled = False
-      TabOrder = 23
+      TabOrder = 22
       OnClick = btnMarcarClick
     end
     object btnFormato: TBitBtn
@@ -603,8 +593,19 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Height = 25
       Caption = '&Formato'
       Enabled = False
-      TabOrder = 24
+      TabOrder = 23
       OnClick = btnFormatoClick
+    end
+    object btnReasignar: TToggleButton
+      Left = 617
+      Top = 9
+      Width = 51
+      Height = 25
+      Caption = 'ReAsignar'
+      Enabled = False
+      TabOrder = 24
+      OnClick = btnReasignarClick
+      GroupIndex = 0
     end
   end
   object GroupBox3: TGroupBox
@@ -978,7 +979,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0001000000000500417269616C00080000000200000000000000000001000200
       00000000FFFFFF000000000200000000000000FEFEFF0200000008002047656E
       6572616C0000000006004E4F4D425245000000000000000000000000FC000000
-      000000000000000000000000004D000717B6C7545DE34063648EAB765EE540}
+      000000000000000000000000004D000717B6C7545DE3401A1DB81A5964E540}
   end
   object IBQvCuenta: TIBQuery
     Database = dmGeneral.IBDatabase1

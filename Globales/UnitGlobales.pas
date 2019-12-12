@@ -355,7 +355,7 @@ begin
         IBQ.Database := dmGeneral.IBDatabase1;
 
        Result.Id := 0;
-       Result.Tarjeta := ''; 
+       Result.Tarjeta := '';
        Tries := 0;
        while True do
        begin
@@ -364,7 +364,7 @@ begin
         IBT.StartTransaction;
         try
           IBQ.SQL.Clear;
-          IBQ.SQL.Add('SELECT FIRST 1 * FROM VIRTUAL_TARJETA WHERE VITA_ASIGNADA = 0');
+          IBQ.SQL.Add('SELECT FIRST 1 * FROM VIRTUAL_TARJETA WHERE VITA_ASIGNADA = 0 ORDER BY VITA_ID');
           IBQ.Open;
 
           Id := IBQ.FieldByName('VITA_ID').AsInteger;
@@ -388,22 +388,29 @@ begin
             RecordLocked := False;
             if E.SQLCode = -913 then RecordLocked := True;
             if RecordLocked then
-             begin
+            begin
+              Tries := Tries + 1;
+              if (Tries > ntMaxTries) then
+              begin
+                 ShowMessage('No se pudo leer la tarjeta a asignar');
+                 Result.Id := 0;
+                 Result.Tarjeta := '';
+                 Break;
+              end;
               WaitCount := Random(20);
               for I := 1 to WaitCount do
-              Application.ProcessMessages;
+                  Application.ProcessMessages;
               Continue;
-             end
+            end
             else
-             begin
+            begin
               ErrorMsg := ErrorMsg + E.Message +
               ' (' + IntToStr(E.IBErrorCode ) + '). ';
               MessageDlg(ErrorMsg,mterror,[mbOk],0);
-             end;
+            end;
            end;
         end;
-      end;
-
+       end;
 end;
 
 function GetMovCajaId():Integer;

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls, ExtCtrls, Buttons, JvEdit, JvTypedEdit,
   Grids, DBGrids, DB, IBCustomDataSet, IBQuery, UnitDmGeneral, UnitDmPersona, UnitGlobales,
-  FR_Class, StrUtils, DateUtils, IBDatabase;
+  FR_Class, StrUtils, DateUtils, IBDatabase, ToggleButton;
 
 type
   TfrmAdministracionProductosVirtuales = class(TForm)
@@ -24,7 +24,6 @@ type
     CmdCerrar: TBitBtn;
     Label1: TLabel;
     edTarjetaDebito: TEdit;
-    btnReasignar: TBitBtn;
     Label2: TLabel;
     Label3: TLabel;
     Label4: TLabel;
@@ -88,6 +87,7 @@ type
     IBQDireccion: TIBQuery;
     IBTransaction1: TIBTransaction;
     IBTransaction2: TIBTransaction;
+    btnReasignar: TToggleButton;
     procedure CmdCerrarClick(Sender: TObject);
     procedure EdIdentificacionExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -139,7 +139,7 @@ var
 
 
 
-  _Reasignar: Boolean;
+
   _vita_id: Integer;
   _vVicu_id: Integer;
 
@@ -180,7 +180,7 @@ begin
        IBQTipoIdentificacion.Open;
        IBQTipoIdentificacion.Last;
        _vModificar := False;
-       _Reasignar := False;
+       btnReasignar.Checked := False;
 end;
 
 procedure TfrmAdministracionProductosVirtuales.IBQCuentasAfterScroll(
@@ -461,6 +461,11 @@ begin
                   end;
                   
                    _Tarjeta := TarjetaDebito;
+                   if (_Tarjeta.Id = 0) then
+                   begin
+                     ShowMessage('No se puede continuar con el proceso, por favor reingrese e intente nuevamente');
+                     Exit;
+                   end;
                    edTarjetaDebito.Text := _Tarjeta.Tarjeta;
 
                    IBQGuardar.SQL.Clear;
@@ -487,7 +492,7 @@ begin
                    IBQGuardar.ExecSQL;
                    IBQGuardar.Close;
 
-                   if (_Reasignar = True) then
+                   if (btnReasignar.Checked) then
                    begin
                      IBQGuardar.SQL.Clear;
                      IBQGuardar.SQL.Add('UPDATE VIRTUAL_TARJETA_CUENTA SET VITC_ESTADO = :VITC_ESTADO, VITC_ESLEIDO = :VITC_ESLEIDO, VITC_FECHACANCELACION = :VITC_FECHACANCELACION WHERE VITA_ID = :VITA_ID');
@@ -499,6 +504,11 @@ begin
                      IBQGuardar.Close;
 
                      _Tarjeta := TarjetaDebito;
+                     if (_Tarjeta.Id = 0) then
+                     begin
+                       ShowMessage('No se puede continuar con el proceso, por favor reingrese e intente nuevamente');
+                       Exit;
+                     end;
                      edTarjetaDebito.Text := _Tarjeta.Tarjeta;
 
                      IBQGuardar.SQL.Clear;
@@ -818,6 +828,12 @@ begin
            if (chkATM.Checked or chkPOS.Checked or chkIVR.Checked or chkWEB.Checked or chkMOV.Checked or chkOFI.Checked or chkCNB.Checked) then
            begin
              // Registrar Cuenta
+             _Tarjeta := TarjetaDebito;
+             if (_Tarjeta.Id = 0) then
+             begin
+                ShowMessage('No se puede continuar con el proceso, por favor reingrese e intente nuevamente');
+                Exit;
+             end;
              _vicu_id := ObtenerConsecutivoVirtual(50);
              IBQGuardar.SQL.Clear;
              IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_CUENTA (VICU_ID, VICU_TIPO_CUENTA, VICU_NUMERO_CUENTA, VICU_DIGITO_CUENTA, VICU_ESTADO, VICU_FECHA_REGISTRO, VICU_ID_AGENCIA, VICU_ESLEIDO) VALUES (');
@@ -848,7 +864,6 @@ begin
                    IBQGuardar.ExecSQL;
                    IBQGuardar.Close;
 
-                   _Tarjeta := TarjetaDebito;
                    edTarjetaDebito.Text := _Tarjeta.Tarjeta;
 
                    IBQGuardar.SQL.Clear;
@@ -989,7 +1004,7 @@ end;
 procedure TfrmAdministracionProductosVirtuales.btnReasignarClick(
   Sender: TObject);
 begin
-        _Reasignar := True;
+// No hay evento
 end;
 
 procedure TfrmAdministracionProductosVirtuales.FormCreate(Sender: TObject);
@@ -1195,7 +1210,7 @@ end;
 procedure TfrmAdministracionProductosVirtuales.Reubicar;
 begin
        _vModificar := False;
-       _Reasignar := False;
+       btnReasignar.Checked := False;
        _numero_cuenta := _vNumero;
        btnNuevo.Click;
        CBTiposIdentificacion.KeyValue := _id_identificacion;
