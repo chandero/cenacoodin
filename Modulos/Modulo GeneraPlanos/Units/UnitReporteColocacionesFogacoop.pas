@@ -218,6 +218,10 @@ var
     _cValorGarantia :Currency;
     _bGarAportes :Boolean;
     _sNumClasificacion :string;
+
+    _valorInicial: Currency;
+    _valorSaldo: Currency;
+    _idClasificacion: Integer;
 const
   EmptyTColocacion: TColocacion = ();
 begin
@@ -458,15 +462,25 @@ begin
 
               IBQuery2.Close;
               IBQuery2.SQL.Clear;
-              IBQuery2.SQL.Add('SELECT * FROM "col$desembolsoparcial" p');
-              IBQuery2.SQL.Add(' LEFT JOIN "gen$infcrediticia" i ON i.ID_SOLICITUD = p.ID_SOLICITUD');
+              IBQuery2.SQL.Add('SELECT c.ID_CLASIFICACION, i.VALOR_INICIAL, i.SALDO FROM "col$desembolsoparcial" p');
+              IBQuery2.SQL.Add(' LEFT JOIN "gen$infcrediticia" i ON i.ID_SOLICITUD = p.ID_SOLICITUD ');
+              IBQuery2.SQL.Add(' LEFT JOIN "col$colocacion" c ON c.ID_COLOCACION = i.ID_COLOCACION ');
               IBQuery2.SQL.Add(' WHERE p.ID_COLOCACION = :ID_COLOCACION AND i.ES_DESCUENTO = 1');
               IBQuery2.ParamByName('ID_COLOCACION').AsString := FieldByName('ID_COLOCACION').AsString;
               try
                 IBQuery2.Open;
                 if IBQuery2.RecordCount > 0 then
                 begin
-                  Lineas.Reestructurado := '3';
+                  _idClasificacion := IBQuery2.FieldByName('ID_CLASIFICACION').AsInteger;
+                  _valorInicial := IBQuery2.FieldByName('VALOR_INICIAL').AsCurrency;
+                  _valorSaldo := IBQuery2.FieldByName('SALDO').AsCurrency;
+                  if ( (_valorInicial * 0.3) <= _valorSaldo) then
+                  begin
+                      if (_idClasificacion = Fieldbyname('ID_CLASIFICACION').AsInteger) then
+                      begin
+                        Lineas.Reestructurado := '3';
+                      end;
+                  end;
                 end;
               except
                 Transaction.Rollback;

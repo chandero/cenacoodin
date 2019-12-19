@@ -262,6 +262,7 @@ object FrmReporteEnte: TFrmReporteEnte
       '  "col$registrosesion".DBALIAS,'
       '   "col$registrosesion".ACTA,'
       '  "col$estadosolicitud".DESCRIPCION_ESTADO,'
+      '  "col$solicitud".VALOR_SOLICITADO,'
       '  "col$solicitud".VALOR_APROBADO,'
       '  "col$registrosesion".ID_SOLICITUD,'
       '  "col$solicitud".GARANTIA,'
@@ -364,6 +365,10 @@ object FrmReporteEnte: TFrmReporteEnte
         Name = 'empleado'
         DataType = ftString
         Size = 255
+      end
+      item
+        Name = 'solicitado'
+        DataType = ftCurrency
       end>
     IndexDefs = <>
     Params = <>
@@ -371,14 +376,15 @@ object FrmReporteEnte: TFrmReporteEnte
     Left = 160
     Top = 32
     Data = {
-      E70000009619E0BD010000001800000007000000000003000000E70008676172
+      0E0100009619E0BD0100000018000000080000000000030000000E0108676172
       616E7469610100490000000100055749445448020002006400076E6F6D627265
       73020049000000010005574944544802000200FF000576616C6F720800040000
       00010007535542545950450200490006004D6F6E65790009736F6C6963697475
       640100490000000100055749445448020002000F000665737461646F01004900
       00000100055749445448020002003200076167656E6369610100490000000100
       05574944544802000200320008656D706C6561646F0200490000000100055749
-      44544802000200FF000000}
+      44544802000200FF000A736F6C6963697461646F080004000000010007535542
+      545950450200490006004D6F6E6579000000}
     object CDreportegarantia: TStringField
       FieldName = 'garantia'
       Size = 100
@@ -405,6 +411,9 @@ object FrmReporteEnte: TFrmReporteEnte
     object CDreporteempleado: TStringField
       FieldName = 'empleado'
       Size = 255
+    end
+    object CDreportesolicitado: TCurrencyField
+      FieldName = 'solicitado'
     end
   end
   object IBhoraini: TIBQuery
@@ -556,6 +565,7 @@ object FrmReporteEnte: TFrmReporteEnte
       '  "col$registrosesion".FECHA,'
       '   "col$registrosesion".ACTA,'
       '  "col$estadosolicitud".DESCRIPCION_ESTADO,'
+      '  "col$solicitud".VALOR_SOLICITADO,'
       '  "col$solicitud".VALOR_APROBADO,'
       '  "col$registrosesion".ID_SOLICITUD,'
       '  "col$solicitud".GARANTIA,'

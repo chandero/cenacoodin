@@ -1,6 +1,6 @@
 object frmArchivoFinancieroAsociado: TfrmArchivoFinancieroAsociado
-  Left = 594
-  Top = 358
+  Left = 608
+  Top = 297
   Width = 357
   Height = 133
   Caption = 'Archivo Financiero Asociados'
@@ -206,12 +206,11 @@ object frmArchivoFinancieroAsociado: TfrmArchivoFinancieroAsociado
     Transaction = dmGeneral.IBTransaction1
     SQL.Strings = (
       
-        'SELECT p.ID_PERSONA, p.INGRESOS_A_PRINCIPAL, (p.INGRESOS_OTROS +' +
-        ' p.INGRESOS_CONYUGE + p.INGRESOS_CONYUGE_OTROS) AS OTROS, (p.EGR' +
-        'ESOS_ALIMENTACION + p.EGRESOS_ALQUILER + p.EGRESOS_CONYUGE + p.E' +
-        'GRESOS_DEUDAS + p.EGRESOS_OTROS + p.EGRESOS_SERVICIOS + p.EGRESO' +
-        'S_TRANSPORTE) AS EGRESOS, p.TOTAL_ACTIVOS AS ACTIVOS, p.TOTAL_PA' +
-        'SIVOS AS PASIVOS, '
+        'SELECT p.ID_PERSONA, p.INGRESOS_A_PRINCIPAL, (p.INGRESOS_OTROS) ' +
+        'AS OTROS, (p.EGRESOS_ALIMENTACION + p.EGRESOS_ALQUILER + p.EGRES' +
+        'OS_DEUDAS + p.EGRESOS_OTROS + p.EGRESOS_SERVICIOS + p.EGRESOS_TR' +
+        'ANSPORTE) AS EGRESOS, p.TOTAL_ACTIVOS AS ACTIVOS, p.TOTAL_PASIVO' +
+        'S AS PASIVOS, '
       
         '(SUBSTRING(100 + EXTRACT(DAY FROM p.FECHA_ACTUALIZACION) FROM 2 ' +
         'FOR 2)  || '#39'/'#39' || SUBSTRING(100 + EXTRACT(MONTH FROM p.FECHA_ACT' +

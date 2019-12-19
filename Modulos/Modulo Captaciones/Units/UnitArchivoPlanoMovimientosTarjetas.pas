@@ -130,6 +130,7 @@ var
    _descripcion: String;
 
    _records : array of TRegistro;
+   _str: String;
 begin
         _listnombre := TStringList.Create;
         _datos := TStringList.Create;
@@ -232,7 +233,12 @@ begin
           _fechatmp := IBQmovs.FieldByName('FECHA_REGISTRO').AsString;
           _fechatmp := LeftStr(_fechatmp, 4) + '-' + MidStr(_fechatmp, 5, 2) + '-' + RightStr(_fechatmp, 2);
           _record.FechaTransaccion := _fechatmp;
-          _valor := IBQmovs.FieldByName('VALOR').AsInteger div 100;
+          _str := IBQmovs.FieldByName('VALOR').AsString;
+          if (VarIsEmpty(_str) or VarIsNull(_str)) then
+          begin
+            _str := '0';
+          end;
+          _valor := StrToInt64(_str) div 100;
           _record.ValorTransaccion := Format('%20d', [_valor]);
           _descripcion := UpperCase(IBQmovs.FieldByname('DESCRIPCION').AsString);
           if (StrPos(PChar(_descripcion), PChar('RETIRO')) <> nil) then
@@ -262,8 +268,18 @@ begin
 
           _record.TipoTransaccion := _tipo_transaccion; // Mirar Tabla
           _record.PaisTransaccion := IBQmovs.FieldByName('TERMINAL_PAIS').AsString;
-          _departamento := IBQmovs.FieldByName('TERMINAL_DEPARTAMENTO').AsInteger;
-          _municipio := IBQmovs.FieldByName('TERMINAL_CIUDAD').AsInteger;
+          _str := IBQMovs.FieldByName('TERMINAL_DEPARTAMENTO').AsString;
+          if (VarIsEmpty(_str) or VarIsNull(_str) or (_str = '')) then
+          begin
+            _str := '0';
+          end;
+          _departamento := StrToInt(_str);
+          _str := IBQmovs.FieldByName('TERMINAL_CIUDAD').AsString;
+          if (VarIsEmpty(_str) or VarIsNull(_str) or (_str = '')) then
+          begin
+            _str := '0';
+          end;
+          _municipio := StrToInt(_str);
           if (_record.PaisTransaccion <> 'CO') then
           begin
                   _record.CodigoDeptoMuni := '00099';

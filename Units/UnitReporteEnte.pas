@@ -51,6 +51,7 @@ type
     IBQuery2: TIBQuery;
     IBQuery3: TIBQuery;
     IBQuery4: TIBQuery;
+    CDreportesolicitado: TCurrencyField;
     procedure FormCreate(Sender: TObject);
     procedure BTcerrarClick(Sender: TObject);
     procedure DBenteKeyPress(Sender: TObject; var Key: Char);
@@ -265,6 +266,7 @@ begin
                 CDreporte.FieldValues['estado'] := FieldByName('DESCRIPCION_ESTADO').AsString;
                 CDreporte.FieldValues['agencia'] := DesAgencia;
                 CDreporte.FieldValues['empleado'] := BUSCA_EMP(FieldByName('DBALIAS').AsString);
+                CDreporte.FieldValues['solicitado'] := FieldByName('VALOR_SOLICITADO').AsCurrency;
                 CDreporte.Post;
                 acta := FieldByName('ACTA').AsString;
                 retorna_fecha := FieldByName('FECHA').AsDateTime;
@@ -491,6 +493,7 @@ begin
                 CDreporte.Append;
                 CDreporte.FieldValues['garantia'] := FieldByName('DESCRIPCION_GARANTIA').AsString;
                 CDreporte.FieldValues['nombres'] := FieldByName('NOMBRE').AsString + ' ' + FieldByName('PRIMER_APELLIDO').AsString + ' ' + FieldByName('SEGUNDO_APELLIDO').AsString;
+                CDreporte.FieldValues['solicitado'] := FieldByName('VALOR_SOLICITADO').AsCurrency;
                 if FieldByName('ESTADO').AsInteger = 4 then
                    CDreporte.FieldValues['valor'] := FieldByName('VALOR_APROBADO').AsCurrency
                 else
