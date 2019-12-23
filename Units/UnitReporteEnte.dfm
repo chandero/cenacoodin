@@ -1,6 +1,6 @@
 object FrmReporteEnte: TFrmReporteEnte
-  Left = 250
-  Top = 183
+  Left = 549
+  Top = 197
   Width = 313
   Height = 176
   BorderIcons = [biSystemMenu]
@@ -295,8 +295,8 @@ object FrmReporteEnte: TFrmReporteEnte
       'WHERE'
       '  ("col$registrosesion".FECHA = :FECHA) AND'
       '  ("col$registrosesion".ID_ENTE_APROBADOR = :ID_APROBADOR)')
-    Left = 40
-    Top = 72
+    Left = 64
+    Top = 104
     ParamData = <
       item
         DataType = ftUnknown
@@ -320,7 +320,7 @@ object FrmReporteEnte: TFrmReporteEnte
     RebuildPrinter = False
     OnGetValue = frReport1GetValue
     Left = 48
-    Top = 88
+    Top = 104
     ReportForm = {19000000}
   end
   object frDBDataSet1: TfrDBDataSet
@@ -501,8 +501,8 @@ object FrmReporteEnte: TFrmReporteEnte
   end
   object frDBDataSet2: TfrDBDataSet
     DataSet = CDestado
-    Left = 128
-    Top = 88
+    Left = 112
+    Top = 104
   end
   object IBtotal_of: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -642,8 +642,8 @@ object FrmReporteEnte: TFrmReporteEnte
       '  ("col$registrosesion".ID_ENTE_APROBADOR = :ENTE) AND '
       '  ("col$registrosesion".ID_AGENCIA <> 1) AND '
       '  ("col$registrosesion".HORA_INICIO = :HORA)')
-    Left = 72
-    Top = 80
+    Left = 88
+    Top = 104
     ParamData = <
       item
         DataType = ftUnknown
