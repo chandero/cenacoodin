@@ -164,6 +164,8 @@ var
 
     vTotalNota: Currency;
 
+    vTemp : Int64;
+
 begin
         vTotalDebitoMovimiento := 0;
         vTotalCreditoMovimiento := 0;
@@ -204,7 +206,8 @@ begin
            vDispositivo := IBQrecibir.FieldByName('DISPOSITIVO').AsString;
            vCuenta := IBQrecibir.FieldByName('CUENTA').AsString;
            vCanal := IBQrecibir.FieldByName('CANAL').AsString;
-           vValor := IBQrecibir.FieldByName('VALOR').AsInteger / 100;
+           vTemp := StrToInt64(IBQrecibir.FieldByName('VALOR').AsString);
+           vValor := vTemp / 100;
            vComision := IBQrecibir.FieldByName('VALOR_COMISION').AsInteger / 100;
            vGmf := IBQrecibir.FieldByName('VALOR_GMF').AsInteger / 100;
 
