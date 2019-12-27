@@ -1,6 +1,6 @@
 object frmLiquidacionCastigada: TfrmLiquidacionCastigada
-  Left = 146
-  Top = 13
+  Left = 512
+  Top = 142
   Width = 578
   Height = 483
   Caption = 'Liquidacion Cartera Castigada'
@@ -47,7 +47,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 60
       Height = 21
       TabStop = False
-      Color = clMenu
+      Color = clWhite
       EditMask = '9999999;1;_'
       MaxLength = 7
       ReadOnly = True
@@ -64,7 +64,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       AutoSize = False
       BevelKind = bkSoft
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -158,6 +158,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Date = 37792.4539523611
       Format = 'yyyy/MM/dd'
       Time = 37792.4539523611
+      Color = clWhite
       DateFormat = dfShort
       DateMode = dmComboBox
       Enabled = False
@@ -175,6 +176,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Date = 37792.4540174653
       Format = 'yyyy/MM/dd'
       Time = 37792.4540174653
+      Color = clWhite
       DateFormat = dfShort
       DateMode = dmComboBox
       Enabled = False
@@ -188,6 +190,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Top = 46
       Width = 49
       Height = 21
+      Color = clWhite
       EditLabel.Width = 3
       EditLabel.Height = 13
       EditLabel.Caption = ' '
@@ -203,6 +206,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 131
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -222,6 +226,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 131
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       ReadOnly = False
       TabOrder = 1
       OnEnter = EdAbonoInteresEnter
@@ -235,6 +240,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 131
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       ReadOnly = False
       TabOrder = 7
       OnEnter = EdAbonoCostasEnter
@@ -248,6 +254,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 131
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       ReadOnly = False
       TabOrder = 8
       OnExit = EdAbonoHonorariosExit
@@ -260,6 +267,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 49
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       ReadOnly = False
       TabOrder = 2
       Visible = False
@@ -277,6 +285,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 131
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       ReadOnly = False
       TabOrder = 4
       OnEnter = EdAprovechaEnter
@@ -293,6 +302,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Date = 37792.4539523611
       Format = 'yyyy/MM/dd'
       Time = 37792.4539523611
+      Color = clWhite
       DateFormat = dfShort
       DateMode = dmComboBox
       Enabled = False
@@ -310,6 +320,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Date = 37792.4540174653
       Format = 'yyyy/MM/dd'
       Time = 37792.4540174653
+      Color = clWhite
       DateFormat = dfShort
       DateMode = dmComboBox
       Enabled = False
@@ -324,6 +335,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 49
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       ReadOnly = False
       TabOrder = 5
       Visible = False
@@ -340,6 +352,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Top = 70
       Width = 49
       Height = 21
+      Color = clWhite
       EditLabel.Width = 3
       EditLabel.Height = 13
       EditLabel.Caption = ' '
@@ -841,7 +854,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 10
     end
@@ -854,7 +867,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 11
     end
@@ -943,7 +956,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 13
     end
@@ -955,7 +968,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -973,7 +986,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -993,7 +1006,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       BevelKind = bkSoft
       BorderStyle = sbsSunken
       Caption = '2003/08/22'
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1013,7 +1026,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
       Font.Height = -11
@@ -1031,7 +1044,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1089,6 +1102,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 92
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1108,6 +1122,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Width = 115
       Height = 21
       Alignment = taRightJustify
+      Color = clWhite
       ReadOnly = False
       TabOrder = 3
       OnEnter = EdNacionalEnter
@@ -1120,6 +1135,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       Top = 168
       Width = 115
       Height = 21
+      Color = clWhite
       Enabled = False
       KeyField = 'ID_BANCO'
       ListField = 'DESCRIPCION'
@@ -1222,7 +1238,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 0
     end
@@ -1235,7 +1251,7 @@ object frmLiquidacionCastigada: TfrmLiquidacionCastigada
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 1
     end

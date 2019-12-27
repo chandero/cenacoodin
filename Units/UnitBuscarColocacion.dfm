@@ -511,7 +511,7 @@ object frmBusquedadeColocacion: TfrmBusquedadeColocacion
   end
   object IBQuery: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     ForcedRefresh = True
     SQL.Strings = (
       'SELECT'
@@ -548,7 +548,7 @@ object frmBusquedadeColocacion: TfrmBusquedadeColocacion
   end
   object IBQuery1: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     Left = 178
     Top = 176
   end
@@ -559,7 +559,7 @@ object frmBusquedadeColocacion: TfrmBusquedadeColocacion
   end
   object IBDataSet1: TIBDataSet
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     SelectSQL.Strings = (
       'select * from "gen$tiposidentificacion"')
     Left = 264
@@ -567,7 +567,7 @@ object frmBusquedadeColocacion: TfrmBusquedadeColocacion
   end
   object IBSQL1: TIBSQL
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     Left = 342
     Top = 162
   end
@@ -687,8 +687,13 @@ object frmBusquedadeColocacion: TfrmBusquedadeColocacion
   end
   object IBQuery2: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTransaction1
     Left = 116
     Top = 206
+  end
+  object IBTransaction1: TIBTransaction
+    DefaultDatabase = dmGeneral.IBDatabase1
+    Left = 328
+    Top = 104
   end
 end

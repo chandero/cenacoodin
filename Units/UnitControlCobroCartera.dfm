@@ -559,7 +559,7 @@ object frmControlCobroCartera: TfrmControlCobroCartera
           AutoSize = False
           BevelKind = bkSoft
           BevelOuter = bvSpace
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11

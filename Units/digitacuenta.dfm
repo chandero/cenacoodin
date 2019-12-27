@@ -336,7 +336,7 @@ object digita: Tdigita
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 5
       Visible = False
@@ -349,7 +349,7 @@ object digita: Tdigita
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 6
       Visible = False
@@ -362,7 +362,7 @@ object digita: Tdigita
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 7
       Visible = False

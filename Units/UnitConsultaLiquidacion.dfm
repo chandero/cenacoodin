@@ -1,6 +1,6 @@
 object frmConsultaLiquidacion: TfrmConsultaLiquidacion
-  Left = 147
-  Top = 178
+  Left = 412
+  Top = 204
   Width = 575
   Height = 351
   Caption = 'Liquidaci'#243'n Cr'#233'ditos'
@@ -117,7 +117,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           BevelEdges = []
           BevelInner = bvLowered
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           ParentColor = False
           TabOrder = 2
         end
@@ -130,7 +130,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           BevelEdges = []
           BevelInner = bvLowered
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           ParentColor = False
           TabOrder = 3
         end
@@ -328,7 +328,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -346,7 +346,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -364,7 +364,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -400,7 +400,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -418,7 +418,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -436,7 +436,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -638,7 +638,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -656,7 +656,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -674,7 +674,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -692,7 +692,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -710,7 +710,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -728,7 +728,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -746,7 +746,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
           Alignment = taRightJustify
           AutoSize = False
           BorderStyle = sbsSunken
-          Color = clCaptionText
+          Color = clWhite
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -1114,7 +1114,7 @@ object frmConsultaLiquidacion: TfrmConsultaLiquidacion
     ExportToLine = 0
     Left = 462
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'

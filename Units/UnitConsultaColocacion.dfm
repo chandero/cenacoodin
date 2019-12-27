@@ -106,7 +106,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 3
     end
@@ -120,7 +120,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 4
     end
@@ -133,7 +133,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       BevelEdges = []
       BevelInner = bvLowered
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       ParentColor = False
       TabOrder = 5
     end
@@ -626,7 +626,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Height = 21
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -643,7 +643,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Height = 21
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -660,7 +660,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Height = 21
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -677,7 +677,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Height = 21
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -694,7 +694,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Height = 21
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -712,7 +712,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -730,7 +730,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -748,7 +748,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -765,7 +765,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Height = 21
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -782,7 +782,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Height = 21
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -800,7 +800,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -818,7 +818,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -836,7 +836,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -872,7 +872,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -890,7 +890,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -908,7 +908,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -926,7 +926,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -944,7 +944,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -962,7 +962,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -980,7 +980,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -998,7 +998,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1016,7 +1016,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1034,7 +1034,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1052,7 +1052,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1070,7 +1070,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -1088,7 +1088,7 @@ object frmConsultaColocacion: TfrmConsultaColocacion
       Alignment = taRightJustify
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
       Font.Height = -11

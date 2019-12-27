@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, DBCtrls, Grids, DBGrids, ExtCtrls, DB,
-  IBCustomDataSet, IBQuery, IBSQL, DBClient;
+  IBCustomDataSet, IBQuery, IBSQL, DBClient, IBDatabase;
 
 type
   TfrmBusquedadeColocacion = class(TForm)
@@ -49,6 +49,7 @@ type
     Panel2: TPanel;
     Label3: TLabel;
     EdNombre: TEdit;
+    IBTransaction1: TIBTransaction;
     procedure EdNumeroIdentificacionKeyPress(Sender: TObject;
       var Key: Char);
     procedure FormShow(Sender: TObject);
@@ -105,10 +106,10 @@ end;
 
 procedure TfrmBusquedadeColocacion.FormShow(Sender: TObject);
 begin
-        if DmGeneral.IBTransaction1.InTransaction then
+        if IBTransaction1.InTransaction then
          begin
-           DmGeneral.IBTransaction1.Commit;
-           DmGeneral.IBTransaction1.StartTransaction;
+           IBTransaction1.Commit;
+           IBTransaction1.StartTransaction;
          end;
         IBDataSet1.Open;
         IBDataSet1.Last;
@@ -118,8 +119,6 @@ end;
 procedure TfrmBusquedadeColocacion.EdNumeroIdentificacionExit(
   Sender: TObject);
 begin
-        if DmGeneral.IBTransaction1.InTransaction then
-           DmGeneral.IBTransaction1.CommitRetaining;
         with IBQuery1 do
         begin
              SQL.Clear;

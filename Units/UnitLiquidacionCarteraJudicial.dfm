@@ -1,6 +1,6 @@
 object frmLiquidacionCarteraJudicial: TfrmLiquidacionCarteraJudicial
-  Left = 366
-  Top = 132
+  Left = 412
+  Top = 86
   Width = 579
   Height = 596
   Caption = '.'
