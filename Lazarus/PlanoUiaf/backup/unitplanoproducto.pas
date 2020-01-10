@@ -112,12 +112,12 @@ begin
              end;
 
              case _queryMaestro.FieldByName('ID_TIPO_CAPTACION').AsInteger of
-                  1: _tipoProducto:='02';
+                  1: _tipoProducto:='94';
                   2,3,4: _tipoProducto := '02';
                   5: _tipoProducto := '08';
                   6: _tipoProducto := '04';
                   else
-                    _tipoProducto := '11';
+                    _tipoProducto := '09';
              end;
              _textRow:=_textRow+Format('%.*d',[1,_queryMaestro.FieldByName('ID_TIPO_CAPTACION').AsInteger]);
              _textRow:=_textRow+Format('%.*d',[2,_queryMaestro.FieldByName('ID_AGENCIA').AsInteger]);

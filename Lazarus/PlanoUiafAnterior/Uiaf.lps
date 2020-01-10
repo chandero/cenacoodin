@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="14">
+      <Unit0>
+        <Filename Value="Uiaf.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="45" Y="19"/>
+        <UsageCount Value="40"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unitmain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmMain"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="UnitMain"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="31"/>
+        <CursorPos X="42" Y="42"/>
+        <UsageCount Value="40"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="unitplanoproducto.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmPlanoProducto"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="unitPlanoProducto"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="174"/>
+        <CursorPos X="27" Y="190"/>
+        <UsageCount Value="40"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="unitconnectionfactory.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="ConnectionFactory"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="unitConnectionFactory"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="26" Y="12"/>
+        <UsageCount Value="40"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\include\customform.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="995"/>
+        <CursorPos Y="1009"/>
+        <UsageCount Value="8"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\..\..\lazarus\fpc\3.0.0\source\packages\rtl-objpas\src\inc\strutils.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="91"/>
+        <CursorPos Y="104"/>
+        <UsageCount Value="9"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\include\control.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2724"/>
+        <CursorPos Y="2736"/>
+        <UsageCount Value="9"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\..\..\lazarus\fpc\3.0.0\source\rtl\objpas\sysutils\sysstrh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="14"/>
+        <CursorPos X="40" Y="27"/>
+        <UsageCount Value="9"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="unitpermanenciacdat.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmPermanenciaCdat"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="unitPermanenciaCdat"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="51"/>
+        <CursorPos Y="79"/>
+        <UsageCount Value="31"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\interfaces\win32\win32wsbuttons.pp"/>
+        <UnitName Value="Win32WSButtons"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="479"/>
+        <CursorPos Y="491"/>
+        <UsageCount Value="12"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="unitglobal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unitGlobal"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="11"/>
+        <UsageCount Value="29"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\forms.pp"/>
+        <UnitName Value="Forms"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="695"/>
+        <CursorPos X="3" Y="708"/>
+        <UsageCount Value="11"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\..\..\..\..\lazarus\lcl\dialogs.pp"/>
+        <UnitName Value="Dialogs"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="251"/>
+        <UsageCount Value="9"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\..\..\..\..\lazarus\fpc\3.0.0\source\rtl\win64\windows.pp"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit13>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="-1"/>
+    </General>
+    <JumpHistory HistoryIndex="-1"/>
+  </ProjectSession>
+</CONFIG>

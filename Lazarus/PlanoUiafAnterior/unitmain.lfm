@@ -1,0 +1,43 @@
+object frmMain: TfrmMain
+  Left = 482
+  Height = 240
+  Top = 200
+  Width = 320
+  Caption = 'Plano de Productos Uiaf'
+  Menu = UiafMenu
+  OnCreate = FormCreate
+  LCLVersion = '1.6.2.0'
+  object UiafMenu: TMainMenu
+    left = 32
+    top = 40
+    object MenuItem1: TMenuItem
+      Caption = 'Procesos'
+      OnClick = MenuItem1Click
+      object MenuItem3: TMenuItem
+        Action = ActionPlanoProducto
+        Caption = 'Plano Producto'
+        OnClick = MenuItem3Click
+      end
+      object MenuItem2: TMenuItem
+        Action = ActionPermanenciaCDAT
+        Caption = 'Plano Permanencia CDAT'
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Salir'
+        OnClick = MenuItem4Click
+      end
+    end
+  end
+  object _uiafActionList: TActionList
+    left = 136
+    top = 24
+    object ActionPermanenciaCDAT: TAction
+      Caption = 'ActionPermanenciaCDAT'
+      OnExecute = ActionPermanenciaCDATExecute
+    end
+    object ActionPlanoProducto: TAction
+      Caption = 'ActionPlanoProducto'
+      OnExecute = ActionPlanoProductoExecute
+    end
+  end
+end

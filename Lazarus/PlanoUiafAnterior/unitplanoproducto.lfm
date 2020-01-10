@@ -10,7 +10,7 @@ object frmPlanoProducto: TfrmPlanoProducto
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
   OnShow = FormShow
-  LCLVersion = '1.8.4.0'
+  LCLVersion = '1.6.2.0'
   object Panel1: TPanel
     Left = 0
     Height = 28
@@ -127,6 +127,7 @@ object frmPlanoProducto: TfrmPlanoProducto
     Active = False
     Action = caCommit
     Database = ConnectionFactory.Connection
+    Options = []
     left = 200
     top = 8
   end
@@ -137,12 +138,13 @@ object frmPlanoProducto: TfrmPlanoProducto
       '*'
       'FROM "cap$maestro" m'
       'WHERE'
-      'm.ID_TIPO_CAPTACION  > 1'
+      'm.ID_TIPO_CAPTACION  > 0'
       'AND  m.ID_ESTADO IN (1,3,4,5,6,8,12,13,14)'
       'AND m.FECHA_APERTURA <= :FECHA_APERTURA'
       'ORDER BY'
       'm.ID_TIPO_CAPTACION, m.ID_AGENCIA, m.NUMERO_CUENTA'
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
@@ -160,6 +162,7 @@ object frmPlanoProducto: TfrmPlanoProducto
       'WHERE m.ID_AGENCIA = :ID_AGENCIA and m.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION and m.NUMERO_CUENTA = :NUMERO_CUENTA and m.DIGITO_CUENTA = :DIGITO_CUENTA'
       'ORDER BY m.NUMERO_TITULAR ASC'
     )
+    Options = []
     Params = <    
       item
         DataType = ftUnknown
