@@ -299,13 +299,13 @@ object frmInformeDetalles: TfrmInformeDetalles
     Transaction = dmGeneral.IBTransaction1
     SQL.Strings = (
       '')
-    Top = 40
+    Top = 64
   end
   object IBQuery: TIBQuery
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
     Left = 24
-    Top = 38
+    Top = 62
   end
   object InformeDiario: TprTxReport
     ShowProgress = True
@@ -357,7 +357,7 @@ object frmInformeDetalles: TfrmInformeDetalles
     Left = 176
     Top = 34
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -1124,7 +1124,7 @@ object frmInformeDetalles: TfrmInformeDetalles
     Params = <>
     StoreDefs = True
     Left = 50
-    Top = 42
+    Top = 66
     Data = {
       020100009619E0BD01000000180000000A00000000000300000002010A49445F
       4147454E4349410400010000000000064355454E544104000100000000000644

@@ -241,7 +241,7 @@ object FrmEnteAprobador: TFrmEnteAprobador
       TextMargins.Y = 0
       AutoSize = False
       BorderStyle = sbsSunken
-      Color = clCaptionText
+      Color = clWhite
       HotTrackFont.Charset = DEFAULT_CHARSET
       HotTrackFont.Color = clBlack
       HotTrackFont.Height = -11
@@ -258,10 +258,10 @@ object FrmEnteAprobador: TFrmEnteAprobador
     Top = 91
     Width = 665
     Height = 327
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Enabled = False
     Images = ImageList1
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 2
     object TabSheet1: TTabSheet
       Caption = 'Datos Generales Solicitud de Cr'#233'dito'

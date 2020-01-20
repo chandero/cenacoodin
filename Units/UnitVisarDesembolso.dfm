@@ -1,6 +1,6 @@
 object frmVisarDesembolso: TfrmVisarDesembolso
-  Left = 150
-  Top = 133
+  Left = 521
+  Top = 209
   Width = 574
   Height = 371
   AutoSize = True
@@ -112,7 +112,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         BevelEdges = []
         BevelInner = bvLowered
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         ParentColor = False
         TabOrder = 2
       end
@@ -126,7 +126,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         BevelEdges = []
         BevelInner = bvLowered
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         ParentColor = False
         TabOrder = 3
       end
@@ -139,7 +139,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         BevelEdges = []
         BevelInner = bvLowered
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         ParentColor = False
         TabOrder = 4
       end
@@ -205,6 +205,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Top = 14
         Width = 69
         Height = 21
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -221,6 +222,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Top = 12
         Width = 93
         Height = 21
+        Color = clWhite
         EditMask = '99999999999;1;_'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -641,7 +643,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -658,7 +660,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -675,7 +677,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -692,7 +694,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -709,7 +711,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -727,7 +729,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -745,7 +747,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -763,7 +765,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -780,7 +782,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -797,7 +799,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -815,7 +817,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -833,7 +835,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -851,7 +853,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -869,7 +871,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         AutoSize = False
         BorderStyle = sbsSunken
         Caption = 'CUOTA VARIABLE ANTICIPADA'
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -887,7 +889,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -905,7 +907,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -923,7 +925,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -941,7 +943,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -959,7 +961,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -977,7 +979,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -995,7 +997,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1013,7 +1015,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1031,7 +1033,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1049,7 +1051,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1067,7 +1069,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1085,7 +1087,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1103,7 +1105,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -1121,7 +1123,7 @@ object frmVisarDesembolso: TfrmVisarDesembolso
         Alignment = taRightJustify
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11

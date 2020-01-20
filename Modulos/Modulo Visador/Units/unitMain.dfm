@@ -1,9 +1,9 @@
 object frmMain: TfrmMain
-  Left = 213
-  Top = 169
+  Left = 438
+  Top = 242
   Width = 565
   Height = 367
-  Caption = 'Modulo Visaci'#243'n - SISTEMA FINANCIERO COOPSERVIR LTDA'
+  Caption = 'Modulo Visaci'#243'n - SIF COODIN'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack

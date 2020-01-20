@@ -167,7 +167,7 @@ begin
              else
                ParamByName('ID_TIPO_CAPTACION').AsInteger := 4;
              parambyname('ID_AGENCIA').AsInteger := Agencia;
-             ParamByName('ANO').AsInteger := YearOf(fFechaActual);
+             ParamByName('ANO').AsInteger := DBAnho;
            end;
            ParamByName('TIPO').AsInteger := _iTipoDetalle;
           Open;
