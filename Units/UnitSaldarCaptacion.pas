@@ -172,6 +172,21 @@ type
     Label5: TLabel;
     ValorGMFCer: TJvCurrencyEdit;
     cmdFormaPago: TBitBtn;
+    GroupBox4: TGroupBox;
+    Label11: TLabel;
+    Label48: TLabel;
+    Label54: TLabel;
+    DBLCBTiposCaptacionCon: TDBLookupComboBox;
+    EdCuentaCon: TJvEdit;
+    EdDigitoCon: TStaticText;
+    EdNombreCon: TStaticText;
+    DSTiposCaptacionF: TDataSource;
+    Label55: TLabel;
+    EdSaldoCon: TJvCurrencyEdit;
+    Label56: TLabel;
+    EdBonificacionCon: TJvCurrencyEdit;
+    Label57: TLabel;
+    EdTotalAPagarCon: TJvCurrencyEdit;
     procedure EdNumeroCerExit(Sender: TObject);
     procedure DBLCBTiposCaptacionEnter(Sender: TObject);
     procedure CmdContinuarClick(Sender: TObject);
@@ -192,6 +207,8 @@ type
     procedure CmdInformeClick(Sender: TObject);
     procedure CmdOtraClick(Sender: TObject);
     procedure cmdFormaPagoClick(Sender: TObject);
+    procedure EdCuentaConExit(Sender: TObject);
+    procedure EdCuentaConKeyPress(Sender: TObject; var Key: Char);
   private
     procedure Inicializar;
     procedure ActualizarListAho;
@@ -425,6 +442,8 @@ begin
           IBTiposParentesco.Open;
           IBTiposCaptacion.Open;
           IBTiposCaptacion.Last;
+          IBTiposCaptacionF.Open;
+          IBTiposCaptacionF.Last;
           IBTiposIdentificacion.Open;
           IBTiposParentesco.Open;
           IBTasasVariables.Open;
@@ -497,6 +516,9 @@ begin
         EdProximoAbonoContractual.Caption:= '';
         EdNumeroContractual.text := '';
         EdDigitoContractual.Caption := '';
+        DBLCBTiposCaptacionCon.KeyValue := -1;
+        EdCuentaCon.Text := '';
+        EdNombreCon.Caption := '';
 
 // TabCertificados
         DBLCBTiposIdentificacionCer.KeyValue := -1;
@@ -584,7 +606,7 @@ begin
         end
         else
         begin
-           MessageDlg('Captaci?n no encontrada',mtError,[mbcancel],0);
+           MessageDlg('Captacion no encontrada',mtError,[mbcancel],0);
            Exit;
         end;
 
@@ -592,7 +614,7 @@ begin
         begin
             Close;
             SQL.Clear;
-            SQL.Add('select "cap$maestro".ID_PLAN,"cap$maestro".VALOR_INICIAL,"cap$maestro".FECHA_VENCIMIENTO,');
+            SQL.Add('select "cap$maestro".ID_PLAN,"cap$maestro".VALOR_INICIAL,"cap$maestro".FECHA_VENCIMIENTO, "cap$maestro".ID_TIPO_CAPTACION_ABONO, "cap$maestro".NUMERO_CUENTA_ABONO,');
             SQL.Add('"cap$maestro".FECHA_APERTURA,"cap$maestro".FECHA_PROXIMO_PAGO,"cap$tiposestado".DESCRIPCION,"cap$tiposestado".PERMITE_MOVIMIENTO,"gen$persona".ID_IDENTIFICACION,');
             SQL.Add('"gen$persona".ID_PERSONA,"gen$persona".PRIMER_APELLIDO,');
             SQL.Add('"gen$persona".SEGUNDO_APELLIDO,"gen$persona".NOMBRE from "gen$persona" INNER JOIN ');
@@ -624,12 +646,39 @@ begin
                  EdFechaVencimientoContractual.Caption := DateToStr(FieldByName('FECHA_VENCIMIENTO').AsDate);
                  EdProximoAbonoContractual.Caption := DateToStr(FieldByName('FECHA_PROXIMO_PAGO').AsDate);
                  EdEstadoContractual.Caption := FieldByName('DESCRIPCION').AsString;
+                 DBLCBTiposCaptacionCon.KeyValue := FieldByName('ID_TIPO_CAPTACION_ABONO').AsInteger;
+                 EdCuentaCon.Text := FormatCurr('0000000',FieldByName('NUMERO_CUENTA_ABONO').AsInteger);
                  if FieldByName('PERMITE_MOVIMIENTO').AsInteger = 0 then
                     SePuedeMarcar := False
                  else
                     SePuedeMarcar := True;
+                 with IBSQL1 do begin
+                  Close;
+                  SQL.Clear;
+                  SQL.Add('SELECT * FROM SALDO_ACTUAL(:AG,:TP,:CTA,:DG,:ANO,:FECHA1,:FECHA2)');
+                  ParamByName('AG').AsInteger := Agencia;
+                  ParamByName('TP').AsInteger := DBLCBTiposCaptacion.KeyValue;
+                  ParamByName('CTA').AsInteger := StrToInt(EdNumeroContractual.Text);
+                  ParamByName('DG').AsInteger := StrToInt(EdDigitoContractual.Caption);
+                  ParamByName('ANO').AsString := IntToStr(DBAnho);
+                  ParamByName('FECHA1').AsDate := EncodeDate(DBAnho,01,01);
+                  ParamByName('FECHA2').AsDate := EncodeDate(DBAnho,12,31);
+                  try
+                          ExecQuery;
+                          if RecordCount > 0 then
+                            EdSaldoCon.Value := FieldByName('SALDO_ACTUAL').AsCurrency
+                          else
+                            EdSaldoCon.Value := 0;
+                  except
+                          Transaction.Rollback;
+                          raise;
+                  end;
+                 end;
+                 EdSaldoCon.Value := SaldoActual;
                  GroupBox13.Enabled := False;
                  CmdSaldar.Enabled := True;
+                 cmdFormaPago.Enabled := True;
+                 EdCuentaCon.OnExit(self);
               end;
             except
               MessageDlg('Error Localizando el Titular de la Captacion',mterror,[mbCancel],0);
@@ -1417,7 +1466,7 @@ begin
               ExecQuery;
               Close;
             except
-              MessageDlg('Error Marcando Captaci?n "cap$maestrosaldar"',mtError,[mbcancel],0);
+              MessageDlg('Error Marcando Captacion "cap$maestrosaldar"',mtError,[mbcancel],0);
               Transaction.Rollback;
               Exit;
             end;
@@ -1585,48 +1634,478 @@ begin
 end;
 
 function TfrmSaldarCaptacion.GrabarContractual: boolean;
-var TresXMil:Currency;
+var GMF,GMFCheque,GMFNCredito:Currency;
     Codigo_Captacion:string;
-    Codigo_Abono:string;
-    Codigo_TresxMil:string;
-    Codigo_GastoTresxMil:string;
-    Codigo_Efectivo:String;
-    Codigo_Cheque:String;
-    Codigo_Credito:String;
-    Codigo_GMF:String;
-    Codigo_GastoGMF:String;
-    VecesGMF:Currency;
-    ValorBaseGMF:Currency;
-    GMFNCredito:Currency;
-    GMFCheque:Currency;
-    GMF:Currency;
+    Codigo_Efectivo,Codigo_Cheque,Codigo_Credito:string;
+//    Codigo_Abono:string;
+    Codigo_GMF:string;
+    Codigo_GastoGMF:string;
     Efectivo:Boolean;
-    Valor:Currency;
+    Valor,ValorBaseGMF:Currency;
     TipoCaptacion:Integer;
     TipoCaptacionCer:Integer;
+    ValorEfe:Currency;
+    ValorChe:Currency;
+    ValorCre:Currency;
+    Estado:Integer;
+    VecesGMF:Currency;
 begin
-        with IBSQL1 do begin
-         Close;
-         SQL.Clear;
-         SQL.Add('UPDATE "cap$maestro" SET ID_ESTADO = 2, FECHA_SALDADA = :FECHA');
-         SQL.Add('WHERE ID_AGENCIA = :ID_AGENCIA and ');
-         SQL.Add('ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION and');
-         SQL.Add('NUMERO_CUENTA = :NUMERO_CUENTA and');
-         SQL.Add('DIGITO_CUENTA = :DIGITO_CUENTA');
-         ParamByName('ID_AGENCIA').AsInteger := Agencia;
-         ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
-         ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
-         ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoContractual.Caption);
-         ParamByName('FECHA').AsDate := fFechaActual;
-         try
-           ExecQuery;
-           Result := True;
-         except
-           MessageDlg('Error al Marcar la Captaci?n',mtError,[mbcancel],0);
+        Result := False;
+        if not SePuedeMarcar then
+        begin
+           MessageDlg('Esta Captacion No se puede saldar',mtError,[mbcancel],0);
+           CmdSaldar.Enabled := False;
+           Result:=False;
            Exit;
-         end;
         end;
 
+        TipoCaptacion       := DBLCBTiposCaptacion.KeyValue;
+        TipoCaptacionCer    := DBLCBTipoCaptacionCer.KeyValue;
+
+// Buscar c?digos contables
+        with IBSQL1 do
+        begin
+// C?digo Captaci?n
+            Close;
+            SQL.Clear;
+            SQL.Add('select CODIGO_CONTABLE from "cap$tipocaptacion" a ');
+            SQL.Add('where a.ID_TIPO_CAPTACION = :ID');
+            ParamByName('ID').AsInteger := DBLCBTiposCaptacion.KeyValue;
+            try
+              ExecQuery;
+            except
+              MessageDlg('Error buscando codigo contable de captacion',mterror,[mbcancel],0);
+              Exit;
+            end;
+            Codigo_Captacion := FieldByName('CODIGO_CONTABLE').AsString;
+
+// C?digo Abono
+            Close;
+            if ValorEfectivo > 0 then
+            begin
+             SQL.Clear;
+             SQL.Add('select CODIGO_CONTABLE from CAP$CONTABLE');
+             SQL.Add('where ID_CAPTACION = :ID_CAPTACION and ID_CONTABLE = :ID_CONTABLE');
+             ParamByName('ID_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+             ParamByName('ID_CONTABLE').AsInteger := 7;
+             try
+              ExecQuery;
+              Codigo_Efectivo := FieldByName('CODIGO_CONTABLE').AsString;
+              Close;
+             except
+              MessageDlg('Error buscando c?digo de Efectivo',mterror,[mbcancel],0);
+              Exit;
+             end;
+            end;
+
+            if ValorCheque > 0 then
+            begin
+             SQL.Clear;
+             SQL.Add('select CODIGO from GEN$BANCOSCHEQUES where ID_BANCO = :ID_BANCO');
+             ParamByName('ID_BANCO').AsInteger := CodigoBanco;
+             try
+              ExecQuery;
+              Codigo_Cheque := FieldByName('CODIGO').AsString;
+              Close;
+             except
+              MessageDlg('Error buscando c?digo del Banco',mterror,[mbcancel],0);
+              Exit;
+             end;
+            end;
+
+            if ValorCredito > 0 then
+            begin
+              SQL.Clear;
+              SQL.Add('select CODIGO_CONTABLE from "cap$tipocaptacion"');
+              SQL.Add('where ID_TIPO_CAPTACION = :ID');
+              ParamByName('ID').AsInteger := DBLCBTipoCaptacionCer.KeyValue;
+             try
+              ExecQuery;
+              Codigo_Credito := FieldByName('CODIGO_CONTABLE').AsString;
+              Close;
+             except
+              MessageDlg('Error buscando c?digo del Banco',mterror,[mbcancel],0);
+              Exit;
+             end;
+            end;
+
+// Codigo GMF
+            Close;
+            SQL.Clear;
+            SQL.Add('select CODIGO_CONTABLE from CAP$CONTABLE');
+            SQL.Add('where ID_CAPTACION = :ID_CAPTACION and ID_CONTABLE = :ID_CONTABLE');
+            ParamByName('ID_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+            ParamByName('ID_CONTABLE').AsInteger := 8;
+            try
+             ExecQuery;
+            except
+              MessageDlg('Error buscando c?digo tres x mil a captaci?n',mterror,[mbcancel],0);
+              Exit;
+            end;
+            Codigo_GMF := FieldByName('CODIGO_CONTABLE').AsString;
+// Codigo TresxMil Gasto
+            Close;
+            SQL.Clear;
+            SQL.Add('select CODIGO_CONTABLE from CAP$CONTABLE');
+            SQL.Add('where ID_CAPTACION = :ID_CAPTACION and ID_CONTABLE = :ID_CONTABLE');
+            ParamByName('ID_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+            ParamByName('ID_CONTABLE').AsInteger := 9;
+            try
+             ExecQuery;
+            except
+              MessageDlg('Error buscando c?digo GMF',mterror,[mbcancel],0);
+              Exit;
+            end;
+            Codigo_GastoGMF := FieldByName('CODIGO_CONTABLE').AsString;
+
+            Close;
+            SQL.Clear;
+            SQL.Add('select * from "gen$minimos" where ID_MINIMO = 12');
+            try
+             ExecQuery;
+             VecesGMF := FieldByName('VALOR_MINIMO').AsCurrency;
+            except
+             MessageDlg('Error buscando Veces GMF',mtError,[mbcancel],0);
+             Exit;
+            end;
+
+            Close;
+        end;
+
+{        if (ValorCredito < ValorGMFCer.Value) and (ValorCredito > 0) then
+           ValorBaseGMF := ValorCredito
+        else
+           ValorBaseGMF := ValorGMFCer.Value;}
+           ValorBaseGMF := ValorGMFCer.Value;
+
+        Valor := EdValorCer.Value;
+
+        if ChkGMFCer.Checked then
+        begin
+           GMFNCredito := SimpleRoundTo((ValorBaseGMF / 1000) * VecesGMF,0);
+        end
+        else
+        begin
+           GMFNCredito := 0;
+        end;
+
+        if ValorCheque > 0 then
+           GMFCheque := SimpleRoundTo((ValorCheque / 1000) * VecesGMF,0);
+
+        GMF := GMFNCredito + GMFCheque;
+
+// Buscar Consecutivo
+        Comprobante := ObtenerConsecutivo(IBSQL1);
+// Fin Obtener Consecutivo
+         with IBSQL1 do
+         begin
+            Transaction.StartTransaction;
+            Close;
+            SQL.Clear;
+            SQL.Add('insert into CON$COMPROBANTE');
+            SQL.Add('values (:"ID_COMPROBANTE", :"ID_AGENCIA", :"TIPO_COMPROBANTE", :"FECHADIA",');
+            SQL.Add(':"DESCRIPCION", :"TOTAL_DEBITO", :"TOTAL_CREDITO", :"ESTADO", :"IMPRESO",');
+            SQL.Add(':"ANULACION", :"ID_EMPLEADO")');
+            ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            ParamByName('ID_AGENCIA').AsInteger := Agencia;
+            ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+            ParamByName('FECHADIA').AsDateTime := Date;
+            ParamByName('DESCRIPCION').AsString := 'Captaci?n Saldada No:' + Ednumerocer.Text + '-' + EdDigitoCer.Caption + ' ' +
+                                                    EdPrimerApellidoCer.Caption + ' ' + EdSegundoApellidoCer.Caption + EdNombresCer.Caption +
+                                                   ' en la Fecha ';
+            ParamByName('TOTAL_DEBITO').AsCurrency := Valor + GMF;
+            ParamByName('TOTAL_CREDITO').AsCurrency := Valor + GMF;
+            ParamByName('ESTADO').AsString := 'O';
+            ParamByName('IMPRESO').AsInteger := 1;
+            ParamByName('ANULACION').AsString := '';
+            ParamByName('ID_EMPLEADO').AsString := DBAlias;
+            try
+             ExecQuery;
+             Close;
+            except
+             MessageDlg('No se pudo grabar en comprobante',mtError,[mbcancel],0);
+             Transaction.Rollback;
+             Exit;
+            end;
+
+            Close;
+            SQL.Clear;
+            SQL.Add('insert into CON$AUXILIAR');
+            SQL.Add('values');
+            SQL.Add('(:"ID_COMPROBANTE", :"ID_AGENCIA", :"FECHA", :"CODIGO", :"DEBITO", :"CREDITO",');
+            SQL.Add(':"ID_CUENTA", :"ID_COLOCACION", :"ID_IDENTIFICACION", :"ID_PERSONA",');
+            SQL.Add(':"MONTO_RETENCION", :"TASA_RETENCION", :"ESTADOAUX", :"TIPO_COMPROBANTE")');
+// Captaci?n
+            ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            ParamByName('ID_AGENCIA').AsInteger := Agencia;
+            ParamByName('FECHA').AsDateTime := Date;
+            ParamByName('CODIGO').AsString := Codigo_Captacion;
+            ParamByName('DEBITO').AsCurrency := Valor;
+            ParamByName('CREDITO').AsCurrency := 0;
+            ParamByName('ID_CUENTA').AsInteger := StrToInt(EdNumeroCer.Text);
+            ParamByName('ID_COLOCACION').Clear;
+            ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCer.KeyValue;
+            ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCer.Text;
+            ParamByName('MONTO_RETENCION').AsCurrency := 0;
+            ParamByName('TASA_RETENCION').AsFloat := 0;
+            ParamByName('ESTADOAUX').AsString := 'O';
+            ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+            try
+              ExecQuery;
+            except
+              MessageDlg('Error al Escribir en el Auxiliar Captaci?n',mtError,[mbcancel],0);
+              Transaction.Rollback;
+              Exit;
+            end;
+// si valor efectivo > 0
+            if ValorEfectivo > 0 then
+            begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Efectivo;
+             ParamByName('DEBITO').AsCurrency := 0;
+             ParamByName('CREDITO').AsCurrency := ValorEfectivo;
+             ParamByName('ID_CUENTA').Clear;
+             ParamByName('ID_COLOCACION').Clear;
+             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+             ParamByName('ID_PERSONA').Clear;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Abono',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+            end;
+// if valor cheque > 0
+            if ValorCheque > 0 then
+            begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Cheque;
+             ParamByName('DEBITO').AsCurrency := 0;
+             ParamByName('CREDITO').AsCurrency := ValorCheque;
+             ParamByName('ID_CUENTA').Clear;
+             ParamByName('ID_COLOCACION').Clear;
+             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+             ParamByName('ID_PERSONA').Clear;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Abono',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+            end;
+// if valor credito > 0
+            if ValorCredito > 0 then
+            begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Credito;
+             ParamByName('DEBITO').AsCurrency := 0;
+             ParamByName('CREDITO').AsCurrency := ValorCredito;
+             ParamByName('ID_CUENTA').AsInteger := StrToInt(EdNumeroCapCer.Text);
+             ParamByName('ID_COLOCACION').Clear;
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCer.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCer.Text;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Abono',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+            end;
+
+// GMF por Depositos
+            if GMFNCredito > 0 then begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_GMF;
+             ParamByName('DEBITO').AsCurrency := 0;
+             ParamByName('CREDITO').AsCurrency := GMFNCredito;
+             ParamByName('ID_CUENTA').AsInteger := 0;
+             ParamByName('ID_COLOCACION').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+             ParamByName('ID_PERSONA').AsString := '';
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar GMF',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+            end;
+// GMF por Bancos
+            if GMFCheque > 0 then begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Cheque;
+             ParamByName('DEBITO').AsCurrency := 0;
+             ParamByName('CREDITO').AsCurrency := GMFCheque;
+             ParamByName('ID_CUENTA').AsInteger := 0;
+             ParamByName('ID_COLOCACION').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+             ParamByName('ID_PERSONA').AsString := '';
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar GMF',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+            end;
+// Gasto GMF
+            if GMF > 0 then begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_GastoGMF;
+             ParamByName('DEBITO').AsCurrency := GMF;
+             ParamByName('CREDITO').AsCurrency := 0;
+             ParamByName('ID_CUENTA').AsInteger := 0;
+             ParamByName('ID_COLOCACION').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+             ParamByName('ID_PERSONA').AsString := '';
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Gasto',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+            end;
+
+            if ValorCredito > 0 then
+            begin
+              Close;
+              SQL.Clear;
+              SQL.Add('insert into "cap$extracto" values(');
+              SQL.Add(':"ID_AGENCIA",:"ID_TIPO_CAPTACION",:"NUMERO_CUENTA",');
+              SQL.Add(':"DIGITO_CUENTA",:"FECHA_MOVIMIENTO",:"HORA_MOVIMIENTO",');
+              SQL.Add(':"ID_TIPO_MOVIMIENTO",:"DOCUMENTO_MOVIMIENTO",:"DESCRIPCION_MOVIMIENTO",');
+              SQL.Add(':"VALOR_DEBITO",:"VALOR_CREDITO",:"ID")');
+              ParamByName('ID_AGENCIA').AsInteger := Agencia;
+              ParamByName('ID_TIPO_CAPTACION').AsInteger := TipoCaptacionCer;
+              ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroCapCer.Text);
+              ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(eddigitocapcer.Caption);
+              ParamByName('FECHA_MOVIMIENTO').AsDate := Date;
+              ParamByName('HORA_MOVIMIENTO').AsTime := Time;
+              ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 12;
+              ParamByName('DOCUMENTO_MOVIMIENTO').AsString := Format('%.8d',[Comprobante]);
+              ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Captaci?n Saldada No.' +
+                                                                IntToStr(DBLCBTiposCaptacion.KeyValue) + '-' +
+                                                                EdNumeroCer.Text + '-' + EdDigitoCer.Caption;
+              ParamByName('VALOR_DEBITO').AsCurrency := ValorCredito;
+              ParamByName('VALOR_CREDITO').AsCurrency := 0;
+              ParamByName('ID').AsInteger := 0;        
+              try
+                ExecQuery;
+                Close;
+              except
+                MessageDlg('Error abonando en Captaci?n',mtError,[mbcancel],0);
+                Transaction.Rollback;
+                Exit;
+              end;
+
+            end;
+// Marcar Captacion Como Saldada
+            SQL.Clear;
+            SQL.Add('update "cap$maestro"');
+            SQL.Add('set ID_ESTADO = :ID, FECHA_SALDADA = :FECHA');
+            SQL.Add('where ID_AGENCIA = :"ID_AGENCIA" and ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
+            SQL.Add('NUMERO_CUENTA = :"NUMERO_CUENTA" and DIGITO_CUENTA = :"DIGITO_CUENTA"');
+            ParamByName('ID_AGENCIA').AsInteger := Agencia;
+            ParamByName('ID_TIPO_CAPTACION').AsInteger := TipoCaptacion;
+            ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroCer.Text);
+            ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoCer.Caption);
+            ParamByName('FECHA').AsDate := fFechaActual;
+            if (ValorEfectivo > 0) then
+            begin
+               ParamByName('ID').AsInteger := 5;
+               Estado := 5;
+            end
+            else
+            begin
+               ParamByName('ID').AsInteger := 2;
+               Estado := 2;
+            end;
+            try
+              ExecQuery;
+              Close;
+            except
+              MessageDlg('Error Marcando Captaci?n',mtError,[mbcancel],0);
+              Transaction.Rollback;
+              Exit;
+            end;
+
+// Marcar Captacion para Ser Saldada
+
+            SQL.Clear;
+            SQL.Add('insert into "cap$maestrosaldar"');
+            SQL.Add('("cap$maestrosaldar"."CHEQUE", "cap$maestrosaldar"."DIGITO_CUENTA", "cap$maestrosaldar"."EFECTIVO",');
+            SQL.Add('"cap$maestrosaldar"."FECHA", "cap$maestrosaldar"."HORA", "cap$maestrosaldar"."ID_AGENCIA",');
+            SQL.Add('"cap$maestrosaldar"."ID_ESTADO", "cap$maestrosaldar"."ID_TIPO_CAPTACION",');
+            SQL.Add('"cap$maestrosaldar"."NCREDITO", "cap$maestrosaldar"."NUMERO_CUENTA","cap$maestrosaldar".ID_BANCO, "cap$maestrosaldar".NUMERO_CHEQUE)');
+            SQL.Add('values');
+            SQL.Add('(:"CHEQUE", :"DIGITO_CUENTA", :"EFECTIVO", :"FECHA", :"HORA", :"ID_AGENCIA",');
+            SQL.Add(':"ID_ESTADO", :"ID_TIPO_CAPTACION", :"NCREDITO", :"NUMERO_CUENTA",:"ID_BANCO",:"NUMERO_CHEQUE")');
+
+            ParamByName('ID_AGENCIA').AsInteger := Agencia;
+            ParamByName('ID_TIPO_CAPTACION').AsInteger := TipoCaptacion;
+            ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroCer.Text);
+            ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoCer.Caption);
+            ParamByName('EFECTIVO').AsCurrency := ValorEfectivo;
+            ParamByName('CHEQUE').AsCurrency := ValorCheque;
+            ParamByName('NCREDITO').AsCurrency := ValorCredito;
+            ParamByName('ID_BANCO').AsInteger := CodigoBanco;
+            ParamByName('NUMERO_CHEQUE').AsString := NumeroCheque;
+            ParamByName('FECHA').AsDate := fFechaActual;
+            ParamByName('HORA').AsTime := fHoraActual;
+            ParamByName('ID_ESTADO').AsInteger := Estado;
+            try
+              ExecQuery;
+              Close;
+            except
+              MessageDlg('Error Marcando Captacion "cap$maestrosaldar"',mtError,[mbcancel],0);
+              Transaction.Rollback;
+              Exit;
+            end;
+          end;
+
+
+          CmdInforme.Enabled := True;
+          Result := True;
 
 end;
 
@@ -1661,10 +2140,68 @@ begin
     ValorCredito  := frmEfectivoNota.Credito;
 
     if ( ValorEfectivo + ValorCheque + ValorCredito ) = SaldoActual then
-      CmdSaldar.Enabled := true
+      CmdSaldar.Enabled := True
     else
       CmdSaldar.Enabled := False;
  
+end;
+
+procedure TfrmSaldarCaptacion.EdCuentaConExit(Sender: TObject);
+begin
+       if EdCuentaCon.Text <> '' then
+       begin
+        EdCuentacon.Text := FormatCurr('0000000',StrToFloat(EdCuentaCon.Text));
+        if DBLCBTiposCaptacionCon.KeyValue > -1 then
+        begin
+           EdDigitoCon.Caption := DigitoControl(DBLCBTiposCaptacionCon.KeyValue,EdCuentaCon.Text);
+           with dmCaptacion.IBSQL1 do
+           begin
+              Close;
+              SQL.Clear;
+              SQL.Add('select PRIMER_APELLIDO,SEGUNDO_APELLIDO,NOMBRE from "gen$persona" INNER JOIN ');
+              SQL.Add('"cap$maestrotitular" ON "cap$maestrotitular".ID_IDENTIFICACION = "gen$persona".ID_IDENTIFICACION ');
+              SQL.Add('and "cap$maestrotitular".ID_PERSONA = "gen$persona".ID_PERSONA ');
+              SQL.Add('where "cap$maestrotitular".ID_AGENCIA = :"ID_AGENCIA" and ');
+              SQL.Add('"cap$maestrotitular".ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
+              SQL.Add('"cap$maestrotitular".NUMERO_CUENTA = :"NUMERO_CUENTA" and ');
+              SQL.Add('"cap$maestrotitular".DIGITO_CUENTA = :"DIGITO_CUENTA" ');
+              ParamByName('ID_AGENCIA').AsInteger := Agencia;
+              ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacionCon.KeyValue;
+              ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdCuentaCon.Text);
+              ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoCon.Caption);
+              try
+                ExecQuery;
+                if RecordCount > 0 then
+                begin
+                   EdNombreCon.Caption    := FieldByName('PRIMER_APELLIDO').AsString + ' ' +
+                                             FieldByName('SEGUNDO_APELLIDO').AsString + ' ' +
+                                             FieldByName('NOMBRE').AsString;
+                   CmdSaldar.Enabled := True;
+                   CmdSaldar.SetFocus;
+                end
+                else
+                begin
+                   MessageDlg('Cuenta no Existe!',mtError,[mbcancel],0);
+                   EdCuentaCon.SetFocus;
+                end;
+                Close;
+              except
+                 MessageDlg('Error en query: buscar captación abonar contractual',mterror,[mbcancel],0);
+              end;
+           end;
+        end
+        else
+        begin
+           MessageDlg('Debe seleccionar un tipo de identificacion',mtInformation,[mbOK],0);
+           DBLCBTiposCaptacionCon.SetFocus;
+        end;
+       end;
+end;
+
+procedure TfrmSaldarCaptacion.EdCuentaConKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+        EnterTabs(Key, Self);
 end;
 
 end.

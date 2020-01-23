@@ -88,6 +88,7 @@ type
     IBTransaction1: TIBTransaction;
     IBTransaction2: TIBTransaction;
     btnReasignar: TToggleButton;
+    Label22: TLabel;
     procedure CmdCerrarClick(Sender: TObject);
     procedure EdIdentificacionExit(Sender: TObject);
     procedure FormShow(Sender: TObject);

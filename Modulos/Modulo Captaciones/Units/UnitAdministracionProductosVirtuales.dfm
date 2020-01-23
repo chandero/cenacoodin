@@ -1,8 +1,8 @@
 object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   Left = 479
   Top = 126
-  Width = 693
-  Height = 514
+  Width = 688
+  Height = 540
   Caption = 'Administraci'#243'n de Productos Virtuales'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -172,155 +172,162 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     Left = 1
     Top = 224
     Width = 673
-    Height = 209
+    Height = 233
     Caption = 'Informaci'#243'n de Productos'
     TabOrder = 1
     object Label1: TLabel
       Left = 8
-      Top = 17
-      Width = 248
+      Top = 70
+      Width = 148
       Height = 13
-      Caption = 'ATM - CAJERO AUTOMATICO - TARJETA DEBITO'
+      Caption = 'ATM - CAJERO AUTOMATICO'
     end
     object Label2: TLabel
       Left = 8
-      Top = 69
+      Top = 93
       Width = 133
       Height = 13
       Caption = 'POS - PUNTOS DE VENTA'
     end
     object Label3: TLabel
       Left = 331
-      Top = 69
+      Top = 93
       Width = 100
       Height = 13
       Caption = 'N'#250'mero Operaciones'
     end
     object Label4: TLabel
       Left = 477
-      Top = 71
+      Top = 95
       Width = 25
       Height = 13
       Caption = 'Tope'
     end
     object Label5: TLabel
       Left = 8
-      Top = 115
+      Top = 139
       Width = 170
       Height = 13
       Caption = 'WEB - PORTAL TRANSACCIONAL'
     end
     object Label6: TLabel
       Left = 331
-      Top = 113
+      Top = 137
       Width = 100
       Height = 13
       Caption = 'N'#250'mero Operaciones'
     end
     object Label7: TLabel
       Left = 477
-      Top = 115
+      Top = 139
       Width = 25
       Height = 13
       Caption = 'Tope'
     end
     object Label8: TLabel
       Left = 8
-      Top = 139
+      Top = 163
       Width = 105
       Height = 13
       Caption = 'MOV - BANCA MOVIL'
     end
     object Label9: TLabel
       Left = 331
-      Top = 137
+      Top = 161
       Width = 100
       Height = 13
       Caption = 'N'#250'mero Operaciones'
     end
     object Label10: TLabel
       Left = 477
-      Top = 139
+      Top = 163
       Width = 25
       Height = 13
       Caption = 'Tope'
     end
     object Label11: TLabel
       Left = 8
-      Top = 163
+      Top = 187
       Width = 68
       Height = 13
       Caption = 'OFI - OFICINA'
     end
     object Label12: TLabel
       Left = 331
-      Top = 161
+      Top = 185
       Width = 100
       Height = 13
       Caption = 'N'#250'mero Operaciones'
     end
     object Label13: TLabel
       Left = 477
-      Top = 163
+      Top = 187
       Width = 25
       Height = 13
       Caption = 'Tope'
     end
     object Label14: TLabel
       Left = 8
-      Top = 93
+      Top = 117
       Width = 129
       Height = 13
       Caption = 'IVR - AUDIO RESPUESTA'
     end
     object Label15: TLabel
       Left = 331
-      Top = 91
+      Top = 115
       Width = 100
       Height = 13
       Caption = 'N'#250'mero Operaciones'
     end
     object Label16: TLabel
       Left = 477
-      Top = 93
+      Top = 117
       Width = 25
       Height = 13
       Caption = 'Tope'
     end
     object Label17: TLabel
       Left = 8
-      Top = 187
+      Top = 211
       Width = 177
       Height = 13
       Caption = 'CNB - CORRESPONSAL BANCARIO'
     end
     object Label18: TLabel
       Left = 331
-      Top = 185
+      Top = 209
       Width = 100
       Height = 13
       Caption = 'N'#250'mero Operaciones'
     end
     object Label19: TLabel
       Left = 477
-      Top = 184
+      Top = 208
       Width = 25
       Height = 13
       Caption = 'Tope'
     end
     object Label20: TLabel
       Left = 331
-      Top = 37
+      Top = 71
       Width = 100
       Height = 13
       Caption = 'N'#250'mero Operaciones'
     end
     object Label21: TLabel
       Left = 477
-      Top = 39
+      Top = 73
       Width = 25
       Height = 13
       Caption = 'Tope'
+    end
+    object Label22: TLabel
+      Left = 8
+      Top = 20
+      Width = 91
+      Height = 13
+      Caption = 'TARJETA DEBITO'
     end
     object edTarjetaDebito: TEdit
       Left = 263
@@ -339,7 +346,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object chkATM: TCheckBox
       Left = 263
-      Top = 35
+      Top = 69
       Width = 66
       Height = 17
       Caption = 'Activar'
@@ -348,7 +355,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edNopeATM: TJvIntegerEdit
       Left = 440
-      Top = 36
+      Top = 70
       Width = 31
       Height = 21
       Alignment = taRightJustify
@@ -362,7 +369,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edTopeATM: TJvCurrencyEdit
       Left = 512
-      Top = 36
+      Top = 70
       Width = 121
       Height = 21
       Alignment = taRightJustify
@@ -374,7 +381,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object chkPOS: TCheckBox
       Left = 263
-      Top = 67
+      Top = 91
       Width = 66
       Height = 17
       Caption = 'Activar'
@@ -382,7 +389,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edNopePOS: TJvIntegerEdit
       Left = 440
-      Top = 68
+      Top = 92
       Width = 31
       Height = 21
       Alignment = taRightJustify
@@ -396,7 +403,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edTopePOS: TJvCurrencyEdit
       Left = 512
-      Top = 68
+      Top = 92
       Width = 121
       Height = 21
       Alignment = taRightJustify
@@ -408,7 +415,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object chkIVR: TCheckBox
       Left = 263
-      Top = 89
+      Top = 113
       Width = 66
       Height = 17
       Caption = 'Activar'
@@ -416,7 +423,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edNopeIVR: TJvIntegerEdit
       Left = 440
-      Top = 90
+      Top = 114
       Width = 31
       Height = 21
       Alignment = taRightJustify
@@ -430,7 +437,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edTopeIVR: TJvCurrencyEdit
       Left = 512
-      Top = 90
+      Top = 114
       Width = 121
       Height = 21
       Alignment = taRightJustify
@@ -442,7 +449,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object chkWEB: TCheckBox
       Left = 263
-      Top = 111
+      Top = 135
       Width = 66
       Height = 17
       Caption = 'Activar'
@@ -450,7 +457,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edNopeWEB: TJvIntegerEdit
       Left = 440
-      Top = 112
+      Top = 136
       Width = 31
       Height = 21
       Alignment = taRightJustify
@@ -464,7 +471,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edTopeWEB: TJvCurrencyEdit
       Left = 512
-      Top = 112
+      Top = 136
       Width = 121
       Height = 21
       Alignment = taRightJustify
@@ -476,7 +483,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object chkMOV: TCheckBox
       Left = 263
-      Top = 135
+      Top = 159
       Width = 66
       Height = 17
       Caption = 'Activar'
@@ -484,7 +491,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edNopeMOV: TJvIntegerEdit
       Left = 440
-      Top = 136
+      Top = 160
       Width = 31
       Height = 21
       Alignment = taRightJustify
@@ -498,7 +505,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edTopeMOV: TJvCurrencyEdit
       Left = 512
-      Top = 136
+      Top = 160
       Width = 121
       Height = 21
       Alignment = taRightJustify
@@ -510,7 +517,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object chkOFI: TCheckBox
       Left = 263
-      Top = 159
+      Top = 183
       Width = 66
       Height = 17
       Caption = 'Activar'
@@ -518,7 +525,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edNopeOFI: TJvIntegerEdit
       Left = 440
-      Top = 160
+      Top = 184
       Width = 31
       Height = 21
       Alignment = taRightJustify
@@ -532,7 +539,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edTopeOFI: TJvCurrencyEdit
       Left = 512
-      Top = 160
+      Top = 184
       Width = 121
       Height = 21
       Alignment = taRightJustify
@@ -544,7 +551,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object chkCNB: TCheckBox
       Left = 263
-      Top = 183
+      Top = 207
       Width = 66
       Height = 17
       Caption = 'Activar'
@@ -552,7 +559,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edNopeCNB: TJvIntegerEdit
       Left = 440
-      Top = 184
+      Top = 208
       Width = 31
       Height = 21
       Alignment = taRightJustify
@@ -566,7 +573,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
     end
     object edTopeCNB: TJvCurrencyEdit
       Left = 512
-      Top = 184
+      Top = 208
       Width = 121
       Height = 21
       Alignment = taRightJustify
@@ -577,7 +584,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       HasMinValue = False
     end
     object btnMarcar: TBitBtn
-      Left = 512
+      Left = 494
       Top = 9
       Width = 49
       Height = 25
@@ -587,7 +594,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       OnClick = btnMarcarClick
     end
     object btnFormato: TBitBtn
-      Left = 565
+      Left = 547
       Top = 9
       Width = 49
       Height = 25
@@ -597,9 +604,9 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       OnClick = btnFormatoClick
     end
     object btnReasignar: TToggleButton
-      Left = 617
+      Left = 599
       Top = 9
-      Width = 51
+      Width = 55
       Height = 25
       Caption = 'ReAsignar'
       Enabled = False
@@ -610,7 +617,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   end
   object GroupBox3: TGroupBox
     Left = 1
-    Top = 432
+    Top = 464
     Width = 673
     Height = 42
     Caption = 'Acciones'
@@ -832,7 +839,10 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       'vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA'
       'AND'
       'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA'
-      'AND vtc.VITC_ESTADO <> 9')
+      'AND'
+      'vc.VICU_ESTADO <> 9'
+      'AND '
+      'vtc.VITC_ESTADO <> 9')
     Left = 200
     Top = 184
     ParamData = <
@@ -860,8 +870,8 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
   object IBQGuardar: TIBQuery
     Database = dmGeneral.IBDatabase1
     Transaction = IBTransaction1
-    Left = 176
-    Top = 304
+    Left = 640
+    Top = 424
     ParamData = <
       item
         DataType = ftInteger
@@ -933,7 +943,9 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
         'WHERE vc.VICU_ID_AGENCIA = :ID_AGENCIA and vc.VICU_TIPO_CUENTA =' +
         ' :ID_TIPO_CAPTACION and'
       'vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and'
-      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA')
+      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA and'
+      'vc.VICU_ESTADO <> 9 and'
+      'vcc.VICC_ESTADO <> 9')
     Left = 272
     Top = 152
     ParamData = <
@@ -979,7 +991,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0001000000000500417269616C00080000000200000000000000000001000200
       00000000FFFFFF000000000200000000000000FEFEFF0200000008002047656E
       6572616C0000000006004E4F4D425245000000000000000000000000FC000000
-      000000000000000000000000004D000717B6C7545DE3401A1DB81A5964E540}
+      000000000000000000000000004D000717B6C7545DE340BD9E87CBCC68E540}
   end
   object IBQvCuenta: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -990,7 +1002,8 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
         'D_AGENCIA = :ID_AGENCIA and vc.VICU_TIPO_CUENTA = :ID_TIPO_CAPTA' +
         'CION and'
       'vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and'
-      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA')
+      'vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA and '
+      'vc.VICU_ESTADO <> 9')
     Left = 240
     Top = 184
     ParamData = <

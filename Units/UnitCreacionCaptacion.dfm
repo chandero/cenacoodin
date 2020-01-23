@@ -1,6 +1,6 @@
 object frmCreacionCaptacion: TfrmCreacionCaptacion
   Left = 485
-  Top = 81
+  Top = 99
   Width = 556
   Height = 595
   Caption = 'Creaci'#243'n de Captaciones'
@@ -39,7 +39,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
       Top = 15
       Width = 544
       Height = 481
-      ActivePage = TabCertificado
+      ActivePage = TabContractual
       Align = alClient
       TabOrder = 0
       TabStop = False
@@ -303,6 +303,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
                 HeaderFont.Style = [fsBold]
                 HeaderAlignment = taCenter
                 Caption = 'CSC'
+                Color = clWhite
                 Width = 28
                 Font.Charset = ANSI_CHARSET
                 Font.Color = clBlack
@@ -320,6 +321,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
                 HeaderFont.Style = [fsBold]
                 HeaderAlignment = taCenter
                 Caption = 'TIPO ID'
+                Color = clWhite
                 Width = 40
                 Font.Charset = ANSI_CHARSET
                 Font.Color = clBlack
@@ -337,6 +339,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
                 HeaderFont.Style = [fsBold]
                 HeaderAlignment = taCenter
                 Caption = 'NUMERO ID'
+                Color = clWhite
                 Width = 100
                 Font.Charset = ANSI_CHARSET
                 Font.Color = clBlack
@@ -353,6 +356,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
                 HeaderFont.Name = 'MS Sans Serif'
                 HeaderFont.Style = [fsBold]
                 Caption = 'TIPO T'
+                Color = clWhite
                 Width = 44
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
@@ -1920,7 +1924,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
   object EdPrimerApellidoBenAho: TEditCellEditor
     hasElipsis = False
     Left = 101
-    Top = 298
+    Top = 354
   end
   object EdSegundoApellidoBenAho: TEditCellEditor
     hasElipsis = False
@@ -1982,7 +1986,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
   object EdPrimerApellidoBenCer: TEditCellEditor
     hasElipsis = False
     Left = 75
-    Top = 298
+    Top = 354
   end
   object EdSegundoApellidoBenCer: TEditCellEditor
     hasElipsis = False
@@ -1992,7 +1996,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
   object EdNombresBenCer: TEditCellEditor
     hasElipsis = False
     Left = 129
-    Top = 297
+    Top = 353
   end
   object ComboParentescoCer: TComboCellEditor
     Left = 204
@@ -4570,7 +4574,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
     SelectSQL.Strings = (
       'select * from CON$COMPROBANTE')
     Left = 21
-    Top = 298
+    Top = 354
   end
   object IBDAuxiliar: TIBDataSet
     Database = dmGeneral.IBDatabase1
@@ -4622,7 +4626,7 @@ object frmCreacionCaptacion: TfrmCreacionCaptacion
     SelectSQL.Strings = (
       'select * from CON$AUXILIAR')
     Left = 49
-    Top = 298
+    Top = 354
   end
   object IbComprobante: TIBQuery
     Database = dmGeneral.IBDatabase1

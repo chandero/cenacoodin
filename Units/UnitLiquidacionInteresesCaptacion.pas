@@ -858,7 +858,7 @@ begin
         if programado then
         with ReporteCon do
         begin
-           LoadTemplateFromFile(FrmMain.Ruta1+'\reporte\RepContractualN.prt',False);
+           LoadTemplateFromFile('\reporte\RepContractualN.prt',False);
            Variables.ByName['EMPRESA'].AsString := Empresa;
            Variables.ByName['NIT'].AsString := Nit;
            Variables.ByName['FECHACORTE'].AsDateTime := EdFecha.Date;

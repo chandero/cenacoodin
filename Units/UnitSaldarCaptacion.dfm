@@ -1,7 +1,7 @@
 object frmSaldarCaptacion: TfrmSaldarCaptacion
-  Left = 293
-  Top = 71
-  Width = 544
+  Left = 505
+  Top = 103
+  Width = 549
   Height = 518
   Caption = 'Saldar Captaciones'
   Color = clBtnFace
@@ -21,7 +21,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   object GroupCaptacion: TGroupBox
     Left = 0
     Top = 33
-    Width = 536
+    Width = 541
     Height = 421
     Align = alClient
     Caption = 'Informaci'#243'n de la Captaci'#243'n'
@@ -36,9 +36,9 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
     object PageControl: TPageControl
       Left = 2
       Top = 15
-      Width = 532
+      Width = 537
       Height = 404
-      ActivePage = TabCertificado
+      ActivePage = TabContractual
       Align = alClient
       TabOrder = 0
       TabStop = False
@@ -333,6 +333,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                 HeaderFont.Style = [fsBold]
                 HeaderAlignment = taCenter
                 Caption = 'CSC'
+                Color = clWhite
                 Width = 28
                 Font.Charset = ANSI_CHARSET
                 Font.Color = clBlack
@@ -350,6 +351,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                 HeaderFont.Style = [fsBold]
                 HeaderAlignment = taCenter
                 Caption = 'TIPO ID'
+                Color = clWhite
                 Width = 40
                 Font.Charset = ANSI_CHARSET
                 Font.Color = clBlack
@@ -367,6 +369,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                 HeaderFont.Style = [fsBold]
                 HeaderAlignment = taCenter
                 Caption = 'NUMERO ID'
+                Color = clWhite
                 Width = 100
                 Font.Charset = ANSI_CHARSET
                 Font.Color = clBlack
@@ -383,6 +386,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                 HeaderFont.Name = 'MS Sans Serif'
                 HeaderFont.Style = [fsBold]
                 Caption = 'TIPO T'
+                Color = clWhite
                 Width = 44
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clBlack
@@ -561,10 +565,31 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           Height = 13
           Caption = 'Estado Actual'
         end
+        object Label55: TLabel
+          Left = 33
+          Top = 238
+          Width = 73
+          Height = 13
+          Caption = 'Saldo Actual'
+        end
+        object Label56: TLabel
+          Left = 164
+          Top = 238
+          Width = 71
+          Height = 13
+          Caption = 'Bonificaci'#243'n'
+        end
+        object Label57: TLabel
+          Left = 300
+          Top = 238
+          Width = 78
+          Height = 13
+          Caption = 'Total a Pagar'
+        end
         object GroupBox11: TGroupBox
           Left = 0
           Top = 0
-          Width = 524
+          Width = 529
           Height = 87
           Align = alTop
           Caption = 'Informaci'#243'n del Titular'
@@ -837,6 +862,139 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           ParentFont = False
           TabOrder = 3
         end
+        object GroupBox4: TGroupBox
+          Left = 0
+          Top = 284
+          Width = 509
+          Height = 67
+          Caption = 'Captaci'#243'n a la cu'#225'l se abonaran los valores'
+          TabOrder = 4
+          object Label11: TLabel
+            Left = 4
+            Top = 18
+            Width = 105
+            Height = 13
+            Caption = 'Tipo de Captaci'#243'n'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label48: TLabel
+            Left = 350
+            Top = 20
+            Width = 44
+            Height = 13
+            Caption = 'N'#250'mero'
+          end
+          object Label54: TLabel
+            Left = 6
+            Top = 42
+            Width = 44
+            Height = 13
+            Caption = 'Nombre'
+          end
+          object DBLCBTiposCaptacionCon: TDBLookupComboBox
+            Left = 110
+            Top = 16
+            Width = 235
+            Height = 21
+            Color = clWhite
+            KeyField = 'ID_TIPO_CAPTACION'
+            ListField = 'DESCRIPCION'
+            ListSource = DSTiposCaptacionF
+            TabOrder = 0
+          end
+          object EdCuentaCon: TJvEdit
+            Left = 394
+            Top = 16
+            Width = 81
+            Height = 21
+            Alignment = taRightJustify
+            GroupIndex = -1
+            MaxPixel.Font.Charset = DEFAULT_CHARSET
+            MaxPixel.Font.Color = clBlack
+            MaxPixel.Font.Height = -11
+            MaxPixel.Font.Name = 'MS Sans Serif'
+            MaxPixel.Font.Style = []
+            Modified = False
+            SelStart = 0
+            SelLength = 0
+            Color = clWhite
+            MaxLength = 7
+            PasswordChar = #0
+            ReadOnly = False
+            TabOrder = 1
+            OnExit = EdCuentaConExit
+            OnKeyPress = EdCuentaConKeyPress
+          end
+          object EdDigitoCon: TStaticText
+            Left = 478
+            Top = 16
+            Width = 21
+            Height = 21
+            Alignment = taCenter
+            AutoSize = False
+            BevelInner = bvLowered
+            BevelKind = bkFlat
+            BorderStyle = sbsSunken
+            Color = clWhite
+            ParentColor = False
+            TabOrder = 2
+          end
+          object EdNombreCon: TStaticText
+            Left = 110
+            Top = 40
+            Width = 389
+            Height = 21
+            AutoSize = False
+            BorderStyle = sbsSunken
+            Color = clWhite
+            ParentColor = False
+            TabOrder = 3
+          end
+        end
+        object EdSaldoCon: TJvCurrencyEdit
+          Left = 4
+          Top = 254
+          Width = 129
+          Height = 21
+          AutoSize = False
+          Alignment = taRightJustify
+          Color = clWhite
+          ReadOnly = False
+          TabOrder = 5
+          HasMaxValue = False
+          HasMinValue = False
+        end
+        object EdBonificacionCon: TJvCurrencyEdit
+          Left = 135
+          Top = 254
+          Width = 129
+          Height = 21
+          AutoSize = False
+          Alignment = taRightJustify
+          Color = clWhite
+          ReadOnly = False
+          TabOrder = 6
+          HasMaxValue = False
+          HasMinValue = False
+        end
+        object EdTotalAPagarCon: TJvCurrencyEdit
+          Left = 271
+          Top = 254
+          Width = 129
+          Height = 21
+          AutoSize = False
+          Alignment = taRightJustify
+          Color = clWhite
+          ReadOnly = False
+          TabOrder = 7
+          HasMaxValue = False
+          HasMinValue = False
+        end
       end
       object TabCertificado: TTabSheet
         Caption = 'TabCertificado'
@@ -859,7 +1017,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
         object GroupBox7: TGroupBox
           Left = 0
           Top = 0
-          Width = 524
+          Width = 529
           Height = 105
           Align = alTop
           Caption = 'Informaci'#243'n del Titular'
@@ -1302,6 +1460,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                   HeaderFont.Style = [fsBold]
                   HeaderAlignment = taCenter
                   Caption = 'PRIMER APELLIDO'
+                  Color = clWhite
                   Width = 115
                   Font.Charset = ANSI_CHARSET
                   Font.Color = clBlack
@@ -1318,6 +1477,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                   HeaderFont.Style = [fsBold]
                   HeaderAlignment = taCenter
                   Caption = 'SEGUNDO APELLIDO'
+                  Color = clWhite
                   Width = 115
                   Font.Charset = ANSI_CHARSET
                   Font.Color = clBlack
@@ -1334,6 +1494,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                   HeaderFont.Style = [fsBold]
                   HeaderAlignment = taCenter
                   Caption = 'NOMBRES'
+                  Color = clWhite
                   Width = 110
                   Font.Charset = ANSI_CHARSET
                   Font.Color = clBlack
@@ -1349,6 +1510,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                   HeaderFont.Name = 'MS Sans Serif'
                   HeaderFont.Style = [fsBold]
                   Caption = 'PARENTESCO'
+                  Color = clWhite
                   Width = 88
                   Font.Charset = ANSI_CHARSET
                   Font.Color = clBlack
@@ -1365,6 +1527,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
                   HeaderFont.Style = [fsBold]
                   HeaderAlignment = taCenter
                   Caption = '%'
+                  Color = clWhite
                   Width = 60
                   Font.Charset = ANSI_CHARSET
                   Font.Color = clBlack
@@ -1483,7 +1646,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 536
+    Width = 541
     Height = 33
     Align = alTop
     TabOrder = 1
@@ -1574,7 +1737,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   object Panel2: TPanel
     Left = 0
     Top = 454
-    Width = 536
+    Width = 541
     Height = 30
     Align = alBottom
     Color = clOlive
@@ -3291,5 +3454,11 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
         end
       end
     end
+  end
+  object DSTiposCaptacionF: TDataSource
+    AutoEdit = False
+    DataSet = dmCaptacion.IBTiposCaptacionF
+    Left = 486
+    Top = 64
   end
 end

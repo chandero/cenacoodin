@@ -1,6 +1,6 @@
 object frmLiquidacionInteresesCaptacion: TfrmLiquidacionInteresesCaptacion
-  Left = 502
-  Top = 184
+  Left = 652
+  Top = 346
   Width = 485
   Height = 170
   BorderIcons = []
