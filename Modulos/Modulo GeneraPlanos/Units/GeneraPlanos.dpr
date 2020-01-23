@@ -24,7 +24,8 @@ uses
   UnitReportePersonasFogacoop in 'UnitReportePersonasFogacoop.pas' {frmReportePersonasFogacoop},
   UnitVistaPreliminar in '..\..\..\Units\UnitVistaPreliminar.pas',
   UnitAportesSociales_F21 in 'UnitAportesSociales_F21.pas' {frmAportesSociales_F21},
-  DataSetToExcel in '..\..\..\Units\DataSetToExcel.pas';
+  DataSetToExcel in '..\..\..\Units\DataSetToExcel.pas',
+  UnitReporteColocacionesFogacoopEvaluacion in '\\VBOXSVR\cena\cenacoodin\Modulos\Modulo GeneraPlanos\Units\UnitReporteColocacionesFogacoopEvaluacion.pas' {frmReporteColocacionesFogacoopEvaluacion};
 
 {$R *.res}
 
@@ -32,5 +33,6 @@ begin
   Application.Initialize;
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmReporteColocacionesFogacoopEvaluacion, frmReporteColocacionesFogacoopEvaluacion);
   Application.Run;
 end.

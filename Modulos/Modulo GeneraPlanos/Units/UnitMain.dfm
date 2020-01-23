@@ -43,6 +43,10 @@ object frmMain: TfrmMain
         Caption = 'Generaci'#243'n Plano Colocaciones'
         OnClick = GeneracinPlanoColocaciones1Click
       end
+      object GeneracinPlanoColocacinEvaluacin1: TMenuItem
+        Caption = 'Generaci'#243'n Plano Colocaci'#243'n Evaluaci'#243'n'
+        OnClick = GeneracinPlanoColocacinEvaluacin1Click
+      end
       object BalanceGeneral1: TMenuItem
         Caption = 'Generar Balance General'
         OnClick = BalanceGeneral1Click
