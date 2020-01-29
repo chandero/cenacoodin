@@ -2,7 +2,7 @@ unit UnitCaptaciones;
 
 interface
 
-uses Math,Controls,SysUtils,DateUtils,UnitdmLiquidacionCaptacion, UnitGlobales, UnitGlobalesCol;
+uses Math,Controls,SysUtils,DateUtils, IBDatabase, UnitDmGeneral, UnitdmLiquidacionCaptacion, UnitGlobales, UnitGlobalesCol;
 
 type tInteres = record
    Interes:Currency;
@@ -39,7 +39,15 @@ var SaldoI:Currency;
     DayFin:Word;
     AnhoCorte : Word;
     AnhoInicial: Word;
+    _transaction: TIBTransaction;
 begin
+
+        _transaction := TIBTransaction.Create(nil);
+        _transaction.DefaultDatabase := dmGeneral.IBDatabase1;
+        _transaction.StartTransaction;
+
+        dmLiquidacionCaptacion.IBConsulta.Database := dmGeneral.IBDatabase1;
+        dmLiquidacionCaptacion.IBConsulta.Transaction := _transaction;
 
         YearIni := YearOf(FechaCorte);
         MonthIni := 1;
@@ -193,6 +201,8 @@ begin
              else
                 R.Retencion := 0;
         end;
+
+      _transaction.Commit;
       Result := R;
 
 end;

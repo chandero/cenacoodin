@@ -12,6 +12,7 @@ object FrmCierreMes: TFrmCierreMes
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object MainMenu1: TMainMenu
@@ -23,6 +24,10 @@ object FrmCierreMes: TFrmCierreMes
         Caption = 'Liquidaci'#243'n de Inter'#233's de Captaci'#243'n'
         OnClick = LiquidacindeIntersdeCaptacin1Click
       end
+    end
+    object mnuAuto: TMenuItem
+      Caption = 'Test Autom'#225'tico'
+      OnClick = mnuAutoClick
     end
   end
 end

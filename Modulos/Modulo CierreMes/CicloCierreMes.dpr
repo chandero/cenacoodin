@@ -19,7 +19,7 @@ uses
 begin
   Application.Initialize;
   Application.CreateForm(TdmGeneral, dmGeneral);
+  Application.CreateForm(TdmLiquidacionCaptacion, dmLiquidacionCaptacion);
   Application.CreateForm(TFrmCierreMes, FrmCierreMes);
-  Application.CreateForm(TfrmLiquidacionYCausacionAuto, frmLiquidacionYCausacionAuto);
   Application.Run;
 end.
