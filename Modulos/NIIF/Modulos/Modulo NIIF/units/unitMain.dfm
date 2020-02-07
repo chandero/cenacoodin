@@ -272,9 +272,9 @@ object frmMain: TfrmMain
       end
       object ProcesosEspeciales2: TMenuItem
         Caption = 'Procesos Especiales'
-        Visible = False
         object AplicarAyudasSolidaridadyEducacin1: TMenuItem
           Caption = 'Aplicar Ayudas Solidaridad y Educaci'#243'n'
+          Visible = False
           OnClick = AplicarAyudasSolidaridadyEducacin1Click
         end
         object BarridodeAhorrosparaAportes1: TMenuItem

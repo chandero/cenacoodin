@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, DateUtils, Math, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Buttons, JvTypedEdit, JvEdit, IBSQL, DB,
-  IBCustomDataSet, IBQuery, pr_Common, pr_TxClasses, IBDatabase;
+  IBCustomDataSet, IBQuery, pr_Common, pr_TxClasses, IBDatabase, UnitDmGeneral,
+  DBClient;
 
 type
   TfrmBarridoAhoApo = class(TForm)
@@ -31,12 +32,23 @@ type
     ReporteC: TprTxReport;
     IBAuxiliar: TIBQuery;
     Reporte: TprTxReport;
+    CDSTabla: TClientDataSet;
+    CDSTablaID_AGENCIA: TIntegerField;
+    CDSTablaID_TIPO_CAPTACION: TIntegerField;
+    CDSTablaNUMERO_CUENTA: TIntegerField;
+    CDSTablaDIGITO_CUENTA: TIntegerField;
+    CDSTablaID_IDENTIFICACION: TIntegerField;
+    CDSTablaID_PERSONA: TStringField;
+    CDSTablaNOMBRE: TStringField;
+    CDSTablaVALOR_ABONADO: TCurrencyField;
+    CDSTablaTOTAL_ABONADO: TAggregateField;
     procedure RGProcesoClick(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdProcesarClick(Sender: TObject);
     procedure CmdReporteClick(Sender: TObject);
     procedure CmdAplicarClick(Sender: TObject);
     procedure CmdComprobanteClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,12 +61,13 @@ var
   SaldoMinimoAho:Currency;
   Tabla:string;
   Comprobante :Integer;
+  dmGeneral: TdmGeneral;
   
 implementation
 
 {$R *.dfm}
 
-uses UnitDmGeneral, UnitPantallaProgreso, unitGlobales;
+uses UnitPantallaProgreso, unitGlobales;
 
 procedure TfrmBarridoAhoApo.RGProcesoClick(Sender: TObject);
 begin
@@ -148,6 +161,7 @@ begin
           raise;
           Exit;
          end;
+          {
           Tabla := '"Bar' + FloatToStr(Date) + IntToStr(1) + '"';
           IBQuery2.Close;
           IBQuery2.SQL.Clear;
@@ -159,7 +173,7 @@ begin
           IBQuery2.SQL.Add('ID_IDENTIFICACION TIPOS,');
           IBQuery2.SQL.Add('ID_PERSONA VARCHAR(15),');
           IBQuery2.SQL.Add('NOMBRE VARCHAR(150),');
-          IBQuery2.SQL.Add('VALOR_ABONADO NUMERICO)');
+          IBQuery2.SQL.Add('VALOR_ABONADO NUMERICO);');
           try
               IBQuery2.ExecSQL;
               IBQuery2.Transaction.CommitRetaining;
@@ -169,6 +183,10 @@ begin
               MessageDlg('No se pudo crear la tabla temporal para la liquidación',mtError,[mbcancel],0);
               Exit;
           end;
+         }
+
+         CDSTabla.Open;
+         CDSTabla.EmptyDataSet;
 
          frmProgreso := TfrmProgreso.Create(Self);
          frmProgreso.Min := 0;
@@ -246,6 +264,19 @@ begin
                  SaldoCuentaAho := SaldoCuentaAho - SaldoMinimoAho;
                  if SaldoCuentaAho >= DifMin then
                   begin
+                   CDSTabla.Insert;
+                   CDSTablaID_AGENCIA.Value := FieldByName('ID_AGENCIA').AsInteger;
+                   CDSTablaID_TIPO_CAPTACION.Value := FieldByName('ID_TIPO_CAPTACION').AsInteger;
+                   CDSTablaNUMERO_CUENTA.Value := FieldByName('NUMERO_CUENTA').AsInteger;
+                   CDSTablaDIGITO_CUENTA.Value := FieldByName('DIGITO_CUENTA').AsInteger;
+                   CDSTablaID_IDENTIFICACION.Value := FieldByName('ID_IDENTIFICACION').AsInteger;
+                   CDSTablaID_PERSONA.Value := FieldByName('ID_PERSONA').AsString;
+                   CDSTablaNOMBRE.Value := FieldByName('PRIMER_APELLIDO').AsString + ' ' +
+                                                           FieldByName('SEGUNDO_APELLIDO').AsString + ' ' +
+                                                           FieldByName('NOMBRE').AsString;
+                   CDSTablaVALOR_ABONADO.Value := DifMin;
+                   CDSTabla.Post;
+                   {
                    IBQuery2.Close;
                    IBQuery2.SQL.Clear;
                    IBQuery2.SQL.Add('insert into ' + Tabla + ' Values(');
@@ -262,6 +293,7 @@ begin
                    IBQuery2.ParamByName('VAL').AsCurrency := DifMin;
                    IBQuery2.ExecSQL;
                    IBQuery2.Transaction.CommitRetaining;
+                   }
                   end;
             end;
            Next; // Incrementar
@@ -269,6 +301,25 @@ begin
          frmProgreso.Cerrar;
         end;
 
+        if CDSTabla.RecordCount > 0 then begin
+             CmdReporte.Enabled := True;
+             case RGProcesar.ItemIndex of
+             0: begin
+                CmdAplicar.Enabled := False;
+                CmdComprobante.Enabled := False;
+                end;
+             1: begin
+                CmdAplicar.Enabled := True;
+                end;
+             end;
+        end
+        else
+        begin
+             MessageDlg('No Hay Valores a Barrer',mtInformation,[mbok],0);
+             IBQuery2.Transaction.Commit;
+        end
+
+        {
         with IBQuery1 do begin
           Close;
           SQL.Clear;
@@ -292,17 +343,18 @@ begin
            Transaction.Commit;
           end;
         end;
-
+        }
 end;
 
 procedure TfrmBarridoAhoApo.CmdReporteClick(Sender: TObject);
 begin
+        {
         with IBQuery3 do begin
           Close;
           SQL.Clear;
           SQL.Add('select * from '+tabla);
         end;
-
+        }
         Reporte.Variables.ByName['Empresa'].AsString := Empresa;
         if Reporte.PrepareReport then
            Reporte.PreviewPreparedReport(True);
@@ -321,6 +373,9 @@ begin
 // Fin Consecutivo Comprobante
 
 // Grabar Comprobante
+       Valor := CDSTablaTOTAL_ABONADO.AsCurrency;
+       GMF := Simpleroundto((Valor / 1000) * 4,0);
+       {
        with IBQuery1 do begin
         Close;
         SQL.Clear;
@@ -335,7 +390,7 @@ begin
          Exit;
         end;
        end;
-
+       }
        with IBQuery1 do begin
          Close;
          SQL.Clear;
@@ -369,7 +424,7 @@ begin
        with IBQuery1 do begin
          Close;
          SQL.Clear;
-         SQL.Add('insert into "con$comprobante" values (');
+         SQL.Add('insert into CON$COMPROBANTE values (');
          SQL.Add(':ID_COMPROBANTE,:ID_AGENCIA,:TIPO_COMPROBANTE,:FECHADIA,');
          SQL.Add(':DESCRIPCION,:TOTAL_DEBITO,:TOTAL_CREDITO,:ESTADO,:IMPRESO,');
          SQL.Add(':ANULACION,:ID_EMPLEADO)');
@@ -395,10 +450,10 @@ begin
        with IBQuery1 do begin
          Close;
          SQL.Clear;
-         SQL.Add('insert into "con$auxiliar" values (');
+         SQL.Add('insert into CON$AUXILIAR values (');
          SQL.Add(':ID_COMPROBANTE,:ID_AGENCIA,:FECHA,:CODIGO,:DEBITO,:CREDITO,');
          SQL.Add(':ID_CUENTA,:ID_COLOCACION,:ID_IDENTIFICACION,:ID_PERSONA,');
-         SQL.Add(':MONTO_RETENCION,:TASA_RETENCION,:ESTADOAUX)');
+         SQL.Add(':MONTO_RETENCION,:TASA_RETENCION,:ESTADOAUX, :TIPO_COMPROBANTE)');
          ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
          ParamByName('ID_AGENCIA').AsInteger := Agencia;
          ParamByName('FECHA').AsDate := Date;
@@ -412,6 +467,7 @@ begin
          ParamByName('MONTO_RETENCION').AsCurrency := 0;
          ParamByName('TASA_RETENCION').Clear;
          ParamByName('ESTADOAUX').AsString := 'O';
+         ParamByName('TIPO_COMPROBANTE').AsString := '1';
          try
           ExecSQL;
          except
@@ -434,6 +490,7 @@ begin
          ParamByName('MONTO_RETENCION').AsCurrency := 0;
          ParamByName('TASA_RETENCION').Clear;
          ParamByName('ESTADOAUX').AsString := 'O';
+         ParamByName('TIPO_COMPROBANTE').AsString := '1';
          try
           ExecSQL;
          except
@@ -446,7 +503,7 @@ begin
          ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
          ParamByName('ID_AGENCIA').AsInteger := Agencia;
          ParamByName('FECHA').AsDate := Date;
-         ParamByName('CODIGO').AsString := '244205000000000000';
+         ParamByName('CODIGO').AsString := '243005000000000000';
          ParamByName('DEBITO').AsCurrency := 0;
          ParamByName('CREDITO').AsCurrency := GMF;
          ParamByName('ID_CUENTA').Clear;
@@ -456,6 +513,7 @@ begin
          ParamByName('MONTO_RETENCION').AsCurrency := 0;
          ParamByName('TASA_RETENCION').Clear;
          ParamByName('ESTADOAUX').AsString := 'O';
+         ParamByName('TIPO_COMPROBANTE').AsString := '1';
          try
           ExecSQL;
          except
@@ -468,7 +526,7 @@ begin
          ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
          ParamByName('ID_AGENCIA').AsInteger := Agencia;
          ParamByName('FECHA').AsDate := Date;
-         ParamByName('CODIGO').AsString := '531520000000000000';
+         ParamByName('CODIGO').AsString := '523050000000000000';
          ParamByName('DEBITO').AsCurrency := GMF;
          ParamByName('CREDITO').AsCurrency := 0;
          ParamByName('ID_CUENTA').Clear;
@@ -478,6 +536,7 @@ begin
          ParamByName('MONTO_RETENCION').AsCurrency := 0;
          ParamByName('TASA_RETENCION').Clear;
          ParamByName('ESTADOAUX').AsString := 'O';
+         ParamByName('TIPO_COMPROBANTE').AsString := '1';
          try
           ExecSQL;
          except
@@ -487,6 +546,11 @@ begin
          end;
         end;
 // Fin Comprobante
+
+       CDSTabla.Last;
+       CDSTabla.First;
+       Total := CDSTabla.RecordCount;
+       {
        with IBQuery1 do begin
          Close;
          SQL.Clear;
@@ -510,7 +574,7 @@ begin
            raise;
            Exit;
          end;
-
+         }
          frmprogreso := TfrmProgreso.Create(Self);
          frmprogreso.Min := 0;
          frmprogreso.Max := Total;
@@ -524,7 +588,7 @@ begin
          IBQuery2.SQL.Add(':"ID_TIPO_MOVIMIENTO",:"DOCUMENTO_MOVIMIENTO",:"DESCRIPCION_MOVIMIENTO",');
          IBQuery2.SQL.Add(':"VALOR_DEBITO",:"VALOR_CREDITO")');
 
-
+        with CDSTabla do begin
          while not Eof do begin
              frmprogreso.Position := RecNo;
              frmprogreso.InfoLabel := 'Abonando a Cuenta:'+FieldByName('ID_TIPO_CAPTACION').AsString + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' + Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' + FieldByName('DIGITO_CUENTA').AsString;
@@ -546,7 +610,7 @@ begin
                 IBQuery2.ExecSQL;
               except
                 frmprogreso.Cerrar;
-                Transaction.Rollback;
+                IBQuery2.Transaction.Rollback;
                 raise;
                 Exit;
               end;
@@ -567,7 +631,7 @@ begin
                 IBQuery2.ExecSQL;
               except
                 frmprogreso.Cerrar;
-                Transaction.Rollback;
+                IBQuery2.Transaction.Rollback;
                 raise;
                 Exit;
               end;
@@ -598,6 +662,26 @@ begin
             ReporteC.PreviewPreparedReport(True);
          Transaction.Commit;
         end;
+end;
+
+procedure TfrmBarridoAhoApo.FormCreate(Sender: TObject);
+begin
+        dmGeneral := TdmGeneral.Create(self);
+        dmGeneral.getConnected;
+
+        IBAuxiliar.Database := dmGeneral.IBDatabase1;
+        IBQuery1.Database := dmGeneral.IBDatabase1;
+        IBQuery2.Database := dmGeneral.IBDatabase1;
+        IBQuery3.Database := dmGeneral.IBDatabase1;
+        IBSQL1.Database := dmGeneral.IBDatabase1;
+        IBTransaction1.DefaultDatabase := dmGeneral.IBDatabase1;
+
+        IBAuxiliar.Transaction := dmGeneral.IBTransaction1;
+        IBQuery1.Transaction := dmGeneral.IBTransaction1;
+        IBQuery2.Transaction := dmGeneral.IBTransaction1;
+        IBQuery3.Transaction := dmGeneral.IBTransaction1;
+        IBSQL1.Transaction := IBTransaction1;
+
 end;
 
 end.

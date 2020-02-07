@@ -1,6 +1,6 @@
 object frmBarridoAhoApo: TfrmBarridoAhoApo
-  Left = 246
-  Top = 186
+  Left = 759
+  Top = 193
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Barrido Ahorro Para Aportes'
@@ -14,6 +14,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -343,6 +344,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
         Width = 69
         Height = 13
         Caption = 'Dias a Evaluar'
+        Visible = False
       end
       object EdMonto: TJvCurrencyEdit
         Left = 10
@@ -363,6 +365,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
         Alignment = taRightJustify
         ReadOnly = False
         TabOrder = 1
+        Visible = False
         Value = 0
         MaxValue = 0
         MinValue = 0
@@ -394,10 +397,10 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
       item
         Name = 'tAbonado'
         AggFunction = prafSum
-        Formula = 'IBQuery3.VALOR_ABONADO'
+        Formula = 'CDSTabla.VALOR_ABONADO'
         ResetOn = rvtReport
         CalcOn = cvtDataSetNext
-        DataSetName = 'IBQuery3'
+        DataSetName = 'CDSTabla'
         Accumulate = True
       end>
     Variables = <
@@ -409,7 +412,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
     Left = 224
     Top = 90
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -559,8 +562,8 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
               Visible = True
               Memo.Strings = (
                 
-                  '[IBQuery3.ID_TIPO_CAPTACION][IBQuery3.ID_AGENCIA]-[:<0000000>IBQ' +
-                  'uery3.NUMERO_CUENTA]-[IBQuery3.DIGITO_CUENTA]')
+                  '[CDSTabla.ID_TIPO_CAPTACION][CDSTabla.ID_AGENCIA]-[:<0000000>CDS' +
+                  'Tabla.NUMERO_CUENTA]-[CDSTabla.DIGITO_CUENTA]')
               DeleteEmptyLinesAtEnd = False
               DeleteEmptyLines = False
               CanResizeX = False
@@ -582,7 +585,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
             item
               Visible = True
               Memo.Strings = (
-                '[IBQuery3.NOMBRE]')
+                '[CDSTabla.NOMBRE]')
               DeleteEmptyLinesAtEnd = False
               DeleteEmptyLines = False
               CanResizeX = False
@@ -604,7 +607,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
             item
               Visible = True
               Memo.Strings = (
-                '[:<#,#0.00>IBQuery3.VALOR_ABONADO]')
+                '[:<#,#0.00>CDSTabla.VALOR_ABONADO]')
               DeleteEmptyLinesAtEnd = False
               DeleteEmptyLines = False
               CanResizeX = False
@@ -626,7 +629,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
             item
               Visible = True
               Memo.Strings = (
-                '[IBQuery3.ID_PERSONA]')
+                '[CDSTabla.ID_PERSONA]')
               DeleteEmptyLinesAtEnd = False
               DeleteEmptyLines = False
               CanResizeX = False
@@ -880,7 +883,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
     Left = 226
     Top = 8
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -2053,5 +2056,87 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
         Name = 'ID_COMPROBANTE'
         ParamType = ptUnknown
       end>
+  end
+  object CDSTabla: TClientDataSet
+    Active = True
+    Aggregates = <>
+    AggregatesActive = True
+    FieldDefs = <
+      item
+        Name = 'ID_AGENCIA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_TIPO_CAPTACION'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NUMERO_CUENTA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'DIGITO_CUENTA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_IDENTIFICACION'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_PERSONA'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'VALOR_ABONADO'
+        DataType = ftCurrency
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 112
+    Top = 64
+    Data = {
+      F10000009619E0BD010000001800000008000000000003000000F1000A49445F
+      4147454E43494104000100000000001149445F5449504F5F434150544143494F
+      4E04000100000000000D4E554D45524F5F4355454E544104000100000000000D
+      44494749544F5F4355454E544104000100000000001149445F4944454E544946
+      49434143494F4E04000100000000000A49445F504552534F4E41010049000000
+      0100055749445448020002001400064E4F4D4252450100490000000100055749
+      4454480200020014000D56414C4F525F41424F4E41444F080004000000010007
+      535542545950450200490006004D6F6E6579000000}
+    object CDSTablaID_AGENCIA: TIntegerField
+      FieldName = 'ID_AGENCIA'
+    end
+    object CDSTablaID_TIPO_CAPTACION: TIntegerField
+      FieldName = 'ID_TIPO_CAPTACION'
+    end
+    object CDSTablaNUMERO_CUENTA: TIntegerField
+      FieldName = 'NUMERO_CUENTA'
+    end
+    object CDSTablaDIGITO_CUENTA: TIntegerField
+      FieldName = 'DIGITO_CUENTA'
+    end
+    object CDSTablaID_IDENTIFICACION: TIntegerField
+      FieldName = 'ID_IDENTIFICACION'
+    end
+    object CDSTablaID_PERSONA: TStringField
+      FieldName = 'ID_PERSONA'
+    end
+    object CDSTablaNOMBRE: TStringField
+      FieldName = 'NOMBRE'
+    end
+    object CDSTablaVALOR_ABONADO: TCurrencyField
+      FieldName = 'VALOR_ABONADO'
+    end
+    object CDSTablaTOTAL_ABONADO: TAggregateField
+      FieldName = 'TOTAL_ABONADO'
+      Expression = 'SUM(VALOR_ABONADO)'
+    end
   end
 end
