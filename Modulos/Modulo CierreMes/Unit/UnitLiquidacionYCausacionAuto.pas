@@ -42,6 +42,10 @@ type
     CDStempTOTALCAUSADO: TAggregateField;
     CDStempTOTALRETEINTERES: TAggregateField;
     CDStempTOTALRETECAUSADO: TAggregateField;
+    IBDComprobante: TIBDataSet;
+    IBDAuxiliar: TIBDataSet;
+    progreso2: TProgressBar;
+    IBPagar: TIBSQL;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
@@ -49,17 +53,43 @@ type
   private
     { Private declarations }
     procedure ProcesarAhorros;
+    procedure Aplicar;
   public
     { Public declarations }
   end;
 
 var
   frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto;
-  _queryCaptacion, _queryRetefuente, _queryDiasLiquidados : TIBQuery;
+  _queryCaptacion, _queryRetefuente, _queryDiasLiquidados, _query : TIBQuery;
   _queryALiquidar: TIBQuery;
   _queryProcedure : TIBStoredProc;
   _transaction: TIBTransaction;
   _fechaProceso: TDate;
+  tipo: Integer;
+
+  Tabla:string;
+  Codigo_Captacion:string;
+  Codigo_Captacion2:string;
+  Codigo_Captacion4:string;
+  TotalCapta2:Currency;
+  TotalCapta4:Currency;
+  TotalCapta2R:Currency;
+  TotalCapta4R:Currency;
+  TotalCapta2RMes:Currency;
+  TotalCapta4RMes:Currency;
+  Comprobante :Integer;
+  aporte,ahorro,certificado,programado:Boolean;
+  interes, TasaN: Double;
+  SaldoMinimo: Currency;
+
+  DiarioR: Currency;
+  TasaR: Extended;
+  MinCaptacion,MaxCaptacion:Integer;
+  Ag,Numero,Digito:Integer;
+
+  FechaCorte: TDate;
+  cada: Integer;
+
 implementation
 
 {$R *.dfm}
@@ -68,6 +98,7 @@ uses UnitDmGeneral, UnitCaptaciones, UnitGlobalesCol, UnitGlobales;
 
 procedure TfrmLiquidacionYCausacionAuto.FormCreate(Sender: TObject);
 begin
+        _query := TIBQuery.Create(self);
         _queryCaptacion := TIBQuery.Create(self);
         _queryRetefuente := TIBQuery.Create(self);
         _queryDiasLiquidados := TIBQuery.Create(self);
@@ -77,32 +108,30 @@ begin
 
         _transaction.DefaultDatabase := dmGeneral.IBDatabase1;
 
+        _query.Database := dmGeneral.IBDatabase1;
         _queryCaptacion.Database := dmGeneral.IBDatabase1;
         _queryRetefuente.Database := dmGeneral.IBDatabase1;
         _queryDiasLiquidados.Database := dmGeneral.IBDatabase1;
         _queryALiquidar.Database := dmGeneral.IBDatabase1;
         _queryProcedure.Database := dmGeneral.IBDatabase1;
-        
+
+        _query.Transaction := _transaction;
         _queryCaptacion.Transaction := _transaction;
         _queryRetefuente.Transaction := _transaction;
         _queryALiquidar.Transaction := _transaction;
         _queryDiasLiquidados.Transaction := _transaction;
         _queryProcedure.Transaction := _transaction;
+
+        IBDComprobante.Transaction := _transaction;
+        IBDAuxiliar.Transaction := _transaction;
+        IBPagar.Transaction := _transaction;
         
 end;
 
 procedure TfrmLiquidacionYCausacionAuto.ProcesarAhorros;
-var
-  DiarioR: Currency;
-  TasaR: Extended;
-  MinCaptacion,MaxCaptacion:Integer;
-  Ag,Numero,Digito:Integer;
-  L:tInteres;
-  FechaCorte: TDate;
-  tipo: Integer;
-  cada: Integer;
-  interes, TasaN: Double;
-  SaldoMinimo: Currency;
+ var
+   L:tInteres;
+
 begin
         Application.ProcessMessages;
         with _queryRetefuente do
@@ -129,11 +158,26 @@ begin
         _queryCaptacion.ParamByName('ID_FORMA').AsInteger := 2;
         _queryCaptacion.Open;
 
+        _query.SQL.Clear;
+        _query.SQL.Add('SELECT * FROM GEN$CONTROLLIQUIDACION g WHERE g.COLI_PRODUCTO = :ID_TIPO_CAPTACION AND g.COLI_FECHAPROCESADA = :FECHA_PROCESADA');
+
         while not _queryCaptacion.Eof do
         begin
+
+
+
           edCaptacion.Text := _queryCaptacion.FieldByName('DESCRIPCION').AsString;
           // Inicio Ciclo Captacion
           tipo := _queryCaptacion.FieldByName('ID_TIPO_CAPTACION').AsInteger;
+          //Verificar si hay que liquidar o no el producto
+          _query.Close;
+          _query.ParamByName('ID_TIPO_CAPTACION').AsInteger := tipo;
+          _query.ParamByName('FECHA_PROCESADA').AsDate := _fechaProceso;
+          _query.Open;
+          if _query.RecordCount > 0 then
+          begin
+            Continue;
+          end;
           MinCaptacion := 1;
           MaxCaptacion := 1;
           Application.ProcessMessages;
@@ -249,6 +293,804 @@ begin
         end;
         _transaction.Commit;
         CmdCerrar.Enabled := True;
+end;
+
+procedure TfrmLiquidacionYCausacionAuto.Aplicar;
+var TInteres:Currency;
+    TRetefuente:Currency;
+    TReteCausado:Currency;
+    TReteInteres:Currency;
+    TCaptacion:Currency;
+    TCausado:Currency;
+    TresxMil:Currency;
+    Total:Currency;
+    Codigo_Interes:string;
+    Codigo_Retefuente:string;
+    Codigo_Causados:string;
+    Codigo_TresxMil:string;
+    Codigo_Gasto:string;
+    Codigo_Gasto3xmil:string;
+    Registros:Integer;
+
+    I, WaitCount, Tries:Integer;
+    RecordLocked:Boolean;
+    ErrorMsg:string;
+
+    _queryConsulta : TIBQuery;
+    _ibsql1 : TIBSQL;
+    _transactionConsulta, _transactionComprobante : TIBTransaction;
+begin
+        {
+        if programado then
+        begin
+          AplicarProgramado;
+          Exit;
+        end;
+        }
+
+        _queryConsulta := TIBQuery.Create(self);
+        _ibsql1 := TIBSQL.Create(self);
+        _transactionConsulta := TIBTransaction.Create(self);
+        _transactionComprobante := TIBTransaction.Create(self);
+
+        _queryConsulta.Database := dmGeneral.IBDatabase1;
+        _transactionConsulta.DefaultDatabase := dmGeneral.IBDatabase1;
+        _transactionComprobante.DefaultDatabase := dmGeneral.IBDatabase1;
+
+        _queryConsulta.Transaction := _transactionConsulta;
+        _ibsql1.Transaction := _transactionComprobante;
+
+        _transactionConsulta.StartTransaction;
+
+        TInteres := 0;
+        TRetefuente := 0;
+        TReteCausado := 0;
+        TReteInteres := 0;
+        TCaptacion := 0;
+        TCausado := 0;
+
+        CDStemp.Last;
+        CDStemp.First;
+        if VarIsNull(CDStempTOTALINTERES.Value) then
+          TInteres := 0
+        else
+          TInteres := CDStempTOTALINTERES.Value;
+
+        if VarIsNull(CDStempTOTALRETENCION.Value) then
+          TRetefuente := 0
+        else
+          TRetefuente := CDStempTOTALRETENCION.Value;
+
+        if VarIsNull(CDStempTOTALRETECAUSADO.Value) then
+          TReteCausado := 0
+        else
+          TReteCausado := CDStempTOTALRETECAUSADO.Value;
+
+        if VarIsNull(CDStempTOTALRETEINTERES.Value) then
+          TReteInteres := 0
+        else
+          TReteInteres := CDStempTOTALRETEINTERES.Value;
+
+        if VarIsNull(CDStempTOTALCAUSADO.Value) then
+          TCausado := 0
+        else
+          TCausado := CDStempTOTALCAUSADO.Value;
+
+        {
+        with IBConsulta do
+        begin
+           if Transaction.InTransaction then
+              Transaction.Rollback;
+           Transaction.StartTransaction;
+           Close;
+           SQL.Clear;
+           SQL.Add('select SUM(INTERES) as TINTERES from ' +Tabla);
+           try
+             Open;
+           except
+           end;
+           TInteres := FieldByName('TINTERES').AsCurrency;
+           Close;
+           SQL.Clear;
+           SQL.Add('select SUM(RETENCION) as TRETEFUENTE from ' +Tabla);
+           try
+             Open;
+           except
+           end;
+           TRetefuente := FieldByName('TRETEFUENTE').AsCurrency;
+           Close;
+           if certificado then
+           begin
+            Close;
+            SQL.Clear;
+            SQL.Add('select SUM(CAUSADO) as TCAUSADO from ' +Tabla);
+            try
+              Open;
+            except
+            end;
+            TCausado := FieldByName('TCAUSADO').AsCurrency;
+            Close;
+            SQL.Clear;
+            SQL.Add('select SUM(RETEINTERES) as TRETEINTERES from' + Tabla);
+            try
+              Open;
+            except
+            end;
+            TReteInteres := FieldByName('TRETEINTERES').AsCurrency;
+            Close;
+            SQL.Clear;
+            SQL.Add('select SUM(RETECAUSADO) as TRETECAUSADO from' + Tabla);
+            try
+              Open;
+            except
+            end;
+            TReteCausado := FieldByName('TRETECAUSADO').AsCurrency;
+            Close;
+          end;
+
+        end;
+        }
+        with _queryConsulta do
+        begin
+           if Transaction.InTransaction then
+              Transaction.Rollback;
+           Transaction.StartTransaction;
+        end;
+
+
+        TresxMil := SimpleRoundTo(((TInteres + TCausado)/1000) * 4,0);
+
+        with _queryConsulta do
+        begin
+            Close;
+            SQL.Clear;
+            SQL.Add('select * from CAP$CONTABLE where ');
+            SQL.Add('ID_CAPTACION = :"ID_CAPTACION" and ID_CONTABLE = :"ID_CONTABLE"');
+            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CONTABLE').AsInteger := 1;
+            Open;
+            Codigo_Retefuente := FieldByName('CODIGO_CONTABLE').AsString;
+            Close;
+            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CONTABLE').AsInteger := 2;
+            Open;
+            Codigo_Interes := FieldByName('CODIGO_CONTABLE').AsString;
+            Close;
+            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CONTABLE').AsInteger := 3;
+            Open;
+            Codigo_TresxMil := FieldByName('CODIGO_CONTABLE').AsString;
+            Close;
+            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CONTABLE').AsInteger := 5;
+            Open;
+            Codigo_Gasto := FieldByName('CODIGO_CONTABLE').AsString;
+            Close;
+            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CONTABLE').AsInteger := 30;
+            Open;
+            Codigo_Gasto3xmil := FieldByName('CODIGO_CONTABLE').AsString;
+            Close;
+            if certificado then begin
+            Close;
+            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CONTABLE').AsInteger := 6;
+            Open;
+            Codigo_Causados := FieldByName('CODIGO_CONTABLE').AsString;
+            Close;
+            end;
+        end;
+
+// Buscar Consecutivo
+        Comprobante := ObtenerConsecutivo(_ibsql1);
+// Fin Consecutivo
+
+        //EdComprobante.Caption := Format('%.7d',[Comprobante]);
+        _ibsql1.Transaction.StartTransaction;
+        with IBDComprobante do
+        begin
+           Open;
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+           FieldByName('FECHADIA').AsDateTime := _fechaProceso;
+           FieldByName('DESCRIPCION').AsString := 'Liquidación de Intereses en la Fecha ' +
+                                                  'Tasa de Liquidación: ' + CurrToStr(TasaN) + ', ' +
+                                                  'Saldo Mínimo en cuenta: ' + CurrToStr(SaldoMinimo);
+           FieldByName('TOTAL_DEBITO').AsCurrency := TInteres + TRetefuente + TresxMil + TCausado;
+           FieldByName('TOTAL_CREDITO').AsCurrency := TInteres + TRetefuente + TresxMil + TCausado;
+           FieldByName('ESTADO').AsString := 'O';
+           FieldByName('IMPRESO').AsInteger := 1;
+           FieldByName('ANULACION').AsString := '';
+           FieldByName('ID_EMPLEADO').AsString := DBAlias;
+           Post;
+        end;
+
+        with IBDAuxiliar do
+        begin
+           Open;
+        // Grabo Retención Crédito
+           if TRetefuente > 0 then
+            if certificado then
+            begin
+            Append;
+            FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            FieldByName('ID_AGENCIA').AsInteger := Agencia;
+            FieldByName('FECHA').AsDateTime := _fechaProceso;
+            FieldByName('CODIGO').AsString := Codigo_Retefuente;
+            FieldByName('DEBITO').AsCurrency := 0;
+            FieldByName('CREDITO').AsCurrency := TReteInteres;
+            FieldByName('ID_CUENTA').AsInteger :=0;
+            FieldByName('ID_COLOCACION').AsString := '';
+            FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+            FieldByName('ID_PERSONA').AsString := '';
+            FieldByName('MONTO_RETENCION').AsCurrency := 0;
+            FieldByName('TASA_RETENCION').AsFloat := 0;
+            FieldByName('ESTADOAUX').AsString := 'O';
+            FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+            Post;
+            end
+            else
+            begin
+            Append;
+            FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            FieldByName('ID_AGENCIA').AsInteger := Agencia;
+            FieldByName('FECHA').AsDateTime := _fechaProceso;
+            FieldByName('CODIGO').AsString := Codigo_Retefuente;
+            FieldByName('DEBITO').AsCurrency := 0;
+            FieldByName('CREDITO').AsCurrency := TRetefuente;
+            FieldByName('ID_CUENTA').AsInteger :=0;
+            FieldByName('ID_COLOCACION').AsString := '';
+            FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+            FieldByName('ID_PERSONA').AsString := '';
+            FieldByName('MONTO_RETENCION').AsCurrency := 0;
+            FieldByName('TASA_RETENCION').AsFloat := 0;
+            FieldByName('ESTADOAUX').AsString := 'O';
+            FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+            Post;
+            end;
+        // Grabo Retención Débito
+           if TRetefuente > 0 then
+           if certificado then begin
+            if TotalCapta2R > 0 then
+             begin
+              Append;
+              FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+              FieldByName('ID_AGENCIA').AsInteger := Agencia;
+              FieldByName('FECHA').AsDateTime := _fechaProceso;
+              FieldByName('CODIGO').AsString := Codigo_Captacion2;
+              FieldByName('DEBITO').AsCurrency := TotalCapta2R;
+              FieldByName('CREDITO').AsCurrency := 0;
+              FieldByName('ID_CUENTA').AsInteger :=0;
+              FieldByName('ID_COLOCACION').AsString := '';
+              FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+              FieldByName('ID_PERSONA').AsString := '';
+              FieldByName('MONTO_RETENCION').AsCurrency := 0;
+              FieldByName('TASA_RETENCION').AsFloat := 0;
+              FieldByName('ESTADOAUX').AsString := 'O';
+              FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+              Post;
+             end;// if TotalCapta2R
+            if TotalCapta4R > 0 then
+             begin
+              Append;
+              FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+              FieldByName('ID_AGENCIA').AsInteger := Agencia;
+              FieldByName('FECHA').AsDateTime := _fechaProceso;
+              FieldByName('CODIGO').AsString := Codigo_Captacion4;
+              FieldByName('DEBITO').AsCurrency := TotalCapta4R;
+              FieldByName('CREDITO').AsCurrency := 0;
+              FieldByName('ID_CUENTA').AsInteger :=0;
+              FieldByName('ID_COLOCACION').AsString := '';
+              FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+              FieldByName('ID_PERSONA').AsString := '';
+              FieldByName('MONTO_RETENCION').AsCurrency := 0;
+              FieldByName('TASA_RETENCION').AsFloat := 0;
+              FieldByName('ESTADOAUX').AsString := 'O';
+              FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+              Post;
+             end;// if TotalCapta4R
+           end // if Certificado
+           else
+           begin
+            Append;
+            FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            FieldByName('ID_AGENCIA').AsInteger := Agencia;
+            FieldByName('FECHA').AsDateTime := _fechaProceso;
+            FieldByName('CODIGO').AsString := Codigo_Captacion;
+            FieldByName('DEBITO').AsCurrency := TRetefuente;
+            FieldByName('CREDITO').AsCurrency := 0;
+            FieldByName('ID_CUENTA').AsInteger :=0;
+            FieldByName('ID_COLOCACION').AsString := '';
+            FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+            FieldByName('ID_PERSONA').AsString := '';
+            FieldByName('MONTO_RETENCION').AsCurrency := 0;
+            FieldByName('TASA_RETENCION').AsFloat := 0;
+            FieldByName('ESTADOAUX').AsString := 'O';
+            FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+            Post;
+           end;// if TRetefuente
+        // Grabo Interés Crédito
+           if TInteres > 0 then
+           if certificado then begin
+            if TotalCapta2 > 0 then
+             begin
+              Append;
+              FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+              FieldByName('ID_AGENCIA').AsInteger := Agencia;
+              FieldByName('FECHA').AsDateTime := _fechaProceso;
+              FieldByName('CODIGO').AsString := Codigo_Captacion2;
+              FieldByName('DEBITO').AsCurrency := 0;
+              FieldByName('CREDITO').AsCurrency := TotalCapta2;
+              FieldByName('ID_CUENTA').AsInteger :=0;
+              FieldByName('ID_COLOCACION').AsString := '';
+              FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+              FieldByName('ID_PERSONA').AsString := '';
+              FieldByName('MONTO_RETENCION').AsCurrency := 0;
+              FieldByName('TASA_RETENCION').AsFloat := 0;
+              FieldByName('ESTADOAUX').AsString := 'O';
+              FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+              Post;
+             end;// if TotalCapta2
+            if TotalCapta4 > 0 then
+             begin
+              Append;
+              FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+              FieldByName('ID_AGENCIA').AsInteger := Agencia;
+              FieldByName('FECHA').AsDateTime := _fechaProceso;
+              FieldByName('CODIGO').AsString := Codigo_Captacion4;
+              FieldByName('DEBITO').AsCurrency := 0;
+              FieldByName('CREDITO').AsCurrency := TotalCapta4;
+              FieldByName('ID_CUENTA').AsInteger :=0;
+              FieldByName('ID_COLOCACION').AsString := '';
+              FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+              FieldByName('ID_PERSONA').AsString := '';
+              FieldByName('MONTO_RETENCION').AsCurrency := 0;
+              FieldByName('TASA_RETENCION').AsFloat := 0;
+              FieldByName('ESTADOAUX').AsString := 'O';
+              FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+              Post;
+             end; // if TotalCapta4
+           end //if Certificado
+           else
+           begin
+            Append;
+            FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            FieldByName('ID_AGENCIA').AsInteger := Agencia;
+            FieldByName('FECHA').AsDateTime := _fechaProceso;
+            FieldByName('CODIGO').AsString := Codigo_Captacion;
+            FieldByName('DEBITO').AsCurrency := 0;
+            FieldByName('CREDITO').AsCurrency := TInteres;
+            FieldByName('ID_CUENTA').AsInteger :=0;
+            FieldByName('ID_COLOCACION').AsString := '';
+            FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+            FieldByName('ID_PERSONA').AsString := '';
+            FieldByName('MONTO_RETENCION').AsCurrency := 0;
+            FieldByName('TASA_RETENCION').AsFloat := 0;
+            FieldByName('ESTADOAUX').AsString := 'O';
+            FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+            Post;
+           end;// if TInteres
+        // Grabo Interés Débito
+           if TInteres > 0 then begin
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('FECHA').AsDateTime := _fechaProceso;
+           FieldByName('CODIGO').AsString := Codigo_Interes;
+           FieldByName('DEBITO').AsCurrency := TInteres;
+           FieldByName('CREDITO').AsCurrency := 0;
+           FieldByName('ID_CUENTA').AsInteger :=0;
+           FieldByName('ID_COLOCACION').AsString := '';
+           FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+           FieldByName('ID_PERSONA').AsString := '';
+           FieldByName('MONTO_RETENCION').AsCurrency := 0;
+           FieldByName('TASA_RETENCION').AsFloat := 0;
+           FieldByName('ESTADOAUX').AsString := 'O';
+           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+           Post;
+           end;
+        // Grabo Causados Crédito
+{           if TCausado > 0 then begin
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('FECHA').AsDateTime := EdFecha.Date;
+           FieldByName('CODIGO').AsString := Codigo_Captacion;
+           FieldByName('DEBITO').AsCurrency := 0;
+           FieldByName('CREDITO').AsCurrency := TCausado;
+           FieldByName('ID_CUENTA').AsInteger :=0;
+           FieldByName('ID_COLOCACION').AsString := '';
+           FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+           FieldByName('ID_PERSONA').AsString := '';
+           FieldByName('MONTO_RETENCION').AsCurrency := 0;
+           FieldByName('TASA_RETENCION').AsFloat := 0;
+           FieldByName('ESTADOAUX').AsString := 'O';
+           Post;
+           end;
+}
+        // Grabo Causado Débito
+           if TCausado > 0 then
+           if certificado then
+           begin
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('FECHA').AsDateTime := _fechaProceso;
+           FieldByName('CODIGO').AsString := Codigo_Causados;
+           FieldByName('DEBITO').AsCurrency := TCausado-TReteCausado;
+           FieldByName('CREDITO').AsCurrency := 0;
+           FieldByName('ID_CUENTA').AsInteger :=0;
+           FieldByName('ID_COLOCACION').AsString := '';
+           FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+           FieldByName('ID_PERSONA').AsString := '';
+           FieldByName('MONTO_RETENCION').AsCurrency := 0;
+           FieldByName('TASA_RETENCION').AsFloat := 0;
+           FieldByName('ESTADOAUX').AsString := 'O';
+           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+           Post;
+           end
+           else
+           begin
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('FECHA').AsDateTime := _fechaProceso;
+           FieldByName('CODIGO').AsString := Codigo_Causados;
+           FieldByName('DEBITO').AsCurrency := TCausado;
+           FieldByName('CREDITO').AsCurrency := 0;
+           FieldByName('ID_CUENTA').AsInteger :=0;
+           FieldByName('ID_COLOCACION').AsString := '';
+           FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+           FieldByName('ID_PERSONA').AsString := '';
+           FieldByName('MONTO_RETENCION').AsCurrency := 0;
+           FieldByName('TASA_RETENCION').AsFloat := 0;
+           FieldByName('ESTADOAUX').AsString := 'O';
+           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+           Post;
+           end;
+
+        // Grabo TresxMil Crédito
+           if TresxMil > 0 then begin
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('FECHA').AsDateTime := _fechaProceso;
+           FieldByName('CODIGO').AsString := Codigo_TresxMil;
+           FieldByName('DEBITO').AsCurrency := 0;
+           FieldByName('CREDITO').AsCurrency := TresxMil;
+           FieldByName('ID_CUENTA').AsInteger :=0;
+           FieldByName('ID_COLOCACION').AsString := '';
+           FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+           FieldByName('ID_PERSONA').AsString := '';
+           FieldByName('MONTO_RETENCION').AsCurrency := 0;
+           FieldByName('TASA_RETENCION').AsFloat := 0;
+           FieldByName('ESTADOAUX').AsString := 'O';
+           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+           Post;
+           end;
+        // Grabo TresxMil Débito
+           if TresxMil > 0 then begin
+           Append;
+           FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+           FieldByName('ID_AGENCIA').AsInteger := Agencia;
+           FieldByName('FECHA').AsDateTime := _fechaProceso;
+           FieldByName('CODIGO').AsString := Codigo_Gasto3xmil;
+           FieldByName('DEBITO').AsCurrency := TresxMil;
+           FieldByName('CREDITO').AsCurrency := 0;
+           FieldByName('ID_CUENTA').AsInteger :=0;
+           FieldByName('ID_COLOCACION').AsString := '';
+           FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+           FieldByName('ID_PERSONA').AsString := '';
+           FieldByName('MONTO_RETENCION').AsCurrency := 0;
+           FieldByName('TASA_RETENCION').AsFloat := 0;
+           FieldByName('ESTADOAUX').AsString := 'O';
+           FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+           Post;
+           end;
+        end;
+
+
+
+        //with IBConsulta do
+        with CDStemp do
+        begin
+          {
+           Close;
+           SQL.Clear;
+           SQL.Add('select count(*) as TOTAL from '+ Tabla);
+           try
+            Open;
+           except
+           end;
+           }
+           //Registros := FieldByName('TOTAL').AsInteger;
+           Registros := CDStemp.RecordCount;
+          {
+           Close;
+           SQL.Clear;
+           SQL.Add('select * from '+ Tabla);
+           try
+            Open;
+           except
+           end;
+           }
+           First;
+
+           progreso2.Min  := 1;
+           progreso2.Max := Registros;
+           progreso2.Position:= 1;
+
+           while not Eof do
+           begin
+              Application.ProcessMessages;
+              progreso2.Position := RecNo;
+              {
+              frmProgreso.InfoLabel := 'Aplicando Interés a Captacion:' + IntToStr(DBLCBTipoCaptacion.KeyValue) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
+                                         Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
+                                         IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
+              }
+              edEstado.Text := CDStempID_TIPO_CAPTACION.AsString + '-' + Format('%.2d',[CDStempID_AGENCIA.Value]) + '-' +
+                                        Format('%.7d',[CDStempNUMERO_CUENTA.Value]) + '-' +
+                                        IntToStr(CDStempDIGITO_CUENTA.Value);
+              IBPagar.Close;
+              IBPagar.SQL.Clear;
+              IBPagar.SQL.Add('insert into "cap$extracto" values(');
+              IBPagar.SQL.Add(':"ID_AGENCIA",:"ID_TIPO_CAPTACION",:"NUMERO_CUENTA",');
+              IBPagar.SQL.Add(':"DIGITO_CUENTA",:"FECHA_MOVIMIENTO",:"HORA_MOVIMIENTO",');
+              IBPagar.SQL.Add(':"ID_TIPO_MOVIMIENTO",:"DOCUMENTO_MOVIMIENTO",:"DESCRIPCION_MOVIMIENTO",');
+              IBPagar.SQL.Add(':"VALOR_DEBITO",:"VALOR_CREDITO",:"ID")');
+//Grabar Interes en Extracto
+              //if FieldByName('INTERES').AsCurrency > 0 then
+              if CDStempINTERES.Value > 0 then
+              begin
+                IBPagar.ParamByName('ID_AGENCIA').AsInteger := CDStempID_AGENCIA.Value;
+                IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION.Value;
+                IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA.Value;
+                IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := CDStempDIGITO_CUENTA.Value;
+                IBPagar.ParamByName('FECHA_MOVIMIENTO').AsDate := _fechaProceso;
+                IBPagar.ParamByName('HORA_MOVIMIENTO').AsTime  := Time;
+                if certificado then
+                   IBPagar.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 15
+                else
+                   IBPagar.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 7;
+                IBPagar.ParamByName('DOCUMENTO_MOVIMIENTO').AsString := Format('%.8d',[Comprobante]);
+                if certificado then
+                  IBPagar.ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Liquidación de Intereses en la Fecha TASA ' + FormatCurr('#0.00%',CDStempTASA_LIQUIDACION.Value)
+                else
+                  IBPagar.ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Liquidación de Intereses en la Fecha';
+                Total := CDStempINTERES.AsCurrency;
+                if certificado then
+                  Total := Total + CDStempCAUSADO.AsCurrency;
+                IBPagar.ParamByName('VALOR_DEBITO').AsCurrency := Total;
+                IBPagar.ParamByName('VALOR_CREDITO').AsCurrency := 0;
+                IBPagar.ParamByName('ID').AsInteger := 0;
+                try
+                  IBPagar.ExecQuery;
+                  if IBPagar.RowsAffected < 1 then
+                  begin
+                   edEstado.Text := 'Error Grabando Retención de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                   IBPagar.Transaction.RollbackRetaining;
+                   Exit;
+                  end
+                except
+                  edEstado.Text := 'Error Grabando Intereses de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                  IBPagar.Transaction.RollbackRetaining;
+                  Exit;
+                end;
+              end;
+              IBPagar.Close;
+   // If Certificado Grabar en Cuenta de Abono
+              if certificado then
+                if Total > 0 then
+                begin
+                  IBPagar.ParamByName('ID_AGENCIA').AsInteger := CDStempID_AGENCIA.AsInteger;
+                  IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION_ABONO.AsInteger;
+                  IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA_ABONO.AsInteger;
+                  IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(DigitoControl(CDStempID_TIPO_CAPTACION_ABONO.AsInteger,Format('%.7d',[CDStempNUMERO_CUENTA_ABONO.AsInteger])));
+                  IBPagar.ParamByName('FECHA_MOVIMIENTO').AsDate := _fechaProceso;
+                  IBPagar.ParamByName('HORA_MOVIMIENTO').AsTime  := Time;
+                  IBPagar.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 15;
+                  IBPagar.ParamByName('DOCUMENTO_MOVIMIENTO').AsString := Format('%.8d',[Comprobante]);
+                  IBPagar.ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Liquidación de Intereses en la Fecha ';
+                  IBPagar.ParamByName('VALOR_DEBITO').AsCurrency := Total;
+                  IBPagar.ParamByName('VALOR_CREDITO').AsCurrency := 0;
+                  try
+                    IBPagar.ExecQuery;
+                    if IBPagar.RowsAffected < 1 then
+                    begin
+                     edEstado.Text := 'Error Grabando Intereses de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA_ABONO.AsInteger]);
+                     IBPagar.Transaction.RollbackRetaining;
+                     Exit;
+                    end
+                  except
+                    edEstado.Text := 'Error Grabando Intereses de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA_ABONO.AsInteger]);
+                    IBPagar.Transaction.RollbackRetaining;
+                    Exit;
+                  end;
+                IBPagar.Close;
+                end;
+   // Fin si Certificado
+// Grabar Retención en Extracto
+              if CDStempRETENCION.AsCurrency > 0 then
+              begin
+                IBPagar.ParamByName('ID_AGENCIA').AsInteger := CDStempID_AGENCIA.AsInteger;
+                IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION.AsInteger;
+                IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA.AsInteger;
+                IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := CDStempDIGITO_CUENTA.AsInteger;
+                IBPagar.ParamByName('FECHA_MOVIMIENTO').AsDate := _fechaProceso;
+                IBPagar.ParamByName('HORA_MOVIMIENTO').AsTime  := Time;
+                if certificado then
+                   IBPagar.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 16
+                else
+                   IBPagar.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 8;
+                IBPagar.ParamByName('DOCUMENTO_MOVIMIENTO').AsString := Format('%.8d',[Comprobante]);
+                IBPagar.ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Liquidación de Intereses en la Fecha';
+                IBPagar.ParamByName('VALOR_DEBITO').AsCurrency := 0;
+                IBPagar.ParamByName('VALOR_CREDITO').AsCurrency := CDStempRETENCION.AsCurrency;
+                try
+                  IBPagar.ExecQuery;
+                  if IBPagar.RowsAffected < 1 then
+                  begin
+                   edEstado.Text := 'Error Grabando Retención de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                   IBPagar.Transaction.RollbackRetaining;
+                   Exit;
+                  end
+                except
+                  edEstado.Text := 'Error Grabando Retención de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                  IBPagar.Transaction.RollbackRetaining;
+                  Exit;
+                end;
+              end;
+              IBPagar.Close;
+   // Si Certificado grabar retención en cuenta de abono
+              if certificado then
+                if CDStempRETENCION.AsCurrency > 0 then
+                begin
+                  IBPagar.ParamByName('ID_AGENCIA').AsInteger := CDStempID_AGENCIA.AsInteger;
+                  IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION_ABONO.AsInteger;
+                  IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA_ABONO.AsInteger;
+                  IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(DigitoControl(CDStempID_TIPO_CAPTACION_ABONO.AsInteger,Format('%.7d',[CDStempNUMERO_CUENTA_ABONO.AsInteger])));
+                  IBPagar.ParamByName('FECHA_MOVIMIENTO').AsDate := _fechaProceso;
+                  IBPagar.ParamByName('HORA_MOVIMIENTO').AsTime  := Time;
+                  IBPagar.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 16;
+                  IBPagar.ParamByName('DOCUMENTO_MOVIMIENTO').AsString := Format('%.8d',[Comprobante]);
+                  IBPagar.ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Liquidación de Intereses en la Fecha';
+                  IBPagar.ParamByName('VALOR_DEBITO').AsCurrency := 0;
+                  IBPagar.ParamByName('VALOR_CREDITO').AsCurrency := CDStempRETENCION.AsCurrency;
+                  try
+                    IBPagar.ExecQuery;
+                    if IBPagar.RowsAffected < 1 then
+                    begin
+                     edEstado.Text := 'Error Grabando Retención de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA_ABONO.AsInteger]);
+                     IBPagar.Transaction.Rollback;
+                     Exit;
+                    end
+                  except
+                    edEstado.Text := 'Error Grabando Retención de Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA_ABONO.AsInteger]);
+                    IBPagar.Transaction.Rollback;
+                    Exit;
+                  end;
+                IBPagar.Close;
+                end;
+        // fin si certificado
+// Actualizar Saldo en Cuenta del Mes
+
+// Grabo Detalle de la Retención
+              if CDStempRETENCION.AsCurrency > 0 then
+              begin
+              IBPagar.SQL.Clear;
+              IBPagar.SQL.Add('insert into "con$retencion" values(');
+              IBPagar.SQL.Add(':"ID_COMPROBANTE",:"ID_AGENCIA",:"ID_IDENTIFICACION",');
+              IBPagar.SQL.Add(':"ID_PERSONA",:"MONTO_RETENCION",:"TASA_RETENCION",');
+              IBPagar.SQL.Add(':"VALOR_RETENCION")');
+              IBPagar.ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+              IBPagar.ParamByName('ID_AGENCIA').AsInteger := CDStempID_AGENCIA.AsInteger;
+              IBPagar.ParamByName('ID_IDENTIFICACION').AsInteger := CDStempID_IDENTIFICACION.AsInteger;
+              IBPagar.ParamByName('ID_PERSONA').AsString := CDStempID_PERSONA.AsString;
+              IBPagar.ParamByName('MONTO_RETENCION').AsCurrency := CDStempINTERES.AsCurrency;
+              IBPagar.ParamByName('TASA_RETENCION').AsFloat := TasaR;
+              IBPagar.ParamByName('VALOR_RETENCION').AsCurrency := CDStempRETENCION.AsCurrency;
+              try
+               IBPagar.ExecQuery;
+               if IBPagar.RowsAffected < 1 then
+               begin
+                IBPagar.Transaction.Rollback;
+                edEstado.Text := 'Error Grabando en tabla de retenciones captacion:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                Exit;
+               end
+              except
+                IBPagar.Transaction.Rollback;
+                edEstado.Text := 'Error Grabando en tabla de retenciones captacion:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                Exit;
+              end;
+              IBPagar.Close;
+              end;
+
+// En Caso de Certificado, Marcar la tabla de liquidación
+            if certificado then
+            begin
+              IBPagar.Close;
+              IBPagar.SQL.Clear;
+              IBPagar.SQL.Add('update "cap$tablaliquidacion"');
+              IBPagar.SQL.Add('set PAGADO = 1');
+              IBPagar.SQL.Add('where ID_AGENCIA = :"ID_AGENCIA" and ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
+              IBPagar.SQL.Add('NUMERO_CUENTA = :"NUMERO_CUENTA" and DIGITO_CUENTA = :"DIGITO_CUENTA" and FECHA_PAGO = :"FECHA_PAGO"');
+              IBPagar.ParamByName('ID_AGENCIA').AsInteger := CDStempID_AGENCIA.AsInteger;
+              IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION.AsInteger;
+              IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA.AsInteger;
+              IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := CDStempDIGITO_CUENTA.AsInteger;
+              IBPagar.ParamByName('FECHA_PAGO').AsDate := EdFecha.Date;
+              try
+               IBPagar.ExecQuery;
+               if IBPagar.RowsAffected < 1 then
+               begin
+                IBPagar.Transaction.Rollback;
+                edEstado.Text := 'Error Actualizando Tabla de Liquidación Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                Exit;
+               end
+              except
+                IBPagar.Transaction.Rollback;
+                edEstado.Text := 'Error Actualizando Tabla de Liquidación Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                Exit;
+              end;
+              IBPagar.Close;
+            end;
+// Fin marca tabla de liquidación
+// Grabar maestro fecha ultimo pago
+              IBPagar.Close;
+              IBPagar.SQL.Clear;
+              IBPagar.SQL.Add('update "cap$maestro"');
+              IBPagar.SQL.Add('set FECHA_ULTIMO_PAGO = :FECHA');
+              IBPagar.SQL.Add('where ID_AGENCIA = :"ID_AGENCIA" and ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
+              IBPagar.SQL.Add('NUMERO_CUENTA = :"NUMERO_CUENTA" and DIGITO_CUENTA = :"DIGITO_CUENTA"');
+              IBPagar.ParamByName('ID_AGENCIA').AsInteger := CDStempID_AGENCIA.AsInteger;
+              IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION.AsInteger;
+              IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA.AsInteger;
+              IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := CDStempDIGITO_CUENTA.AsInteger;
+              IBPagar.ParamByName('FECHA').AsDate := EdFecha.Date;
+              try
+               IBPagar.ExecQuery;
+               if IBPagar.RowsAffected < 1 then
+               begin
+                IBPagar.Transaction.Rollback;
+                edEstado.Text := 'Error Actualizando Fecha Ultimo Pago Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                Exit;
+               end
+              except
+                IBPagar.Transaction.Rollback;
+                MedEstado.Text := 'Error Actualizando Fecha Ultimo Pago Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                Exit;
+              end;
+
+// Fin marca maestro.
+
+              Next;
+           end;
+        end;
+
+// Marcar Dia Liquidado
+        with IBDias do
+        begin
+             Close;
+             SQL.Clear;
+             SQL.Add('insert into "cap$diasliquidados"');
+             SQL.Add('values (:ID_TIPO_CAPTACION,:FECHA_LIQUIDADA,:HORA_LIQUIDADA,:LIQUIDADA)');
+             ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTipoCaptacion.KeyValue;
+             ParamByName('FECHA_LIQUIDADA').AsDate := EdFecha.Date;
+             ParamByName('HORA_LIQUIDADA').AsTime := Time;;
+             ParamByName('LIQUIDADA').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               edEstado.Text := 'Error Actualizando Fecha, Informe a Sistemas';
+             end;
+        end;
+// Marca Finalizada
+
+        edEstado.Text := 'Comprobante contable generado con exito!';
+
 end;
 
 procedure TfrmLiquidacionYCausacionAuto.FormShow(Sender: TObject);

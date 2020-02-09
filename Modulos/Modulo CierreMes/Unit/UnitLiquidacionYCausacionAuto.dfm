@@ -47,7 +47,7 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
   end
   object progreso: TProgressBar
     Left = 8
-    Top = 80
+    Top = 64
     Width = 529
     Height = 17
     Min = 0
@@ -62,6 +62,15 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
     Caption = 'Cerrar'
     TabOrder = 3
     OnClick = CmdCerrarClick
+  end
+  object progreso2: TProgressBar
+    Left = 8
+    Top = 88
+    Width = 529
+    Height = 17
+    Min = 0
+    Max = 100
+    TabOrder = 4
   end
   object IBTotalCaptaciones: TIBStoredProc
     Database = dmGeneral.IBDatabase1
@@ -267,5 +276,111 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
       Active = True
       Expression = 'SUM(RETECAUSADO)'
     end
+  end
+  object IBDComprobante: TIBDataSet
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    InsertSQL.Strings = (
+      'insert into CON$COMPROBANTE'
+      
+        '  (CON$COMPROBANTE."ID_COMPROBANTE", CON$COMPROBANTE."ID_AGENCIA' +
+        '", '
+      
+        '   CON$COMPROBANTE."TIPO_COMPROBANTE", CON$COMPROBANTE."FECHADIA' +
+        '", '
+      
+        '   CON$COMPROBANTE."DESCRIPCION", CON$COMPROBANTE."TOTAL_DEBITO"' +
+        ', '
+      'CON$COMPROBANTE."TOTAL_CREDITO", '
+      '   CON$COMPROBANTE."ESTADO", CON$COMPROBANTE."IMPRESO", '
+      'CON$COMPROBANTE."ANULACION", '
+      '   CON$COMPROBANTE."ID_EMPLEADO")'
+      'values'
+      '  (:"ID_COMPROBANTE", :"ID_AGENCIA", :"TIPO_COMPROBANTE", '
+      ':"FECHADIA", '
+      
+        '   :"DESCRIPCION", :"TOTAL_DEBITO", :"TOTAL_CREDITO", :"ESTADO",' +
+        ' '
+      ':"IMPRESO", '
+      '   :"ANULACION", :"ID_EMPLEADO")')
+    RefreshSQL.Strings = (
+      'Select '
+      '  CON$COMPROBANTE."ID_COMPROBANTE",'
+      '  CON$COMPROBANTE."ID_AGENCIA",'
+      '  CON$COMPROBANTE."TIPO_COMPROBANTE",'
+      '  CON$COMPROBANTE."FECHADIA",'
+      '  CON$COMPROBANTE."DESCRIPCION",'
+      '  CON$COMPROBANTE."TOTAL_DEBITO",'
+      '  CON$COMPROBANTE."TOTAL_CREDITO",'
+      '  CON$COMPROBANTE."ESTADO",'
+      '  CON$COMPROBANTE."IMPRESO",'
+      '  CON$COMPROBANTE."ANULACION",'
+      '  CON$COMPROBANTE."ID_EMPLEADO"'
+      'from CON$COMPROBANTE '
+      'where'
+      '  CON$COMPROBANTE."ID_COMPROBANTE" = :"ID_COMPROBANTE" and'
+      '  CON$COMPROBANTE."ID_AGENCIA" = :"ID_AGENCIA"')
+    SelectSQL.Strings = (
+      'select * from CON$COMPROBANTE')
+    Left = 60
+    Top = 102
+  end
+  object IBDAuxiliar: TIBDataSet
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    InsertSQL.Strings = (
+      'insert into CON$AUXILIAR'
+      '  (CON$AUXILIAR."ID_COMPROBANTE", CON$AUXILIAR."ID_AGENCIA", '
+      'CON$AUXILIAR."FECHA", '
+      
+        '   CON$AUXILIAR."CODIGO", CON$AUXILIAR."DEBITO", "CON$AUXILIAR".' +
+        '"CREDITO", '
+      '   CON$AUXILIAR."ID_CUENTA", CON$AUXILIAR."ID_COLOCACION", '
+      'CON$AUXILIAR."ID_IDENTIFICACION", '
+      '   CON$AUXILIAR."ID_PERSONA", CON$AUXILIAR."MONTO_RETENCION", '
+      'CON$AUXILIAR."TASA_RETENCION", '
+      '   CON$AUXILIAR."ESTADOAUX", CON$AUXILIAR."TIPO_COMPROBANTE")'
+      'values'
+      
+        '  (:"ID_COMPROBANTE", :"ID_AGENCIA", :"FECHA", :"CODIGO", :"DEBI' +
+        'TO", '
+      ':"CREDITO", '
+      
+        '   :"ID_CUENTA", :"ID_COLOCACION", :"ID_IDENTIFICACION", :"ID_PE' +
+        'RSONA", '
+      
+        '   :"MONTO_RETENCION", :"TASA_RETENCION", :"ESTADOAUX", :"TIPO_C' +
+        'OMPROBANTE")')
+    RefreshSQL.Strings = (
+      'Select '
+      '  CON$AUXILIAR."ID_COMPROBANTE",'
+      '  CON$AUXILIAR."ID_AGENCIA",'
+      '  CON$AUXILIAR."FECHA",'
+      '  CON$AUXILIAR."CODIGO",'
+      '  CON$AUXILIAR."DEBITO",'
+      '  CON$AUXILIAR."CREDITO",'
+      '  CON$AUXILIAR."ID_CUENTA",'
+      '  CON$AUXILIAR."ID_COLOCACION",'
+      '  CON$AUXILIAR."ID_IDENTIFICACION",'
+      '  CON$AUXILIAR."ID_PERSONA",'
+      '  CON$AUXILIAR."MONTO_RETENCION",'
+      '  CON$AUXILIAR."TASA_RETENCION",'
+      '  CON$AUXILIAR."ESTADOAUX"'
+      'from CON$AUXILIAR '
+      'where'
+      '  CON$AUXILIAR."ID_COMPROBANTE" = :"ID_COMPROBANTE" and'
+      '  CON$AUXILIAR."ID_AGENCIA" = :"ID_AGENCIA" and'
+      '  CON$AUXILIAR."FECHA" = :"FECHA" and'
+      '  CON$AUXILIAR."CODIGO" = :"CODIGO"')
+    SelectSQL.Strings = (
+      'select * from CON$AUXILIAR')
+    Left = 96
+    Top = 102
+  end
+  object IBPagar: TIBSQL
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    Left = 136
+    Top = 104
   end
 end

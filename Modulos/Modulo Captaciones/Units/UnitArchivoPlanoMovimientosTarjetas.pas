@@ -25,6 +25,11 @@ type
     IBQmaestro: TIBQuery;
     IBQtarjeta: TIBQuery;
     SD1: TSaveDialog;
+    Panel2: TPanel;
+    Label3: TLabel;
+    Label4: TLabel;
+    edFecha: TEdit;
+    edSecuencia: TEdit;
     procedure FormShow(Sender: TObject);
     procedure btnCerrarClick(Sender: TObject);
     procedure btnProcesarClick(Sender: TObject);
@@ -164,6 +169,10 @@ begin
 
         while not IBQmovs.Eof do
         begin
+
+          edFecha.Text := IBQmovs.FieldByName('FECHA_REGISTRO').AsString;
+          edSecuencia.Text := IBQmovs.FieldByName('SECUENCIA').AsString;
+
           Application.ProcessMessages;
           ProgressBar1.Position := IBQmovs.RecNo;
           _documento := IBQmovs.FieldByName('DOCUMENTO').AsString;
@@ -172,6 +181,8 @@ begin
           _agencia := StrToInt(MidStr(_cuenta,2,2));
           _numerocuenta := StrToInt(MidStr(_cuenta,4,6));
           _digitocuenta := StrToInt(RightStr(_cuenta,1));
+
+
 
           IBQsaldo.Close;
           IBQsaldo.ParamByName('ID_AGENCIA').AsInteger := _agencia;
@@ -273,7 +284,11 @@ begin
           begin
             _str := '0';
           end;
-          _departamento := StrToInt(_str);
+          try
+            _departamento := StrToInt(_str);
+          except
+            _departamento := 0;
+          end;
           _str := IBQmovs.FieldByName('TERMINAL_CIUDAD').AsString;
           if (VarIsEmpty(_str) or VarIsNull(_str) or (_str = '')) then
           begin
