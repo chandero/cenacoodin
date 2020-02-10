@@ -858,7 +858,7 @@ begin
         if programado then
         with ReporteCon do
         begin
-           LoadTemplateFromFile('\reporte\RepContractualN.prt',False);
+           LoadTemplateFromFile(ExtractFilePath(Application.ExeName) + 'reporte\RepContractualN.prt',False);
            Variables.ByName['EMPRESA'].AsString := Empresa;
            Variables.ByName['NIT'].AsString := Nit;
            Variables.ByName['FECHACORTE'].AsDateTime := EdFecha.Date;
@@ -1874,7 +1874,8 @@ begin
                       Filtered := True;
                       AggregatesActive := True;
                       try
-                        vSaldo := CdSaldoTOTAL.Value;
+                        if not VarIsNull(CdSaldoTOTAL.Value) then
+                          vSaldo := CdSaldoTOTAL.Value;
                       except
                         vSaldo := 0;
                       end;

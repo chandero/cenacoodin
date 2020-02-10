@@ -139,8 +139,8 @@ object frmArchivoPlanoMovimientosTarjetas: TfrmArchivoPlanoMovimientosTarjetas
     Transaction = IBTransaction1
     SQL.Strings = (
       
-        'SELECT * FROM "gen$persona" p WHERE p.ID_IDENTIFICACION = :ID_ID' +
-        'ENTIFICACION AND p.ID_PERSONA = :ID_PERSONA')
+        'SELECT * FROM "gen$persona" p WHERE p.ID_IDENTIFICACION = :ID_IDENTIFIACION' +
+        ' AND p.ID_PERSONA = :ID_PERSONA')
     Left = 136
     Top = 40
     ParamData = <
