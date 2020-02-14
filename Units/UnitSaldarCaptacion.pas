@@ -187,6 +187,11 @@ type
     EdBonificacionCon: TJvCurrencyEdit;
     Label57: TLabel;
     EdTotalAPagarCon: TJvCurrencyEdit;
+    IBQuery1: TIBQuery;
+    Label58: TLabel;
+    DBLCBPlanAPagar: TDBLookupComboBox;
+    DSPlanAPagar: TDataSource;
+    IBQplanContractual: TIBQuery;
     procedure EdNumeroCerExit(Sender: TObject);
     procedure DBLCBTiposCaptacionEnter(Sender: TObject);
     procedure CmdContinuarClick(Sender: TObject);
@@ -247,7 +252,8 @@ var
   ValorCredito:Currency;
   NumeroCheque:string;
   CodigoBanco:Integer;
-
+  _totalapagar: Currency;
+  
 implementation
 
 {$R *.dfm}
@@ -598,6 +604,13 @@ begin
 end;
 
 procedure TfrmSaldarCaptacion.EdNumeroContractualExit(Sender: TObject);
+var
+  _fechaVencimiento: TDate;
+  _plazo: Integer;
+  _tiempoUsado: Integer;
+  _cuota, _porcentaje: Double;
+  _bonificacion: Currency;
+  _saldoactual: Currency;
 begin
         if EdNumeroContractual.Text <> '' then
         begin
@@ -642,8 +655,10 @@ begin
                  EdNombresCont.Caption := FieldByName('NOMBRE').AsString;
                  DBLCBPlanContractual.KeyValue := FieldByName('ID_PLAN').AsInteger;
                  EdValorContractual.Value := FieldByName('VALOR_INICIAL').AsCurrency;
+                 _cuota := FieldByName('VALOR_INICIAL').AsCurrency;
                  EdFechaAperturaContractual.Date := FieldByName('FECHA_APERTURA').AsDate;
                  EdFechaVencimientoContractual.Caption := DateToStr(FieldByName('FECHA_VENCIMIENTO').AsDate);
+                 _fechaVencimiento := FieldByName('FECHA_VENCIMIENTO').AsDate;
                  EdProximoAbonoContractual.Caption := DateToStr(FieldByName('FECHA_PROXIMO_PAGO').AsDate);
                  EdEstadoContractual.Caption := FieldByName('DESCRIPCION').AsString;
                  DBLCBTiposCaptacionCon.KeyValue := FieldByName('ID_TIPO_CAPTACION_ABONO').AsInteger;
@@ -669,14 +684,31 @@ begin
                             EdSaldoCon.Value := FieldByName('SALDO_ACTUAL').AsCurrency
                           else
                             EdSaldoCon.Value := 0;
+                          _saldoactual := edSaldoCon.Value;
                   except
                           Transaction.Rollback;
                           raise;
                   end;
                  end;
-                 EdSaldoCon.Value := SaldoActual;
+                 // Evaluar Bonificación
+                 _tiempoUsado := DiasEntre(FieldByName('FECHA_APERTURA').AsDate, fFechaActual);
+                 IBQuery1.Close;
+                 IBQuery1.SQL.Clear;
+                 IBQuery1.SQL.Add('SELECT FIRST 1 a.ID_PLAN, a.DESCRIPCION, a.PLAZO, a.CUOTAS, a.ACTIVO FROM "cap$tiposplancontractual" a WHERE :TIEMPO >= a.PLAZO ORDER BY a.PLAZO DESC');
+                 IBQuery1.ParamByName('TIEMPO').AsInteger := _tiempoUsado;
+                 IBQuery1.Open;
+                 _plazo := IBQuery1.FieldByName('PLAZO').AsInteger;
+                 _porcentaje := IBQuery1.FieldByName('CUOTAS').AsFloat;
+                 _bonificacion := RoundTo(_cuota * _porcentaje, 0);
+                 EdBonificacionCon.Value := _bonificacion;
+                 _totalapagar := _saldoactual + _bonificacion;
+                 EdTotalAPagarCon.Value := _totalapagar;
+                 SaldoActual := _totalapagar;
+                 DBLCBPlanAPagar.KeyValue := IBQuery1.FieldByName('ID_PLAN').AsInteger;
+                 // Fin Evaluar Bonificación
+
                  GroupBox13.Enabled := False;
-                 CmdSaldar.Enabled := True;
+
                  cmdFormaPago.Enabled := True;
                  EdCuentaCon.OnExit(self);
               end;
@@ -685,7 +717,7 @@ begin
               Exit;
             end;
         end;
-
+        CmdSaldar.Enabled := False;
 end;
 
 procedure TfrmSaldarCaptacion.EdNumeroContractualKeyPress(Sender: TObject;
@@ -984,17 +1016,19 @@ begin
 
         if not r then
         begin
-           dmCaptacion.IBGrabar.Transaction.Rollback;
+           if dmCaptacion.IBGrabar.Transaction.InTransaction then
+             dmCaptacion.IBGrabar.Transaction.Rollback;
            MessageDlg('Error al Saldar la Captaci?n' + #13 +
                       'verifique la informaci?n',mtError,[mbOk],0);
            CmdSaldar.Enabled := False;
         end
         else
         begin
-           dmCaptacion.IBGrabar.Transaction.Commit;
-           MessageDlg('Captaci?n Saldada con exito!',mtInformation,[mbOK],0);
+           if dmCaptacion.IBGrabar.Transaction.InTransaction then
+              dmCaptacion.IBGrabar.Transaction.Commit;
+           MessageDlg('Captacion Saldada con exito!',mtInformation,[mbOK],0);
            CmdSaldar.Enabled := False;
-           if (DBLCBTiposCaptacion.KeyValue = 6 ) then
+           if ((DBLCBTiposCaptacion.KeyValue = 5 ) or (DBLCBTiposCaptacion.KeyValue = 6 )) then
               CmdInforme.Click;
         end;
         Inicializar;
@@ -1660,11 +1694,14 @@ begin
         end;
 
         TipoCaptacion       := DBLCBTiposCaptacion.KeyValue;
-        TipoCaptacionCer    := DBLCBTipoCaptacionCer.KeyValue;
+        TipoCaptacionCer    := DBLCBTiposCaptacionCon.KeyValue;
 
 // Buscar c?digos contables
         with IBSQL1 do
         begin
+            if Transaction.InTransaction then
+              Transaction.Commit;
+            Transaction.StartTransaction;
 // C?digo Captaci?n
             Close;
             SQL.Clear;
@@ -1718,7 +1755,7 @@ begin
               SQL.Clear;
               SQL.Add('select CODIGO_CONTABLE from "cap$tipocaptacion"');
               SQL.Add('where ID_TIPO_CAPTACION = :ID');
-              ParamByName('ID').AsInteger := DBLCBTipoCaptacionCer.KeyValue;
+              ParamByName('ID').AsInteger := DBLCBTiposCaptacionCon.KeyValue;
              try
               ExecQuery;
               Codigo_Credito := FieldByName('CODIGO_CONTABLE').AsString;
@@ -1772,13 +1809,15 @@ begin
             Close;
         end;
 
-{        if (ValorCredito < ValorGMFCer.Value) and (ValorCredito > 0) then
+{
+        if (ValorCredito < ValorGMFCer.Value) and (ValorCredito > 0) then
            ValorBaseGMF := ValorCredito
         else
-           ValorBaseGMF := ValorGMFCer.Value;}
            ValorBaseGMF := ValorGMFCer.Value;
+}
+        ValorBaseGMF := ValorGMFCer.Value;
 
-        Valor := EdValorCer.Value;
+        Valor := _totalapagar;
 
         if ChkGMFCer.Checked then
         begin
@@ -1788,6 +1827,7 @@ begin
         begin
            GMFNCredito := 0;
         end;
+
 
         if ValorCheque > 0 then
            GMFCheque := SimpleRoundTo((ValorCheque / 1000) * VecesGMF,0);
@@ -1810,8 +1850,8 @@ begin
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
             ParamByName('FECHADIA').AsDateTime := Date;
-            ParamByName('DESCRIPCION').AsString := 'Captaci?n Saldada No:' + Ednumerocer.Text + '-' + EdDigitoCer.Caption + ' ' +
-                                                    EdPrimerApellidoCer.Caption + ' ' + EdSegundoApellidoCer.Caption + EdNombresCer.Caption +
+            ParamByName('DESCRIPCION').AsString := 'Captaci?n Saldada No:' + EdNumeroContractual.Text + '-' + EdDigitoContractual.Caption + ' ' +
+                                                    EdPrimerApellidoCont.Caption + ' ' + EdSegundoApellidoCont.Caption + EdNombresCont.Caption +
                                                    ' en la Fecha ';
             ParamByName('TOTAL_DEBITO').AsCurrency := Valor + GMF;
             ParamByName('TOTAL_CREDITO').AsCurrency := Valor + GMF;
@@ -1835,17 +1875,17 @@ begin
             SQL.Add('(:"ID_COMPROBANTE", :"ID_AGENCIA", :"FECHA", :"CODIGO", :"DEBITO", :"CREDITO",');
             SQL.Add(':"ID_CUENTA", :"ID_COLOCACION", :"ID_IDENTIFICACION", :"ID_PERSONA",');
             SQL.Add(':"MONTO_RETENCION", :"TASA_RETENCION", :"ESTADOAUX", :"TIPO_COMPROBANTE")');
-// Captaci?n
+// Captacion
             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
             ParamByName('FECHA').AsDateTime := Date;
             ParamByName('CODIGO').AsString := Codigo_Captacion;
             ParamByName('DEBITO').AsCurrency := Valor;
             ParamByName('CREDITO').AsCurrency := 0;
-            ParamByName('ID_CUENTA').AsInteger := StrToInt(EdNumeroCer.Text);
+            ParamByName('ID_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
             ParamByName('ID_COLOCACION').Clear;
-            ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCer.KeyValue;
-            ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCer.Text;
+            ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+            ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
             ParamByName('MONTO_RETENCION').AsCurrency := 0;
             ParamByName('TASA_RETENCION').AsFloat := 0;
             ParamByName('ESTADOAUX').AsString := 'O';
@@ -1916,10 +1956,10 @@ begin
              ParamByName('CODIGO').AsString := Codigo_Credito;
              ParamByName('DEBITO').AsCurrency := 0;
              ParamByName('CREDITO').AsCurrency := ValorCredito;
-             ParamByName('ID_CUENTA').AsInteger := StrToInt(EdNumeroCapCer.Text);
+             ParamByName('ID_CUENTA').AsInteger := StrToInt(EdCuentaCon.Text);
              ParamByName('ID_COLOCACION').Clear;
-             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCer.KeyValue;
-             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCer.Text;
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
              ParamByName('MONTO_RETENCION').AsCurrency := 0;
              ParamByName('TASA_RETENCION').AsFloat := 0;
              ParamByName('ESTADOAUX').AsString := 'O';
@@ -2016,16 +2056,16 @@ begin
               SQL.Add(':"ID_TIPO_MOVIMIENTO",:"DOCUMENTO_MOVIMIENTO",:"DESCRIPCION_MOVIMIENTO",');
               SQL.Add(':"VALOR_DEBITO",:"VALOR_CREDITO",:"ID")');
               ParamByName('ID_AGENCIA').AsInteger := Agencia;
-              ParamByName('ID_TIPO_CAPTACION').AsInteger := TipoCaptacionCer;
-              ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroCapCer.Text);
-              ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(eddigitocapcer.Caption);
+              ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacionCon.KeyValue;
+              ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdCuentaCon.Text);
+              ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoCon.Caption);
               ParamByName('FECHA_MOVIMIENTO').AsDate := Date;
               ParamByName('HORA_MOVIMIENTO').AsTime := Time;
               ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 12;
               ParamByName('DOCUMENTO_MOVIMIENTO').AsString := Format('%.8d',[Comprobante]);
-              ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Captaci?n Saldada No.' +
+              ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Captacion Saldada No.' +
                                                                 IntToStr(DBLCBTiposCaptacion.KeyValue) + '-' +
-                                                                EdNumeroCer.Text + '-' + EdDigitoCer.Caption;
+                                                                EdNumeroContractual.Text + '-' + EdDigitoContractual.Caption;
               ParamByName('VALOR_DEBITO').AsCurrency := ValorCredito;
               ParamByName('VALOR_CREDITO').AsCurrency := 0;
               ParamByName('ID').AsInteger := 0;        
@@ -2046,9 +2086,9 @@ begin
             SQL.Add('where ID_AGENCIA = :"ID_AGENCIA" and ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
             SQL.Add('NUMERO_CUENTA = :"NUMERO_CUENTA" and DIGITO_CUENTA = :"DIGITO_CUENTA"');
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
-            ParamByName('ID_TIPO_CAPTACION').AsInteger := TipoCaptacion;
-            ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroCer.Text);
-            ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoCer.Caption);
+            ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+            ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
+            ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoContractual.Caption);
             ParamByName('FECHA').AsDate := fFechaActual;
             if (ValorEfectivo > 0) then
             begin
@@ -2082,9 +2122,9 @@ begin
             SQL.Add(':"ID_ESTADO", :"ID_TIPO_CAPTACION", :"NCREDITO", :"NUMERO_CUENTA",:"ID_BANCO",:"NUMERO_CHEQUE")');
 
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
-            ParamByName('ID_TIPO_CAPTACION').AsInteger := TipoCaptacion;
-            ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroCer.Text);
-            ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoCer.Caption);
+            ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+            ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
+            ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoContractual.Caption);
             ParamByName('EFECTIVO').AsCurrency := ValorEfectivo;
             ParamByName('CHEQUE').AsCurrency := ValorCheque;
             ParamByName('NCREDITO').AsCurrency := ValorCredito;
@@ -2101,9 +2141,9 @@ begin
               Transaction.Rollback;
               Exit;
             end;
+            if Transaction.InTransaction then
+                    Transaction.Commit;
           end;
-
-
           CmdInforme.Enabled := True;
           Result := True;
 

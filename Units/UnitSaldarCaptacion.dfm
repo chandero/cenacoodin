@@ -1,6 +1,6 @@
 object frmSaldarCaptacion: TfrmSaldarCaptacion
-  Left = 505
-  Top = 103
+  Left = 575
+  Top = 77
   Width = 549
   Height = 518
   Caption = 'Saldar Captaciones'
@@ -586,6 +586,13 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           Height = 13
           Caption = 'Total a Pagar'
         end
+        object Label58: TLabel
+          Left = 368
+          Top = 184
+          Width = 74
+          Height = 13
+          Caption = 'Plan a Pagar'
+        end
         object GroupBox11: TGroupBox
           Left = 0
           Top = 0
@@ -689,7 +696,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
         object GroupBox12: TGroupBox
           Left = 0
           Top = 88
-          Width = 517
+          Width = 529
           Height = 91
           Caption = 'Informaci'#243'n de la Captaci'#243'n'
           Enabled = False
@@ -994,6 +1001,18 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           TabOrder = 7
           HasMaxValue = False
           HasMinValue = False
+        end
+        object DBLCBPlanAPagar: TDBLookupComboBox
+          Left = 328
+          Top = 198
+          Width = 177
+          Height = 21
+          Color = clWhite
+          DataSource = DSPlanAPagar
+          KeyField = 'ID_PLAN'
+          ListField = 'DESCRIPCION'
+          ListSource = DSPlanContractual
+          TabOrder = 8
         end
       end
       object TabCertificado: TTabSheet
@@ -1998,8 +2017,8 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   end
   object DSIntVariable: TDataSource
     DataSet = dmCaptacion.IBTasasVariables
-    Left = 464
-    Top = 36
+    Left = 472
+    Top = 52
   end
   object DSTiposCaptacionCer: TDataSource
     DataSet = dmCaptacion.IBTiposCaptacionCer
@@ -2008,28 +2027,28 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   end
   object DSPlanContractual: TDataSource
     DataSet = dmCaptacion.IBPlanContractual
-    Left = 490
-    Top = 38
+    Left = 498
+    Top = 54
   end
   object DSTiposIdentificacion1: TDataSource
     DataSet = dmCaptacion.IBTiposIdentificacion
     Left = 448
-    Top = 42
+    Top = 50
   end
   object DSTiposIdentificacion2: TDataSource
     DataSet = dmCaptacion.IBTiposIdentificacion
-    Left = 440
+    Left = 432
     Top = 30
   end
   object DSTiposIdentificacion3: TDataSource
     DataSet = dmCaptacion.IBTiposIdentificacion
     Left = 460
-    Top = 64
+    Top = 80
   end
   object DSTiposIdentificacion4: TDataSource
     DataSet = dmCaptacion.IBTiposIdentificacion
-    Left = 424
-    Top = 44
+    Left = 416
+    Top = 52
   end
   object DSTiposIdentificacion5: TDataSource
     DataSet = dmCaptacion.IBTiposIdentificacion
@@ -2039,8 +2058,8 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   object IBSQL1: TIBSQL
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
-    Left = 466
-    Top = 78
+    Left = 418
+    Top = 86
   end
   object IBDComprobante: TIBDataSet
     Database = dmGeneral.IBDatabase1
@@ -2109,8 +2128,8 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
       'where'
       '  CON$COMPROBANTE."ID_COMPROBANTE" = :"OLD_ID_COMPROBANTE" and'
       '  CON$COMPROBANTE."ID_AGENCIA" = :"OLD_ID_AGENCIA"')
-    Left = 450
-    Top = 106
+    Left = 418
+    Top = 114
   end
   object IBDAuxiliar: TIBDataSet
     Database = dmGeneral.IBDatabase1
@@ -3458,7 +3477,26 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   object DSTiposCaptacionF: TDataSource
     AutoEdit = False
     DataSet = dmCaptacion.IBTiposCaptacionF
-    Left = 486
-    Top = 64
+    Left = 494
+    Top = 80
+  end
+  object IBQuery1: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    Left = 472
+    Top = 192
+  end
+  object DSPlanAPagar: TDataSource
+    DataSet = IBQplanContractual
+    Left = 440
+    Top = 264
+  end
+  object IBQplanContractual: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    SQL.Strings = (
+      'SELECT * FROM "cap$tiposplancontractual"')
+    Left = 472
+    Top = 264
   end
 end

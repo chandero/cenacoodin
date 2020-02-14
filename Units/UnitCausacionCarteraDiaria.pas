@@ -71,7 +71,8 @@ type
     ReporteD: TprTxReport;
     Button1: TButton;
     BtnCorregirMora: TBitBtn;
-    BitBtn1: TBitBtn;
+    btnReNota: TBitBtn;
+    edCuadre: TMemo;
     procedure FormShow(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdProcesarClick(Sender: TObject);
@@ -84,6 +85,7 @@ type
     procedure CmdImprimirProvisionClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure BtnCorregirMoraClick(Sender: TObject);
+    procedure btnReNotaClick(Sender: TObject);
   private
     { Private declarations }
     procedure EvaluarCortoPlazo;
@@ -123,6 +125,7 @@ type
     procedure DescuentoGarReal;
     procedure CalculoProvision;
     procedure GarantiasReales;
+    procedure verificarCuadre(linea: String);
   public
     { Public declarations }
   end;
@@ -165,6 +168,7 @@ var
     //Variables de tasa
     _cTasaIpcNueva :Single;
     _cTasaDtfMaxima :Single;
+    _diferencia: Currency;
 
 
 implementation
@@ -208,6 +212,7 @@ begin
          end;
         end;
         EdFechaCorte.Date := Date;
+        _diferencia := 0;
 end;
 
 
@@ -1198,6 +1203,7 @@ begin
             CmdComprobante.Enabled := False;
             CmdImprimir.Enabled := False;
             CmdImprimirProvision.Enabled := False;
+            btnReNota.Enabled := True;
           end
           else begin
             CmdProcesar.Enabled := False;
@@ -1206,6 +1212,7 @@ begin
             CmdComprobante.Enabled := True;
             CmdImprimir.Enabled := True;
             CmdImprimirProvision.Enabled := True;
+            btnReNota.Enabled := True;
           end;
 
           if FieldByName('APLICADA').AsInteger = 0 then begin
@@ -4432,6 +4439,9 @@ begin
                      Next;
                 end; // while
                end;// with
+
+               verificarCuadre('Corto y Largo Plazo');
+
                IBSQL2.Transaction.Commit;
 end;
 
@@ -4689,7 +4699,7 @@ begin
                 end; // while
                end;// with
                IBSQL1.Transaction.Commit;
-
+               verificarCuadre('Ajustar Calificacion');
 end;
 
 procedure TfrmCausacionCarteraDiaria.TercerPC;
@@ -4943,6 +4953,8 @@ begin
 
                 Actualizargrid;
                 IBSQL1.Transaction.Commit;
+
+                verificarCuadre('Causacion de Intereses');                
 end;
 
 procedure TfrmCausacionCarteraDiaria.CuartoPC;
@@ -5393,6 +5405,7 @@ begin
                 Actualizargrid;
                 IBSQL1.Transaction.Commit;
 
+                verificarCuadre('Provision de Capital de Colocaciones');
 end;
 
 procedure TfrmCausacionCarteraDiaria.QuintoPC;
@@ -5811,6 +5824,8 @@ begin
 
                 IBSQL1.Transaction.Commit;
                 Actualizargrid;
+
+                verificarCuadre('Provision de Interes de Colocaciones y Costas Judiciales');
 end;
 
 procedure TfrmCausacionCarteraDiaria.SextoPC;
@@ -5944,6 +5959,8 @@ begin
               end;
               actualizargrid;
               IBSQL3.Transaction.Commit;
+
+              verificarCuadre('Provision General');              
 end;
 
 procedure TfrmCausacionCarteraDiaria.SeptimoPC;
@@ -6230,6 +6247,8 @@ begin
                 end;
                 Actualizargrid;
                 IBSQL1.Transaction.Commit;
+
+                verificarCuadre('Traslado de Intereses Anticipados');
 end;
 
 procedure TfrmCausacionCarteraDiaria.OctavoPC;
@@ -6403,6 +6422,8 @@ begin
                 end;
                 Actualizargrid;
                 IBSQL1.Transaction.Commit;
+
+                verificarCuadre('Contingencias');                
 end;
 
 procedure TfrmCausacionCarteraDiaria.NovenoPC;
@@ -8567,6 +8588,136 @@ begin
           MessageDlg('Proceso Correci?n de Mora Aplicado con Exito',mtinformation,[mbok],0);
 end;
 
+procedure TfrmCausacionCarteraDiaria.verificarCuadre(linea: String);
+var I:Integer;
+    TotalDebito:Currency;
+    TotalCredito:Currency;
+    ARecord:PList;
+    _nuevadiff: Currency;
+begin
+      TotalDebito := 0;
+      TotalCredito := 0;
+
+      for I := 0 to Lista.Count - 1 do
+      begin
+        ARecord := Lista.Items[i];
+        TotalDebito := TotalDebito + arecord^.debito;
+        TotalCredito := TotalCredito + arecord^.credito;
+      end;
+      _nuevadiff := TotalDebito - TotalCredito;
+      if _nuevadiff <> 0 then
+      begin
+
+        if (_nuevadiff <> _diferencia) then
+        begin
+         edCuadre.Lines.Add('Diferencia en: ' + linea);
+         _diferencia := _nuevadiff;
+        end;
+      end;
+      Application.ProcessMessages;
+
+end;
+
+
+procedure TfrmCausacionCarteraDiaria.btnReNotaClick(Sender: TObject);
+var I:Integer;
+    TotalDebito:Currency;
+    TotalCredito:Currency;
+    ARecord:PList;
+    FechaComp:TDate;
+    idauxiliar: Integer;
+begin
+        try
+          Lista := Tlist.Create;
+        finally
+          Lista.Clear;
+        end;
+
+        PrimerPC;   // verificarCuadre('Corto y Largo Plazo');
+        SegundoPC;  // verificarCuadre('Ajustar Calificacion');
+        TercerPC;   // verificarCuadre('Causacion de Intereses');
+        CuartoPC;   // verificarCuadre('Provision de Capital de Colocaciones');
+        QuintoPC;   // verificarCuadre('Provision de Interes de Colocaciones y Costas Judiciales');
+        SextoPC;    // verificarCuadre('Provision General');
+        SeptimoPC;  // verificarCuadre('Traslado de Intereses Anticipados');
+        OctavoPC;   // verificarCuadre('Contingencias');
+        
+      Consecutivo := StrToInt(EdComprobante.Caption);
+      FechaComp := EdFechaCorte.Date;
+
+      TotalDebito := 0;
+      TotalCredito := 0;
+
+      for I := 0 to Lista.Count - 1 do
+      begin
+        ARecord := Lista.Items[i];
+        TotalDebito := TotalDebito + arecord^.debito;
+        TotalCredito := TotalCredito + arecord^.credito;
+      end;
+
+      if TotalDebito <> TotalCredito then
+      begin
+         ShowMessage('El Comprobante está descuadrado...');
+      end;
+
+      with IBSQL1 do begin
+       if Transaction.InTransaction then
+          Transaction.Rollback;
+       Transaction.StartTransaction;
+         Close;
+         sql.Clear;
+         sql.Add('UPDATE CON$COMPROBANTE SET ');
+         sql.Add('CON$COMPROBANTE."TOTAL_DEBITO" = :TOTAL_DEBITO, CON$COMPROBANTE."TOTAL_CREDITO" = :TOTAL_CREDITO');
+         sql.Add('WHERE TIPO_COMPROBANTE = :TIPO_COMPROBANTE and ID_COMPROBANTE = :ID_COMPROBANTE');
+
+         ParamByName('ID_COMPROBANTE').AsInteger := Consecutivo;
+         ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+         ParamByName('TOTAL_DEBITO').AsCurrency  := TotalDebito;
+         ParamByName('TOTAL_CREDITO').AsCurrency  := TotalCredito;
+         ExecQuery;
+
+         SQL.Clear;
+         SQL.Add('DELETE FROM CON$AUXILIAR WHERE TIPO_COMPROBANTE = :TIPO_COMPROBANTE and ID_COMPROBANTE = :ID_COMPROBANTE');
+         ParamByName('ID_COMPROBANTE').AsInteger := Consecutivo;
+         ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+         ExecQuery;
+
+         if Lista.Count > 0 then
+         for I := 0 to Lista.Count -1 do
+         begin
+            Close;
+            SQL.Clear;
+            SQL.Add('insert into CON$AUXILIAR values (');
+            SQL.Add(':"ID_COMPROBANTE",:"ID_AGENCIA",:"FECHA",:"CODIGO",:"DEBITO",');
+            SQL.Add(':"CREDITO",:"ID_CUENTA",:"ID_COLOCACION",:"ID_IDENTIFICACION",');
+            SQL.Add(':"ID_PERSONA",:"MONTO_RETENCION",:"TASA_RETENCION",:"ESTADOAUX",:"TIPO_COMPROBANTE")');
+            ARecord := Lista.Items[I];
+            ParamByName('ID_COMPROBANTE').AsInteger := Consecutivo;
+            ParamByName('ID_AGENCIA').AsInteger:= Agencia;
+            ParamByName('FECHA').AsDate := FechaComp;
+            ParamByName('CODIGO').AsString := Arecord^.codigo;
+            ParamByName('DEBITO').AsCurrency := Arecord^.debito;
+            ParamByName('CREDITO').AsCurrency := Arecord^.credito;
+            ParamByName('ID_CUENTA').Clear;
+            ParamByName('ID_COLOCACION').Clear;
+            ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+            ParamByName('ID_PERSONA').Clear;
+            ParamByName('MONTO_RETENCION').AsCurrency := 0;
+            ParamByName('TASA_RETENCION').AsFloat := 0;
+            ParamByName('ESTADOAUX').AsString := 'O';
+            ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+            ExecQuery;
+         end;
+        try
+         Transaction.Commit;
+        except
+         Transaction.Rollback;
+         raise;
+         Exit;
+        end;
+       end;
+       ShowMessage('Proceso Finalizado...');
+end;
 
 end.
 

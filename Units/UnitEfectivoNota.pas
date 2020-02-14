@@ -62,6 +62,8 @@ uses UnitDmGeneral, UnitGlobales;
 
 procedure TfrmEfectivoNota.FormCreate(Sender: TObject);
 begin
+        if IBTransaction1.InTransaction then
+          IBTransaction1.Commit;
         IBTransaction1.StartTransaction;
 end;
 

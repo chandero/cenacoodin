@@ -1,10 +1,10 @@
 object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
-  Left = 407
-  Top = 192
+  Left = 403
+  Top = 169
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Causaci'#243'n de Colocaciones'
-  ClientHeight = 376
+  ClientHeight = 435
   ClientWidth = 763
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,7 +21,7 @@ object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
   TextHeight = 13
   object Panel2: TPanel
     Left = 0
-    Top = 343
+    Top = 402
     Width = 763
     Height = 33
     Align = alBottom
@@ -343,7 +343,7 @@ object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
         261E1A0F3B3B3B3B3B3B3B3B3B3B112E261E1A123B3B3B3B3B3B3B3B3B11302E
         261E1A123B3B3B3B3B3B3B3B3B1111111112123B3B3B3B3B3B3B}
     end
-    object BitBtn1: TBitBtn
+    object btnReNota: TBitBtn
       Left = 578
       Top = 4
       Width = 95
@@ -351,7 +351,7 @@ object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
       Caption = 'Rehacer &Nota'
       Enabled = False
       TabOrder = 6
-      OnClick = CmdComprobanteClick
+      OnClick = btnReNotaClick
       Glyph.Data = {
         36050000424D3605000000000000360400002800000010000000100000000100
         08000000000000010000130B0000130B00000001000000010000EF9C2100F7A5
@@ -399,7 +399,7 @@ object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
   end
   object Panel3: TPanel
     Left = 0
-    Top = 306
+    Top = 365
     Width = 763
     Height = 37
     Align = alBottom
@@ -474,7 +474,7 @@ object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
     Left = 0
     Top = 0
     Width = 763
-    Height = 306
+    Height = 365
     ActivePage = TabSheet1
     Align = alClient
     TabIndex = 0
@@ -621,6 +621,14 @@ object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
           end
         end
       end
+      object edCuadre: TMemo
+        Left = 0
+        Top = 280
+        Width = 753
+        Height = 49
+        ReadOnly = True
+        TabOrder = 1
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Operaci'#243'n Contable'
@@ -707,7 +715,7 @@ object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
       end
       object Panel4: TPanel
         Left = 0
-        Top = 248
+        Top = 307
         Width = 755
         Height = 30
         Align = alBottom
