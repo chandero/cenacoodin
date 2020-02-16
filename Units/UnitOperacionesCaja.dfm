@@ -316,7 +316,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
       Top = 1
       Width = 101
       Height = 362
-      ActivePage = TabColocaciones
+      ActivePage = TabGenerales
       Style = tsFlatButtons
       TabOrder = 0
       object TabProductos: TTabSheet
@@ -1126,7 +1126,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
       Top = 1
       Width = 566
       Height = 435
-      ActivePage = TabColCastigada
+      ActivePage = TabOperacionesGenerales
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
@@ -11076,7 +11076,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           TabOrder = 10
           TabStop = False

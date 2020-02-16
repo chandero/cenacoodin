@@ -1,6 +1,6 @@
 object FrmCausacionContractual: TFrmCausacionContractual
-  Left = 246
-  Top = 179
+  Left = 606
+  Top = 227
   Width = 331
   Height = 172
   BorderIcons = [biSystemMenu]

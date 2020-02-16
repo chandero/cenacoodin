@@ -2,7 +2,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   Left = 575
   Top = 77
   Width = 549
-  Height = 518
+  Height = 560
   Caption = 'Saldar Captaciones'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -22,7 +22,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
     Left = 0
     Top = 33
     Width = 541
-    Height = 421
+    Height = 463
     Align = alClient
     Caption = 'Informaci'#243'n de la Captaci'#243'n'
     Font.Charset = DEFAULT_CHARSET
@@ -37,7 +37,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
       Left = 2
       Top = 15
       Width = 537
-      Height = 404
+      Height = 446
       ActivePage = TabContractual
       Align = alClient
       TabOrder = 0
@@ -580,7 +580,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           Caption = 'Bonificaci'#243'n'
         end
         object Label57: TLabel
-          Left = 300
+          Left = 296
           Top = 238
           Width = 78
           Height = 13
@@ -592,6 +592,34 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           Width = 74
           Height = 13
           Caption = 'Plan a Pagar'
+        end
+        object Label59: TLabel
+          Left = 33
+          Top = 278
+          Width = 50
+          Height = 13
+          Caption = 'Causado'
+        end
+        object Label60: TLabel
+          Left = 180
+          Top = 278
+          Width = 34
+          Height = 13
+          Caption = 'Gasto'
+        end
+        object Label61: TLabel
+          Left = 281
+          Top = 278
+          Width = 101
+          Height = 13
+          Caption = 'Reverso Causado'
+        end
+        object Label62: TLabel
+          Left = 444
+          Top = 278
+          Width = 27
+          Height = 13
+          Caption = 'GMF'
         end
         object GroupBox11: TGroupBox
           Left = 0
@@ -871,8 +899,8 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
         end
         object GroupBox4: TGroupBox
           Left = 0
-          Top = 284
-          Width = 509
+          Top = 364
+          Width = 529
           Height = 67
           Caption = 'Captaci'#243'n a la cu'#225'l se abonaran los valores'
           TabOrder = 4
@@ -990,7 +1018,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           HasMinValue = False
         end
         object EdTotalAPagarCon: TJvCurrencyEdit
-          Left = 271
+          Left = 267
           Top = 254
           Width = 129
           Height = 21
@@ -1013,6 +1041,58 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
           ListField = 'DESCRIPCION'
           ListSource = DSPlanContractual
           TabOrder = 8
+        end
+        object edCausado: TJvCurrencyEdit
+          Left = 4
+          Top = 294
+          Width = 129
+          Height = 21
+          AutoSize = False
+          Alignment = taRightJustify
+          Color = clWhite
+          ReadOnly = False
+          TabOrder = 9
+          HasMaxValue = False
+          HasMinValue = False
+        end
+        object edGasto: TJvCurrencyEdit
+          Left = 135
+          Top = 294
+          Width = 129
+          Height = 21
+          AutoSize = False
+          Alignment = taRightJustify
+          Color = clWhite
+          ReadOnly = False
+          TabOrder = 10
+          HasMaxValue = False
+          HasMinValue = False
+        end
+        object edReversoCausado: TJvCurrencyEdit
+          Left = 268
+          Top = 294
+          Width = 129
+          Height = 21
+          AutoSize = False
+          Alignment = taRightJustify
+          Color = clWhite
+          ReadOnly = False
+          TabOrder = 11
+          HasMaxValue = False
+          HasMinValue = False
+        end
+        object edGMF: TJvCurrencyEdit
+          Left = 399
+          Top = 294
+          Width = 129
+          Height = 21
+          AutoSize = False
+          Alignment = taRightJustify
+          Color = clWhite
+          ReadOnly = False
+          TabOrder = 12
+          HasMaxValue = False
+          HasMinValue = False
         end
       end
       object TabCertificado: TTabSheet
@@ -1755,7 +1835,7 @@ object frmSaldarCaptacion: TfrmSaldarCaptacion
   end
   object Panel2: TPanel
     Left = 0
-    Top = 454
+    Top = 496
     Width = 541
     Height = 30
     Align = alBottom

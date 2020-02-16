@@ -192,6 +192,14 @@ type
     DBLCBPlanAPagar: TDBLookupComboBox;
     DSPlanAPagar: TDataSource;
     IBQplanContractual: TIBQuery;
+    Label59: TLabel;
+    edCausado: TJvCurrencyEdit;
+    Label60: TLabel;
+    edGasto: TJvCurrencyEdit;
+    Label61: TLabel;
+    edReversoCausado: TJvCurrencyEdit;
+    Label62: TLabel;
+    edGMF: TJvCurrencyEdit;
     procedure EdNumeroCerExit(Sender: TObject);
     procedure DBLCBTiposCaptacionEnter(Sender: TObject);
     procedure CmdContinuarClick(Sender: TObject);
@@ -253,6 +261,9 @@ var
   NumeroCheque:string;
   CodigoBanco:Integer;
   _totalapagar: Currency;
+  _valorCausado: Currency;
+  _valorServicio: Currency;
+  _valorReversoCausado: Currency;
   
 implementation
 
@@ -605,13 +616,19 @@ end;
 
 procedure TfrmSaldarCaptacion.EdNumeroContractualExit(Sender: TObject);
 var
-  _fechaVencimiento: TDate;
+  _fechaApertura, _fechaVencimiento: TDate;
   _plazo: Integer;
   _tiempoUsado: Integer;
   _cuota, _porcentaje: Double;
   _bonificacion: Currency;
   _saldoactual: Currency;
+  _fechaHoy: TDate;
+  _anhoCausado, _mesCausado: Integer;
+  _fechaUltimoAbono, _fechaEvaluarCausado: TDate;
+  _totalCausado: Currency;
+  _causado: Currency;
 begin
+        _fechaHoy := fFechaActual;
         if EdNumeroContractual.Text <> '' then
         begin
            EdNumeroContractual.Text := Format('%.7d',[StrToInt(EdNumeroContractual.Text)]);
@@ -657,6 +674,7 @@ begin
                  EdValorContractual.Value := FieldByName('VALOR_INICIAL').AsCurrency;
                  _cuota := FieldByName('VALOR_INICIAL').AsCurrency;
                  EdFechaAperturaContractual.Date := FieldByName('FECHA_APERTURA').AsDate;
+                 _fechaApertura := FieldByName('FECHA_APERTURA').AsDate;
                  EdFechaVencimientoContractual.Caption := DateToStr(FieldByName('FECHA_VENCIMIENTO').AsDate);
                  _fechaVencimiento := FieldByName('FECHA_VENCIMIENTO').AsDate;
                  EdProximoAbonoContractual.Caption := DateToStr(FieldByName('FECHA_PROXIMO_PAGO').AsDate);
@@ -690,8 +708,21 @@ begin
                           raise;
                   end;
                  end;
+                 // Buscar Ultimo Abono Realizado
+                 IBQuery1.Close;
+                 IBQuery1.SQL.Clear;
+                 IBQuery1.SQL.Add('SELECT FIRST 1 * FROM "cap$extracto" e WHERE ');
+                 IBQuery1.SQL.Add('e.ID_AGENCIA = :"ID_AGENCIA" and e.ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
+                 IBQuery1.SQL.Add('e.NUMERO_CUENTA = :"NUMERO_CUENTA" and e.DIGITO_CUENTA = :"DIGITO_CUENTA" ');
+                 IBQuery1.SQL.Add('ORDER BY e.FECHA_MOVIMIENTO DESC');
+                 IBQuery1.ParamByName('ID_AGENCIA').AsInteger := Agencia;
+                 IBQuery1.ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+                 IBQuery1.ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
+                 IBQuery1.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoContractual.Caption);
+                 IBQuery1.Open;
+                 _fechaUltimoAbono := IBQuery1.FieldByName('FECHA_MOVIMIENTO').AsDateTime;
                  // Evaluar Bonificación
-                 _tiempoUsado := DiasEntre(FieldByName('FECHA_APERTURA').AsDate, fFechaActual);
+                 _tiempoUsado := DiasEntre(FieldByName('FECHA_APERTURA').AsDate, _fechaUltimoAbono);
                  IBQuery1.Close;
                  IBQuery1.SQL.Clear;
                  IBQuery1.SQL.Add('SELECT FIRST 1 a.ID_PLAN, a.DESCRIPCION, a.PLAZO, a.CUOTAS, a.ACTIVO FROM "cap$tiposplancontractual" a WHERE :TIEMPO >= a.PLAZO ORDER BY a.PLAZO DESC');
@@ -706,6 +737,47 @@ begin
                  SaldoActual := _totalapagar;
                  DBLCBPlanAPagar.KeyValue := IBQuery1.FieldByName('ID_PLAN').AsInteger;
                  // Fin Evaluar Bonificación
+                 // Evaluar Causado
+                   // Total Causado
+                   IBQuery1.Close;
+                   IBQuery1.SQL.Clear;
+                   IBQuery1.SQL.Add('SELECT SUM(e.CAUSACION_MENSUAL) AS CAUSACION FROM "cap$causacioncon" e WHERE');
+                   IBQuery1.SQL.Add('e.ID_AGENCIA = :"ID_AGENCIA" and e.ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
+                   IBQuery1.SQL.Add('e.NUMERO_CUENTA = :"NUMERO_CUENTA" and e.DIGITO_CUENTA = :"DIGITO_CUENTA"');
+                   IBQuery1.ParamByName('ID_AGENCIA').AsInteger := Agencia;
+                   IBQuery1.ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+                   IBQuery1.ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
+                   IBQuery1.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoContractual.Caption);
+                   IBQuery1.Open;
+                   _totalCausado := IBQuery1.FieldByName('CAUSACION').AsCurrency;
+                   // Fin Total Causado
+                   // Verificar si hay que reversar causacion
+                   if (_fechaVencimiento > _fechaHoy) then
+                   begin
+                       // Se está cancelando antes de lo pactado
+                       _valorCausado := _bonificacion;
+                       _valorReversoCausado := _totalCausado - _valorCausado;
+                       _valorServicio := 0;
+                   end
+                   else
+                   begin
+                        _valorCausado := _totalCausado;
+                        _valorServicio := _bonificacion - _valorCausado;
+                        _valorReversoCausado := 0;
+                   end;
+                   if (_bonificacion < _valorCausado) then
+                   begin
+                      _valorReversoCausado := _valorCausado - _bonificacion;
+                      _valorCausado := _bonificacion;
+                      _valorServicio := 0;
+                   end;
+
+
+                   edCausado.Value := _valorCausado;
+                   edGasto.Value := _valorServicio;
+                   edReversoCausado.Value := _valorReversoCausado;
+                  // Fin verificar si hay que reversar causacion
+                 // Fin Evaluar Causado
 
                  GroupBox13.Enabled := False;
 
@@ -1674,6 +1746,7 @@ var GMF,GMFCheque,GMFNCredito:Currency;
 //    Codigo_Abono:string;
     Codigo_GMF:string;
     Codigo_GastoGMF:string;
+    Codigo_Causado, Codigo_Gasto: String;
     Efectivo:Boolean;
     Valor,ValorBaseGMF:Currency;
     TipoCaptacion:Integer;
@@ -1745,7 +1818,7 @@ begin
               Codigo_Cheque := FieldByName('CODIGO').AsString;
               Close;
              except
-              MessageDlg('Error buscando c?digo del Banco',mterror,[mbcancel],0);
+              MessageDlg('Error buscando codigo del Banco',mterror,[mbcancel],0);
               Exit;
              end;
             end;
@@ -1766,6 +1839,35 @@ begin
              end;
             end;
 
+// Codigo Causado
+             SQL.Clear;
+             SQL.Add('select CODIGO_CONTABLE from CAP$CONTABLE');
+             SQL.Add('where ID_CAPTACION = :ID_CAPTACION and ID_CONTABLE = :ID_CONTABLE');
+             ParamByName('ID_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+             ParamByName('ID_CONTABLE').AsInteger := 6;
+             try
+              ExecQuery;
+              Codigo_Causado := FieldByName('CODIGO_CONTABLE').AsString;
+              Close;
+             except
+              MessageDlg('Error buscando c?digo de Efectivo',mterror,[mbcancel],0);
+              Exit;
+             end;
+// Codigo Interes Servicio
+             SQL.Clear;
+             SQL.Add('select CODIGO_CONTABLE from CAP$CONTABLE');
+             SQL.Add('where ID_CAPTACION = :ID_CAPTACION and ID_CONTABLE = :ID_CONTABLE');
+             ParamByName('ID_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+             ParamByName('ID_CONTABLE').AsInteger := 2;
+             try
+              ExecQuery;
+              Codigo_Gasto := FieldByName('CODIGO_CONTABLE').AsString;
+              Close;
+             except
+              MessageDlg('Error buscando c?digo de Efectivo',mterror,[mbcancel],0);
+              Exit;
+             end;
+
 // Codigo GMF
             Close;
             SQL.Clear;
@@ -1776,7 +1878,7 @@ begin
             try
              ExecQuery;
             except
-              MessageDlg('Error buscando c?digo tres x mil a captaci?n',mterror,[mbcancel],0);
+              MessageDlg('Error buscando codigo tres x mil a captaci?n',mterror,[mbcancel],0);
               Exit;
             end;
             Codigo_GMF := FieldByName('CODIGO_CONTABLE').AsString;
@@ -1815,24 +1917,14 @@ begin
         else
            ValorBaseGMF := ValorGMFCer.Value;
 }
-        ValorBaseGMF := ValorGMFCer.Value;
+        ValorBaseGMF := _totalapagar;
 
-        Valor := _totalapagar;
+        Valor := EdSaldoCon.Value;
 
-        if ChkGMFCer.Checked then
-        begin
-           GMFNCredito := SimpleRoundTo((ValorBaseGMF / 1000) * VecesGMF,0);
-        end
-        else
-        begin
-           GMFNCredito := 0;
-        end;
-
-
-        if ValorCheque > 0 then
-           GMFCheque := SimpleRoundTo((ValorCheque / 1000) * VecesGMF,0);
-
-        GMF := GMFNCredito + GMFCheque;
+        GMF := SimpleRoundTo((ValorBaseGMF / 1000) * VecesGMF,0);
+        edGMF.Value := GMF;
+        GMFNCredito := GMF;
+        GMFCheque := 0;
 
 // Buscar Consecutivo
         Comprobante := ObtenerConsecutivo(IBSQL1);
@@ -1850,7 +1942,7 @@ begin
             ParamByName('ID_AGENCIA').AsInteger := Agencia;
             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
             ParamByName('FECHADIA').AsDateTime := Date;
-            ParamByName('DESCRIPCION').AsString := 'Captaci?n Saldada No:' + EdNumeroContractual.Text + '-' + EdDigitoContractual.Caption + ' ' +
+            ParamByName('DESCRIPCION').AsString := 'Captacion Saldada No:' + EdNumeroContractual.Text + '-' + EdDigitoContractual.Caption + ' ' +
                                                     EdPrimerApellidoCont.Caption + ' ' + EdSegundoApellidoCont.Caption + EdNombresCont.Caption +
                                                    ' en la Fecha ';
             ParamByName('TOTAL_DEBITO').AsCurrency := Valor + GMF;
@@ -1908,8 +2000,8 @@ begin
              ParamByName('CREDITO').AsCurrency := ValorEfectivo;
              ParamByName('ID_CUENTA').Clear;
              ParamByName('ID_COLOCACION').Clear;
-             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
-             ParamByName('ID_PERSONA').Clear;
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
              ParamByName('MONTO_RETENCION').AsCurrency := 0;
              ParamByName('TASA_RETENCION').AsFloat := 0;
              ParamByName('ESTADOAUX').AsString := 'O';
@@ -1933,8 +2025,8 @@ begin
              ParamByName('CREDITO').AsCurrency := ValorCheque;
              ParamByName('ID_CUENTA').Clear;
              ParamByName('ID_COLOCACION').Clear;
-             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
-             ParamByName('ID_PERSONA').Clear;
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
              ParamByName('MONTO_RETENCION').AsCurrency := 0;
              ParamByName('TASA_RETENCION').AsFloat := 0;
              ParamByName('ESTADOAUX').AsString := 'O';
@@ -1983,8 +2075,8 @@ begin
              ParamByName('CREDITO').AsCurrency := GMFNCredito;
              ParamByName('ID_CUENTA').AsInteger := 0;
              ParamByName('ID_COLOCACION').AsString := '';
-             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
-             ParamByName('ID_PERSONA').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
              ParamByName('MONTO_RETENCION').AsCurrency := 0;
              ParamByName('TASA_RETENCION').AsFloat := 0;
              ParamByName('ESTADOAUX').AsString := 'O';
@@ -2007,8 +2099,8 @@ begin
              ParamByName('CREDITO').AsCurrency := GMFCheque;
              ParamByName('ID_CUENTA').AsInteger := 0;
              ParamByName('ID_COLOCACION').AsString := '';
-             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
-             ParamByName('ID_PERSONA').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
              ParamByName('MONTO_RETENCION').AsCurrency := 0;
              ParamByName('TASA_RETENCION').AsFloat := 0;
              ParamByName('ESTADOAUX').AsString := 'O';
@@ -2031,8 +2123,8 @@ begin
              ParamByName('CREDITO').AsCurrency := 0;
              ParamByName('ID_CUENTA').AsInteger := 0;
              ParamByName('ID_COLOCACION').AsString := '';
-             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
-             ParamByName('ID_PERSONA').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
              ParamByName('MONTO_RETENCION').AsCurrency := 0;
              ParamByName('TASA_RETENCION').AsFloat := 0;
              ParamByName('ESTADOAUX').AsString := 'O';
@@ -2046,8 +2138,106 @@ begin
              end;
             end;
 
-            if ValorCredito > 0 then
-            begin
+          if _valorCausado > 0 then
+          begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Causado;
+             ParamByName('DEBITO').AsCurrency := _valorCausado;
+             ParamByName('CREDITO').AsCurrency := 0;
+             ParamByName('ID_CUENTA').AsInteger := 0;
+             ParamByName('ID_COLOCACION').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Gasto',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+          end;
+
+          if _valorServicio > 0 then
+          begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Gasto;
+             ParamByName('DEBITO').AsCurrency := _valorServicio;
+             ParamByName('CREDITO').AsCurrency := 0;
+             ParamByName('ID_CUENTA').AsInteger := 0;
+             ParamByName('ID_COLOCACION').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Gasto',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+          end;
+
+          if _valorReversoCausado > 0 then
+          begin
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Causado;
+             ParamByName('DEBITO').AsCurrency := _valorReversoCausado;
+             ParamByName('CREDITO').AsCurrency := 0;
+             ParamByName('ID_CUENTA').AsInteger := 0;
+             ParamByName('ID_COLOCACION').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Gasto',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := Date;
+             ParamByName('CODIGO').AsString := Codigo_Gasto;
+             ParamByName('DEBITO').AsCurrency := 0;
+             ParamByName('CREDITO').AsCurrency := _valorReversoCausado;
+             ParamByName('ID_CUENTA').AsInteger := 0;
+             ParamByName('ID_COLOCACION').AsString := '';
+             ParamByName('ID_IDENTIFICACION').AsInteger := DBLCBTiposIdentificacionCont.KeyValue;
+             ParamByName('ID_PERSONA').AsString := EdNumeroIdentificacionCont.Text;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             try
+               ExecQuery;
+             except
+               MessageDlg('Error al Escribir en el Auxiliar Gasto',mtError,[mbcancel],0);
+               Transaction.Rollback;
+               Exit;
+             end;
+
+          end;
+
+          if ValorCredito > 0 then
+          begin
               Close;
               SQL.Clear;
               SQL.Add('insert into "cap$extracto" values(');
