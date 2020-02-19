@@ -65,7 +65,7 @@ var
   _queryProcedure : TIBStoredProc;
   _transaction: TIBTransaction;
   _fechaProceso: TDate;
-  tipo: Integer;
+  _tipo: Integer;
 
   Tabla:string;
   Codigo_Captacion:string;
@@ -163,15 +163,12 @@ begin
 
         while not _queryCaptacion.Eof do
         begin
-
-
-
           edCaptacion.Text := _queryCaptacion.FieldByName('DESCRIPCION').AsString;
           // Inicio Ciclo Captacion
-          tipo := _queryCaptacion.FieldByName('ID_TIPO_CAPTACION').AsInteger;
+          _tipo := _queryCaptacion.FieldByName('ID_TIPO_CAPTACION').AsInteger;
           //Verificar si hay que liquidar o no el producto
           _query.Close;
-          _query.ParamByName('ID_TIPO_CAPTACION').AsInteger := tipo;
+          _query.ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipo;
           _query.ParamByName('FECHA_PROCESADA').AsDate := _fechaProceso;
           _query.Open;
           if _query.RecordCount > 0 then
@@ -189,7 +186,7 @@ begin
           with _queryProcedure do
           begin
               StoredProcName := 'P_CAP_0001';
-              ParamByName('ID').AsInteger := tipo;
+              ParamByName('ID').AsInteger := _tipo;
               try
                  Application.ProcessMessages;
                  Screen.Cursor := crHourGlass;
@@ -218,7 +215,7 @@ begin
               SQL.Clear;
               SQL.Add('SELECT ');
               SQL.Add('* FROM P_CAP_0002 (:ID)');
-              ParamByName('ID').AsInteger := tipo;
+              ParamByName('ID').AsInteger := _tipo;
               try
                  Application.ProcessMessages;
                  Screen.Cursor := crHourGlass;
@@ -232,6 +229,11 @@ begin
               progreso.Min  := MinCaptacion;
               progreso.Max := MaxCaptacion;
               progreso.Position:= 1;
+
+              progreso2.Min  := 0;
+              progreso2.Max := 1;
+              progreso2.Position:= 0;
+
               Screen.Cursor := crHourGlass;
               CmdCerrar.Enabled := False;
               CDStemp.Open;
@@ -240,7 +242,7 @@ begin
               while not Eof do
               begin
                 Application.ProcessMessages;
-                edEstado.Text := 'Liquidando Captacion:' + IntToStr(tipo) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
+                edEstado.Text := 'Liquidando Captacion:' + IntToStr(_tipo) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
                                          Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
                                          IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
                 Ag := FieldByName('ID_AGENCIA').AsInteger;
@@ -249,10 +251,10 @@ begin
                 progreso.Position := RecNo;
                 case cada of
                   1: begin
-                       L := InteresDiario(ag,tipo,numero,digito,FechaCorte,TasaN,SaldoMinimo,DiarioR,TasaR);
+                       L := InteresDiario(ag,_tipo,numero,digito,FechaCorte,TasaN,SaldoMinimo,DiarioR,TasaR);
                        CDSTemp.Insert;
                        CDStempID_AGENCIA.Value := Ag;
-                       CDStempID_TIPO_CAPTACION.Value := tipo;
+                       CDStempID_TIPO_CAPTACION.Value := _tipo;
                        CDStempNUMERO_CUENTA.Value := Numero;
                        CDStempDIGITO_CUENTA.Value := Digito;
                        CDStempID_IDENTIFICACION.Value := FieldByName('ID_IDENTIFICACION').AsInteger;
@@ -288,11 +290,13 @@ begin
           edEstado.Text := 'Proceso de Liquidación Culminado con Exito!';
 
           // Continuación Ciclo _queryCaptacion
+          Aplicar;
           _queryCaptacion.Next;
 
         end;
         _transaction.Commit;
         CmdCerrar.Enabled := True;
+        Close;
 end;
 
 procedure TfrmLiquidacionYCausacionAuto.Aplicar;
@@ -376,6 +380,11 @@ begin
         else
           TCausado := CDStempTOTALCAUSADO.Value;
 
+
+        if (TInteres = 0) and (TRetefuente = 0) and (TReteCausado = 0) and (TReteInteres = 0) and (TCaptacion = 0) and (TCausado = 0) then
+        begin
+           exit;
+        end;
         {
         with IBConsulta do
         begin
@@ -446,34 +455,34 @@ begin
             SQL.Clear;
             SQL.Add('select * from CAP$CONTABLE where ');
             SQL.Add('ID_CAPTACION = :"ID_CAPTACION" and ID_CONTABLE = :"ID_CONTABLE"');
-            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CAPTACION').AsInteger := _tipo;
             ParamByName('ID_CONTABLE').AsInteger := 1;
             Open;
             Codigo_Retefuente := FieldByName('CODIGO_CONTABLE').AsString;
             Close;
-            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CAPTACION').AsInteger := _tipo;
             ParamByName('ID_CONTABLE').AsInteger := 2;
             Open;
             Codigo_Interes := FieldByName('CODIGO_CONTABLE').AsString;
             Close;
-            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CAPTACION').AsInteger := _tipo;
             ParamByName('ID_CONTABLE').AsInteger := 3;
             Open;
             Codigo_TresxMil := FieldByName('CODIGO_CONTABLE').AsString;
             Close;
-            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CAPTACION').AsInteger := _tipo;
             ParamByName('ID_CONTABLE').AsInteger := 5;
             Open;
             Codigo_Gasto := FieldByName('CODIGO_CONTABLE').AsString;
             Close;
-            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CAPTACION').AsInteger := _tipo;
             ParamByName('ID_CONTABLE').AsInteger := 30;
             Open;
             Codigo_Gasto3xmil := FieldByName('CODIGO_CONTABLE').AsString;
             Close;
             if certificado then begin
             Close;
-            ParamByName('ID_CAPTACION').AsInteger := tipo;
+            ParamByName('ID_CAPTACION').AsInteger := _tipo;
             ParamByName('ID_CONTABLE').AsInteger := 6;
             Open;
             Codigo_Causados := FieldByName('CODIGO_CONTABLE').AsString;
@@ -792,33 +801,13 @@ begin
         end;
 
 
-
+        CDStemp.Last;
+        CDStemp.First;
         //with IBConsulta do
         with CDStemp do
         begin
-          {
-           Close;
-           SQL.Clear;
-           SQL.Add('select count(*) as TOTAL from '+ Tabla);
-           try
-            Open;
-           except
-           end;
-           }
-           //Registros := FieldByName('TOTAL').AsInteger;
            Registros := CDStemp.RecordCount;
-          {
-           Close;
-           SQL.Clear;
-           SQL.Add('select * from '+ Tabla);
-           try
-            Open;
-           except
-           end;
-           }
-           First;
-
-           progreso2.Min  := 1;
+           progreso2.Min  := 0;
            progreso2.Max := Registros;
            progreso2.Position:= 1;
 
@@ -826,11 +815,6 @@ begin
            begin
               Application.ProcessMessages;
               progreso2.Position := RecNo;
-              {
-              frmProgreso.InfoLabel := 'Aplicando Interés a Captacion:' + IntToStr(DBLCBTipoCaptacion.KeyValue) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
-                                         Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
-                                         IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
-              }
               edEstado.Text := CDStempID_TIPO_CAPTACION.AsString + '-' + Format('%.2d',[CDStempID_AGENCIA.Value]) + '-' +
                                         Format('%.7d',[CDStempNUMERO_CUENTA.Value]) + '-' +
                                         IntToStr(CDStempDIGITO_CUENTA.Value);
@@ -1021,7 +1005,7 @@ begin
               IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION.AsInteger;
               IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA.AsInteger;
               IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := CDStempDIGITO_CUENTA.AsInteger;
-              IBPagar.ParamByName('FECHA_PAGO').AsDate := EdFecha.Date;
+              IBPagar.ParamByName('FECHA_PAGO').AsDate := _fechaProceso;
               try
                IBPagar.ExecQuery;
                if IBPagar.RowsAffected < 1 then
@@ -1049,7 +1033,7 @@ begin
               IBPagar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDStempID_TIPO_CAPTACION.AsInteger;
               IBPagar.ParamByName('NUMERO_CUENTA').AsInteger := CDStempNUMERO_CUENTA.AsInteger;
               IBPagar.ParamByName('DIGITO_CUENTA').AsInteger := CDStempDIGITO_CUENTA.AsInteger;
-              IBPagar.ParamByName('FECHA').AsDate := EdFecha.Date;
+              IBPagar.ParamByName('FECHA').AsDate := _fechaProceso;
               try
                IBPagar.ExecQuery;
                if IBPagar.RowsAffected < 1 then
@@ -1060,7 +1044,7 @@ begin
                end
               except
                 IBPagar.Transaction.Rollback;
-                MedEstado.Text := 'Error Actualizando Fecha Ultimo Pago Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
+                edEstado.Text := 'Error Actualizando Fecha Ultimo Pago Captación:' + Format('%.7d',[CDStempNUMERO_CUENTA.AsInteger]);
                 Exit;
               end;
 
@@ -1071,15 +1055,17 @@ begin
         end;
 
 // Marcar Dia Liquidado
-        with IBDias do
+        with _ibsql1 do
         begin
              Close;
              SQL.Clear;
-             SQL.Add('insert into "cap$diasliquidados"');
-             SQL.Add('values (:ID_TIPO_CAPTACION,:FECHA_LIQUIDADA,:HORA_LIQUIDADA,:LIQUIDADA)');
-             ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTipoCaptacion.KeyValue;
-             ParamByName('FECHA_LIQUIDADA').AsDate := EdFecha.Date;
-             ParamByName('HORA_LIQUIDADA').AsTime := Time;;
+             SQL.Add('INSERT INTO CAP$DIASLIQUIDADOS');
+             SQL.Add('values (:ID_TIPO_CAPTACION,:FECHA_LIQUIDADA,:HORA_LIQUIDADA,:TIPO_COMPROBANTE, :ID_COMPROBANTE, :LIQUIDADA)');
+             ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipo;
+             ParamByName('FECHA_LIQUIDADA').AsDate := _fechaProceso;
+             ParamByName('HORA_LIQUIDADA').AsTime := Time;
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
              ParamByName('LIQUIDADA').AsInteger := 1;
              try
                ExecQuery;
