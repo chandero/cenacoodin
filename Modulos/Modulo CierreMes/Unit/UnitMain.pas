@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, UnitDmGeneral;
+  Dialogs, Menus, UnitDmGeneral, ComCtrls, ExtCtrls;
 
 type
   TFrmCierreMes = class(TForm)
@@ -12,9 +12,12 @@ type
     Manuales1: TMenuItem;
     LiquidacindeIntersdeCaptacin1: TMenuItem;
     mnuAuto: TMenuItem;
+    Timer1: TTimer;
+    StatusBar1: TStatusBar;
     procedure LiquidacindeIntersdeCaptacin1Click(Sender: TObject);
     procedure mnuAutoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,7 +64,7 @@ begin
     Empresa := ReadString('EMPRESA','name','COOPSERVIR LTDA');
     Nit     := ReadString('EMPRESA','nit','890.505.363-6');
     Agencia := ReadInteger('EMPRESA','Agencia',1);
-    Ciudad  := ReadString('EMPRESA','city','OCAÑA N.S.');
+    Ciudad  := ReadString('EMPRESA','city','LA PLAYA DE BELEN N.S.');
   finally
     free;
   end;
@@ -72,6 +75,18 @@ begin
                 dmGeneral.IBDatabase1.Params.Values['PassWord'] := 'masterkey';
                 dmGeneral.IBDatabase1.Params.Values['sql_role_name'] := 'CAPTACIONES';
                 dmGeneral.IBDatabase1.Open;
+end;
+
+procedure TFrmCierreMes.Timer1Timer(Sender: TObject);
+var
+ _hora: String;
+begin
+  _hora := TimeToStr(Time);
+  StatusBar1.Panels[0].Text := _hora;
+  if (_hora = '23:59:00') then
+  begin
+     mnuAuto.Click;
+  end;
 end;
 
 end.

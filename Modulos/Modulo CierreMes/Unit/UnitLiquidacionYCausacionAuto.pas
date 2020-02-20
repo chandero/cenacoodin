@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, IBQuery, IBStoredProc, IB, DBClient, IBDatabase, IBCustomDataSet, IBSQL, DB,
-  StdCtrls, ComCtrls, Math, Buttons;
+  StdCtrls, ComCtrls, Math, Buttons, JvEdit, JvTypedEdit;
 
 type
   TfrmLiquidacionYCausacionAuto = class(TForm)
@@ -46,6 +46,9 @@ type
     IBDAuxiliar: TIBDataSet;
     progreso2: TProgressBar;
     IBPagar: TIBSQL;
+    edDefinitivo: TCheckBox;
+    Label3: TLabel;
+    edCantidad: TJvIntegerEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
@@ -70,12 +73,16 @@ var
   Tabla:string;
   Codigo_Captacion:string;
   Codigo_Captacion2:string;
+  Codigo_Captacion3:string;
   Codigo_Captacion4:string;
   TotalCapta2:Currency;
+  TotalCapta3:Currency;
   TotalCapta4:Currency;
   TotalCapta2R:Currency;
+  TotalCapta3R:Currency;
   TotalCapta4R:Currency;
   TotalCapta2RMes:Currency;
+  TotalCapta3RMes:Currency;
   TotalCapta4RMes:Currency;
   Comprobante :Integer;
   aporte,ahorro,certificado,programado:Boolean;
@@ -153,13 +160,35 @@ begin
 
         cada := 1;
 
+        _queryCaptacion.Close;
+        _queryCaptacion.SQL.Clear;
+        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION');
+        _queryCaptacion.ParamByName('ID_TIPO_CAPTACION').AsInteger := 2;
+        _queryCaptacion.Open;
+        Codigo_Captacion2 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
+
+        _queryCaptacion.Close;
+        _queryCaptacion.SQL.Clear;
+        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION');
+        _queryCaptacion.ParamByName('ID_TIPO_CAPTACION').AsInteger := 3;
+        _queryCaptacion.Open;
+        Codigo_Captacion3 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
+
+        _queryCaptacion.Close;
+        _queryCaptacion.SQL.Clear;
+        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION');
+        _queryCaptacion.ParamByName('ID_TIPO_CAPTACION').AsInteger := 4;
+        _queryCaptacion.Open;
+        Codigo_Captacion4 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
+
         _queryCaptacion.SQL.Clear;
         _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_FORMA = :ID_FORMA');
         _queryCaptacion.ParamByName('ID_FORMA').AsInteger := 2;
         _queryCaptacion.Open;
 
+        _query.Close;
         _query.SQL.Clear;
-        _query.SQL.Add('SELECT * FROM GEN$CONTROLLIQUIDACION g WHERE g.COLI_PRODUCTO = :ID_TIPO_CAPTACION AND g.COLI_FECHAPROCESADA = :FECHA_PROCESADA');
+        _query.SQL.Add('SELECT * FROM CAP$DIASLIQUIDADOS WHERE ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION AND FECHA_LIQUIDADA = :FECHA_LIQUIDADA');
 
         while not _queryCaptacion.Eof do
         begin
@@ -169,7 +198,7 @@ begin
           //Verificar si hay que liquidar o no el producto
           _query.Close;
           _query.ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipo;
-          _query.ParamByName('FECHA_PROCESADA').AsDate := _fechaProceso;
+          _query.ParamByName('FECHA_LIQUIDADA').AsDate := _fechaProceso;
           _query.Open;
           if _query.RecordCount > 0 then
           begin
@@ -178,6 +207,7 @@ begin
           MinCaptacion := 1;
           MaxCaptacion := 1;
           Application.ProcessMessages;
+          Codigo_Captacion := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
           FechaCorte := _fechaProceso;
           interes := _queryCaptacion.FieldByName('INTERES_EFECTIVO').AsFloat;
           SaldoMinimo := _queryCaptacion.FieldByName('SALDO_MINIMO_PARA_INTERES').AsCurrency;
@@ -277,6 +307,7 @@ begin
                          CDStemp.Cancel;
                      end;
                 end;
+                edCantidad.Value := CDStemp.RecordCount;
                 Next;
               end;
 
@@ -290,13 +321,16 @@ begin
           edEstado.Text := 'Proceso de Liquidación Culminado con Exito!';
 
           // Continuación Ciclo _queryCaptacion
-          Aplicar;
+          if edDefinitivo.Checked then
+            Aplicar;
           _queryCaptacion.Next;
 
         end;
         _transaction.Commit;
         CmdCerrar.Enabled := True;
-        Close;
+
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+        modalresult := mrCancel;
 end;
 
 procedure TfrmLiquidacionYCausacionAuto.Aplicar;
@@ -581,6 +615,25 @@ begin
               FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
               Post;
              end;// if TotalCapta2R
+            if TotalCapta3R > 0 then
+             begin
+              Append;
+              FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+              FieldByName('ID_AGENCIA').AsInteger := Agencia;
+              FieldByName('FECHA').AsDateTime := _fechaProceso;
+              FieldByName('CODIGO').AsString := Codigo_Captacion3;
+              FieldByName('DEBITO').AsCurrency := TotalCapta3R;
+              FieldByName('CREDITO').AsCurrency := 0;
+              FieldByName('ID_CUENTA').AsInteger :=0;
+              FieldByName('ID_COLOCACION').AsString := '';
+              FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+              FieldByName('ID_PERSONA').AsString := '';
+              FieldByName('MONTO_RETENCION').AsCurrency := 0;
+              FieldByName('TASA_RETENCION').AsFloat := 0;
+              FieldByName('ESTADOAUX').AsString := 'O';
+              FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+              Post;
+             end;// if TotalCapta3R
             if TotalCapta4R > 0 then
              begin
               Append;
@@ -642,6 +695,25 @@ begin
               FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
               Post;
              end;// if TotalCapta2
+            if TotalCapta3 > 0 then
+             begin
+              Append;
+              FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+              FieldByName('ID_AGENCIA').AsInteger := Agencia;
+              FieldByName('FECHA').AsDateTime := _fechaProceso;
+              FieldByName('CODIGO').AsString := Codigo_Captacion3;
+              FieldByName('DEBITO').AsCurrency := 0;
+              FieldByName('CREDITO').AsCurrency := TotalCapta3;
+              FieldByName('ID_CUENTA').AsInteger :=0;
+              FieldByName('ID_COLOCACION').AsString := '';
+              FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+              FieldByName('ID_PERSONA').AsString := '';
+              FieldByName('MONTO_RETENCION').AsCurrency := 0;
+              FieldByName('TASA_RETENCION').AsFloat := 0;
+              FieldByName('ESTADOAUX').AsString := 'O';
+              FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+              Post;
+             end;// if TotalCapta3
             if TotalCapta4 > 0 then
              begin
               Append;

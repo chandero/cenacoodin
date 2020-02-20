@@ -1,8 +1,8 @@
 object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
-  Left = 477
-  Top = 281
-  Width = 550
-  Height = 181
+  Left = 263
+  Top = 275
+  Width = 572
+  Height = 210
   Caption = 'Liquidaci'#243'n Autom'#225'tica de Intereses'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -30,6 +30,13 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
     Height = 13
     Caption = 'Estado del Proceso:'
   end
+  object Label3: TLabel
+    Left = 8
+    Top = 65
+    Width = 174
+    Height = 13
+    Caption = 'Cantidad de Cuentas a Pagar Inter'#233's'
+  end
   object edCaptacion: TEdit
     Left = 96
     Top = 5
@@ -47,7 +54,7 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
   end
   object progreso: TProgressBar
     Left = 8
-    Top = 64
+    Top = 88
     Width = 529
     Height = 17
     Min = 0
@@ -56,7 +63,7 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
   end
   object CmdCerrar: TBitBtn
     Left = 464
-    Top = 120
+    Top = 134
     Width = 75
     Height = 25
     Caption = 'Cerrar'
@@ -65,12 +72,37 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
   end
   object progreso2: TProgressBar
     Left = 8
-    Top = 88
+    Top = 112
     Width = 529
     Height = 17
     Min = 0
     Max = 100
     TabOrder = 4
+  end
+  object edDefinitivo: TCheckBox
+    Left = 8
+    Top = 136
+    Width = 97
+    Height = 17
+    Caption = 'Definitivo'
+    Checked = True
+    State = cbChecked
+    TabOrder = 5
+  end
+  object edCantidad: TJvIntegerEdit
+    Left = 192
+    Top = 63
+    Width = 89
+    Height = 21
+    Alignment = taRightJustify
+    ReadOnly = True
+    TabOrder = 6
+    Value = 0
+    MaxValue = 0
+    MinValue = 0
+    HasMaxValue = False
+    HasMinValue = False
+    ClipBoardCommands = [caCopy]
   end
   object IBTotalCaptaciones: TIBStoredProc
     Database = dmGeneral.IBDatabase1
