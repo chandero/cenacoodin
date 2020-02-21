@@ -617,7 +617,7 @@ end;
 procedure TfrmSaldarCaptacion.EdNumeroContractualExit(Sender: TObject);
 var
   _fechaApertura, _fechaVencimiento: TDate;
-  _plazo: Integer;
+  _plazo, _abonos: Integer;
   _tiempoUsado: Integer;
   _cuota, _porcentaje: Double;
   _bonificacion: Currency;
@@ -711,18 +711,17 @@ begin
                  // Buscar Ultimo Abono Realizado
                  IBQuery1.Close;
                  IBQuery1.SQL.Clear;
-                 IBQuery1.SQL.Add('SELECT FIRST 1 * FROM "cap$extracto" e WHERE ');
+                 IBQuery1.SQL.Add('SELECT COUNT(*) AS TOTAL FROM "cap$extracto" e WHERE ');
                  IBQuery1.SQL.Add('e.ID_AGENCIA = :"ID_AGENCIA" and e.ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" and ');
-                 IBQuery1.SQL.Add('e.NUMERO_CUENTA = :"NUMERO_CUENTA" and e.DIGITO_CUENTA = :"DIGITO_CUENTA" ');
-                 IBQuery1.SQL.Add('ORDER BY e.FECHA_MOVIMIENTO DESC');
+                 IBQuery1.SQL.Add('e.NUMERO_CUENTA = :"NUMERO_CUENTA" and e.DIGITO_CUENTA = :"DIGITO_CUENTA"');
                  IBQuery1.ParamByName('ID_AGENCIA').AsInteger := Agencia;
                  IBQuery1.ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
                  IBQuery1.ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
                  IBQuery1.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoContractual.Caption);
                  IBQuery1.Open;
-                 _fechaUltimoAbono := IBQuery1.FieldByName('FECHA_MOVIMIENTO').AsDateTime;
+                 _abonos := IBQuery1.FieldByName('TOTAL').AsInteger;
                  // Evaluar Bonificación
-                 _tiempoUsado := DiasEntre(FieldByName('FECHA_APERTURA').AsDate, _fechaUltimoAbono);
+                 _tiempoUsado := _abonos * 30;
                  IBQuery1.Close;
                  IBQuery1.SQL.Clear;
                  IBQuery1.SQL.Add('SELECT FIRST 1 a.ID_PLAN, a.DESCRIPCION, a.PLAZO, a.CUOTAS, a.ACTIVO FROM "cap$tiposplancontractual" a WHERE :TIEMPO >= a.PLAZO ORDER BY a.PLAZO DESC');
