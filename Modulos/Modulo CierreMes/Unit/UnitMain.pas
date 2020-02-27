@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Menus, UnitDmGeneral, ComCtrls, ExtCtrls;
+  Dialogs, Menus, UnitDmGeneral, ComCtrls, ExtCtrls, StdCtrls, Mask,
+  Buttons, ToggleButton, DateUtils;
 
 type
   TFrmCierreMes = class(TForm)
@@ -14,10 +15,23 @@ type
     mnuAuto: TMenuItem;
     Timer1: TTimer;
     StatusBar1: TStatusBar;
+    Label1: TLabel;
+    edHoraLiquidacion: TMaskEdit;
+    btnHoraLiquidacion: TToggleButton;
+    CausacinyProvisindeCartera1: TMenuItem;
+    mnuCausacionAuto: TMenuItem;
+    Label2: TLabel;
+    edHoraCausacion: TMaskEdit;
+    btnHoraCausacion: TToggleButton;
     procedure LiquidacindeIntersdeCaptacin1Click(Sender: TObject);
     procedure mnuAutoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure btnEditarHoraLiquidacionClick(Sender: TObject);
+    procedure btnHoraLiquidacionClick(Sender: TObject);
+    procedure CausacinyProvisindeCartera1Click(Sender: TObject);
+    procedure mnuCausacionAutoClick(Sender: TObject);
+    procedure btnHoraCausacionClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,7 +45,7 @@ implementation
 
 {$R *.dfm}
 
-uses IniFiles, UnitLiquidacionInteresesCaptacion, UnitLiquidacionYCausacionAuto, UnitGlobales;
+uses IniFiles, UnitLiquidacionInteresesCaptacion, UnitLiquidacionYCausacionAuto, UnitGlobales, UnitCausacionCarteraDiaria, UnitCausacionCarteraDiariaAuto;
 
 procedure TFrmCierreMes.LiquidacindeIntersdeCaptacin1Click(
   Sender: TObject);
@@ -80,13 +94,63 @@ end;
 procedure TFrmCierreMes.Timer1Timer(Sender: TObject);
 var
  _hora: String;
+ _fecha: TDateTime;
+ _hoy: TDate;
 begin
   _hora := TimeToStr(Time);
   StatusBar1.Panels[0].Text := _hora;
-  if (_hora = '23:59:00') then
+  if (_hora = edHoraLiquidacion.Text) then
   begin
      mnuAuto.Click;
   end;
+
+  _hoy := fFechaActual;
+  TryEncodeDate(YearOf(_hoy),MonthOf(_hoy),DaysInAMonth(YearOf(_hoy),MonthOf(_hoy)),_fecha);
+  if (_hoy = _fecha) then
+  begin
+     if (_hora = edHoraCausacion.Text) then
+     begin
+       mnuCausacionAuto.Click;
+     end;
+  end;
+
+end;
+
+procedure TFrmCierreMes.btnEditarHoraLiquidacionClick(Sender: TObject);
+begin
+        edHoraLiquidacion.ReadOnly := False;
+end;
+
+procedure TFrmCierreMes.btnHoraLiquidacionClick(Sender: TObject);
+begin
+        if (btnHoraLiquidacion.Checked) then
+           edHoraLiquidacion.ReadOnly := False
+        else
+           edHoraLiquidacion.ReadOnly := True;
+end;
+
+procedure TFrmCierreMes.CausacinyProvisindeCartera1Click(Sender: TObject);
+var
+  frmCausacionCarteraDiaria : TfrmCausacionCarteraDiaria;
+begin
+       frmCausacionCarteraDiaria := TfrmCausacionCarteraDiaria.Create(self);
+       frmCausacionCarteraDiaria.ShowModal;
+end;
+
+procedure TFrmCierreMes.mnuCausacionAutoClick(Sender: TObject);
+var
+  frmCausacionCarteraDiariaAuto : TfrmCausacionCarteraDiariaAuto;
+begin
+       frmCausacionCarteraDiariaAuto := TfrmCausacionCarteraDiariaAuto.Create(self);
+       frmCausacionCarteraDiariaAuto.ShowModal;
+end;
+
+procedure TFrmCierreMes.btnHoraCausacionClick(Sender: TObject);
+begin
+        if (btnHoraCausacion.Checked) then
+           edHoraCausacion.ReadOnly := False
+        else
+           edHoraCausacion.ReadOnly := True;
 end;
 
 end.

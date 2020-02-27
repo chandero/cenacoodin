@@ -201,6 +201,10 @@ object frmMain: TfrmMain
           Caption = 'Observaci'#243'n Seccion Creditos'
           OnClick = ObservacinSeccionCreditos1Click
         end
+        object EditarEstudio1: TMenuItem
+          Caption = 'Editar Entrevista'
+          OnClick = EditarEstudio1Click
+        end
       end
       object N3: TMenuItem
         Caption = '-'

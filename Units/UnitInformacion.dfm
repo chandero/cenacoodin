@@ -32,7 +32,7 @@ object FrmInformacion: TFrmInformacion
     Top = 0
     Width = 630
     Height = 481
-    ActivePage = TSolicitante
+    ActivePage = Treferencias
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
@@ -41,7 +41,7 @@ object FrmInformacion: TFrmInformacion
     Images = ImageList1
     ParentFont = False
     Style = tsFlatButtons
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TSolicitante: TTabSheet
       Caption = '&Informacion &Solicitante'

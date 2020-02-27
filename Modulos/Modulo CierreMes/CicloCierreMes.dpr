@@ -12,7 +12,10 @@ uses
   UnitdmColocacion in '\\VBOXSVR\cena\cenacoodin\Units\UnitdmColocacion.pas' {dmColocacion: TDataModule},
   UnitGlobales in '\\VBOXSVR\cena\cenacoodin\Globales\UnitGlobales.pas',
   UnitGlobalesCol in '\\VBOXSVR\cena\cenacoodin\Globales\UnitGlobalesCol.pas',
-  UnitLiquidacionYCausacionAuto in '\\VBOXSVR\cena\cenacoodin\Modulos\Modulo CierreMes\Unit\UnitLiquidacionYCausacionAuto.pas' {frmLiquidacionYCausacionAuto};
+  UnitLiquidacionYCausacionAuto in '\\VBOXSVR\cena\cenacoodin\Modulos\Modulo CierreMes\Unit\UnitLiquidacionYCausacionAuto.pas' {frmLiquidacionYCausacionAuto},
+  UnitCausacionCarteraDiaria in '\\VBOXSVR\cena\cenacoodin\Units\UnitCausacionCarteraDiaria.pas' {frmCausacionCarteraDiaria},
+  UnitFechaAEvaluar in '\\VBOXSVR\cena\cenacoodin\Modulos\Modulo Cartera\Unit\UnitFechaAEvaluar.pas' {frmFechas},
+  UnitCausacionCarteraDiariaAuto in '\\VBOXSVR\cena\cenacoodin\Modulos\Modulo CierreMes\Unit\UnitCausacionCarteraDiariaAuto.pas' {frmCausacionCarteraDiariaAuto};
 
 {$R *.res}
 
@@ -21,5 +24,7 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmLiquidacionCaptacion, dmLiquidacionCaptacion);
   Application.CreateForm(TFrmCierreMes, FrmCierreMes);
+  Application.CreateForm(TfrmCausacionCarteraDiaria, frmCausacionCarteraDiaria);
+  Application.CreateForm(TfrmFechas, frmFechas);
   Application.Run;
 end.

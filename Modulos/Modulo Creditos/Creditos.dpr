@@ -136,7 +136,8 @@ uses
   UnitGuardaImagen in '..\..\Units\UnitGuardaImagen.pas',
   UnitConsultaProductosAg in '..\..\Units\UnitConsultaProductosAg.pas' {frmConsultaProductosAg},
   UnitPagarePrueba in '..\..\Units\UnitPagarePrueba.pas' {frmPagarePrueba},
-  UnitRestructurar in 'Unit\UnitRestructurar.pas' {frmRestructurar};
+  UnitRestructurar in 'Unit\UnitRestructurar.pas' {frmRestructurar},
+  UnitEditarEstudioSolicitud in 'Unit\UnitEditarEstudioSolicitud.pas' {frmEditarEstudioSolicitud};
 
 {$R *.res}
 
@@ -145,5 +146,6 @@ begin
   Application.Title := 'Creditos';
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmEditarEstudioSolicitud, frmEditarEstudioSolicitud);
   Application.Run;
 end.

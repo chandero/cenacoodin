@@ -159,6 +159,7 @@ type
     RestructurarColocacin1: TMenuItem;
     N20: TMenuItem;
     N21: TMenuItem;
+    EditarEstudio1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -246,6 +247,7 @@ type
     procedure VerificarHuella1Click(Sender: TObject);
     procedure ConsultaAgencias1Click(Sender: TObject);
     procedure RestructurarColocacin1Click(Sender: TObject);
+    procedure EditarEstudio1Click(Sender: TObject);
 //    procedure visarcolocacion1Click(Sender: TObject);
   private
     { Private declarations }
@@ -299,8 +301,9 @@ uses unitLogin, unitdmGeneral, unitdmColocacion, IniFiles,
      UnitSolicituRemota, UnitCambios, UnitImpresion, UnitEndosoPagare,
      UnitDescargaPagare, UnitReporteEndoso,UnitExencionGMF, UnitInformeCreditosBancoldex,
      UnitInformeSolicitudesBancoldex,UnitAgregarCreditosBancoldex,
-  UnitDesembolsoTmp, UnitVisarDesembolsoTmp, UnitPlanillaConsolidada,
-  UnitHabilitaFianza, UnitValidarHuellaAsociado,UnitConsultaProductosAg, UnitRestructurar;
+     UnitDesembolsoTmp, UnitVisarDesembolsoTmp, UnitPlanillaConsolidada,
+     UnitHabilitaFianza, UnitValidarHuellaAsociado,UnitConsultaProductosAg, UnitRestructurar,
+     UnitEditarEstudioSolicitud;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1621,6 +1624,14 @@ var
 begin
         frmRestructurar := TfrmRestructurar.Create(self);
         frmRestructurar.ShowModal;
+end;
+
+procedure TfrmMain.EditarEstudio1Click(Sender: TObject);
+var
+  frmEditarEstudioSolicitud : TfrmEditarEstudioSolicitud;
+begin
+  frmEditarEstudioSolicitud := TfrmEditarEstudioSolicitud.Create(self);
+  frmEditarEstudioSolicitud.ShowModal;
 end;
 
 end.

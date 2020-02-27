@@ -202,6 +202,7 @@ begin
           _query.Open;
           if _query.RecordCount > 0 then
           begin
+            _queryCaptacion.Next;
             Continue;
           end;
           MinCaptacion := 1;
@@ -377,6 +378,10 @@ begin
 
         _queryConsulta.Transaction := _transactionConsulta;
         _ibsql1.Transaction := _transactionComprobante;
+
+        IBDComprobante.Transaction := _transactionComprobante;
+        IBDAuxiliar.Transaction := _transactionComprobante;
+        IBPagar.Transaction := _transactionComprobante;
 
         _transactionConsulta.StartTransaction;
 
@@ -1146,7 +1151,7 @@ begin
              end;
         end;
 // Marca Finalizada
-
+        _ibsql1.Transaction.Commit;
         edEstado.Text := 'Comprobante contable generado con exito!';
 
 end;

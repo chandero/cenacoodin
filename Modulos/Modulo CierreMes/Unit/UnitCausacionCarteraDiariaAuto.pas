@@ -1,4 +1,4 @@
-unit UnitCausacionCarteraDiaria;
+unit UnitCausacionCarteraDiariaAuto;
 
 interface
 
@@ -9,7 +9,7 @@ uses
   pr_Common, pr_TxClasses, IBDatabase, DBClient, Provider;
 
 type
-  TfrmCausacionCarteraDiaria = class(TForm)
+  TfrmCausacionCarteraDiariaAuto = class(TForm)
     Panel2: TPanel;
     Panel3: TPanel;
     RGProceso: TRadioGroup;
@@ -147,7 +147,7 @@ type
   end;
 
 var
-  frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria;
+  frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto;
   dmColocacion: TdmColocacion;
 // Variables
     Total,Dias,DiasCorrientes,DiasContingencia,DiasANT,DiasCXC,DiasCON :Integer;
@@ -181,14 +181,15 @@ uses UnitGlobales,UnitGlobalesCol, UnitFechaAEvaluar,
 var frmPantallaProgreso:TfrmProgreso;
 
 
-procedure TfrmCausacionCarteraDiaria.FormCreate(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.FormCreate(Sender: TObject);
 begin
         dmColocacion := TdmColocacion.Create(self);
 end;
 
 
-procedure TfrmCausacionCarteraDiaria.FormShow(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.FormShow(Sender: TObject);
 var I:Integer;
+    Fecha: TDateTime;
 begin
         with IBSQL1 do begin
          if Transaction.InTransaction then
@@ -211,17 +212,26 @@ begin
            raise;
          end;
         end;
-        EdFechaCorte.Date := Date;
+        EdFechaCorte.Date := fFechaActual;
+        if MonthOf(EdFechaCorte.Date) <> 2 then
+        begin
+            if TryEncodeDate(YearOf(EdFechaCorte.Date),MonthOf(EdFechaCorte.Date),30,Fecha) then EdFechaCorte.Date := Fecha;
+        end
+        else
+            if TryEncodeDate(YearOf(EdFechaCorte.Date),MonthOf(EdFechaCorte.Date),DaysInAMonth(YearOf(EdFechaCorte.Date),MonthOf(EdFechaCorte.Date)),Fecha) then EdFechaCorte.Date := Fecha;
+        
         _diferencia := 0;
+
+        CmdProcesar.Click;
 end;
 
 
-procedure TfrmCausacionCarteraDiaria.CmdCerrarClick(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.CmdCerrarClick(Sender: TObject);
 begin
         Close;
 end;
 
-procedure TfrmCausacionCarteraDiaria.CmdProcesarClick(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.CmdProcesarClick(Sender: TObject);
 begin
         _iAno := YearOf(EdFechaCorte.Date);
         _dfechaHoy := EdFechaCorte.Date;
@@ -231,10 +241,14 @@ begin
         CmdProcesar.Enabled := False;
         Application.ProcessMessages;
         PrimerPasoCausacion;
+        Application.ProcessMessages;
 //        BtnCorregirMora.Click;
         SegundoPasoCausacion;
+        Application.ProcessMessages;
         GarantiasReales;
+        Application.ProcessMessages;
         CalculoProvision;
+        Application.ProcessMessages;
         if RGProceso.ItemIndex = 1 then begin
            {if IBSQL9.Transaction.InTransaction then
              IBSQL9.Transaction.Rollback;
@@ -245,13 +259,16 @@ begin
            IBSQL9.ExecQuery;
            IBSQL9.Transaction.Commit;}
            TercerPasoCausacion;
+           Application.ProcessMessages;
            CmdAplicar.Enabled := True;
+           CmdAplicar.Click;           
         end;
         CmdImprimir.Enabled := True;
         CmdImprimirProvision.Enabled := True;
+
 end;
 
-procedure TfrmCausacionCarteraDiaria.EvaluarCortoPlazo;
+procedure TfrmCausacionCarteraDiariaAuto.EvaluarCortoPlazo;
 begin
               if CortoPlazo < 1 then begin
                  CortoPlazo := Saldo;
@@ -282,12 +299,12 @@ begin
 end;
 
 
-procedure TfrmCausacionCarteraDiaria.FormDestroy(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.FormDestroy(Sender: TObject);
 begin
         dmColocacion.Free;
 end;
 
-function TfrmCausacionCarteraDiaria.EvaluarEdad(Clasificacion,
+function TfrmCausacionCarteraDiariaAuto.EvaluarEdad(Clasificacion,
   Garantia,Dias: Integer): string;
 begin
         with IBQVarios do begin
@@ -712,7 +729,7 @@ begin
           frmPantallaProgreso.Cerrar;
 end;
 }
-function TfrmCausacionCarteraDiaria.CalculoAportes(id: integer;
+function TfrmCausacionCarteraDiariaAuto.CalculoAportes(id: integer;
   pr: string): currency;
 begin
 // Calculo Aportes
@@ -760,7 +777,7 @@ begin
             Result := Saldo;
 end;
 
-procedure TfrmCausacionCarteraDiaria.CmdImprimirClick(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.CmdImprimirClick(Sender: TObject);
 begin
           if IBQuery1.Transaction.InTransaction then
              IBQuery1.Transaction.Rollback;
@@ -1012,7 +1029,7 @@ begin
           IBQuery1.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.CmdAplicarClick(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.CmdAplicarClick(Sender: TObject);
 var Total:Integer;
     I, WaitCount, Tries,Consecutivo:Integer;
     RecordLocked:Boolean;
@@ -1161,11 +1178,12 @@ begin
 
            IBQuery2.Transaction.Commit;
          end;
-         MessageDlg('Calificaci?n Aplicada con Exito!',mtInformation,[mbok],0);
+         // MessageDlg('Calificaci?n Aplicada con Exito!',mtInformation,[mbok],0);
          CmdComprobante.Enabled := True;
+         CmdComprobante.Click;
 end;
 
-procedure TfrmCausacionCarteraDiaria.EdFechaCorteChange(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.EdFechaCorteChange(Sender: TObject);
 var Fecha:TDateTime;
 begin
         if MonthOf(EdFechaCorte.Date) <> 2 then
@@ -1247,7 +1265,7 @@ begin
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.CmdComprobanteClick(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.CmdComprobanteClick(Sender: TObject);
 begin
         CmdComprobante.Enabled := False;
         Application.ProcessMessages;
@@ -1270,7 +1288,7 @@ begin
 
 
 
-
+        {
         with IBAuxiliar do begin
          if  Transaction.InTransaction then
             Transaction.Rollback;
@@ -1284,16 +1302,18 @@ begin
           ReporteCom.Variables.ByName['EMPRESA'].AsString := Empresa;
           ReporteCom.Variables.ByName['NIT'].AsString := Nit;
           if ReporteCom.PrepareReport then
-             ReporteCom.PreviewPreparedReport(True);
+            ReporteCom.PreviewPreparedReport(True);
          except
           MessageDlg('Error al generar el reporte',mtError,[mbcancel],0);
          end;
          Transaction.Commit;
         end;
+        }
+        CmdCerrar.Click;
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.PrimerPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.PrimerPasoComprobante;
 var AR : Plist;
     CortoActual,LargoActual:Currency;
     CodigoCorto,CodigoLargo:string;
@@ -1506,7 +1526,7 @@ begin
                IBSQL2.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.ActualizarGrid;
+procedure TfrmCausacionCarteraDiariaAuto.ActualizarGrid;
 var
 i:integer;
 ARecord: PList;
@@ -1550,7 +1570,7 @@ begin
     Application.ProcessMessages;
 end;
 
-procedure TfrmCausacionCarteraDiaria.SegundoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.SegundoPasoComprobante;
 var AR:PList;
     Codigo:string;
     Valor:Currency;
@@ -1826,7 +1846,7 @@ begin
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.TercerPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.TercerPasoComprobante;
 var AR:PList;
     Valor:Currency;
     Codigo:string;
@@ -2061,7 +2081,7 @@ begin
                 IBSQL2.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.CuartoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.CuartoPasoComprobante;
 var AR:PList;
     Valor:Currency;
     Codigo:string;
@@ -2296,7 +2316,7 @@ begin
                 IBSQL3.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.QuintoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.QuintoPasoComprobante;
 var AR:PList;
     Valor:Currency;
     Codigo:string;
@@ -2653,7 +2673,7 @@ begin
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.SextoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.SextoPasoComprobante;
 var AR:PList;
     Valor:Currency;
     Codigo:string;
@@ -2797,7 +2817,7 @@ begin
               IBSQL3.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.SeptimoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.SeptimoPasoComprobante;
 var AR:PList;
     Valor:Currency;
     Codigo:string;
@@ -3012,7 +3032,7 @@ begin
                 IBSQL3.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.OctavoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.OctavoPasoComprobante;
 var AR:PList;
     Valor:Currency;
     Codigo:string;
@@ -3175,7 +3195,7 @@ begin
                 IBSQL3.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.PrimerPasoCausacion;
+procedure TfrmCausacionCarteraDiariaAuto.PrimerPasoCausacion;
 var I :Integer;
 vFechaGracia:TDate;
 DiasMora:Integer;
@@ -3460,7 +3480,7 @@ begin
             Application.ProcessMessages;
 end;
 
-procedure TfrmCausacionCarteraDiaria.SegundoPasoCausacion;
+procedure TfrmCausacionCarteraDiariaAuto.SegundoPasoCausacion;
 var id_ant:Integer;
     pr_ant:string;
     edad_act:string;
@@ -3870,7 +3890,7 @@ begin
           frmPantallaProgreso.Cerrar;
 end;
 
-procedure TfrmCausacionCarteraDiaria.NovenoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.NovenoPasoComprobante;
 var AR:PList;
    i:Integer;
    Valor,Valor1:Currency;
@@ -3930,7 +3950,7 @@ begin
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.DecimoPasoComprobante;
+procedure TfrmCausacionCarteraDiariaAuto.DecimoPasoComprobante;
 var I:Integer;
     TotalDebito:Currency;
     TotalCredito:Currency;
@@ -4021,7 +4041,7 @@ begin
        end;
 end;
 
-procedure TfrmCausacionCarteraDiaria.TercerPasoCausacion;
+procedure TfrmCausacionCarteraDiariaAuto.TercerPasoCausacion;
 begin
         case RGProceso.ItemIndex of
          1: begin
@@ -4060,13 +4080,13 @@ begin
               end;
 
               Transaction.Commit;
-              MessageDlg('Traslado de Valores Culminado',mtInformation,[mbok],0);
+              // MessageDlg('Traslado de Valores Culminado',mtInformation,[mbok],0);
              end;
            end;
          end;
 end;
 
-procedure TfrmCausacionCarteraDiaria.CmdImprimirProvisionClick(
+procedure TfrmCausacionCarteraDiariaAuto.CmdImprimirProvisionClick(
   Sender: TObject);
 begin
      if RGProceso.ItemIndex = 1 then begin
@@ -4221,7 +4241,7 @@ begin
      IBQuery1.Transaction.Commit;
 end;
 
-function TfrmCausacionCarteraDiaria.BuscoTasaAnt(Ag: integer;
+function TfrmCausacionCarteraDiariaAuto.BuscoTasaAnt(Ag: integer;
   Colocacion: string;FechaIntereses:TDate): Single;
 begin
         with IBSQL5 do begin
@@ -4260,7 +4280,7 @@ begin
         end;
 end;
 
-procedure TfrmCausacionCarteraDiaria.PrimerPC;
+procedure TfrmCausacionCarteraDiariaAuto.PrimerPC;
 var AR : Plist;
     CortoActual,LargoActual:Currency;
     CodigoCorto,CodigoLargo:string;
@@ -4439,7 +4459,7 @@ begin
                IBSQL2.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.SegundoPC;
+procedure TfrmCausacionCarteraDiariaAuto.SegundoPC;
 var AR:PList;
     Codigo:string;
     Valor,ValorDeuda:Currency;
@@ -4696,7 +4716,7 @@ begin
                verificarCuadre('Ajustar Calificacion');
 end;
 
-procedure TfrmCausacionCarteraDiaria.TercerPC;
+procedure TfrmCausacionCarteraDiariaAuto.TercerPC;
 var AR:PList;
     Valor,ValorCausado:Currency;
     Codigo:string;
@@ -4951,7 +4971,7 @@ begin
                 verificarCuadre('Causacion de Intereses');                
 end;
 
-procedure TfrmCausacionCarteraDiaria.CuartoPC;
+procedure TfrmCausacionCarteraDiariaAuto.CuartoPC;
 var AR:PList;
     Valor,ValorProvision, ValorE:Currency;
     Codigo,CodigoI,CodigoE:string;
@@ -5402,7 +5422,7 @@ begin
                 verificarCuadre('Provision de Capital de Colocaciones');
 end;
 
-procedure TfrmCausacionCarteraDiaria.QuintoPC;
+procedure TfrmCausacionCarteraDiariaAuto.QuintoPC;
 var AR:PList;
     Valor,ValorProvision:Currency;
     Codigo:string;
@@ -5822,7 +5842,7 @@ begin
                 verificarCuadre('Provision de Interes de Colocaciones y Costas Judiciales');
 end;
 
-procedure TfrmCausacionCarteraDiaria.SextoPC;
+procedure TfrmCausacionCarteraDiariaAuto.SextoPC;
 var AR:PList;
     Valor:Currency;
     Codigo:string;
@@ -5957,7 +5977,7 @@ begin
               verificarCuadre('Provision General');              
 end;
 
-procedure TfrmCausacionCarteraDiaria.SeptimoPC;
+procedure TfrmCausacionCarteraDiariaAuto.SeptimoPC;
 var AR:PList;
     Valor,ValorAnticipado:Currency;
     Codigo:string;
@@ -6245,7 +6265,7 @@ begin
                 verificarCuadre('Traslado de Intereses Anticipados');
 end;
 
-procedure TfrmCausacionCarteraDiaria.OctavoPC;
+procedure TfrmCausacionCarteraDiariaAuto.OctavoPC;
 var AR:PList;
     Valor,ValorContingencia:Currency;
     Codigo:string;
@@ -6420,7 +6440,7 @@ begin
                 verificarCuadre('Contingencias');                
 end;
 
-procedure TfrmCausacionCarteraDiaria.NovenoPC;
+procedure TfrmCausacionCarteraDiariaAuto.NovenoPC;
 var AR:PList;
    i:Integer;
    Valor,Valor1:Currency;
@@ -6480,7 +6500,7 @@ begin
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.DecimoPC;
+procedure TfrmCausacionCarteraDiariaAuto.DecimoPC;
 var I:Integer;
     TotalDebito:Currency;
     TotalCredito:Currency;
@@ -6583,7 +6603,7 @@ begin
        end;
 end;
 
-procedure TfrmCausacionCarteraDiaria.ContabilizarCPLP;
+procedure TfrmCausacionCarteraDiariaAuto.ContabilizarCPLP;
 var AR : Plist;
     Aplica :Boolean;
     CodigoCorto,CodigoLargo:string;
@@ -6744,7 +6764,7 @@ begin
                IBSQL2.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.ContabilizarKC;
+procedure TfrmCausacionCarteraDiariaAuto.ContabilizarKC;
 var AR:PList;
     Codigo:string;
     Valor,ValorDeuda:Currency;
@@ -7001,7 +7021,7 @@ begin
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.ContabilizarCau;
+procedure TfrmCausacionCarteraDiariaAuto.ContabilizarCau;
 var AR:PList;
     Valor,ValorCausado:Currency;
     Codigo:string;
@@ -7252,7 +7272,7 @@ begin
 end;
 
 
-procedure TfrmCausacionCarteraDiaria.ContabilizarR;
+procedure TfrmCausacionCarteraDiariaAuto.ContabilizarR;
 var AR : Plist;
     Aplica :Boolean;
     CortoActual,LargoActual:Currency;
@@ -7416,7 +7436,7 @@ begin
                IBSQL2.Transaction.Commit;
 end;
 
-procedure TfrmCausacionCarteraDiaria.DescuentoGarReal;
+procedure TfrmCausacionCarteraDiariaAuto.DescuentoGarReal;
 var
     Capital,Interes,PCostas:Currency;
     PCapDiaAnt,PIntDiaAnt,PCosDiaAnt:Currency;
@@ -7638,7 +7658,7 @@ begin
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.GarantiasReales;
+procedure TfrmCausacionCarteraDiariaAuto.GarantiasReales;
 var
     Capital,Interes,PCostas:Currency;
     edad_ant:string;
@@ -7790,7 +7810,7 @@ begin
           end; //Fin de With inicial
 end;
 
-procedure TfrmCausacionCarteraDiaria.CalculoProvision;
+procedure TfrmCausacionCarteraDiariaAuto.CalculoProvision;
 var
     Deuda:Currency;
     PCapDiaAnt,PIntDiaAnt,PCosDiaAnt:Currency;
@@ -8262,11 +8282,11 @@ begin
          end; //fin with Principal IBQuery1
          frmPantallaProgreso.Cerrar;
          IBSQL3.Transaction.Commit;
-         MessageDlg('Provision Terminada con Exito!!',mtInformation,[mbok],0);
+        // MessageDlg('Provision Terminada con Exito!!',mtInformation,[mbok],0);
        // Fin Actualizaci?n
 end;
 
-procedure TfrmCausacionCarteraDiaria.Button1Click(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.Button1Click(Sender: TObject);
 var
 vFechaGracia:TDate;
 DiasMora:Integer;
@@ -8380,11 +8400,11 @@ begin
             end; // while
             IBQuery1.Transaction.Commit;
             IBQuery1.Close;
-            MessageDlg('Proceso Anticipados Terminado con Exito',mtinformation,[mbok],0);
+            // MessageDlg('Proceso Anticipados Terminado con Exito',mtinformation,[mbok],0);
 
 end;
 
-procedure TfrmCausacionCarteraDiaria.BtnCorregirMoraClick(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.BtnCorregirMoraClick(Sender: TObject);
 var
 vFechaGracia:TDate;
 DiasMora:Integer;
@@ -8579,10 +8599,10 @@ begin
            CmdAplicar.Enabled := True;
         end;                     }
 
-          MessageDlg('Proceso Correci?n de Mora Aplicado con Exito',mtinformation,[mbok],0);
+          // MessageDlg('Proceso Correci?n de Mora Aplicado con Exito',mtinformation,[mbok],0);
 end;
 
-procedure TfrmCausacionCarteraDiaria.verificarCuadre(linea: String);
+procedure TfrmCausacionCarteraDiariaAuto.verificarCuadre(linea: String);
 var I:Integer;
     TotalDebito:Currency;
     TotalCredito:Currency;
@@ -8613,7 +8633,7 @@ begin
 end;
 
 
-procedure TfrmCausacionCarteraDiaria.btnReNotaClick(Sender: TObject);
+procedure TfrmCausacionCarteraDiariaAuto.btnReNotaClick(Sender: TObject);
 var I:Integer;
     TotalDebito:Currency;
     TotalCredito:Currency;
