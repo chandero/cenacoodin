@@ -762,28 +762,7 @@ begin
 
               IBGarReal.Close;
 
-// Busco si fue recalificaco
-              IBQuery2.Close;
-              IBQuery2.SQL.Clear;
-              IBQuery2.SQL.Add('SELECT * FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION AND e.FECHA_CORTE = :FECHA_CORTE');
-              IBQuery2.ParamByName('ID_COLOCACION').AsString := FieldByName('ID_COLOCACION').AsString;
-              IBQuery2.ParamByName('FECHA_CORTE').AsDate := FechaCorte;
-              IBQuery2.Open;
-              if IBQuery2.RecordCount > 0 then
-              begin
-                _evaluacion := IBQuery2.FieldByName('EVALUACION').AsString;
-                _provision_evaluacion := FormatCurr('#0',IBQuery2.FieldByName('CAPITAL_NUEVO').AsCurrency);
-              end
-              else
-              begin
-                _evaluacion := FieldByName('ID_ARRASTRE').AsString;
-                _provision_evaluacion := FormatCurr('#0',FieldByName('PCAPITAL').AsCurrency);
-              end;
-              IBQuery2.Close;
-// Fin Busco si fue recalificado
-              Lineas.Evaluacion := _evaluacion;
               Lineas.Provision_Capital := FormatCurr('#0',FieldByName('PCAPITAL').AsCurrency);
-              Lineas.Provision_Capital_Evaluado := _provision_evaluacion;
               Lineas.Provision_Interes := FormatCurr('#0',FieldByName('PINTERES').AsCurrency);
               Lineas.Provision_Costas := FormatCurr('#0',FieldByName('PCOSTAS').AsCurrency);
               Lineas.Anticipados := FormatCurr('#0',FieldByName('ANTICIPADOS').AsCurrency);
@@ -950,6 +929,26 @@ begin
               Lineas.ValorAporteSocial := FormatCurr('#0',CalculoAportes(FieldByName('ID_AGENCIA').AsInteger,FieldByName('ID_IDENTIFICACION').AsInteger,FieldByName('ID_PERSONA').AsString));
 
 //Fin Infomación número de Creditos por clasificacion
+
+// Busco si fue recalificacion
+              IBQuery2.Close;
+              IBQuery2.SQL.Clear;
+              IBQuery2.SQL.Add('SELECT FIRST 1 * FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION ORDER BY FECHA_CORTE DESC');
+              IBQuery2.ParamByName('ID_COLOCACION').AsString := FieldByName('ID_COLOCACION').AsString;
+              IBQuery2.Open;
+              _evaluacion := IBQuery2.FieldByName('EVALUACION').AsString;
+              _provision_evaluacion := FormatCurr('#0',IBQuery2.FieldByName('CAPITAL_NUEVO').AsCurrency);
+              if (_evaluacion < FieldByName('ID_ARRASTRE').AsString) then
+              begin
+                _evaluacion := FieldByName('ID_ARRASTRE').AsString;
+                _provision_evaluacion := FormatCurr('#0',FieldByName('PCAPITAL').AsCurrency);
+              end;
+              IBQuery2.Close;
+// Fin Busco si fue recalificado
+              Lineas.Evaluacion := _evaluacion;
+              Lineas.Provision_Capital := FormatCurr('#0',FieldByName('PCAPITAL').AsCurrency);
+              Lineas.Provision_Capital_Evaluado := _provision_evaluacion;
+
 
               Lineas.GarReal := CurrToStr(FieldByName('VALOR_GARANTIA').AsCurrency);
               Lineas.DtoGarReal := CurrToStr(FieldByName('GARANTIA_DESCONTADA').AsCurrency);
