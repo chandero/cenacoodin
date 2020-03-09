@@ -53,6 +53,7 @@ type
     procedure ley_arrastre;
     function verifica_arrastre(id_persona: string;
       id_identificacion: integer): boolean;
+    function BuscarEvaluacion(id_colocacion: String): String;      
     { Private declarations }
   public
     { Public declarations }
@@ -84,6 +85,7 @@ var I :Integer;
     Dias,DiasCorrientes:Integer;
     Edad:string;
     _dfechaHoy :TDate;
+    _evaluacion: String;
 begin
         _dfechaHoy := EdFecha.Date;
         frmPantallaProgreso := TfrmProgreso.Create(Self);
@@ -190,8 +192,11 @@ begin
                   Edad := EvaluarEdad(IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,IBQuery1.FieldByName('ID_GARANTIA').AsInteger,Dias);
 
                 if RBRiesgo.Checked then
+                begin
+                 _evaluacion := BuscarEvaluacion(IBQuery1.FieldByName('ID_COLOCACION').AsString);
                  if Edad < IBQuery1.FieldByName('ID_EVALUACION').AsString then
                     Edad := IBQuery1.FieldByName('ID_EVALUACION').AsString;
+                end;
 
             end;
 
@@ -636,6 +641,22 @@ begin
                    Result := False;
             end;
 
+end;
+
+function TfrmResumenColocaciones.BuscarEvaluacion(id_colocacion: String): String;
+begin
+            with IBSQL3 do
+            begin
+              Close;
+              SQL.Clear;
+              SQL.Add('SELECT FIRST 1 * FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION ORDER BY FECHA_CORTE DESC');
+              ParamByName('ID_COLOCACION').AsString := id_colocacion;
+              ExecQuery;
+              if RecordCount > 0 then
+              begin
+                Result := FieldByName('EVALUACION').AsString;
+              end;
+            end;
 end;
 
 procedure TfrmResumenColocaciones.BitBtn1Click(Sender: TObject);
