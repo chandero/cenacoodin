@@ -1,8 +1,8 @@
 object frmTomarFoto: TfrmTomarFoto
-  Left = 337
-  Top = 5
-  Width = 842
-  Height = 754
+  Left = 350
+  Top = -1
+  Width = 848
+  Height = 765
   Caption = 'Adquirir Fotografia del Asociado'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,21 +15,13 @@ object frmTomarFoto: TfrmTomarFoto
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Panel1: TPanel
-    Left = -8
-    Top = 35
-    Width = 720
-    Height = 670
-    Caption = 'Vista Previa de Video en Vivo'
-    TabOrder = 0
-  end
   object Panel2: TPanel
-    Left = 744
+    Left = 733
     Top = 0
     Width = 90
-    Height = 720
+    Height = 732
     Align = alRight
-    TabOrder = 1
+    TabOrder = 0
     object CmdTomarFoto: TBitBtn
       Left = 1
       Top = 29
@@ -194,7 +186,7 @@ object frmTomarFoto: TfrmTomarFoto
     Width = 320
     Height = 33
     Caption = 'Panel3'
-    TabOrder = 2
+    TabOrder = 1
     object Label1: TLabel
       Left = 5
       Top = 10
@@ -208,6 +200,23 @@ object frmTomarFoto: TfrmTomarFoto
       Width = 237
       Height = 21
       ItemHeight = 13
+      TabOrder = 0
+    end
+  end
+  object JvScrollBox1: TJvScrollBox
+    Left = 0
+    Top = 32
+    Width = 700
+    Height = 700
+    HorzScrollBar.Position = 282
+    VertScrollBar.Position = 14
+    TabOrder = 2
+    object Panel1: TPanel
+      Left = -282
+      Top = -14
+      Width = 1280
+      Height = 720
+      Caption = 'Vista Previa de Video en Vivo'
       TabOrder = 0
     end
   end

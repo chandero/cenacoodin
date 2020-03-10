@@ -5880,23 +5880,23 @@ begin
 
                  Colocaciones := SimpleRoundTo((Valor * ProvisionGral),0);
 // Validar Contra Saldo Actual
-                     Codigo := '146810000000000000';
+                 Codigo := '146810000000000000';
 
-                     IBSQL3.Close;
-                     IBSQL3.SQL.Clear;
-                     IBSQL3.SQL.Add('select * from VALOR_AGENCIA(:ID_AGENCIA,:MES,:CODIGO)');
-                     IBSQL3.ParamByName('ID_AGENCIA').AsInteger := Agencia;
-                     IBSQL3.ParamByName('MES').AsInteger := Monthof(EdFechaCorte.Date);
-                     IBSQL3.ParamByName('CODIGO').AsString := Codigo;
-                     try
-                      IBSQL3.ExecQuery;
-                      Valor := IBSQL3.FieldByName('SALDO').AsCurrency;
-                     except
-                      MessageDlg('Error al Obtener valor de Corto Plazo',mtError,[mbcancel],0);
-                      Transaction.Rollback;
-                      raise;
-                      Exit;
-                     end;
+                 IBSQL3.Close;
+                 IBSQL3.SQL.Clear;
+                 IBSQL3.SQL.Add('select * from VALOR_AGENCIA(:ID_AGENCIA,:MES,:CODIGO)');
+                 IBSQL3.ParamByName('ID_AGENCIA').AsInteger := Agencia;
+                 IBSQL3.ParamByName('MES').AsInteger := Monthof(EdFechaCorte.Date);
+                 IBSQL3.ParamByName('CODIGO').AsString := Codigo;
+                 try
+                   IBSQL3.ExecQuery;
+                   Valor := IBSQL3.FieldByName('SALDO').AsCurrency;
+                   except
+                     MessageDlg('Error al Obtener valor de Corto Plazo',mtError,[mbcancel],0);
+                     Transaction.Rollback;
+                   raise;
+                    Exit;
+                 end;
 
 //Comparar Saldos y Contabilizar
 

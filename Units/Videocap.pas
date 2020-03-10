@@ -288,7 +288,7 @@ constructor TVideoCap.Create(aowner:TComponent);
 begin
     inherited create(aowner);
     height                  := 720;
-    width                   := 720;
+    width                   := 1280;
     Color                   := clWhite;
     fVideoDriverName        := '';
     fdriverindex            := -1 ;

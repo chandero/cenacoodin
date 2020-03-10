@@ -4,11 +4,10 @@ interface
 
 uses
   Clipbrd, Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, Buttons, VideoCap, VFW;
+  Dialogs, ExtCtrls, StdCtrls, Buttons, VideoCap, VFW, JvScrollBox;
 
 type
   TfrmTomarFoto = class(TForm)
-    Panel1: TPanel;
     Panel2: TPanel;
     CmdTomarFoto: TBitBtn;
     cmdCerrar: TBitBtn;
@@ -16,6 +15,8 @@ type
     cbDrivers: TComboBox;
     Label1: TLabel;
     cmdPreview: TBitBtn;
+    JvScrollBox1: TJvScrollBox;
+    Panel1: TPanel;
     procedure CmdTomarFotoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure cmdCerrarClick(Sender: TObject);
@@ -57,8 +58,8 @@ begin
         // CallBack
         FCap.OnVideoStream := OnVideoStream;
         // Configuración
-        FCap.Width  := 320;
-        FCap.Height := 240;
+        FCap.Width  := 1280;
+        FCap.Height := 720;
         FCap.Parent := Panel1;
         //Drivers
         FCap.CapAudio       := False;
