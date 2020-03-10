@@ -30,6 +30,20 @@ object FrmCierreMes: TFrmCierreMes
     Height = 13
     Caption = 'Hora Ejecuci'#243'n Causaci'#243'n de Cartera'
   end
+  object Label3: TLabel
+    Left = 8
+    Top = 72
+    Width = 105
+    Height = 13
+    Caption = 'N'#250'mero Notas a Crear'
+  end
+  object Label4: TLabel
+    Left = 170
+    Top = 72
+    Width = 23
+    Height = 13
+    Caption = 'Hora'
+  end
   object StatusBar1: TStatusBar
     Left = 0
     Top = 252
@@ -54,7 +68,7 @@ object FrmCierreMes: TFrmCierreMes
     Height = 21
     ReadOnly = True
     TabOrder = 1
-    Text = '23:50:00'
+    Text = '22:00:00'
   end
   object btnHoraLiquidacion: TToggleButton
     Left = 269
@@ -73,7 +87,7 @@ object FrmCierreMes: TFrmCierreMes
     Height = 21
     ReadOnly = True
     TabOrder = 3
-    Text = '20:50:00'
+    Text = '23:00:00'
   end
   object btnHoraCausacion: TToggleButton
     Left = 269
@@ -84,6 +98,40 @@ object FrmCierreMes: TFrmCierreMes
     TabOrder = 4
     OnClick = btnHoraCausacionClick
     GroupIndex = 0
+  end
+  object edNotas: TJvIntegerEdit
+    Left = 120
+    Top = 69
+    Width = 41
+    Height = 21
+    Alignment = taRightJustify
+    ReadOnly = True
+    TabOrder = 5
+    Value = 35
+    MaxValue = 0
+    MinValue = 0
+    HasMaxValue = False
+    HasMinValue = False
+    ClipBoardCommands = [caCopy]
+  end
+  object btnNotas: TToggleButton
+    Left = 269
+    Top = 69
+    Width = 25
+    Height = 23
+    Caption = 'E'
+    TabOrder = 6
+    OnClick = btnNotasClick
+    GroupIndex = 0
+  end
+  object edHoraNota: TMaskEdit
+    Left = 208
+    Top = 70
+    Width = 57
+    Height = 21
+    ReadOnly = True
+    TabOrder = 7
+    Text = '23:30:00'
   end
   object MainMenu1: TMainMenu
     Left = 64
@@ -106,6 +154,7 @@ object FrmCierreMes: TFrmCierreMes
     end
     object mnuCausacionAuto: TMenuItem
       Caption = 'Causaci'#243'n Autom'#225'tico'
+      Visible = False
       OnClick = mnuCausacionAutoClick
     end
   end
@@ -113,5 +162,11 @@ object FrmCierreMes: TFrmCierreMes
     OnTimer = Timer1Timer
     Left = 8
     Top = 232
+  end
+  object IBQnotas: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    Left = 24
+    Top = 120
   end
 end

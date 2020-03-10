@@ -24121,4 +24121,10 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
     Transaction = dmGeneral.IBTransaction1
     Left = 376
   end
+  object IBQnota: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    Left = 504
+    Top = 208
+  end
 end

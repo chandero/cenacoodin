@@ -73,6 +73,7 @@ type
     BtnCorregirMora: TBitBtn;
     btnReNota: TBitBtn;
     edCuadre: TMemo;
+    IBQnota: TIBQuery;
     procedure FormShow(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdProcesarClick(Sender: TObject);
@@ -118,6 +119,7 @@ type
     procedure OctavoPC;
     procedure NovenoPC;
     procedure DecimoPC;
+    procedure OncePC;
     procedure ContabilizarCPLP;
     procedure ContabilizarKC;
     procedure ContabilizarCau;
@@ -1286,7 +1288,7 @@ begin
         OctavoPC;   // Contingencias
         DecimoPC;   // Enviar Comprobante Contable
 
-
+        OncePC; // Generar notas de soporte
 
         {
         with IBAuxiliar do begin
@@ -8731,6 +8733,11 @@ begin
         end;
        end;
        ShowMessage('Proceso Finalizado...');
+end;
+
+procedure TfrmCausacionCarteraDiariaAuto.OncePC;
+begin
+
 end;
 
 end.

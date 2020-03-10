@@ -357,7 +357,7 @@ object FrmNotasCoop: TFrmNotasCoop
   object DataSource1: TDataSource
     DataSet = CDcomprobante
     Left = 24
-    Top = 80
+    Top = 56
   end
   object JV: TJvPasswordForm
     Title = 'Enter password'
@@ -378,6 +378,6 @@ object FrmNotasCoop: TFrmNotasCoop
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
     Left = 160
-    Top = 72
+    Top = 56
   end
 end
