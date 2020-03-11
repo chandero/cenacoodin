@@ -31,7 +31,6 @@ type
     IBTransaction1: TIBTransaction;
     ReporteC: TprTxReport;
     IBAuxiliar: TIBQuery;
-    Reporte: TprTxReport;
     CDSTabla: TClientDataSet;
     CDSTablaID_AGENCIA: TIntegerField;
     CDSTablaID_TIPO_CAPTACION: TIntegerField;
@@ -42,6 +41,7 @@ type
     CDSTablaNOMBRE: TStringField;
     CDSTablaVALOR_ABONADO: TCurrencyField;
     CDSTablaTOTAL_ABONADO: TAggregateField;
+    Reporte: TprTxReport;
     procedure RGProcesoClick(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdProcesarClick(Sender: TObject);
@@ -348,6 +348,7 @@ end;
 
 procedure TfrmBarridoAhoApo.CmdReporteClick(Sender: TObject);
 begin
+        CDSTabla.First;
         {
         with IBQuery3 do begin
           Close;

@@ -549,7 +549,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
       object prTxHDetailBand1: TprTxHDetailBand
         Height = 1
         UseVerticalBands = False
-        DataSetName = 'IBQuery3'
+        DataSetName = 'CDSTabla'
         ColCount = 0
         ColDirection = prcdTopBottomLeftRight
         Bands = (
