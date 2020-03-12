@@ -1,10 +1,10 @@
 object frmBarridoAhoApo: TfrmBarridoAhoApo
-  Left = 759
-  Top = 193
+  Left = 518
+  Top = 232
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Barrido Ahorro Para Aportes'
-  ClientHeight = 135
+  ClientHeight = 167
   ClientWidth = 363
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,7 +21,7 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
     Left = 268
     Top = 0
     Width = 95
-    Height = 135
+    Height = 167
     Align = alRight
     Color = clOlive
     TabOrder = 0
@@ -293,9 +293,16 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
     Left = 0
     Top = 0
     Width = 268
-    Height = 135
+    Height = 167
     Align = alClient
     TabOrder = 1
+    object Label3: TLabel
+      Left = 8
+      Top = 144
+      Width = 74
+      Height = 13
+      Caption = 'Total Calculado'
+    end
     object RGProceso: TRadioGroup
       Left = 2
       Top = 2
@@ -372,6 +379,16 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
         HasMaxValue = False
         HasMinValue = False
       end
+    end
+    object edTotal: TDBEdit
+      Left = 96
+      Top = 140
+      Width = 121
+      Height = 21
+      DataField = 'TOTAL_ABONADO'
+      DataSource = DStabla
+      ReadOnly = True
+      TabOrder = 3
     end
   end
   object IBQuery1: TIBQuery
@@ -2136,7 +2153,13 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
     end
     object CDSTablaTOTAL_ABONADO: TAggregateField
       FieldName = 'TOTAL_ABONADO'
+      Active = True
       Expression = 'SUM(VALOR_ABONADO)'
     end
+  end
+  object DStabla: TDataSource
+    DataSet = CDSTabla
+    Left = 88
+    Top = 48
   end
 end

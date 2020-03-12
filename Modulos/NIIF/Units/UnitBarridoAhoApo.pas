@@ -6,7 +6,7 @@ uses
   Windows, Messages, DateUtils, Math, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Buttons, JvTypedEdit, JvEdit, IBSQL, DB,
   IBCustomDataSet, IBQuery, pr_Common, pr_TxClasses, IBDatabase, UnitDmGeneral,
-  DBClient;
+  DBClient, Mask, DBCtrls;
 
 type
   TfrmBarridoAhoApo = class(TForm)
@@ -42,6 +42,9 @@ type
     CDSTablaVALOR_ABONADO: TCurrencyField;
     CDSTablaTOTAL_ABONADO: TAggregateField;
     Reporte: TprTxReport;
+    Label3: TLabel;
+    edTotal: TDBEdit;
+    DStabla: TDataSource;
     procedure RGProcesoClick(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdProcesarClick(Sender: TObject);
@@ -369,15 +372,13 @@ var frmprogreso:TfrmProgreso;
     Valor:Currency;
     GMF:Currency;
 begin
-// Busco Consecutivo Comprobante
-         Comprobante := ObtenerConsecutivo(IBSQL1,1);
-// Fin Consecutivo Comprobante
+
 
 // Grabar Comprobante
-       Valor := CDSTablaTOTAL_ABONADO.AsCurrency;
+       Valor := StrToCurr(edTotal.Text);
        GMF := Simpleroundto((Valor / 1000) * 4,0);
        {
-       with IBQuery1 do begin
+       with IBQuery1 do begin                    
         Close;
         SQL.Clear;
         SQL.Add('select sum(VALOR_ABONADO) AS SUMA from' + Tabla);
@@ -421,6 +422,10 @@ begin
           Exit;
          end;
        end;
+
+// Busco Consecutivo Comprobante
+         Comprobante := ObtenerConsecutivo(IBSQL1,1);
+// Fin Consecutivo Comprobante       
 
        with IBQuery1 do begin
          Close;
@@ -620,7 +625,7 @@ begin
               IBQuery2.ParamByName('ID_AGENCIA').AsInteger := FieldByName('ID_AGENCIA').AsInteger;
               IBQuery2.ParamByName('ID_TIPO_CAPTACION').AsInteger := 2;
               IBQuery2.ParamByName('NUMERO_CUENTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
-              IBQuery2.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(digitocontrol(2,Format('%.7d',[IBQuery1.FieldByName('NUMERO_CUENTA').AsInteger])));
+              IBQuery2.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(DigitoControl(2,Format('%.7d',[IBQuery1.FieldByName('NUMERO_CUENTA').AsInteger])));
               IBQuery2.ParamByName('FECHA_MOVIMIENTO').AsDate := Date;
               IBQuery2.ParamByName('HORA_MOVIMIENTO').AsTime := Time;
               IBQuery2.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 6;
