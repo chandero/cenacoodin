@@ -113,7 +113,9 @@ uses
   UnitReporteAseguradora in '\\Vboxsvr\sgft\sgftcooperativoNIIF\Modulos\Modulo Cartera\Unit\UnitReporteAseguradora.pas' {frmReporteAseguradora},
   UnitGestionColocacion in '\\Vboxsvr\sgft\sgftcooperativoNIIF\Modulos\Modulo Cartera\Unit\UnitGestionColocacion.pas' {frmGestionColocacion},
   UnitGestionTablaLiquidacion in '\\Vboxsvr\sgft\sgftcooperativoNIIF\Modulos\Modulo Cartera\Unit\UnitGestionTablaLiquidacion.pas' {frmGestionTablaLiquidacion},
-  UnitInformeCuotaRecalculada in 'Unit\UnitInformeCuotaRecalculada.pas' {frmInformeCuotaRecalculada};
+  UnitInformeCuotaRecalculada in 'Unit\UnitInformeCuotaRecalculada.pas' {frmInformeCuotaRecalculada},
+  UnitConsultaPeriodoGracia in 'Unit\UnitConsultaPeriodoGracia.pas' {frmConsultaPeriodoGracia},
+  UnitAjusteTasa in 'Unit\UnitAjusteTasa.pas' {frmAjusteTasa};
 
 {$R *.res}
 
@@ -123,5 +125,6 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmAjusteTasa, frmAjusteTasa);
   Application.Run;
 end.

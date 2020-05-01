@@ -33,7 +33,7 @@ type
     CDArrastregarantia: TStringField;
     CDArrastreclasificacion: TStringField;
     Rarrastre: TprTxReport;
-    BitBtn1: TBitBtn;
+    btnArrastre: TBitBtn;
     CDArrastreid_colocacion: TStringField;
     EdFecha: TDateTimePicker;
     _sInicio: TLabel;
@@ -45,7 +45,7 @@ type
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdReporteClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure btnArrastreClick(Sender: TObject);
   private
     procedure PrimerPaso;
     function EvaluarEdad(Clasificacion,Garantia,Dias: Integer): string;
@@ -86,6 +86,11 @@ var I :Integer;
     Edad:string;
     _dfechaHoy :TDate;
     _evaluacion: String;
+    _fechaInteresGracia: TDate;
+    _fechaGracia: TDate;
+    _diasGracia: Integer;
+    _diasCorridosGracia : Integer;
+    _diasParaCausar, _diasParaContingencia: Integer;
 begin
         _dfechaHoy := EdFecha.Date;
         frmPantallaProgreso := TfrmProgreso.Create(Self);
@@ -177,7 +182,8 @@ begin
                Edad := 'E'
             else
             begin
-                Dias := ObtenerDiasMoraCausacion(IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger,
+                Dias := ObtenerDiasMoraCausacion(    IBQuery1.FieldByName('ID_COLOCACION').AsString,
+                                                     IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger,
                                                      IBQuery1.FieldByName('ID_LINEA').AsInteger,
                                                      IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger,
                                                      IBQuery1.FieldByName('DIAS_PAGO').AsInteger,
@@ -187,6 +193,41 @@ begin
                                                      IBQuery1.FieldByName('TIPOC_INTERES').AsString );
 
                 DiasCorrientes := Dias;
+                // Buscar Colocaciones Marcadas para Periodo de Gracias
+// Evaluar DiasCXC si está marcado
+              IBSQL3.Close;
+              IBSQL3.SQL.Clear;
+              IBSQL3.SQL.Add('SELECT FIRST 1 FECHA_INTERES, FECHA_REGISTRO, DIAS FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO = 0 ORDER BY FECHA_REGISTRO');
+              IBSQL3.ParamByName('ID_COLOCACION').AsString := IBQuery1.FieldByName('ID_COLOCACION').AsString;
+              IBSQL3.ExecQuery;
+              if IBSQL3.RecordCount > 0 then
+              begin
+                _fechaInteresGracia := IBSQL3.FieldByName('FECHA_INTERES').AsDate;
+                _fechaGracia := IBSQL3.FieldByName('FECHA_REGISTRO').AsDate;
+                _diasGracia := IBSQL3.FieldByName('DIAS').AsInteger;
+              end
+              else
+              begin
+                _fechaInteresGracia := 0;
+                _fechaGracia := _dfechaHoy;
+                _diasGracia := 0;
+              end;
+              IBSQL3.Close;
+
+              _diasParaCausar := Dias + IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger;
+
+              _diasCorridosGracia := DiasEnFechas(_fechaGracia, _dfechaHoy, _dfechaHoy, bisiesto);
+              if (_diasCorridosGracia <= _diasGracia) then
+              begin
+                if (_diasParaCausar > IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) then
+                  _diasParaCausar := IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger;
+                _diasParaContingencia := 0;
+                Dias := 0;
+              end;
+//
+// Calcula la Tasa que se debe aplicar   Causados
+
+
                 if Dias <= 30 then Edad := 'A'
                 else
                   Edad := EvaluarEdad(IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,IBQuery1.FieldByName('ID_GARANTIA').AsInteger,Dias);
@@ -488,9 +529,7 @@ begin
         end;
 
         if Reporte.PrepareReport then begin
-           frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
-           frmVistaPreliminar.Reporte := Reporte;
-           frmVistaPreliminar.ShowModal;
+           Reporte.PreviewPreparedReport(true);
         end;
 end;
 
@@ -659,7 +698,7 @@ begin
             end;
 end;
 
-procedure TfrmResumenColocaciones.BitBtn1Click(Sender: TObject);
+procedure TfrmResumenColocaciones.btnArrastreClick(Sender: TObject);
 begin
         CDArrastre.CancelUpdates;
         ley_arrastre;
@@ -669,9 +708,7 @@ begin
         Rarrastre.Variables.ByName['empleado'].AsString := Nombres +' ' + Apellidos;
         Rarrastre.Variables.ByName['hoy'].AsDateTime := EdFecha.Date ;
         if Rarrastre.PrepareReport then begin
-           frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
-           frmVistaPreliminar.Reporte := Rarrastre;
-           frmVistaPreliminar.ShowModal;
+           Rarrastre.PreviewPreparedReport(true);
         end;
 
 end;

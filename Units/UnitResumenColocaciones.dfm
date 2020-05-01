@@ -180,14 +180,14 @@ object frmResumenColocaciones: TfrmResumenColocaciones
         261E1A0F3B3B3B3B3B3B3B3B3B3B112E261E1A123B3B3B3B3B3B3B3B3B11302E
         261E1A123B3B3B3B3B3B3B3B3B1111111112123B3B3B3B3B3B3B}
     end
-    object BitBtn1: TBitBtn
+    object btnArrastre: TBitBtn
       Left = 5
       Top = 56
       Width = 75
       Height = 25
       Caption = '&L. Arrastre'
       TabOrder = 3
-      OnClick = BitBtn1Click
+      OnClick = btnArrastreClick
       Glyph.Data = {
         F6000000424DF600000000000000760000002800000010000000100000000100
         0400000000008000000000000000000000001000000000000000000000000000

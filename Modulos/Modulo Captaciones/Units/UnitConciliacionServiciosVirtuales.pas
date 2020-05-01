@@ -65,6 +65,7 @@ type
     edSubCuenta: TJvCurrencyEdit;
     edFechaNota: TDateTimePicker;
     CDSdataCAPTACION: TStringField;
+    CDSdataREVERSO: TBooleanField;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CmdLiquidarClick(Sender: TObject);
     procedure btnExcelClick(Sender: TObject);
@@ -213,14 +214,15 @@ begin
 
            vTipoAH := LeftStr(vCuenta,1);
 
-           IF VarIsEmpty(Trim(vReverso)) THEN
+           IF Trim(vReverso) = '' THEN
            BEGIN
-              esReverso := True;
+              esReverso := False;
            END
            ELSE
            BEGIN
-              esReverso := False;
+              esReverso := True;
            END;
+
 
            /// Inicio If vValor vComision vGmf
            IF (vValor > 0) OR (vComision > 0) or (vGmf > 0) THEN
@@ -233,6 +235,7 @@ begin
                      CDSdata.Append;
                      CDSdataFECHA.Value := edFecha.Date;
                      CDSdataOPERACION.Value := vOperacion;
+                     CDSdataREVERSO.Value := esReverso;
                      CDSdataSECUENCIA.Value := vSecuencia;
                      CDSdataCUENTA.Value := vCuenta;
                      CDSdataCANAL.Value := vCanal;
@@ -242,6 +245,7 @@ begin
                      CDSdataTIPO.Value := 'MOVIMIENTO';
                      IF vOPERACION = 'DEBITO' THEN
                      BEGIN
+                       {
                        IF esReverso THEN
                        BEGIN
                          CDSdataDEBITO.Value := 0;
@@ -263,6 +267,7 @@ begin
                          END;
                        END
                        ELSE
+                       }
                        BEGIN
                          CDSdataDEBITO.Value := vValor;
                          CDSdataCREDITO.Value := 0;
@@ -285,6 +290,7 @@ begin
                      END
                      ELSE
                      BEGIN
+                     {
                        IF esReverso THEN
                        BEGIN
                          CDSdataCREDITO.Value := 0;
@@ -306,6 +312,7 @@ begin
                          END;
                        END
                        ELSE
+                       }
                        BEGIN
                          CDSdataCREDITO.Value := vValor;
                          CDSdataDEBITO.Value := 0;
@@ -343,6 +350,7 @@ begin
                        CDSdataFECHA.Value := edFecha.Date;
                        CDSdataCAPTACION.Value := vTipoAH;
                        CDSdataOPERACION.Value := vOperacion;
+                       CDSdataREVERSO.Value := esReverso;
                        CDSdataSECUENCIA.Value := vSecuencia;
                        CDSdataCUENTA.Value := vCuenta;
                        CDSdataCANAL.Value := vCanal;
@@ -351,35 +359,37 @@ begin
                        CDSdataTIPO.Value := 'COMISION';
                        IF esReverso THEN
                        BEGIN
-                         CDSdataDEBITO.Value := 0;
-                         CDSDataCREDITO.Value := vComision;
-                         vTotalCreditoComision := vTotalCreditoComision + vComision;
-                         IF vTipoAH = '2' THEN
-                         BEGIN
-                            vTotalGanadiario := vTotalGanadiario + vComision;
-                         END
-                         ELSE
-                         IF vTipoAH = '3' THEN
-                         BEGIN
-                            vTotalSubCuenta := vTotalSubCuenta + vComision;
-                         END;
+                           CDSdataDEBITO.Value := 0;
+                           CDSDataCREDITO.Value := vComision;
+                           vTotalCreditoComision := vTotalCreditoComision + vComision;
+                           IF vTipoAH = '2' THEN
+                           BEGIN
+                              vTotalGanadiario := vTotalGanadiario + vComision;
+                           END
+                           ELSE
+                           IF vTipoAH = '3' THEN
+                           BEGIN
+                              vTotalSubCuenta := vTotalSubCuenta + vComision;
+                           END;
                        END
                        ELSE
                        BEGIN
-                         CDSdataDEBITO.Value := vComision;
-                         CDSdataCREDITO.Value := 0;
-                         vTotalDebitoComision := vTotalDebitoComision + vComision;
-                         IF vTipoAH = '2' THEN
-                         BEGIN
+                           CDSdataDEBITO.Value := vComision;
+                           CDSdataCREDITO.Value := 0;
+                           vTotalDebitoComision := vTotalDebitoComision + vComision;
+                           IF vTipoAH = '2' THEN
+                           BEGIN
                             vTotalGanadiario := vTotalGanadiario - vComision;
-                         END
-                         ELSE
-                         IF vTipoAH = '3' THEN
-                         BEGIN
-                            vTotalSubCuenta := vTotalSubCuenta - vComision;
-                         END;
+                           END
+                           ELSE
+                           IF vTipoAH = '3' THEN
+                           BEGIN
+                              vTotalSubCuenta := vTotalSubCuenta - vComision;
+                           END;
+                       //
                        END;
                        CDSdata.Post;
+
                    END;
                    /// Inicio If vGmf
                    IF vGmf > 0 THEN
@@ -388,6 +398,7 @@ begin
                        CDSdataFECHA.Value := edFecha.Date;
                        CDSdataCAPTACION.Value := vTipoAH;
                        CDSdataOPERACION.Value := vOperacion;
+                       CDSdataREVERSO.Value := esReverso;
                        CDSdataSECUENCIA.Value := vSecuencia;
                        CDSdataCUENTA.Value := vCuenta;
                        CDSdataCANAL.Value := vCanal;
@@ -470,6 +481,7 @@ begin
                      CDSdata.Append;
                      CDSdataFECHA.Value := edFecha.Date;
                      CDSdataCAPTACION.Value := vTipoAH;
+                     CDSdataREVERSO.Clear;
                      CDSdataOPERACION.Value := vOperacion;
                      CDSdataSECUENCIA.Value := vSecuencia;
                      CDSdataCUENTA.Value := vCuenta;
@@ -544,6 +556,7 @@ begin
                        CDSdataFECHA.Value := edFecha.Date;
                        CDSdataCAPTACION.Value := vTipoAH;
                        CDSdataOPERACION.Value := vOperacion;
+                       CDSdataREVERSO.Clear;                       
                        CDSdataSECUENCIA.Value := vSecuencia;
                        CDSdataCUENTA.Value := vCuenta;
                        CDSdataCANAL.Value := vCanal;
@@ -762,8 +775,8 @@ begin
             FieldByName('ID_AGENCIA').AsInteger := Agencia;
             FieldByName('FECHA').AsDateTime := EdFecha.Date;
             FieldByName('CODIGO').AsString := CodigoComision;
-            FieldByName('DEBITO').AsCurrency := 0;
-            FieldByName('CREDITO').AsCurrency := vTotalComision;
+            FieldByName('DEBITO').AsCurrency := vTotalComision;
+            FieldByName('CREDITO').AsCurrency := 0;
             FieldByName('ID_CUENTA').AsInteger :=0;
             FieldByName('ID_COLOCACION').AsString := '';
             FieldByName('ID_IDENTIFICACION').AsInteger := 0;

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, UnitDmGeneral, ComCtrls, ExtCtrls, StdCtrls, Mask,
   Buttons, ToggleButton, DateUtils, JvEdit, JvTypedEdit, DB,
-  IBCustomDataSet, IBQuery;
+  IBCustomDataSet, IBQuery, IBDatabase, DBClient;
 
 type
   TFrmCierreMes = class(TForm)
@@ -26,10 +26,23 @@ type
     btnHoraCausacion: TToggleButton;
     Label3: TLabel;
     edNotas: TJvIntegerEdit;
-    btnNotas: TToggleButton;
-    Label4: TLabel;
-    edHoraNota: TMaskEdit;
     IBQnotas: TIBQuery;
+    btnNotas: TToggleButton;
+    TimerVerificacionProductos: TTimer;
+    IBQproducto: TIBQuery;
+    IBQejecutar: TIBQuery;
+    IBTverificacion: TIBTransaction;
+    CDSproducto: TClientDataSet;
+    CDSpersona: TClientDataSet;
+    CDSpersonaID_IDENTIFICACION: TIntegerField;
+    CDSpersonaID_PERSONA: TStringField;
+    CDSproductoID_AGENCIA: TIntegerField;
+    CDSproductoID_TIPO_CAPTACION: TIntegerField;
+    CDSproductoDIGITO_CUENTA: TIntegerField;
+    IBQpersona: TIBQuery;
+    IBQGuardar: TIBQuery;
+    CDSproductoNUMERO_CUENTA: TStringField;
+    IBTnotas: TIBTransaction;
     procedure LiquidacindeIntersdeCaptacin1Click(Sender: TObject);
     procedure mnuAutoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -40,6 +53,8 @@ type
     procedure mnuCausacionAutoClick(Sender: TObject);
     procedure btnHoraCausacionClick(Sender: TObject);
     procedure btnNotasClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure TimerVerificacionProductosTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,12 +63,13 @@ type
 
 var
   FrmCierreMes: TFrmCierreMes;
+  _liquidando, _cerrandomes, _verificandoProducto : Boolean;
 
 implementation
 
 {$R *.dfm}
 
-uses IniFiles, UnitLiquidacionInteresesCaptacion, UnitLiquidacionYCausacionAuto, UnitGlobales, UnitCausacionCarteraDiaria, UnitCausacionCarteraDiariaAuto;
+uses IniFiles, UnitLiquidacionInteresesCaptacion, UnitLiquidacionYCausacionAuto, UnitGlobales, UnitCausacionCarteraDiaria, UnitCausacionCarteraDiariaAuto, UnitCausacionCdatAuto;
 
 procedure TFrmCierreMes.LiquidacindeIntersdeCaptacin1Click(
   Sender: TObject);
@@ -91,49 +107,75 @@ begin
     free;
   end;
 
-                dmGeneral.IBDatabase1.DataBaseName := DBserver + ':' + DBpath + DBname;
-                dmGeneral.IBDatabase1.Params.Values['lc_ctype'] := 'ISO8859_1';
-                dmGeneral.IBDatabase1.Params.Values['User_Name'] := 'SYSDBA';
-                dmGeneral.IBDatabase1.Params.Values['PassWord'] := 'masterkey';
-                dmGeneral.IBDatabase1.Params.Values['sql_role_name'] := 'CAPTACIONES';
-                dmGeneral.IBDatabase1.Open;
+     dmGeneral.IBDatabase1.DataBaseName := DBserver + ':' + DBpath + DBname;
+     dmGeneral.IBDatabase1.Params.Values['lc_ctype'] := 'ISO8859_1';
+     dmGeneral.IBDatabase1.Params.Values['User_Name'] := 'SYSDBA';
+     dmGeneral.IBDatabase1.Params.Values['PassWord'] := 'masterkey';
+     dmGeneral.IBDatabase1.Params.Values['sql_role_name'] := 'CAPTACIONES';
+     dmGeneral.IBDatabase1.Open;
+
+     _liquidando := False;
+     _cerrandomes := False;
+     _verificandoProducto := False;
 end;
 
 procedure TFrmCierreMes.Timer1Timer(Sender: TObject);
 var
- _hora: String;
  _fecha: TDateTime;
  _hoy: TDate;
  _vNota, _I: Integer;
  _vUNota: Integer;
+ _hora, _ahora, _horaIni, _horaFin: TDate;
+ frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto;
+ frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto;
+ frmCausacionCdatAuto: TfrmCausacionCdatAuto;
 begin
-  _hora := TimeToStr(Time);
-  StatusBar1.Panels[0].Text := _hora;
-  if (_hora = edHoraLiquidacion.Text) then
+  _ahora := Time;
+  StatusBar1.Panels[1].Text := TimeToStr(_ahora);
+  try
+    _hora := StrToTime(edHoraLiquidacion.Text);
+  except
+    exit;
+  end;
+  _horaIni := _hora;
+  _horaFin := IncSecond(_horaIni, 30);
+  if (_ahora >= _horaIni) and (_ahora <= _horaFin) then
   begin
-     mnuAuto.Click;
+    if (not _liquidando) then
+    begin
+      _liquidando := True;
+      frmLiquidacionYCausacionAuto := TfrmLiquidacionYCausacionAuto.Create(self);
+      frmLiquidacionYCausacionAuto.ShowModal;
+      _liquidando := False;
+    end;
   end;
 
   _hoy := fFechaActual;
   TryEncodeDate(YearOf(_hoy),MonthOf(_hoy),DaysInAMonth(YearOf(_hoy),MonthOf(_hoy)),_fecha);
   if (_hoy = _fecha) then
   begin
-     if (_hora = edHoraCausacion.Text) then
+     _hora := StrToTime(edHoraCausacion.Text);
+     _horaIni := _hora;
+     _horaFin := IncSecond(_horaIni, 30);
+     if ((_ahora >= _horaIni) and (_ahora <= _horaFin)) then
      begin
-       mnuCausacionAuto.Click;
-     end;
-  end;
+       if (not _cerrandomes) then
+       begin
+         _cerrandomes := True;
+         //frmCausacionCdatAuto := TfrmCausacionCdatAuto.Create(self);
+         //frmCausacionCdatAuto.ShowModal;
+         frmCausacionCarteraDiariaAuto := TfrmCausacionCarteraDiariaAuto.Create(self);
+         frmCausacionCarteraDiariaAuto.ShowModal;
+         // Notas
+        if IBTnotas.InTransaction then
+         IBTnotas.Commit;
+        IBTnotas.StartTransaction;
 
-  _hoy := fFechaActual;
-  TryEncodeDate(YearOf(_hoy),MonthOf(_hoy),DaysInAMonth(YearOf(_hoy),MonthOf(_hoy)),_fecha);
-  if (_hoy = _fecha) then
-  begin
-     if (_hora = edHoraNota.Text) then
-     begin
+        IBQnotas.Transaction := IBTnotas;
         IBQnotas.Close;
         IBQnotas.SQL.Clear;
         IBQnotas.SQL.Add('SELECT g.CONSECUTIVO FROM "gen$consecutivos" g');
-        IBQnotas.SQL.Add(' WHERE ("gen$consecutivos".ID_CONSECUTIVO = 1) ');
+        IBQnotas.SQL.Add(' WHERE g.ID_CONSECUTIVO = 1 ');
         IBQnotas.Open;
         _vNota := IBQnotas.FieldByName('CONSECUTIVO').AsInteger;
 
@@ -162,7 +204,7 @@ begin
         IBQnotas.Close;
         IBQnotas.SQL.Clear;
         IBQnotas.SQL.Add('UPDATE "gen$consecutivos" set CONSECUTIVO = :CONSECUTIVO WHERE ID_CONSECUTIVO = 1');
-        IBQnotas.ParamByName('CONSECUTIVOS').AsInteger := _vUNota;
+        IBQnotas.ParamByName('CONSECUTIVO').AsInteger := _vUNota;
         IBQnotas.ExecSQL;
 
         IBQnotas.Close;
@@ -178,11 +220,14 @@ begin
         IBQnotas.ParamByName('HORA').AsTime := fHoraActual;
         IBQnotas.ParamByName('ID_EMPLEADO_AGENCIA').AsString := 'AUTOMATICO';
         IBQnotas.ExecSQL;
+        IBTnotas.Commit;
+         // Fin Notas
 
+         _cerrandomes := False;
+       end;
      end;
+  end;
 
-
-  end;  
 
 end;
 
@@ -228,13 +273,118 @@ begin
         if (btnNotas.Checked) then
         begin
            edNotas.ReadOnly := False;
-           edHoraNota.ReadOnly := False;
         end
         else
         begin
            edNotas.ReadOnly := True;
-           edHoraNota.ReadOnly := True;
         end;
+end;
+
+procedure TFrmCierreMes.FormCreate(Sender: TObject);
+begin
+        if FindWindow(Nil, 'Procesos Automáticos') > 0 then Exit;
+
+end;
+
+procedure TFrmCierreMes.TimerVerificacionProductosTimer(Sender: TObject);
+var
+  _vicu_id: Integer;
+  _numero: Int64;
+begin
+
+  if not _verificandoProducto then
+  begin
+     StatusBar1.Panels[0].Text := 'Verificando Productos';
+     Application.ProcessMessages;
+     _verificandoProducto := True;
+    // Verificar si todos los productos de los asociados están reportados
+    if IBTverificacion.InTransaction then
+    begin
+        IBTverificacion.Commit;
+    end;
+    IBTverificacion.StartTransaction;
+
+    IBQpersona.Close;
+    IBQpersona.Open;
+
+    CDSpersona.Open;
+    CDSpersona.EmptyDataSet;
+    while not IBQpersona.Eof do
+    begin
+        CDSpersona.Insert;
+        CDSpersonaID_IDENTIFICACION.Value := IBQpersona.FieldByName('ID_IDENTIFICACION').AsInteger;
+        CDSpersonaID_PERSONA.Value := IBQpersona.FieldByName('ID_PERSONA').AsString;
+        CDSpersona.Post;
+        IBQpersona.Next;
+    end;
+    IBQpersona.Close;
+    // Buscar productos por Cada Persona
+    CDSproducto.Open;
+    CDSproducto.EmptyDataSet;
+    CDSpersona.First;
+    while Not CDSpersona.Eof do
+    begin
+      IBQproducto.Close;
+      IBQproducto.ParamByName('ID_IDENTIFICACION').AsInteger := CDSpersonaID_IDENTIFICACION.Value;
+      IBQproducto.ParamByName('ID_PERSONA').AsString := CDSpersonaID_PERSONA.Value;
+      IBQproducto.Open;
+
+      while Not IBQproducto.Eof do
+      begin
+         CDSproducto.Insert;
+         CDSproductoID_AGENCIA.Value := IBQproducto.FieldByName('ID_AGENCIA').AsInteger;
+         CDSproductoID_TIPO_CAPTACION.Value := IBQproducto.FieldByName('ID_TIPO_CAPTACION').AsInteger;
+         CDSproductoNUMERO_CUENTA.Value := IBQproducto.FieldByName('NUMERO_CUENTA').AsString;;
+         CDSproductoDIGITO_CUENTA.Value := IBQproducto.FieldByName('DIGITO_CUENTA').AsInteger;
+         CDSproducto.Post;
+         IBQproducto.Next;
+      end;
+      CDSpersona.Next;
+    end;
+
+    // Validar si el producto está registrado y si no ingresarlo
+    CDSproducto.First;
+    while not CDSproducto.Eof do
+    begin
+       IBQejecutar.Close;
+       IBQejecutar.SQL.Clear;
+       IBQejecutar.SQL.Add('SELECT COUNT(*) AS EXISTE FROM VIRTUAL_CUENTA vc WHERE');
+       IBQejecutar.SQL.Add('vc.VICU_ID_AGENCIA = :ID_AGENCIA and');
+       IBQejecutar.SQL.Add('vc.VICU_TIPO_CUENTA = :ID_TIPO_CAPTACION and');
+       IBQejecutar.SQL.Add('vc.VICU_NUMERO_CUENTA = :NUMERO_CUENTA and');
+       IBQejecutar.SQL.Add('vc.VICU_DIGITO_CUENTA = :DIGITO_CUENTA');
+       IBQejecutar.ParamByName('ID_AGENCIA').AsInteger := CDSproductoID_AGENCIA.Value;
+       IBQejecutar.ParamByName('ID_TIPO_CAPTACION').AsInteger := CDSproductoID_TIPO_CAPTACION.Value;
+       IBQejecutar.ParamByName('NUMERO_CUENTA').AsString := CDSproductoNUMERO_CUENTA.Value;
+       IBQejecutar.ParamByName('DIGITO_CUENTA').AsInteger := CDSproductoDIGITO_CUENTA.Value;
+       IBQejecutar.Open;
+       if (IBQejecutar.FieldByName('EXISTE').AsInteger <= 0 ) then
+       begin
+         // Agregar el Producto
+             _vicu_id := ObtenerConsecutivoVirtual(50);
+             IBQGuardar.Close;
+             IBQGuardar.SQL.Clear;
+             IBQGuardar.SQL.Add('INSERT INTO VIRTUAL_CUENTA (VICU_ID, VICU_TIPO_CUENTA, VICU_NUMERO_CUENTA, VICU_DIGITO_CUENTA, VICU_ESTADO, VICU_FECHA_REGISTRO, VICU_ID_AGENCIA, VICU_ESLEIDO) VALUES (');
+             IBQGuardar.SQL.Add(':VICU_ID, :VICU_TIPO_CUENTA, :VICU_NUMERO_CUENTA, :VICU_DIGITO_CUENTA, :VICU_ESTADO, :VICU_FECHA_REGISTRO, :VICU_ID_AGENCIA, :VICU_ESLEIDO)');
+             IBQGuardar.ParamByName('VICU_ID').AsInteger := _vicu_id;
+             IBQGuardar.ParamByName('VICU_TIPO_CUENTA').AsInteger := CDSproductoID_TIPO_CAPTACION.Value;
+             IBQGuardar.ParamByName('VICU_NUMERO_CUENTA').AsString := CDSproductoNUMERO_CUENTA.Value;
+             IBQGuardar.ParamByName('VICU_DIGITO_CUENTA').AsInteger := CDSproductoDIGITO_CUENTA.Value;
+             IBQGuardar.ParamByName('VICU_ESTADO').AsInteger := 0;
+             IBQGuardar.ParamByName('VICU_ESLEIDO').AsInteger := 0;
+             IBQGuardar.ParamByName('VICU_FECHA_REGISTRO').AsDateTime := fFechaHoraActual;
+             IBQGuardar.ParamByName('VICU_ID_AGENCIA').AsInteger := CDSproductoID_AGENCIA.Value;
+             IBQGuardar.ExecSQL;
+             IBQGuardar.Close;
+       end;
+       CDSproducto.Next;
+    end;
+    CDSproducto.Close;
+    CDSpersona.Close;
+    _verificandoProducto := False;
+    StatusBar1.Panels[0].Text := 'En Espera';
+    Application.ProcessMessages;    
+  end;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object frmMarcarProrroga: TfrmMarcarProrroga
-  Left = 252
-  Top = 184
+  Left = 622
+  Top = 275
   Width = 311
   Height = 139
   Caption = 'Marcar Prorroga'

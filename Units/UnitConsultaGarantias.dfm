@@ -20,9 +20,9 @@ object frmConsultaGarantias: TfrmConsultaGarantias
     Top = 0
     Width = 537
     Height = 162
-    ActivePage = InfoAdmisible
+    ActivePage = InfoPignoraciones
     Images = ImageList1
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object InfoAdmisible: TTabSheet
       Caption = 'Admisibles'

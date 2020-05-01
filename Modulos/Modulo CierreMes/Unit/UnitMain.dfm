@@ -1,9 +1,9 @@
 object FrmCierreMes: TFrmCierreMes
-  Left = 307
-  Top = 235
+  Left = 569
+  Top = 236
   Width = 520
   Height = 325
-  Caption = 'Liquidaci'#243'n Diaria de Intereses / Cierre de Mes'
+  Caption = 'Procesos Autom'#225'ticos'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +13,7 @@ object FrmCierreMes: TFrmCierreMes
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -37,13 +38,6 @@ object FrmCierreMes: TFrmCierreMes
     Height = 13
     Caption = 'N'#250'mero Notas a Crear'
   end
-  object Label4: TLabel
-    Left = 170
-    Top = 72
-    Width = 23
-    Height = 13
-    Caption = 'Hora'
-  end
   object StatusBar1: TStatusBar
     Left = 0
     Top = 252
@@ -51,13 +45,17 @@ object FrmCierreMes: TFrmCierreMes
     Height = 19
     Panels = <
       item
-        Alignment = taRightJustify
-        Text = '17:12:12'
-        Width = 400
+        Text = 'En Espera'
+        Width = 380
       end
       item
         Alignment = taRightJustify
-        Width = 5
+        Text = '17:12:12'
+        Width = 100
+      end
+      item
+        Alignment = taRightJustify
+        Width = 2
       end>
     SimplePanel = False
   end
@@ -115,7 +113,7 @@ object FrmCierreMes: TFrmCierreMes
     ClipBoardCommands = [caCopy]
   end
   object btnNotas: TToggleButton
-    Left = 269
+    Left = 165
     Top = 69
     Width = 25
     Height = 23
@@ -123,15 +121,6 @@ object FrmCierreMes: TFrmCierreMes
     TabOrder = 6
     OnClick = btnNotasClick
     GroupIndex = 0
-  end
-  object edHoraNota: TMaskEdit
-    Left = 208
-    Top = 70
-    Width = 57
-    Height = 21
-    ReadOnly = True
-    TabOrder = 7
-    Text = '23:30:00'
   end
   object MainMenu1: TMainMenu
     Left = 64
@@ -167,6 +156,172 @@ object FrmCierreMes: TFrmCierreMes
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
     Left = 24
+    Top = 120
+  end
+  object TimerVerificacionProductos: TTimer
+    Interval = 300000
+    OnTimer = TimerVerificacionProductosTimer
+    Left = 40
+    Top = 232
+  end
+  object IBQproducto: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTverificacion
+    SQL.Strings = (
+      
+        'SELECT * FROM (SELECT mt.ID_AGENCIA, mt.ID_TIPO_CAPTACION, mt.NU' +
+        'MERO_CUENTA, mt.DIGITO_CUENTA FROM "cap$maestrotitular" mt'
+      'INNER JOIN "cap$maestro" m ON '
+      '                              m.ID_AGENCIA = mt.ID_AGENCIA and'
+      
+        '                              m.ID_TIPO_CAPTACION = mt.ID_TIPO_C' +
+        'APTACION and'
+      
+        '                              m.NUMERO_CUENTA = mt.NUMERO_CUENTA' +
+        ' and'
+      '                              m.DIGITO_CUENTA = mt.DIGITO_CUENTA'
+      'WHERE mt.ID_IDENTIFICACION = :ID_IDENTIFICACION and '
+      '      mt.ID_PERSONA = :ID_PERSONA and '
+      '      mt.NUMERO_TITULAR = 1 and'
+      '      m.ID_ESTADO = 1'
+      'UNION ALL'
+      
+        'SELECT c.ID_AGENCIA, 7 as ID_TIPO_CAPTACION, c.ID_COLOCACION as ' +
+        'NUMERO_CUENTA, 0 as DIGITO_CUENTA FROM "col$colocacion" c'
+      'WHERE c.ID_IDENTIFICACION = :ID_IDENTIFICACION and'
+      '      c.ID_PERSONA = :ID_PERSONA and'
+      '      c.ID_ESTADO_COLOCACION IN (0,1,2,3)      '
+      ') o      '
+      'ORDER BY o.ID_TIPO_CAPTACION ASC')
+    Left = 56
+    Top = 168
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_IDENTIFICACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_PERSONA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_IDENTIFICACION'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_PERSONA'
+        ParamType = ptUnknown
+      end>
+  end
+  object IBQejecutar: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTverificacion
+    Left = 88
+    Top = 168
+  end
+  object IBTverificacion: TIBTransaction
+    DefaultDatabase = dmGeneral.IBDatabase1
+    Left = 24
+    Top = 200
+  end
+  object CDSproducto: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_AGENCIA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_TIPO_CAPTACION'
+        DataType = ftInteger
+      end
+      item
+        Name = 'DIGITO_CUENTA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NUMERO_CUENTA'
+        DataType = ftString
+        Size = 20
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end>
+    IndexFieldNames = 'ID_AGENCIA;ID_TIPO_CAPTACION;NUMERO_CUENTA;DIGITO_CUENTA'
+    Params = <>
+    StoreDefs = True
+    Left = 128
+    Top = 168
+    Data = {
+      950000009619E0BD01000000180000000400000000000300000095000A49445F
+      4147454E43494104000100000000001149445F5449504F5F434150544143494F
+      4E04000100000000000D44494749544F5F4355454E544104000100000000000D
+      4E554D45524F5F4355454E544101004900000001000557494454480200020014
+      0001000D44454641554C545F4F524445520200820000000000}
+    object CDSproductoID_AGENCIA: TIntegerField
+      FieldName = 'ID_AGENCIA'
+    end
+    object CDSproductoID_TIPO_CAPTACION: TIntegerField
+      FieldName = 'ID_TIPO_CAPTACION'
+    end
+    object CDSproductoDIGITO_CUENTA: TIntegerField
+      FieldName = 'DIGITO_CUENTA'
+    end
+    object CDSproductoNUMERO_CUENTA: TStringField
+      FieldName = 'NUMERO_CUENTA'
+    end
+  end
+  object CDSpersona: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 128
+    Top = 136
+    Data = {
+      530000009619E0BD01000000180000000200000000000300000053001149445F
+      4944454E54494649434143494F4E04000100000000000A49445F504552534F4E
+      4101004900000001000557494454480200020014000000}
+    object CDSpersonaID_IDENTIFICACION: TIntegerField
+      FieldName = 'ID_IDENTIFICACION'
+    end
+    object CDSpersonaID_PERSONA: TStringField
+      FieldName = 'ID_PERSONA'
+    end
+  end
+  object IBQpersona: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTverificacion
+    SQL.Strings = (
+      
+        'SELECT DISTINCT mt.ID_IDENTIFICACION, mt.ID_PERSONA FROM VIRTUAL' +
+        '_CUENTA vc'
+      
+        'INNER JOIN "cap$maestrotitular" mt ON mt.ID_AGENCIA = vc.VICU_ID' +
+        '_AGENCIA and mt.ID_TIPO_CAPTACION = vc.VICU_TIPO_CUENTA and mt.N' +
+        'UMERO_CUENTA = vc.VICU_NUMERO_CUENTA and mt.DIGITO_CUENTA = vc.V' +
+        'ICU_DIGITO_CUENTA and mt.NUMERO_TITULAR = 1'
+      'WHERE vc.VICU_ESTADO = 0')
+    Left = 24
+    Top = 168
+  end
+  object IBQGuardar: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = IBTverificacion
+    Left = 88
+    Top = 200
+  end
+  object IBTnotas: TIBTransaction
+    DefaultDatabase = dmGeneral.IBDatabase1
+    Left = 56
     Top = 120
   end
 end

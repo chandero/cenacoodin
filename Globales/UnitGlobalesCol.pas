@@ -172,7 +172,7 @@ procedure CrearTablaLiquidacionPTmp_Mod(TableName:String;vDesembolso:Currency;va
                                AmortizaCapital:Integer;
                                AmortizaInteres:Integer;Plazo:Integer;
                                TipoCuota:String;Modalidad:string;PGracia:Integer);
-function ObtenerDiasMoraCausacion(_iEstado,_iLinea,_iAmortizaI,_iDiasPago:Integer;
+function ObtenerDiasMoraCausacion(_idColocacion: String; _iEstado,_iLinea,_iAmortizaI,_iDiasPago:Integer;
                                   _dFechaD,_dFechaI,_dFechaActual :TDate;
                                   _sTipoInteres :string):Integer;
 
@@ -193,6 +193,8 @@ fechacapital : TDate;
 function ObtenerConsecutivodesembolso(IBSQL1: TIBSQL): LongInt;
 
 implementation
+
+uses DB;
 
 procedure CalcularFechasLiquidarFija(FechaInicial:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
 var FechaF1,FechaF2,FechaF3,FechaF4:TDate;
@@ -867,7 +869,7 @@ var I,J:Integer;
     TotalCuotas:Integer;
     NoCuota:Integer;
     Costas:Currency;
-    InteresCuota : Currency;
+    InteresCuota, InteresDescontar : Currency;
     FechaProxNueva:TDate;
     FechaDesembolso:TDate;
     Es_Vivienda : Boolean;
@@ -879,6 +881,7 @@ var I,J:Integer;
     ProximoPago:TDate;
     Ano,Mes,Dia,AnoA,MesA,DiaA:Word;
     Linea:Integer;
+    _tasaDescontar: Double;
 begin
   TotalCredito := 0;
   TotalDebito  := 0;
@@ -916,6 +919,19 @@ begin
         Close;
         Exit;
       end;
+   end;
+
+   with dmColocacion.IBSQL do
+   begin
+     SQL.Clear;
+     SQL.Add('select TASA_GRACIA from COL_PERIODO_GRACIA_RESPALDO where ID_COLOCACION = :ID_COLOCACION');
+     ParamByName('ID_COLOCACION').AsString := IdColocacion;
+     ExecQuery;
+     if RecordCount > 0 then
+        _tasaDescontar := FieldByName('TASA_GRACIA').AsDouble
+     else
+        _tasaDescontar := 0;
+     Close;
    end;
 
   with dmColocacion.IBQuery do
@@ -1011,14 +1027,11 @@ begin
         if Es_Vivienda then
           ValorCuota := ValorCuotaVivienda;
 
-        if (Linea = 13) and (FechaDesembolso <= StrToDate('2007/02/28')) then begin
-          InteresCuota := FieldByName('INTERES_A_PAGAR').AsCurrency;
-          Capital := FieldByName('CAPITAL_A_PAGAR').AsCurrency;
-        end
-        else begin
-          InteresCuota := SimpleRoundTo((SaldoActual * (TasaNominalVencida(ValorTasa,Amortizacion) + PuntosAdic) / 100 * Amortizacion ) / 360,0);
-          Capital := Valorcuota - InteresCuota;
-        end;
+
+        InteresCuota := SimpleRoundTo((SaldoActual * (TasaNominalVencida(ValorTasa,Amortizacion) + PuntosAdic) / 100 * Amortizacion ) / 360,0);
+        InteresDescontar := SimpleRoundTo((SaldoActual * (TasaNominalVencida(_tasaDescontar,Amortizacion)) / 100 * Amortizacion ) / 360,0);
+        Capital := Valorcuota - InteresCuota;
+
 
         Fecha1 := FechaPagoI;
         FechaProx := FieldByName('FECHA_A_PAGAR').AsDateTime;
@@ -1183,7 +1196,7 @@ begin
             else
              if AF^.Vencida then
                 AR^.Credito    := SimpleRoundTo((Capital * TasaMora / 100 * AR^.Dias ) / 360,0)
-            else
+             else
                if (Linea = 13) and (FechaDesembolso <= StrToDate('2007/02/28')) then  //Validacion Temporal para Linea Damnificados Mercado
                  AR^.Credito := SimpleRoundTo((InteresCuota / Amortizacion) * AR^.Dias,0)
                else
@@ -1244,13 +1257,39 @@ begin
              (AR^.Credito <> 0) then
           MyCuotasLiq.Lista.Add(AR);
           TotalCredito := TotalCredito + AR^.Credito;
-          TotalDebito  := TotalDebito  + AR^.Debito;;
+          TotalDebito  := TotalDebito  + AR^.Debito;
 // Limpiar tabla de Fechas
           for J := 0 to (FechasLiq.Count - 1) do
            begin
              AF := FechasLiq.Items[J];
              Dispose(AF);
            end;
+
+// Si hay que devolver especial
+
+          if InteresDescontar > 0 then
+          begin
+             New(AR);
+             AR^.CuotaNumero := FieldByName('CUOTA_NUMERO').AsInteger;
+             AR^.CodigoPuc   := dmColocacion.IBSQLcodigos.FieldByName('COD_INT_MES').AsString;
+             AR^.FechaInicial := FechaCorte;
+             AR^.FechaFinal   := FechaCorte;
+             AR^.Dias         := Amortizacion;
+             AR^.Tasa         := TasaNominalVencida(_tasaDescontar,Amortizacion);;
+             AR^.Debito       := InteresDescontar;
+             AR^.Credito      := 0;
+             AR^.EsCapital := True;
+             AR^.EsCausado := False;
+             AR^.EsCorriente := False;
+             AR^.EsVencido := False;
+             AR^.EsAnticipado := False;
+             AR^.EsDevuelto := True;
+             if (AR^.Debito <> 0) or
+                (AR^.Credito <> 0) then
+             MyCuotasLiq.Lista.Add(AR);
+             TotalCredito := TotalCredito + AR^.Credito;
+             TotalDebito  := TotalDebito  + AR^.Debito;
+          end;
 
 // Coloco Caja
           New(AR);
@@ -7319,7 +7358,13 @@ var
     Amortiza : Integer;
     FechaHoy : TDate;
     FechaDes:TDate;
+    _fechaInicial, _fechaFinal: TDate;
+    _dFechaActual: TDateTime;
+    _diasGracia: Integer;
+    IBQvalidar: TIBQuery;
+    IBT: TIBTransaction;
 begin
+
         FechaHoy := fFechaActual;
 
         with IBSQL1 do
@@ -7362,7 +7407,27 @@ begin
               Fecha := Fecha1;
           end;
         Dias := DiasEntreFechas(IncDay(Fecha),FechaHoy,IBSQL1.FieldByName('FECHA_DESEMBOLSO').AsDateTime + IBSQL1.FieldByName('DIAS_PAGO').AsInteger);
-
+        // Validar COL_PERIODO_GRACIA
+        IBT := TIBTransaction.Create(nil);
+        IBT.DefaultDatabase := dmGeneral.IBDatabase1;
+        IBT.StartTransaction;
+        IBQvalidar := TIBQuery.Create(nil);
+        IBQvalidar.Database := dmGeneral.IBDatabase1;
+        IBQvalidar.Transaction := IBT;
+        IBQvalidar.Close;
+        IBQvalidar.SQL.Clear;
+        IBQvalidar.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO = 0 ORDER BY FECHA_REGISTRO DESC');
+        IBQvalidar.ParamByName('ID_COLOCACION').AsString := Colocacion;
+        IBQvalidar.Open;
+        if IBQvalidar.RecordCount > 0 then
+        begin
+           _fechaInicial := IBQvalidar.FieldByName('FECHA_REGISTRO').AsDateTime;
+           _diasGracia := IBQvalidar.FieldByName('DIAS').AsInteger;
+           _fechaFinal := CalculoFecha(_fechaInicial, _diasGracia);
+           if (_fechaFinal >= FechaHoy) then Dias := 0;
+        end;
+        IBQvalidar.Close;
+        IBT.Commit;
         Result := Dias;
 end;
 
@@ -7583,7 +7648,7 @@ begin
                Close;
              end;
 end;
-function ObtenerDiasMoraCausacion(_iEstado,_iLinea,_iAmortizaI,_iDiasPago:Integer;_dFechaD,_dFechaI,_dFechaActual :TDate;_sTipoInteres :string):Integer;
+function ObtenerDiasMoraCausacion(_idColocacion: String; _iEstado,_iLinea,_iAmortizaI,_iDiasPago:Integer;_dFechaD,_dFechaI,_dFechaActual :TDate;_sTipoInteres :string):Integer;
 var
     Fecha : TDate;
     Fecha1:TDateTime;
@@ -7593,8 +7658,13 @@ var
     Amortiza : Integer;
     FechaHoy : TDate;
     FechaDes:TDate;
+    _fechaInicial, _fechaFinal, _fechaGracia: TDate;
+    _diasGracia: Integer;
+    IBQvalidar: TIBQuery;
+    IBT: TIBTransaction;
 begin
         FechaHoy := _dFechaActual;
+
         Fecha := _dFechaI;
         Tipo := _sTipoInteres;
         Amortiza := _iAmortizaI;
@@ -7608,6 +7678,27 @@ begin
               Fecha := Fecha1;
           end;
         Dias := DiasEntreFechas(IncDay(Fecha),FechaHoy,_dFechaD + _iDiasPago);
+        // Validar COL_PERIODO_GRACIA
+        IBT := TIBTransaction.Create(nil);
+        IBT.DefaultDatabase := dmGeneral.IBDatabase1;
+        IBT.StartTransaction;
+        IBQvalidar := TIBQuery.Create(nil);
+        IBQvalidar.Database := dmGeneral.IBDatabase1;
+        IBQvalidar.Transaction := IBT;
+        IBQvalidar.Close;
+        IBQvalidar.SQL.Clear;
+        IBQvalidar.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO = 0 ORDER BY FECHA_REGISTRO DESC');
+        IBQvalidar.ParamByName('ID_COLOCACION').AsString := _idColocacion;
+        IBQvalidar.Open;
+        if IBQvalidar.RecordCount > 0 then
+        begin
+           _fechaInicial := IBQvalidar.FieldByName('FECHA_REGISTRO').AsDateTime;
+           _diasGracia := IBQvalidar.FieldByName('DIAS').AsInteger;
+           _fechaFinal := CalculoFecha(_fechaInicial, _diasGracia);
+           if (_fechaFinal >= FechaHoy) then Dias := 0;
+        end;
+        IBQvalidar.Close;
+        IBT.Commit;
         Result := Dias;
 end;
 

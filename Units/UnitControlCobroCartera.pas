@@ -487,7 +487,8 @@ begin
                  end   }
                 if FieldByName('SALDO').AsCurrency > 0 then
                   //Dias := ObtenerDiasMora(FieldByName('ID_AGENCIA').AsInteger,FieldByName('ID_COLOCACION').AsString,IBSQL2)
-                  Dias := ObtenerDiasMoraCausacion(FieldByName('ID_ESTADO_COLOCACION').AsInteger,
+                  Dias := ObtenerDiasMoraCausacion(  FieldByName('ID_COLOCACION').AsString,
+                                                     FieldByName('ID_ESTADO_COLOCACION').AsInteger,
                                                      FieldByName('ID_LINEA').AsInteger,
                                                      FieldByName('AMORTIZA_INTERES').AsInteger,
                                                      FieldByName('DIAS_PAGO').AsInteger,

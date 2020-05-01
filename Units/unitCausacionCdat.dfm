@@ -1,8 +1,8 @@
 object frmcausacioncdat: Tfrmcausacioncdat
   Left = 234
   Top = 224
-  Width = 387
-  Height = 172
+  Width = 406
+  Height = 215
   Caption = 'Causaci'#243'n de CDAT'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object frmcausacioncdat: Tfrmcausacioncdat
     Left = 0
     Top = 0
     Width = 273
-    Height = 138
+    Height = 181
     Align = alLeft
     TabOrder = 0
     object Label3: TLabel
@@ -109,10 +109,10 @@ object frmcausacioncdat: Tfrmcausacioncdat
     end
   end
   object Panel1: TPanel
-    Left = 275
+    Left = 294
     Top = 0
     Width = 104
-    Height = 138
+    Height = 181
     Align = alRight
     Color = clOlive
     TabOrder = 1
@@ -339,7 +339,7 @@ object frmcausacioncdat: Tfrmcausacioncdat
     Transaction = dmGeneral.IBTransaction1
     StoredProcName = 'P_CAP_0001'
     Left = 94
-    Top = 118
+    Top = 110
     object IBTotalCaptacionesTOTAL: TIntegerField
       FieldName = 'TOTAL'
       Origin = '"P_CAP_0001"."TOTAL"'
@@ -349,13 +349,13 @@ object frmcausacioncdat: Tfrmcausacioncdat
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
     Left = 118
-    Top = 116
+    Top = 108
   end
   object IBSQL1: TIBSQL
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
     Left = 148
-    Top = 118
+    Top = 110
   end
   object IBLiquidacion: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -363,7 +363,7 @@ object frmcausacioncdat: Tfrmcausacioncdat
     SQL.Strings = (
       '')
     Left = 176
-    Top = 112
+    Top = 104
   end
   object IBDataSet1: TIBDataSet
     Database = dmGeneral.IBDatabase1
@@ -521,7 +521,7 @@ object frmcausacioncdat: Tfrmcausacioncdat
     Left = 110
     Top = 424
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 1'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -1928,10 +1928,10 @@ object frmcausacioncdat: Tfrmcausacioncdat
     ToLine = 0
     ExportFromLine = 0
     ExportToLine = 0
-    Left = 65530
+    Left = 2
     Top = 8
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 1'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -3053,20 +3053,18 @@ object frmcausacioncdat: Tfrmcausacioncdat
       'from '
       'CON$COMPROBANTE '
       
-        'INNER JOIN CON$AUXILIAR ON (CON$COMPROBANTE.ID_COMPROBANTE =' +
-        ' CON$AUXILIAR.ID_COMPROBANTE)'
+        'INNER JOIN CON$AUXILIAR ON (CON$COMPROBANTE.ID_COMPROBANTE = CON' +
+        '$AUXILIAR.ID_COMPROBANTE)'
+      'LEFT JOIN CON$PUC ON (CON$AUXILIAR.CODIGO = CON$PUC.CODIGO)'
       
-        'LEFT JOIN CON$PUC ON (CON$AUXILIAR.CODIGO = CON$PUC.CODIGO' +
-        ')'
+        'INNER JOIN CON$TIPOCOMPROBANTE ON (CON$COMPROBANTE.TIPO_COMPROBA' +
+        'NTE = CON$TIPOCOMPROBANTE.ID) '
       
-        'INNER JOIN CON$TIPOCOMPROBANTE ON (CON$COMPROBANTE.TIPO_COMP' +
-        'ROBANTE = CON$TIPOCOMPROBANTE.ID) '
+        'INNER JOIN "gen$agencia" ON (CON$AUXILIAR.ID_AGENCIA = "gen$agen' +
+        'cia".ID_AGENCIA)'
       
-        'INNER JOIN "gen$agencia" ON (CON$AUXILIAR.ID_AGENCIA = "gen$ag' +
-        'encia".ID_AGENCIA)'
-      
-        'INNER JOIN "gen$empleado" ON (CON$COMPROBANTE.ID_EMPLEADO = "g' +
-        'en$empleado".ID_EMPLEADO)'
+        'INNER JOIN "gen$empleado" ON (CON$COMPROBANTE.ID_EMPLEADO = "gen' +
+        '$empleado".ID_EMPLEADO)'
       'where '
       '(CON$COMPROBANTE.ID_AGENCIA = :"ID_AGENCIA") and '
       '(CON$COMPROBANTE.ID_COMPROBANTE = :"ID_COMPROBANTE")')

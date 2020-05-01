@@ -1,8 +1,8 @@
 object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
   Left = 263
   Top = 275
-  Width = 572
-  Height = 210
+  Width = 566
+  Height = 216
   Caption = 'Liquidaci'#243'n Autom'#225'tica de Intereses'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

@@ -151,6 +151,8 @@ type
     RecalculodeCuota1: TMenuItem;
     N14: TMenuItem;
     CarteraConCuotaRecalculada1: TMenuItem;
+    AgregarPeriododeGracia1: TMenuItem;
+    AjusteTasadeInteres1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -233,6 +235,8 @@ type
     procedure InformeAseguradora1Click(Sender: TObject);
     procedure RecalculodeCuota1Click(Sender: TObject);
     procedure CarteraConCuotaRecalculada1Click(Sender: TObject);
+    procedure AgregarPeriododeGracia1Click(Sender: TObject);
+    procedure AjusteTasadeInteres1Click(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -288,7 +292,7 @@ uses unitLogin, unitdmGeneral, unitdmColocacion, IniFiles,
      UnitInformeCarteraPrivilegiados,UnitExtractoCredito, UnitMidificaLinea, UnitCausacionCarteraDiaria,
      UnitPantallaProgreso, UnitImpresion, UnitConsolidarPlanoBancoldex, UnitRecuperacionesCartera,
      UnitInformeAsociadosMercado, UnitCambios, UnitInformeDiarioDesembolsos, UnitEvaluacion, UnitReporteAseguradora,
-     UnitGestionColocacion, UnitInformeCuotaRecalculada;
+     UnitGestionColocacion, UnitInformeCuotaRecalculada, UnitAjusteTasa, UnitConsultaPeriodoGracia;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1460,6 +1464,22 @@ var
 begin
         frmInformeCuotaRecalculada := TfrmInformeCuotaRecalculada.Create(self);
         frmInformeCuotaRecalculada.ShowModal;
+end;
+
+procedure TfrmMain.AgregarPeriododeGracia1Click(Sender: TObject);
+var
+  frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia;
+begin
+   frmConsultaPeriodoGracia := TfrmConsultaPeriodoGracia.Create(self);
+   frmConsultaPeriodoGracia.ShowModal;
+end;
+
+procedure TfrmMain.AjusteTasadeInteres1Click(Sender: TObject);
+var
+  frmAjusteTasa: TfrmAjusteTasa;
+begin
+   frmAjusteTasa := TfrmAjusteTasa.Create(self);
+   frmAjusteTasa.ShowModal;
 end;
 
 end.

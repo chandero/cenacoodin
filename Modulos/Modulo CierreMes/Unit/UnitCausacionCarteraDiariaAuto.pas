@@ -90,7 +90,7 @@ type
   private
     { Private declarations }
     procedure EvaluarCortoPlazo;
-    function EvaluarEdad(Clasificacion, Garantia, Dias: Integer): string;
+    function EvaluarEdad(Clasificacion, Garantia, Dias: Integer; FColocacion: String): string;
 //    procedure PrimerPaso;
 //    procedure SegundoPaso;
     function CalculoAportes(id: integer; pr: string): currency;
@@ -230,7 +230,8 @@ end;
 
 procedure TfrmCausacionCarteraDiariaAuto.CmdCerrarClick(Sender: TObject);
 begin
-        Close;
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+        modalresult := mrCancel;
 end;
 
 procedure TfrmCausacionCarteraDiariaAuto.CmdProcesarClick(Sender: TObject);
@@ -307,7 +308,9 @@ begin
 end;
 
 function TfrmCausacionCarteraDiariaAuto.EvaluarEdad(Clasificacion,
-  Garantia,Dias: Integer): string;
+  Garantia,Dias: Integer; FColocacion: String): string;
+var  
+  _edad, _eval: String;
 begin
         with IBQVarios do begin
           Close;
@@ -320,12 +323,27 @@ begin
           ParamByName('DIAS').AsInteger := Dias;
           try
            Open;
-           Result := FieldByName('ID_CATEGORIA').AsString;
-           if Result = '' then Result := 'A';
+           _edad := FieldByName('ID_CATEGORIA').AsString;
+           if _edad = '' then Result := 'A';
           except
-           Result := 'A';
+           _edad := 'A';
           end;
         end;
+
+        with IBQVarios do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Add('SELECT FIRST 1 e.EVALUACION FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION');
+          ParamByName('ID_COLOCACION').AsString := FColocacion;
+          Open;
+          _eval := FieldByName('EVALUACION').AsString;
+          if _edad < _eval then
+          begin
+             _edad := _eval;
+          end;
+        end;
+        result := _edad;
 end;
 
 {procedure TfrmCausacionColocaciones.PrimerPaso;
@@ -1311,6 +1329,7 @@ begin
          Transaction.Commit;
         end;
         }
+
         CmdCerrar.Click;
 
 end;
@@ -3203,6 +3222,8 @@ vFechaGracia:TDate;
 DiasMora:Integer;
 Dia:Word;
 NFecha:TDateTime;
+_fechaInteresGracia, _fechaGracia : TDate;
+_diasGracia, _diasCorridosGracia : Integer;
 begin
         frmPantallaProgreso := TfrmProgreso.Create(Self);
 
@@ -3349,7 +3370,8 @@ begin
                 Saldo := IBQuery1.FieldByName('SALDO').AsCurrency;
 
                 //DiasMora := ObtenerDiasMora(IBQuery1.FieldByName('ID_AGENCIA').AsInteger,IBQuery1.FieldByName('ID_COLOCACION').AsString,IBSQL2);
-                DiasMora := ObtenerDiasMoraCausacion(IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger,
+                DiasMora := ObtenerDiasMoraCausacion(IBQuery1.FieldByName('ID_COLOCACION').AsString,
+                                                     IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger,
                                                      IBQuery1.FieldByName('ID_LINEA').AsInteger,
                                                      IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger,
                                                      IBQuery1.FieldByName('DIAS_PAGO').AsInteger,
@@ -3380,10 +3402,46 @@ begin
 
                 if DiasMora < 1 then DiasMora := 0;
                 Edad := EvaluarEdad(IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,
-                                IBQuery1.FieldByName('ID_GARANTIA').AsInteger,DiasMora);
+                                IBQuery1.FieldByName('ID_GARANTIA').AsInteger,DiasMora, IBQuery1.FieldByName('ID_COLOCACION').AsString);
+
                 if (IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger = 2) or
                   (IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger = 3) then
                 Edad := 'E';
+
+                       // Evaluar DiasCXC si está marcado
+                         IBSQL4.Close;
+                         IBSQL4.SQL.Clear;
+                         IBSQL4.SQL.Add('SELECT FIRST 1 FECHA_INTERES, FECHA_REGISTRO, DIAS FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO = 0 ORDER BY FECHA_REGISTRO');
+                         IBSQL4.ParamByName('ID_COLOCACION').AsString := IBQuery1.FieldByName('ID_COLOCACION').AsString;
+                         IBSQL4.ExecQuery;
+                         if IBSQL4.RecordCount > 0 then
+                         begin
+                         _fechaInteresGracia := IBSQL4.FieldByName('FECHA_INTERES').AsDate;
+                         _fechaGracia := IBSQL4.FieldByName('FECHA_REGISTRO').AsDate;
+                         _diasGracia := IBSQL4.FieldByName('DIAS').AsInteger;
+                         end
+                         else
+                         begin
+                           _fechaInteresGracia := 0;
+                           _fechaGracia := 0;
+                           _diasGracia := 0;
+                         end;
+                         IBSQL4.Close;
+
+                         _diasCorridosGracia := DiasEnFechas(_fechaGracia, EdFechaCorte.Date, EdFechaCorte.Date, bisiesto);
+                         if (_diasCorridosGracia <= _diasGracia) then
+                         begin
+                             DiasMora := 0;
+                             if (DiasCorrientes > IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) then
+                               DiasCorrientes := IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger;
+                             Edad := 'A';
+                         end;
+                       //
+
+
+
+
+
 
             // Insertar datos en tabla temporal
             with IBSQL4 do begin
@@ -3497,6 +3555,11 @@ var id_ant:Integer;
     FechaDesembolso:TDate;
     TasaViv:Double;
     Evaluacion: String;
+    _fechaInteresGracia: TDate;
+    _fechaGracia: TDate;
+    _diasGracia: Integer;
+    _diasCorridosGracia : Integer;
+    _diasParaCausar, _diasParaContingencia: Integer;
 begin
           with IBQuery1 do begin
             if Transaction.InTransaction then
@@ -3557,6 +3620,8 @@ begin
               end;
               Deuda := IBQuery1.FieldByName('DEUDA').AsCurrency;
               Tasa1 := BuscoTasaEfectivaMaxima1(IBQVarios,EdFechaCorte.Date,IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,'A');
+              _diasParaCausar := 0;
+              _diasParaContingencia := 0;
               // Primer Paso
               Saldo := IBQuery1.FieldByName('DEUDA').AsCurrency;
               IBSQL3.Close;
@@ -3602,7 +3667,8 @@ begin
                  end; // if
 
               // Evaluar Fechas
-              if DiasCXC > 0 then begin
+              if DiasCXC > 0 then
+              begin
                  FechaInicial := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
                  FechaFinal := EdFechaCorte.Date;
                  ListaFechas := TList.Create;
@@ -3620,6 +3686,7 @@ begin
                  DiasCON := 0;
                  for i := 0 to ListaFechas.Count - 1 do begin
                    AFechas := ListaFechas.Items[i];
+                   {
                     if IBQuery1.FieldByName('ID_INTERES').AsInteger = 0 then begin
                        Tasa := BuscoTasaEfectivaMaxima1(IBQVarios,AFechas.FechaFinal,IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,'A');
                        if IBQuery1.FieldByName('TASA_INTERES_CORRIENTE').AsFloat < Tasa then
@@ -3703,7 +3770,7 @@ begin
                        Tasa := Tasa1;
                        Tasa := TasaNominalVencida(Tasa1,30);
                     end;
-
+                    }
                     Bisiesto := False;
                     FechaDesembolso := IBQuery1.FieldByName('FECHA_DESEMBOLSO').AsDateTime;
                     if AFechas^.FechaInicial = FechaInicial then
@@ -3711,21 +3778,25 @@ begin
                     DiasCalc := DiasEnFechas(AFechas^.FechaInicial,AFechas^.FechaFinal,FechaDesembolso,bisiesto);
                     if DiasCalc < 0 then DiasCalc := 0;
                     Dispose(AFechas);
-                    if DiasCXC < (DiasContingencia - 1) then begin
+                    if DiasCXC < (DiasContingencia - 1) then
+                    begin
                        DiasCXC := DiasCXC + DiasCalc;
                        if DiasCXC > (DiasContingencia - 1) then
                        begin
                           DiasCON := DiasCXC - (DiasContingencia-1);
                           DiasCXC := (DiasContingencia-1);
-                          Contingentes := Contingentes + SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * DiasCON,0);
+                          // Contingentes := Contingentes + SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * DiasCON,0);
+                          _diasParaContingencia := _diasParaContingencia + DiasCON;
                           DiasCalc := DiasCalc - DiasCON;
                        end;
-                       Causados := Causados + SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * DiasCalc,0);
+                       _diasParaCausar := _diasParaCausar + DiasCalc;
+                       // Causados := Causados + SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * DiasCalc,0);
                     end
                     else
                     begin
-                       Contingentes := Contingentes + SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * DiasCalc,0);
-                       DiasCON := DiasCON + DiasCalc;
+                       _diasParaContingencia := _diasParaContingencia + DiasCalc;
+                       //Contingentes := Contingentes + SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * DiasCalc,0);
+                       //DiasCON := DiasCON + DiasCalc;
                     end;
                 end;
                  ListaFechas.Free;
@@ -3736,8 +3807,127 @@ begin
                  Causados := 0;
                  DiasCON := 0;
                  DiasCXC := 0;
+                 _diasParaCausar := 0;
+                 _diasParaContingencia := 0;
                end;
 
+// Evaluar DiasCXC si está marcado
+              IBSQL4.Close;
+              IBSQL4.SQL.Clear;
+              IBSQL4.SQL.Add('SELECT FIRST 1 FECHA_INTERES, FECHA_REGISTRO, DIAS FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO = 0 ORDER BY FECHA_REGISTRO');
+              IBSQL4.ParamByName('ID_COLOCACION').AsString := IBQuery1.FieldByName('ID_COLOCACION').AsString;
+              IBSQL4.ExecQuery;
+              if IBSQL4.RecordCount > 0 then
+              begin
+                _fechaInteresGracia := IBSQL4.FieldByName('FECHA_INTERES').AsDate;
+                _fechaGracia := IBSQL4.FieldByName('FECHA_REGISTRO').AsDate;
+                _diasGracia := IBSQL4.FieldByName('DIAS').AsInteger;
+              end
+              else
+              begin
+                _fechaInteresGracia := 0;
+                _fechaGracia := EdFechaCorte.Date;
+                _diasGracia := 0;
+              end;
+              IBSQL4.Close;
+
+              _diasCorridosGracia := DiasEnFechas(_fechaGracia, EdFechaCorte.Date, EdFechaCorte.Date, bisiesto);
+              if (_diasCorridosGracia <= _diasGracia) then
+              begin
+                if (_diasParaCausar > IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) then
+                  _diasParaCausar := IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger;
+                _diasParaContingencia := 0;
+              end;
+//
+// Calcula la Tasa que se debe aplicar   Causados
+                    if IBQuery1.FieldByName('ID_INTERES').AsInteger = 0 then begin
+                       Tasa := BuscoTasaEfectivaMaxima1(IBQVarios,edFechaCorte.Date,IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,'A');
+                       if IBQuery1.FieldByName('TASA_INTERES_CORRIENTE').AsFloat < Tasa then
+                          Tasa :=IBQuery1.FieldByName('TASA_INTERES_CORRIENTE').AsFloat;
+                       if IBQuery1.FieldByName('ID_ARRASTRE').AsString = 'E' then
+                          Tasa := TasaNominalVencida(Tasa,30)
+                       else
+                       begin
+                        if IBQuery1.FieldByName('TIPOC_INTERES').AsString = 'A' then
+                         begin
+                           Tasa := TasaNominalAnticipada(Tasa,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger);
+                         end
+                        else
+                         begin
+                           Tasa := TasaNominalVencida(Tasa,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger);
+                         end;
+                       end;
+                    end
+                    else
+                    if IBQuery1.FieldByName('ID_INTERES').AsInteger = 1 then begin
+                       Tasa := BuscoTasaEfectivaMaximaDtfNueva(IBQVarios,edFechaCorte.Date);
+                       if IBQuery1.FieldByName('TASA_INTERES_CORRIENTE').AsFloat < Tasa then
+                          Tasa :=IBQuery1.FieldByName('TASA_INTERES_CORRIENTE').AsFloat;
+
+                       if IBQuery1.FieldByName('ID_ARRASTRE').AsString = 'E' then
+                          Tasa := TasaNominalVencida(Tasa,30)
+                       else
+                       begin
+                        if IBQuery1.FieldByName('TIPOC_INTERES').AsString = 'A' then
+                         begin
+                           Tasa := TasaNominalAnticipada(Tasa,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) + IBQuery1.FieldByName('PUNTOS_INTERES').AsFloat;
+                         end
+                        else
+                         begin
+                           Tasa := TasaNominalVencida(Tasa,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) + IBQuery1.FieldByName('PUNTOS_INTERES').AsFloat;
+                         end;
+                       end;
+                    end
+                    else
+                    if IBQuery1.FieldByName('ID_INTERES').AsInteger = 2 then begin
+                       Tasa := _cTasaIpcNueva; //BuscoTasaEfectivaMaximaIPCNueva(IBQVarios); //*** esto se puede calcular con variable
+                       if IBQuery1.FieldByName('TASA_INTERES_CORRIENTE').AsFloat < Tasa then
+                          Tasa :=IBQuery1.FieldByName('TASA_INTERES_CORRIENTE').AsFloat;
+
+                       if IBQuery1.FieldByName('ID_ARRASTRE').AsString = 'E' then
+                          Tasa := TasaNominalVencida(Tasa,30)
+                       else
+                       begin
+                        if IBQuery1.FieldByName('TIPOC_INTERES').AsString = 'A' then
+                         begin
+                           Tasa := TasaNominalAnticipada(Tasa,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) + IBQuery1.FieldByName('PUNTOS_INTERES').AsFloat;
+                         end
+                        else
+                         begin
+                           Tasa := TasaNominalVencida(Tasa,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) + IBQuery1.FieldByName('PUNTOS_INTERES').AsFloat;
+                         end;
+                       end;
+                    end;
+
+                    //*****Tasa de vivienda***////
+                    if IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger = 3 then begin
+                       TasaViv := BuscoTasaEfectivaUvrNueva(IBQVarios,edFechaCorte.Date);
+                       if IBQuery1.FieldByName('ID_ARRASTRE').AsString = 'E' then
+                          TasaViv := TasaNominalVencida(Tasa,30)
+                       else
+                       begin
+                        if IBQuery1.FieldByName('TIPOC_INTERES').AsString = 'A' then
+                         begin
+                           TasaViv := TasaNominalAnticipada(TasaViv,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) + IBQuery1.FieldByName('PUNTOS_INTERES').AsFloat;
+                         end
+                        else
+                         begin
+                           TasaViv := TasaNominalVencida(TasaViv,IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger) + IBQuery1.FieldByName('PUNTOS_INTERES').AsFloat;
+                         end;
+                        end;
+                       if Tasa > TasaViv then
+                          Tasa := TasaViv;
+                    end;
+
+                    if IBQuery1.FieldByName('ID_ARRASTRE').AsString = 'E' then begin
+                       Tasa := Tasa1;
+                       Tasa := TasaNominalVencida(Tasa1,30);
+                    end;
+//  Fin Tasa A Aplicar Causados
+            Causados := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaCausar,0);
+            Contingentes := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaContingencia,0);
+            DiasCXC := _diasParaCausar;
+            DiasCON := _diasParaContingencia;
 
             // Buscar Tasa Anticipada
             if DiasANT < 0 then begin
@@ -5258,6 +5448,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -5305,6 +5496,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -5352,6 +5544,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -5399,6 +5592,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -8488,7 +8682,7 @@ begin
 
                 if DiasMora < 1 then DiasMora := 0;
                 Edad := EvaluarEdad(IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,
-                                IBQuery1.FieldByName('ID_GARANTIA').AsInteger,DiasMora);
+                                IBQuery1.FieldByName('ID_GARANTIA').AsInteger,DiasMora, IBQuery1.FieldByName('ID_COLOCACION').AsString);
                 if (IBQuery1.FieldByName('ID_ESTADO').AsInteger = 2) or
                   (IBQuery1.FieldByName('ID_ESTADO').AsInteger = 3) then
                 Edad := 'E';

@@ -11,7 +11,7 @@ uses
   pr_TxClasses, DateUtils, JclDateTime, frRtfExp;
 
 type
-  TFrmDesembolso = class(TForm)
+   TFrmDesembolso = class(TForm)
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
@@ -1588,7 +1588,7 @@ begin
         fechahoy := fFechaActual;
         if verifica_liquidacion then
         begin
-          MessageDlg('Debe liquidar las Cuotas antes de Grabar el Cr?dito',mtWarning,[mbok],0);
+          MessageDlg('Debe liquidar las Cuotas antes de Grabar el Credito',mtWarning,[mbok],0);
           BTliquida.SetFocus;
           Exit;
         end;
@@ -1598,7 +1598,7 @@ begin
            Exit;
         end;
         vTasaMora := 15;// valor por omision
-        if MessageDlg('Seguro de Crear Esta Nueva Colocaci?n?',mtConfirmation,[mbYes,mbNo],0) = mrYes then
+        if MessageDlg('Seguro de Crear Esta Nueva Colocacion?',mtConfirmation,[mbYes,mbNo],0) = mrYes then
         if CrearColocacion then
         begin
            Actualiza_temp;
@@ -1611,7 +1611,7 @@ begin
            valida_colocacion := False;
            CmdVerTabla.Enabled := True;
            CmdInforme.Enabled := true;
-           self.Caption := 'Nueva Colocaci?n:' + EdNumeroColocacion.Text;
+           self.Caption := 'Nueva Colocacion:' + EdNumeroColocacion.Text;
            // Control para registros de seguros equivida
            if dmGeneral.IBTransaction1.InTransaction then
               dmGeneral.IBTransaction1.Commit;
@@ -1648,7 +1648,7 @@ procedure TFrmDesembolso.FormClose(Sender: TObject;
 begin
         if (vIdSolicitud <> '') and (valida_colocacion = True) then
         begin
-          MessageDlg('Se Eliminar?n Algunos Datos Temporales',mtInformation,[mbok],0);
+          MessageDlg('Se Eliminaron Algunos Datos Temporales',mtInformation,[mbok],0);
           PermiteEliJud := True;
           Elimina_temp;
         end;
@@ -2073,6 +2073,7 @@ var    numero_cuotas,amortiza :Integer;
        fecha,fechahoy :TDate;
        tipo :string;
        valor_tasa :Currency;
+       DiasMora: Integer;
 begin
         fechahoy := fFechaActual;
         with IBSQL2 do
@@ -2146,7 +2147,8 @@ begin
             Amortiza := FieldByName('AMORTIZA_INTERES').AsInteger;
             if Tipo = 'V' then
                Fecha := CalculoFecha(Fecha,Amortiza);
-            if (Int(Fecha) <= Int(FechaHoy)) and (FieldByName('SALDO').AsCurrency > 0) then
+            DiasMora := ObtenerDiasMora(FieldByName('ID_AGENCIA').AsInteger, FieldByName('ID_COLOCACION').AsString, IBSQL3);
+            if (DiasMora > 0) and (FieldByName('SALDO').AsCurrency > 0) then
             begin
               with DmSolicitud.IBSolicitud1 do
               begin
@@ -4518,7 +4520,7 @@ begin
             end;
             if vTipoId < 1 Then
             begin
-               messagedlg('El tipo de Identificaci?n no es valido',mtError,[mbOk],0);
+               messagedlg('El tipo de Identificacion no es valido',mtError,[mbOk],0);
                CBtiposid.SetFocus;
                Result := false;
                exit;
@@ -4526,14 +4528,14 @@ begin
 
             if vNumeroId = '' then
             begin
-               messagedlg('El n?mero de identificaci?n no es valido',mtError,[mbOk],0);
+               messagedlg('El n?mero de identificacion no es valido',mtError,[mbOk],0);
                EdNumeroIdentificacion.SetFocus;
                Result := false;
                exit;
             end;
             if vClasificacion < 1 then
             begin
-               messagedlg('El tipo de clasificaci?n no es valido',mtError,[mbOk],0);
+               messagedlg('El tipo de clasificacion no es valido',mtError,[mbOk],0);
                Result := false;
                exit;
             end;
@@ -4545,7 +4547,7 @@ begin
             end;
             if vInversion < 1 then
             begin
-               messagedlg('El tipo de inversi?n no es valido',mtError,[mbOk],0);
+               messagedlg('El tipo de inversion no es valido',mtError,[mbOk],0);
                Result := false;
                exit;
             end;

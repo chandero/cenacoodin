@@ -5,7 +5,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
   BorderStyle = bsDialog
   Caption = 'Causaci'#243'n de Colocaciones Autom'#225'tico'
   ClientHeight = 435
-  ClientWidth = 763
+  ClientWidth = 774
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack
@@ -22,7 +22,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
   object Panel2: TPanel
     Left = 0
     Top = 402
-    Width = 763
+    Width = 774
     Height = 33
     Align = alBottom
     Color = clOlive
@@ -33,6 +33,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
       Width = 80
       Height = 25
       Caption = '&Cerrar'
+      ModalResult = 1
       TabOrder = 0
       OnClick = CmdCerrarClick
       Glyph.Data = {
@@ -400,7 +401,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
   object Panel3: TPanel
     Left = 0
     Top = 365
-    Width = 763
+    Width = 774
     Height = 37
     Align = alBottom
     TabOrder = 1
@@ -473,7 +474,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 763
+    Width = 774
     Height = 365
     ActivePage = TabSheet1
     Align = alClient
@@ -484,14 +485,14 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 755
+        Width = 766
         Height = 275
         Align = alTop
         TabOrder = 0
         object GroupBox1: TGroupBox
           Left = 1
           Top = 1
-          Width = 753
+          Width = 764
           Height = 273
           Align = alClient
           Caption = 'Porcentajes de Provisi'#243'n'
@@ -499,7 +500,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
           object GridP: TXStringGrid
             Left = 2
             Top = 15
-            Width = 749
+            Width = 760
             Height = 256
             Align = alClient
             ColCount = 6
@@ -636,7 +637,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
       object XSauxiliar: TXStringGrid
         Left = 0
         Top = 0
-        Width = 755
+        Width = 766
         Height = 251
         Align = alTop
         ColCount = 4
@@ -716,7 +717,7 @@ object frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto
       object Panel4: TPanel
         Left = 0
         Top = 307
-        Width = 755
+        Width = 766
         Height = 30
         Align = alBottom
         TabOrder = 1

@@ -1207,7 +1207,7 @@ object frmConsultaProductos: TfrmConsultaProductos
                   Width = 249
                   Height = 21
                   Style = csDropDownList
-                  ItemHeight = 13
+                  ItemHeight = 0
                   TabOrder = 4
                 end
               end

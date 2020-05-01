@@ -867,7 +867,6 @@ begin
            AR^.EsAnticipado := False;
            AR^.EsDevuelto := False;
            if (AR^.Debito <> 0) or (AR^.Credito <> 0) then CuotasLiq.Lista.Add(AR);
-
            AbonoExtracto := (EdLibranza.Value - vTotalLiquidacion);
          end
          else
@@ -952,7 +951,6 @@ begin
      EdNumeroIdentificacion.Enabled := False;
      EdNombre.Enabled := False;
    end;
-
 
 end;
 

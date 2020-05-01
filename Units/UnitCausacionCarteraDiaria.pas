@@ -237,15 +237,8 @@ begin
         SegundoPasoCausacion;
         GarantiasReales;
         CalculoProvision;
-        if RGProceso.ItemIndex = 1 then begin
-           {if IBSQL9.Transaction.InTransaction then
-             IBSQL9.Transaction.Rollback;
-           IBSQL9.Transaction.StartTransaction;
-           IBSQL9.Close;
-           IBSQL9.SQL.Clear;
-           IBSQL9.SQL.Add('EXECUTE PROCEDURE P_COL_RECUPERACIONES');
-           IBSQL9.ExecQuery;
-           IBSQL9.Transaction.Commit;}
+        if RGProceso.ItemIndex = 1 then
+        begin
            TercerPasoCausacion;
            CmdAplicar.Enabled := True;
         end;
@@ -3347,7 +3340,8 @@ begin
                 Saldo := IBQuery1.FieldByName('SALDO').AsCurrency;
 
                 //DiasMora := ObtenerDiasMora(IBQuery1.FieldByName('ID_AGENCIA').AsInteger,IBQuery1.FieldByName('ID_COLOCACION').AsString,IBSQL2);
-                DiasMora := ObtenerDiasMoraCausacion(IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger,
+                DiasMora := ObtenerDiasMoraCausacion(IBQuery1.FieldByName('ID_COLOCACION').AsString,
+                                                     IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger,
                                                      IBQuery1.FieldByName('ID_LINEA').AsInteger,
                                                      IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger,
                                                      IBQuery1.FieldByName('DIAS_PAGO').AsInteger,
@@ -4294,19 +4288,19 @@ begin
                  Close;
                  SQL.Clear;
                  SQL.Add('select "col$causaciondiaria".ID_CLASIFICACION, ');
-                 SQL.Add('"col$causaciondiaria".ID_GARANTIA,"col$causaciondiaria".ID_EDAD_ACT, ');
+                 SQL.Add('"col$causaciondiaria".ID_GARANTIA,"col$causaciondiaria".ID_ARRASTRE, ');
                  SQL.Add('SUM("col$causaciondiaria".CORTO_PL) AS CORTO,');
                  SQL.Add('SUM("col$causaciondiaria".LARGO_PL) AS LARGO from "col$causaciondiaria"');
                  SQL.Add('inner join COL$CODIGOSPUC on ');
                  SQL.Add('("col$causaciondiaria".ID_CLASIFICACION = COL$CODIGOSPUC.ID_CLASIFICACION and');
                  SQL.Add('"col$causaciondiaria".ID_GARANTIA = COL$CODIGOSPUC.ID_GARANTIA and');
-                 SQL.Add('"col$causaciondiaria".ID_EDAD_ACT = COL$CODIGOSPUC.ID_CATEGORIA)');
-                 SQL.Add('where "col$causaciondiaria".ID_EDAD_ACT = '+QuotedStr('A'));
+                 SQL.Add('"col$causaciondiaria".ID_ARRASTRE = COL$CODIGOSPUC.ID_CATEGORIA)');
+                 SQL.Add('where "col$causaciondiaria".ID_ARRASTRE = '+QuotedStr('A'));
                  SQL.Add('and "col$causaciondiaria".FECHA_CORTE = :FECHA_CORTE');
                  SQL.Add('group by "col$causaciondiaria".ID_CLASIFICACION, "col$causaciondiaria".ID_GARANTIA,');
-                 SQL.Add('"col$causaciondiaria".ID_EDAD_ACT');
+                 SQL.Add('"col$causaciondiaria".ID_ARRASTRE');
                  SQL.Add('order by "col$causaciondiaria".ID_CLASIFICACION DESC,"col$causaciondiaria".ID_GARANTIA,');
-                 SQL.Add('"col$causaciondiaria".ID_EDAD_ACT');
+                 SQL.Add('"col$causaciondiaria".ID_ARRASTRE');
                  ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
                  try
                    ExecQuery;
@@ -4327,7 +4321,7 @@ begin
                      IBSQL3.SQL.Add('COL$CODIGOSPUC.ID_GARANTIA = :ID_GARANTIA and COL$CODIGOSPUC.ID_CATEGORIA = :ID_CATEGORIA');
                      IBSQL3.ParamByName('ID_CLASIFICACION').AsInteger := FieldByName('ID_CLASIFICACION').AsInteger;
                      IBSQL3.ParamByName('ID_GARANTIA').AsInteger := fieldbyname('ID_GARANTIA').AsInteger;
-                     IBSQL3.ParamByName('ID_CATEGORIA').AsString := fieldbyname('ID_EDAD_ACT').AsString;
+                     IBSQL3.ParamByName('ID_CATEGORIA').AsString := fieldbyname('ID_ARRASTRE').AsString;
                      try
                       IBSQL3.ExecQuery;
                       CodigoCorto := IBSQL3.FieldByName('COD_CAPITAL_CP').AsString;
@@ -4977,7 +4971,14 @@ var AR:PList;
     Codigo,CodigoI,CodigoE:string;
     Comercial,Consumo,Vivienda,Microcredito:Currency;
     Aplica :Boolean;
+    _provCapitalComercialRec, _provCapitalConsumoRec, _provCapitalViviendaRec, _provCapitalMicrocreditoRec: Currency;
 begin
+
+              _provCapitalComercialRec := 0;
+              _provCapitalConsumoRec := 0;
+              _provCapitalViviendaRec := 0;
+              _provCapitalMicrocreditoRec := 0;
+
               Comercial    := 0;
               Consumo      := 0;
               Vivienda     := 0;
@@ -5256,6 +5257,8 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 // Codigo A Cambiar
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -5303,6 +5306,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -5350,6 +5354,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -5397,6 +5402,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := CodigoE;
                  IBSQL3.ExecQuery;
+                 CodigoE := '146810000000000000';
                  AR^.codigo := CodigoE;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;
@@ -5428,6 +5434,7 @@ var AR:PList;
     Codigo:string;
     Comercial,Consumo,Vivienda,Microcredito:Currency;
     Aplica :Boolean;
+    _provInteres : Currency;
 begin
               Comercial    := 0;
               Consumo      := 0;
@@ -5807,7 +5814,8 @@ begin
 
                 IBSQL3.Close;
 
-               Codigo := '511518000000000000';
+               //Codigo := '511518000000000000';
+               Codigo := '146810000000000000';
                IBSQL3.SQL.Clear;
                IBSQL3.SQL.Add('select NOMBRE from CON$PUC where CODIGO = :CODIGO');
 
@@ -5816,6 +5824,7 @@ begin
                  IBSQL3.Close;
                  IBSQL3.ParamByName('CODIGO').AsString := Codigo;
                  IBSQL3.ExecQuery;
+
                  AR^.codigo := Codigo;
                  AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
                  AR^.nocuenta := 0;

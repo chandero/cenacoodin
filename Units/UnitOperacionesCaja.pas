@@ -754,6 +754,18 @@ type
     edSegundoApellidoCas: TEdit;
     edNombreCas: TEdit;
     btnGuardarCas: TBitBtn;
+    CDSliquidacion: TClientDataSet;
+    CDSliquidacionCUOTA: TIntegerField;
+    CDSliquidacionCODIGO: TStringField;
+    CDSliquidacionID_AGENCIA: TIntegerField;
+    CDSliquidacionFECHA_INICIAL: TDateField;
+    CDSliquidacionFECHA_FINAL: TDateField;
+    CDSliquidacionDIAS: TIntegerField;
+    CDSliquidacionTASA: TFloatField;
+    CDSliquidacionDEBITO: TCurrencyField;
+    CDSliquidacionCREDITO: TCurrencyField;
+    CDSliquidacionNOMBRE: TStringField;
+    ReporteComprobante: TprTxReport;
     procedure TimerTimer(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -8158,13 +8170,15 @@ procedure TfrmOperacionesCaja.CmdInformeClick(Sender: TObject);
 var Tabla:string;
     I:Integer;
     AF:PCuotasLiq;
-    frmVistaPreliminar:TfrmVistaPreliminar;
 begin
+      {
         if dmGeneral.IBTransaction1.InTransaction then
           dmGeneral.IBTransaction1.Commit;
-        dmGeneral.IBTransaction1.StartTransaction;
+          dmGeneral.IBTransaction1.StartTransaction;
+        }
         Empleado;
-        Tabla := '"temp' + FloatToStr(Now)+ '"';
+        {
+        Tabla := '"cajaliq' + FloatToStr(Now)+ '"';
         with IBQuery do
         begin
            SQL.Clear;
@@ -8179,7 +8193,7 @@ begin
            SQL.Add('DEBITO              NUMERICO,');
            SQL.Add('CREDITO             NUMERICO);');
            ExecSQL;
-           //Transaction.CommitRetaining;
+           Transaction.CommitRetaining;
            Close;
 
            SQL.Clear;
@@ -8193,10 +8207,35 @@ begin
            SQL.Add(':"TASA",');
            SQL.Add(':"DEBITO",');
            SQL.Add(':"CREDITO");');
+       }
 
+           IBQuery.SQL.Clear;
+           IBQuery.SQL.Add('SELECT * FROM CON$PUC WHERE CODIGO = :CODIGO');
+           CDSliquidacion.Open;
+           CDSliquidacion.EmptyDataSet;
            for I := 0 to (Lista.Count - 1) do
            begin
                 AF := Lista.Items[I];
+                CDSliquidacion.Insert;
+                CDSliquidacionCUOTA.Value := AF^.CuotaNumero;
+                CDSliquidacionCODIGO.Value := AF^.CodigoPuc;
+                IBQuery.Close;
+                IBQuery.ParamByName('CODIGO').AsString := AF^.CodigoPuc;
+                IBQuery.Open;
+                if IBQuery.RecordCount > 0 then
+                  CDSliquidacionNOMBRE.Value := IBQuery.FieldByName('NOMBRE').AsString
+                else
+                  CDSliquidacionNOMBRE.Clear;
+                IBQuery.Close;
+                CDSliquidacionID_AGENCIA.Value := Agencia;
+                CDSliquidacionFECHA_INICIAL.Value := AF^.FechaInicial;
+                CDSliquidacionFECHA_FINAL.Value := AF^.FechaFinal;
+                CDSliquidacionDIAS.Value := AF^.Dias;
+                CDSliquidacionTASA.Value := AF^.Tasa;
+                CDSliquidacionDEBITO.Value := AF^.Debito;
+                CDSliquidacionCREDITO.Value := AF^.Credito;
+                CDSliquidacion.Post;
+                {
                 ParamByName('CUOTA').AsInteger := AF^.CuotaNumero;
                 ParamByName('CODIGO').AsString := AF^.CodigoPuc;
                 ParamByName('ID_AGENCIA').AsInteger := Agencia;
@@ -8207,9 +8246,10 @@ begin
                 ParamByName('DEBITO').AsCurrency := AF^.Debito;
                 ParamByName('CREDITO').AsCurrency := AF^.Credito;
                 ExecSQL;
+                }
            end;
-           Close;
-
+       {   Close;
+       
            SQL.Clear;
            SQL.Add('select ');
            SQL.Add('CUOTA,');
@@ -8226,37 +8266,40 @@ begin
            SQL.Add('LEFT JOIN CON$PUC ON (' + Tabla + '.CODIGO = CON$PUC.CODIGO and ');
            SQL.Add(Tabla + '.ID_AGENCIA = CON$PUC.ID_AGENCIA )');
            Open;
-
-           Report.Variables.ByName['Empresa'].AsString := Empresa;
-           Report.Variables.ByName['Colocacion'].AsString := Colocacion;
-           Report.Variables.ByName['Hoy'].AsDateTime := Now;
+         }
+           CDSliquidacion.First;
+           ReporteComprobante.Variables.ByName['Empresa'].AsString := Empresa;
+           ReporteComprobante.Variables.ByName['Colocacion'].AsString := Colocacion;
+           ReporteComprobante.Variables.ByName['Hoy'].AsDateTime := Now;
            if ProximaCuota = 0 then
-            Report.Variables.ByName['ProximaCuota'].AsString := '0000/00/00'
+            ReporteComprobante.Variables.ByName['ProximaCuota'].AsString := '0000/00/00'
            else
-            Report.Variables.ByName['ProximaCuota'].AsString := DateToStr(ProximaCuota);
+            ReporteComprobante.Variables.ByName['ProximaCuota'].AsString := DateToStr(ProximaCuota);
 //           Report.Variables.ByName['ProximaCuota'].AsDateTime := ProximaCuota;
-           Report.Variables.ByName['FechaCorte'].AsDateTime := FechaCorte;
-           Report.Variables.ByName['Asociado'].AsString := Asociado;
-           Report.Variables.ByName['NuevoSaldo'].AsDouble := NuevoSaldo;
-           REport.Variables.ByName['InteresesHasta'].AsDateTime := InteresesHasta;
-           Report.Variables.ByName['CapitalHasta'].AsDateTime := CapitalHasta;
-           Report.Variables.ByName['comprobante'].AsString := VNoComprobante;
-           Report.Variables.ByName['empleado'].AsString := Nombres + '    ' + Apellidos;
+           ReporteComprobante.Variables.ByName['FechaCorte'].AsDateTime := FechaCorte;
+           ReporteComprobante.Variables.ByName['Asociado'].AsString := Asociado;
+           ReporteComprobante.Variables.ByName['NuevoSaldo'].AsDouble := NuevoSaldo;
+           ReporteComprobante.Variables.ByName['InteresesHasta'].AsDateTime := InteresesHasta;
+           ReporteComprobante.Variables.ByName['CapitalHasta'].AsDateTime := CapitalHasta;
+           ReporteComprobante.Variables.ByName['comprobante'].AsString := VNoComprobante;
+           ReporteComprobante.Variables.ByName['empleado'].AsString := Nombres + '    ' + Apellidos;
 
-           if Report.PrepareReport then
+           if ReporteComprobante.PrepareReport then
            begin
-              frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
-              frmVistaPreliminar.Reporte := Report;
-              frmVistaPreliminar.ShowModal;
+              ReporteComprobante.PreviewPreparedReport(False);
+              // frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
+              // frmVistaPreliminar.Reporte := Report;
+              // frmVistaPreliminar.ShowModal;
            end;
 //              Report.PreviewPreparedReport(True);
-
+          {
            SQL.Clear;
            SQL.Add('drop table ' + Tabla);
            ExecSQL;
            Close;
-           //Transaction.CommitRetaining;
+           Transaction.CommitRetaining;
         end;
+        }
 end;
 
 procedure TfrmOperacionesCaja.CmdColManualClick(Sender: TObject);

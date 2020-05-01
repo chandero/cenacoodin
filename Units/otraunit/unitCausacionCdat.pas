@@ -167,7 +167,7 @@ implementation
 
 {$R *.dfm}
 
-uses UnitDmGeneral, UnitGlobales, UnitGlobalesCol, UnitVistaPreliminar;
+uses UnitDmGeneral, UnitGlobales, UnitGlobalesCol;
 
 procedure Tfrmcausacioncdat.CmdLiquidarClick(Sender: TObject);
 var MinCaptacion,MaxCaptacion:Integer;
