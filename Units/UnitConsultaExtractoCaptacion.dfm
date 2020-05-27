@@ -907,11 +907,12 @@ object frmConsultaExtractoCaptacion: TfrmConsultaExtractoCaptacion
         ReadOnly = False
         TabOrder = 4
         OnExit = EdAnoCapExit
+        AutoSelect = False
         Value = 2000
         MaxValue = 9999
         MinValue = 1998
         HasMaxValue = True
-        HasMinValue = True
+        HasMinValue = False
         WindowsillYear = 71
       end
       object EdFechaI: TDateTimePicker

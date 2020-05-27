@@ -176,7 +176,7 @@ object frmMain: TfrmMain
           OnClick = SaldosPrestamos1Click
         end
         object PrestamposEfectuados10261: TMenuItem
-          Caption = 'Prestampos Efectuados - 1026'
+          Caption = 'Prestamos Efectuados - 1026'
           OnClick = PrestamposEfectuados10261Click
         end
         object CertificadoDeposito10201: TMenuItem

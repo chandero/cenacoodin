@@ -135,6 +135,24 @@ object FrmCierreMes: TFrmCierreMes
         Caption = 'Causaci'#243'n y Provisi'#243'n de Cartera'
         OnClick = CausacinyProvisindeCartera1Click
       end
+      object CausacinCdatAuto1: TMenuItem
+        Caption = 'Causaci'#243'n Cdat Auto'
+        Visible = False
+        OnClick = CausacinCdatAuto1Click
+      end
+      object CausacinContractualAuto1: TMenuItem
+        Caption = 'Causaci'#243'n Contractual Auto'
+        Visible = False
+        OnClick = CausacinContractualAuto1Click
+      end
+      object CausacinContractual1: TMenuItem
+        Caption = 'Causaci'#243'n Contractual'
+        OnClick = CausacinContractual1Click
+      end
+      object CausacionCdat1: TMenuItem
+        Caption = 'Causacion Cdat'
+        OnClick = CausacionCdat1Click
+      end
     end
     object mnuAuto: TMenuItem
       Caption = 'Test Autom'#225'tico'

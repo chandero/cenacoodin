@@ -7207,6 +7207,11 @@ var
     amortiza : Integer;
     FechaHoy : TDate;
     vTotalLiquidacion : Currency;
+    _fechaInicial, _fechaFinal: TDate;
+    _dFechaActual: TDateTime;
+    _diasGracia: Integer;
+    IBQvalidar: TIBQuery;
+    IBT: TIBTransaction;    
 begin
         FechaHoy := fFechaActual;
 
@@ -7346,6 +7351,31 @@ begin
              Result.Dias := 0;
             end;
          end; //fin de with
+        // Validar COL_PERIODO_GRACIA
+        IBT := TIBTransaction.Create(nil);
+        IBT.DefaultDatabase := dmGeneral.IBDatabase1;
+        IBT.StartTransaction;
+        IBQvalidar := TIBQuery.Create(nil);
+        IBQvalidar.Database := dmGeneral.IBDatabase1;
+        IBQvalidar.Transaction := IBT;
+        IBQvalidar.Close;
+        IBQvalidar.SQL.Clear;
+        IBQvalidar.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO = 0 ORDER BY FECHA_REGISTRO DESC');
+        IBQvalidar.ParamByName('ID_COLOCACION').AsString := Colocacion;
+        IBQvalidar.Open;
+        if IBQvalidar.RecordCount > 0 then
+        begin
+           _fechaInicial := IBQvalidar.FieldByName('FECHA_REGISTRO').AsDateTime;
+           _diasGracia := IBQvalidar.FieldByName('DIAS').AsInteger;
+           _fechaFinal := CalculoFecha(_fechaInicial, _diasGracia);
+           if (_fechaFinal >= FechaHoy) then
+           begin
+             Result.Valor := 0;
+             Result.Dias := 0;
+           end;
+        end;
+        IBQvalidar.Close;
+        IBT.Commit;
 end;
 
 function ObtenerDiasMora(Agencia:Integer;Colocacion:string;IBSQL1:TIBSQL) : Integer;

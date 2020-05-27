@@ -1,6 +1,6 @@
 object frmCausacionCdatAuto: TfrmCausacionCdatAuto
-  Left = 565
-  Top = 254
+  Left = 509
+  Top = 295
   Width = 495
   Height = 119
   Caption = 'Causaci'#243'n Cdat Auto'
@@ -11,6 +11,8 @@ object frmCausacionCdatAuto: TfrmCausacionCdatAuto
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnActivate = FormActivate
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96

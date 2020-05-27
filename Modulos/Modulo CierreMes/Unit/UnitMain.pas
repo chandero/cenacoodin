@@ -43,6 +43,10 @@ type
     IBQGuardar: TIBQuery;
     CDSproductoNUMERO_CUENTA: TStringField;
     IBTnotas: TIBTransaction;
+    CausacinCdatAuto1: TMenuItem;
+    CausacinContractualAuto1: TMenuItem;
+    CausacinContractual1: TMenuItem;
+    CausacionCdat1: TMenuItem;
     procedure LiquidacindeIntersdeCaptacin1Click(Sender: TObject);
     procedure mnuAutoClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -55,6 +59,10 @@ type
     procedure btnNotasClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure TimerVerificacionProductosTimer(Sender: TObject);
+    procedure CausacinCdatAuto1Click(Sender: TObject);
+    procedure CausacinContractualAuto1Click(Sender: TObject);
+    procedure CausacinContractual1Click(Sender: TObject);
+    procedure CausacionCdat1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -69,7 +77,9 @@ implementation
 
 {$R *.dfm}
 
-uses IniFiles, UnitLiquidacionInteresesCaptacion, UnitLiquidacionYCausacionAuto, UnitGlobales, UnitCausacionCarteraDiaria, UnitCausacionCarteraDiariaAuto, UnitCausacionCdatAuto;
+uses
+IniFiles, UnitLiquidacionInteresesCaptacion, UnitLiquidacionYCausacionAuto, UnitGlobales,
+UnitCausacionCarteraDiaria, UnitCausacionCarteraDiariaAuto, UnitCausacionCdat, UnitCausacionCdatAuto, UnitCausacionContractual, UnitCausacionContractualAuto;
 
 procedure TFrmCierreMes.LiquidacindeIntersdeCaptacin1Click(
   Sender: TObject);
@@ -129,6 +139,7 @@ var
  frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto;
  frmCausacionCarteraDiariaAuto: TfrmCausacionCarteraDiariaAuto;
  frmCausacionCdatAuto: TfrmCausacionCdatAuto;
+ frmCauscionContractualAuto: TfrmCausacionContractualAuto;
 begin
   _ahora := Time;
   StatusBar1.Panels[1].Text := TimeToStr(_ahora);
@@ -162,8 +173,10 @@ begin
        if (not _cerrandomes) then
        begin
          _cerrandomes := True;
-         //frmCausacionCdatAuto := TfrmCausacionCdatAuto.Create(self);
-         //frmCausacionCdatAuto.ShowModal;
+         frmCausacionCdatAuto := TfrmCausacionCdatAuto.Create(self);
+         frmCausacionCdatAuto.ShowModal;
+         frmCausacionContractualAuto := TfrmCausacionContractualAuto.Create(self);
+         frmCausacionContractualAuto.ShowModal;
          frmCausacionCarteraDiariaAuto := TfrmCausacionCarteraDiariaAuto.Create(self);
          frmCausacionCarteraDiariaAuto.ShowModal;
          // Notas
@@ -385,6 +398,38 @@ begin
     StatusBar1.Panels[0].Text := 'En Espera';
     Application.ProcessMessages;    
   end;
+end;
+
+procedure TFrmCierreMes.CausacinCdatAuto1Click(Sender: TObject);
+var
+    frmCausacionCdatAuto : TfrmCausacionCdatAuto;
+begin
+        frmCausacionCdatAuto := TfrmCausacionCdatAuto.Create(self);
+        frmCausacionCdatAuto.ShowModal;
+end;
+
+procedure TFrmCierreMes.CausacinContractualAuto1Click(Sender: TObject);
+var
+  frmCausacionContractualAuto : TfrmCausacionContractualAuto;
+begin
+        frmCausacionContractualAuto := TfrmCausacionContractualAuto.Create(self);
+        frmCausacionContractualAuto.ShowModal;
+end;
+
+procedure TFrmCierreMes.CausacinContractual1Click(Sender: TObject);
+var
+  frmCausacionContractual: TfrmCausacionContractual;
+begin
+    frmCausacionContractual := TfrmCausacionContractual.Create(self);
+    frmCausacionContractual.ShowModal;
+end;
+
+procedure TFrmCierreMes.CausacionCdat1Click(Sender: TObject);
+var
+  frmCausacionCdat: TfrmCausacionCdat;
+begin
+    frmCausacionCdat := TfrmCausacionCdat.Create(self);
+    frmCausacionCdat.ShowModal;
 end;
 
 end.

@@ -1,8 +1,8 @@
 object FrmCausacionContractual: TFrmCausacionContractual
   Left = 606
   Top = 227
-  Width = 331
-  Height = 172
+  Width = 345
+  Height = 191
   BorderIcons = [biSystemMenu]
   Caption = 'Causacion Contractual'
   Color = clBtnFace
@@ -348,8 +348,8 @@ object FrmCausacionContractual: TFrmCausacionContractual
   object IBcontractual: TIBQuery
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
-    Left = 168
-    Top = 16
+    Left = 144
+    Top = 32
   end
   object CdContractual: TClientDataSet
     Active = True
@@ -3837,7 +3837,7 @@ object FrmCausacionContractual: TFrmCausacionContractual
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
     Left = 64
-    Top = 16
+    Top = 32
   end
   object IBAuxiliar: TIBQuery
     Database = dmGeneral.IBDatabase1

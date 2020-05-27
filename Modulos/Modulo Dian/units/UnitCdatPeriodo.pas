@@ -187,6 +187,7 @@ begin
            IBSQL1.SQL.Add('"cap$maestrotitular".ID_TIPO_CAPTACION IN (5,6) and');
            IBSQL1.SQL.Add('"cap$maestro".ID_ESTADO NOT IN (7,11) and');
            IBSQL1.SQL.Add('"cap$maestro".FECHA_APERTURA <= :FECHA_CORTE');
+           IBSQL1.SQL.Add('ORDER BY "cap$maestro".ID_TIPO_CAPTACION, "cap$maestro".NUMERO_CUENTA ASC');
            IBSQL1.ParamByName('ID_IDENTIFICACION').AsInteger := FieldByName('ID_IDENTIFICACION').AsInteger;
            IBSQL1.ParamByName('ID_PERSONA').AsString := FieldByName('ID_PERSONA').AsString;
            IBSQL1.ParamByName('FECHA_CORTE').AsDate := FechaCorte;
@@ -443,24 +444,31 @@ begin
                  Inversion1 := 0;
                  CausadoAnt := 0;
                  Saldo   := 0;
-             if (IBSQL1.FieldByName('FECHA_SALDADA').AsDateTime = 0) then
-             begin
-               if ( IBSQL1.FieldByName('FECHA_VENCIMIENTO_PRORROGA').AsDateTime = 0) then
-               begin
-                vFechaSaldado := DateToStr(IBSQL1.FieldByName('FECHA_VENCIMIENTO').AsDateTime);
-                _dFechaVencimiento := IBSQL1.FieldByName('FECHA_VENCIMIENTO').AsDateTime;
-               end
-               else
-               begin
-                vFechaSaldado := DateToStr(IBSQL1.FieldByName('FECHA_VENCIMIENTO_PRORROGA').AsDateTime);
-                _dFechaVencimiento := IBSQL1.FieldByName('FECHA_VENCIMIENTO_PRORROGA').AsDateTime;
-               end;
-             end
-             else
-             begin
-                _dFechaVencimiento := IBSQL1.FieldByName('FECHA_SALDADA').AsDateTime;
-                vFechaSaldado := DateToStr(IBSQL1.FieldByName('FECHA_SALDADA').AsDateTime);
-             end;
+                 valor_inicial := 0;
+                 if (IBSQL1.FieldByName('FECHA_SALDADA').AsDateTime = 0) then
+                 begin
+                   if ( IBSQL1.FieldByName('FECHA_VENCIMIENTO_PRORROGA').AsDateTime = 0) then
+                   begin
+                    vFechaSaldado := DateToStr(IBSQL1.FieldByName('FECHA_VENCIMIENTO').AsDateTime);
+                    _dFechaVencimiento := IBSQL1.FieldByName('FECHA_VENCIMIENTO').AsDateTime;
+                   end
+                   else
+                   begin
+                    vFechaSaldado := DateToStr(IBSQL1.FieldByName('FECHA_VENCIMIENTO_PRORROGA').AsDateTime);
+                    _dFechaVencimiento := IBSQL1.FieldByName('FECHA_VENCIMIENTO_PRORROGA').AsDateTime;
+                   end;
+                 end
+                 else
+                 begin
+                    _dFechaVencimiento := IBSQL1.FieldByName('FECHA_SALDADA').AsDateTime;
+                    vFechaSaldado := DateToStr(IBSQL1.FieldByName('FECHA_SALDADA').AsDateTime);
+                 end;
+
+                 if (_dFechaVencimiento < FechaCorte) then
+                 begin
+                    _dFechaVencimiento := FechaCorte;
+                    vFechaSaldado := DateToStr(FechaCorte);
+                 end;
 
                  IBQuery2.Close;
                  IBQuery2.SQL.Clear;
@@ -471,11 +479,15 @@ begin
                  IBQuery2.ParamByName('DIGITO_CUENTA').AsInteger := IBSQL1.FieldByName('DIGITO_CUENTA').AsInteger;
                  IBQuery2.ParamByName('ANO').AsInteger := EdPeriodo.Value;
                  IBQuery2.ParamByName('FECHA1').AsDate := EncodeDate(EdPeriodo.Value, 01, 01);
-                 IBQuery2.ParamByName('FECHA2').AsDate := FechaInicial;
+                 if (Mes = 1) then
+                         IBQuery2.ParamByName('FECHA2').AsDate := EncodeDate(EdPeriodo.Value, Mes, 01)
+                 else
+                         IBQuery2.ParamByName('FECHA2').AsDate := EncodeDate(EdPeriodo.Value, Mes - 1, DaysInAMonth(EdPeriodo.Value, Mes - 1));
                  try
                    IBQuery2.Open;
                    if IBQuery2.RecordCount > 0 then
                      Saldo1 := IBQuery2.FieldByName('SALDO_ACTUAL').AsCurrency;
+                     valor_inicial := Saldo1;
                  except
                    IBQuery2.Transaction.Rollback;
                    raise;
@@ -501,8 +513,8 @@ begin
                   Inversion1 := 0;
                   if IBQuery2.RecordCount > 0 then
                   begin
-                  valor_inicial := valor_inicial + IBQuery2.FieldByName('VALOR').AsCurrency;
-                  Inversion1 :=  IBQuery2.FieldByName('VALOR').AsCurrency;
+                    valor_inicial := valor_inicial + IBQuery2.FieldByName('VALOR').AsCurrency;
+                    Inversion1 :=  IBQuery2.FieldByName('VALOR').AsCurrency;
                   end;
                 except
                   IBQuery2.Transaction.Rollback;
@@ -558,7 +570,7 @@ begin
                 if vEstado = 'SALDADO' then
                   Cds1.FieldByName('Saldo').AsCurrency := 0
                 else
-                  Cds1.FieldByName('Saldo').AsCurrency := inversion1;
+                  Cds1.FieldByName('Saldo').AsCurrency := valor_inicial;
 
                 Cds1.FieldByName('Causados').AsCurrency := Causados1;
                 Cds1.FieldByName('fechaa').AsString := DateToStr(IBSQL1.FieldByName('FECHA_APERTURA').AsDateTime);
@@ -578,7 +590,7 @@ begin
                    begin
                        Cds1.FieldByName('tmovimiento').AsInteger := 4;
                    end;
-                if (Saldo1 = 0 ) and (Inversion1 = 0) and (Interes1 = 0) and (Causados1 = 0) then Cds1.Cancel
+                if (valor_inicial = 0) and (Saldo1 = 0 ) and (Inversion1 = 0) and (Interes1 = 0) and (Causados1 = 0) then Cds1.Cancel
                 else Cds1.Post;
                 Cds1.Close;
 
@@ -679,4 +691,4 @@ begin
 end;
 
 end.
->>>>>>> branch 'master' of https://github.com/chandero/sgftcooperativa.git
+

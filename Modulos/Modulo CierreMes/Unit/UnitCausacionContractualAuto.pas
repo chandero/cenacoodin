@@ -1,11 +1,12 @@
-unit UnitCausacionContractual;
+unit UnitCausacionContractualAuto;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, ComCtrls, Buttons, DB, IBCustomDataSet,
-  IBQuery, DBClient, Math, DateUtils, pr_Common, pr_TxClasses, IBSQL;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, CommCtrl,
+  IBQuery, IBStoredProc, IB, DBClient, IBDatabase, IBCustomDataSet, IBSQL, DB,
+  Dialogs, ComCtrls, StdCtrls;
+
 type
   Contractual = record
     Dias:Integer;
@@ -15,24 +16,22 @@ type
     RetefuenteAcumulada: Currency;
     //SeCausa :Boolean;
   end;
+
 type
-  TFrmCausacionContractual = class(TForm)
-    Panel1: TPanel;
-    Dfecha: TDateTimePicker;
-    Label1: TLabel;
-    GroupBox1: TGroupBox;
-    Rdefinitivo: TRadioButton;
-    Rprueba: TRadioButton;
-    Panel2: TPanel;
-    Label2: TLabel;
-    EDcomprobante: TEdit;
-    Panel3: TPanel;
-    CmdLiquidar: TBitBtn;
-    CmdInforme: TBitBtn;
-    CmdAplicar: TBitBtn;
-    CmdComprobante: TBitBtn;
-    CmdCerrar: TBitBtn;
-    IBcontractual: TIBQuery;
+  TfrmCausacionContractualAuto = class(TForm)
+    edCaptacion: TEdit;
+    progreso: TProgressBar;
+    edEstado: TEdit;
+    CdComprobante: TClientDataSet;
+    CdComprobanteid_comprobante: TSmallintField;
+    CdComprobanteagencia: TStringField;
+    CdComprobantetipo_comprobante: TStringField;
+    CdComprobantefecha: TDateField;
+    CdComprobanteempleado: TStringField;
+    CdComprobantecodigo: TStringField;
+    CdComprobantenombre: TStringField;
+    CdComprobantedebito: TCurrencyField;
+    CdComprobantecredito: TCurrencyField;
     CdContractual: TClientDataSet;
     CdContractualid_agencia: TSmallintField;
     CdContractualid_tipo_captacion: TSmallintField;
@@ -40,6 +39,7 @@ type
     CdContractualdigito_cuenta: TSmallintField;
     CdContractualid_plan: TSmallintField;
     CdContractualcuota: TCurrencyField;
+    CdContractualplazo: TSmallintField;
     CdContractualvalor_inicial: TCurrencyField;
     CdContractualfecha_apertura: TDateField;
     CdContractualfecha_vencimiento: TDateField;
@@ -54,7 +54,7 @@ type
     CdContractualano: TSmallintField;
     CdContractualmes: TSmallintField;
     CdContractualdias: TSmallintField;
-    //z: TCurrencyField;
+    z: TCurrencyField;
     CdContractualcausacion_acumulada: TCurrencyField;
     CdContractualretefuente_mensual: TCurrencyField;
     CdContractualretefuente_acumulada: TCurrencyField;
@@ -62,115 +62,69 @@ type
     CdContractualsum_causacion_acumulada: TAggregateField;
     CdContractualsum_retefuente_mensual: TAggregateField;
     CdContractualsum_retefuente_acumulada: TAggregateField;
-    CdContractualplazo: TSmallintField;
-    Reporte: TprTxReport;
-    CdComprobante: TClientDataSet;
-    CdComprobanteid_comprobante: TSmallintField;
-    CdComprobanteagencia: TStringField;
-    CdComprobantetipo_comprobante: TStringField;
-    CdComprobantefecha: TDateField;
-    CdComprobanteempleado: TStringField;
-    CdComprobantecodigo: TStringField;
-    CdComprobantenombre: TStringField;
-    CdComprobantedebito: TCurrencyField;
-    CdComprobantecredito: TCurrencyField;
-    ReporteC: TprTxReport;
+    IBSQL1: TIBSQL;
+    IBSComprobante: TIBSQL;
     CdCodigos: TClientDataSet;
     CdCodigosid_codigo: TSmallintField;
     CdCodigoscodigo: TStringField;
     CdCodigosdescripcion: TStringField;
-    IBSComprobante: TIBSQL;
-    IBSQL1: TIBSQL;
+    IBcontractual: TIBQuery;
     IBAuxiliar: TIBQuery;
-    ReporteA: TprTxReport;
-    procedure CmdCerrarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure CmdLiquidarClick(Sender: TObject);
-    procedure CmdInformeClick(Sender: TObject);
-    procedure CmdComprobanteClick(Sender: TObject);
-    procedure CmdAplicarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
+    procedure ProcesarContractual;
+    procedure Aplicar;
+    procedure NotaC;    
+    function BuscaFecha(_iNumeroCuenta: Integer): Tdate;
+    function vContractual(FechaApertura, FechaVencimiento: Tdate; Plazo: Smallint; Cuota,vCuota: Currency): Contractual;
+    { Private declarations }
+  public
+
+    { Public declarations }
+  end;
+
+
+
+var
+  frmCausacionContractualAuto: TfrmCausacionContractualAuto;
+  _transaction: TIBTransaction;
+  _fechaProceso: TDate;
+
+//////
   FechaCorte :TDateTime;
   vRetefuenteMensual,vRetefuenteAcumulada :Currency;
   vCausacionMensual,vCausacionAcumulada :Currency;
   vTopeRetefuente :Currency;
   _bEstadoActivo :Boolean;
-    Comprobante: Integer;
-    function vContractual(FechaApertura, FechaVencimiento: Tdate;
-      Plazo: Smallint; Cuota,vCuota: Currency): Contractual;
-    procedure NotaC;
-    function BuscaFecha(_iNumeroCuenta: Integer): Tdate;
-    { Private declarations }
-  public
-   vAplicaRetefuente :Boolean;
-    { Public declarations }
-  end;
-
-var
-  FrmCausacionContractual: TFrmCausacionContractual;
+  vAplicaRetefuente: Boolean;
+  Comprobante: Integer;
 
 implementation
-uses UnitGlobales, UnitPantallaProgreso;
 
 {$R *.dfm}
 
-procedure TFrmCausacionContractual.CmdCerrarClick(Sender: TObject);
-begin
-        Close;
-end;
+uses UnitdmGeneral, UnitGlobales, UnitGlobalesCol, Math, DateUtils;
 
-procedure TFrmCausacionContractual.FormCreate(Sender: TObject);
-var     anoi,mesi,diasi :Integer;
-begin
-        anoi := YearOf(fFechaActual);
-        mesi := MonthOf(fFechaActual);
-        diasi := DaysInAMonth(anoi,mesi);
-        Dfecha.DateTime := StrToDate(IntToStr(anoi) + '/' + IntToStr(mesi) + '/' + IntToStr(diasi));
-        Dfecha.MaxDate := StrToDate(IntToStr(anoi) + '/' + IntToStr(mesi) + '/' + IntToStr(diasi));
-        with IBcontractual do
-        begin
-          Close;
-          if Transaction.InTransaction then
-             Transaction.Rollback;
-          Transaction.StartTransaction;
-          SQL.Clear;
-          SQL.Add('select * from CAP$CODIGOSCONTRACTUAL');
-          Open;
-          while not eof do
-          begin
-            CdCodigos.Append;
-            CdCodigos.FieldValues['id_codigo'] := FieldByName('ID_CODIGO').AsInteger;
-            CdCodigos.FieldValues['codigo'] := FieldByName('CODIGO').AsString;
-            CdCodigos.FieldValues['descripcion'] := FieldByName('DESCRIPCION').AsString;
-            CdCodigos.Post;
-            Next;
-          end;
-
-        end;
-end;
-
-procedure TFrmCausacionContractual.CmdLiquidarClick(Sender: TObject);
+procedure TfrmCausacionContractualAuto.ProcesarContractual;
 var     vFecha,vFechaFinal,vFechaPrueba,_dFechaVencimiento :TDate;
 begin
         vTopeRetefuente := 1300;
-        vFechaPrueba := Dfecha.Date + 1;
+        vFechaPrueba := _fechaProceso + 1;
         if DayOf(vFechaPrueba) = 1 then
-           vFechaFinal := Dfecha.Date
+           vFechaFinal := _fechaProceso
         else
-           vFechaFinal := Dfecha.Date + 1;
-        //ShowMessage(DateToStr(vFechaPrueba) + ' ' + DateToStr(vFechaFinal));
+           vFechaFinal := _fechaProceso + 1;
         CdContractual.CancelUpdates;
         vCausacionMensual := 0;
         vCausacionAcumulada := 0;
         vRetefuenteMensual := 0;
         vRetefuenteAcumulada := 0;
-        FechaCorte := Dfecha.DateTime;
+        FechaCorte := _fechaProceso;
         with IBcontractual do
         begin
           Close;
-          if Transaction.InTransaction then
-             Transaction.Rollback;
-          Transaction.StartTransaction;
           SQL.Clear;
           Close;
           SQL.Clear;
@@ -180,31 +134,32 @@ begin
           Close;
           SQL.Clear;
           SQL.Add('select * from "cap$causacioncon" where MES = :MES and ANO = :ANO');
-          ParamByName('MES').AsInteger := MonthOf(Dfecha.Date);
-          ParamByName('ANO').AsInteger := YearOf(Dfecha.Date);
+          ParamByName('MES').AsInteger := MonthOf(_fechaProceso);
+          ParamByName('ANO').AsInteger := YearOf(_fechaProceso);
           Open;
           if RecordCount  > 0 then
           begin
-            MessageDlg('La Causación para este Mes ya fue Realizada...',mtWarning,[mbok],0);
-            Exit;
+             //MessageDlg('La Causación para este Mes ya fue Realizada...',mtWarning,[mbok],0);
+             _transaction.Rollback;
+             PostMessage(Handle, WM_CLOSE, 0, 0);
+             modalresult := mrCancel;
           end;
-          if MessageDlg('Esta Seguro de Realizar la Liquidación',mtInformation,[mbyes,mbno],0) = mrno then
-            Exit;
+
           Close;
           SQL.Clear;
           SQL.Add('select * from P_CAP_CON(5,' + '''' + DateToStr(vfechafinal) + '''' + ' )');
           Open;
           Last;
           First;
-          frmProgreso := TfrmProgreso.Create(Self);
-          frmProgreso.Min := 0;
-          frmProgreso.Titulo := 'Causación de Contractuales';
-          frmProgreso.Max := RecordCount;
-          frmProgreso.Ejecutar;
+          progreso.Min := 0;
+          progreso.Max := RecordCount;
+          edEstado.Text := 'Causando...';
           while not Eof do
           begin
-            frmProgreso.Position := RecNo;
-            frmProgreso.InfoLabel := 'Contractual No: 50' + IntToStr(agencia) + '-' + FormatCurr('000000',FieldByName('numero_cuenta').AsCurrency) + '-' + FieldByName('digito_cuenta').AsString;
+            progreso.Position := RecNo;
+            edCaptacion.Text := 'Causando Contractual: ' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
+                                         Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
+                                         IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
             Application.ProcessMessages;
             try
             if FieldByName('RETEFUENTE').AsInteger = 0 then
@@ -251,14 +206,16 @@ begin
             except
             on e: Exception do
             begin
-              MessageDlg('Error al Tratar de Realizar la Causacion de Ahorro Contractual' + #13 + 'con Mensaje : ' + e.Message,mtError,[mbok],0);
+              // MessageDlg('Error al Tratar de Realizar la Causacion de Ahorro Contractual' + #13 + 'con Mensaje : ' + e.Message,mtError,[mbok],0);
               CdContractual.CancelUpdates;
-              Exit;
+              _transaction.Rollback;
+              PostMessage(Handle, WM_CLOSE, 0, 0);
+              modalresult := mrCancel;
             end;
             end;
             Next;
           end;
-          frmProgreso.Cerrar;
+
           // calculo totales de causacion y retefuente
           with CdContractual do
           begin
@@ -272,13 +229,84 @@ begin
             vRetefuenteAcumulada := CdContractualsum_retefuente_acumulada.Value;
           end;
         end;
-        CmdLiquidar.Enabled := False;
-        CmdAplicar.Enabled := True;
-        CmdComprobante.Enabled := True;
-        CmdInforme.Enabled := True;
+
+        Aplicar;
+        _transaction.Commit;
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+        modalresult := mrCancel;
 end;
 
-function TFrmCausacionContractual.vContractual(FechaApertura,
+procedure TfrmCausacionContractualAuto.FormCreate(Sender: TObject);
+begin
+        _transaction := TIBTransaction.Create(self);
+        _transaction.DefaultDatabase := dmGeneral.IBDatabase1;
+        
+        IBcontractual.Database := dmGeneral.IBDatabase1;
+        IBcontractual.Transaction := _transaction;
+
+        IBSComprobante.Database := dmGeneral.IBDatabase1;
+        IBSComprobante.Transaction := _transaction;
+
+        IBAuxiliar.Database := dmGeneral.IBDatabase1;
+        IBAuxiliar.Transaction := _transaction;
+
+        IBSQL1.Database := dmGeneral.IBDatabase1;
+        IBSQL1.Transaction := _transaction;
+end;
+
+procedure TfrmCausacionContractualAuto.FormShow(Sender: TObject);
+begin
+        _fechaProceso := fFechaActual;
+        _transaction.startTransaction;
+
+        with IBcontractual do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Add('select * from CAP$CODIGOSCONTRACTUAL');
+          Open;
+          while not eof do
+          begin
+            CdCodigos.Append;
+            CdCodigos.FieldValues['id_codigo'] := FieldByName('ID_CODIGO').AsInteger;
+            CdCodigos.FieldValues['codigo'] := FieldByName('CODIGO').AsString;
+            CdCodigos.FieldValues['descripcion'] := FieldByName('DESCRIPCION').AsString;
+            CdCodigos.Post;
+            Next;
+          end;
+
+        end;
+end;
+
+procedure TfrmCausacionContractualAuto.FormActivate(Sender: TObject);
+begin
+   ProcesarContractual;
+end;
+
+function TFrmCausacionContractualAuto.BuscaFecha(
+  _iNumeroCuenta: Integer): Tdate;
+begin
+        with IBSQL1 do
+        begin
+          Close;
+          SQL.Clear;
+          SQL.Add('SELECT');
+          SQL.Add('     MAX(FECHA_DESCUENTO) AS FECHA_DESCUENTO');
+          SQL.Add('FROM "cap$tablaliquidacioncon"');
+          SQL.Add('WHERE');
+          SQL.Add('    "cap$tablaliquidacioncon".ID_AGENCIA = :ID_AGENCIA and');
+          SQL.Add('    "cap$tablaliquidacioncon".ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION and');
+          SQL.Add('    "cap$tablaliquidacioncon".NUMERO_CUENTA = :NUMERO_CUENTA AND');
+          SQL.Add('    "cap$tablaliquidacioncon".DESCONTADO = 1');
+          ParamByName('ID_AGENCIA').AsInteger := Agencia;
+          ParamByName('ID_TIPO_CAPTACION').AsInteger := 5;
+          ParamByName('NUMERO_CUENTA').AsInteger := _iNumeroCuenta;
+          ExecQuery;
+          Result := FieldByName('FECHA_DESCUENTO').AsDate;
+        end;
+end;
+
+function TFrmCausacionContractualAuto.vContractual(FechaApertura,
   FechaVencimiento: Tdate; Plazo: Smallint; Cuota,vCuota: Currency): Contractual;
 var
         Vcausacion :Currency;
@@ -374,138 +402,16 @@ begin
         Result.RetefuenteAcumulada := SimpleRoundTo(vRetefuenteAcumulada,0);
 end;
 
-procedure TFrmCausacionContractual.CmdInformeClick(Sender: TObject);
+procedure TFrmCausacionContractualAuto.NotaC;
+var
+ _transactionComp : TIBTransaction;
 begin
-        Reporte.Variables.ByName['Empresa'].AsString := Empresa;
-        Reporte.Variables.ByName['FechaCorte'].AsDateTime := FechaCorte;
-        Reporte.Variables.ByName['ret_mensual'].AsDouble := vretefuentemensual;
-        Reporte.Variables.ByName['ret_acumulada'].AsDouble := vRetefuenteAcumulada;
-        Reporte.Variables.ByName['caus_mensual'].AsDouble := vcausacionmensual;
-        Reporte.Variables.ByName['caus_acumulada'].AsDouble := vCausacionAcumulada;
-        Empleado;
-        Reporte.Variables.ByName['empleado'].AsString := Nombres + ' ' + Apellidos;
-        if Reporte.PrepareReport then
-           Reporte.PreviewPreparedReport(True);
-
-end;
-
-procedure TFrmCausacionContractual.CmdComprobanteClick(Sender: TObject);
-var    i :Integer;
-begin
-        if Rprueba.Checked then
-        begin
-          with CdComprobante do
-          begin
-            Append;
-            FieldValues['id_comprobante'] := 1;
-            FieldValues['agencia'] := 'CREDISERVIR';
-            FieldValues['tipo_comprobante'] := 1;
-            FieldValues['fecha'] := fFechaActual;
-            Empleado;
-            FieldValues['empleado'] := Nombres + ' ' + Apellidos;
-            for i := 0 to 2 do
-            begin
-            if i = 0 then
-            begin
-              //CdCodigos.Filtered := False;
-              CdCodigos.Filter := 'id_codigo = 1';
-              CdCodigos.Filtered := True;
-              FieldValues['codigo'] := CdCodigos.FieldByName('codigo').AsString;;
-              FieldValues['nombre'] := CdCodigos.FieldByName('descripcion').AsString;
-              FieldValues['debito'] := vCausacionMensual;
-              FieldValues['credito'] := 0;
-              Post;
-            end;
-            if i = 1 then
-            begin
-              Append;
-              //CdCodigos.Filtered := False;
-              CdCodigos.Filter := 'id_codigo = 2';
-              CdCodigos.Filtered := True;
-              FieldValues['codigo'] := CdCodigos.FieldByName('codigo').AsString;;
-              FieldValues['nombre'] := CdCodigos.FieldByName('descripcion').AsString;
-              FieldValues['debito'] := 0;
-              FieldValues['credito'] := vCausacionMensual - vRetefuenteMensual;
-              Post;
-            end;
-            if i = 2 then
-            begin
-              Append;
-              //CdCodigos.Filtered := False;
-              CdCodigos.Filter := 'id_codigo = 3';
-              CdCodigos.Filtered := True;
-              FieldValues['codigo'] := CdCodigos.FieldByName('codigo').AsString;;
-              FieldValues['nombre'] := CdCodigos.FieldByName('descripcion').AsString;
-              FieldValues['debito'] := 0;
-              FieldValues['credito'] := vRetefuenteMensual;
-              Post;
-            end;
-            end;
-          end;
-        //end;
-          if Reportec.PrepareReport then
-            Reportec.PreviewPreparedReport(True);
-        end
-        else
-        begin
-        with IBAuxiliar do
-        begin
-             if Transaction.InTransaction then
-                Transaction.Rollback;
-             Transaction.StartTransaction;
-             Close;
-             SQL.Clear;
-             SQL.Add('select ');
-             SQL.Add('CON$AUXILIAR.ID_COMPROBANTE,');
-             SQL.Add('"gen$agencia".DESCRIPCION_AGENCIA,');
-             SQL.Add('CON$TIPOCOMPROBANTE.DESCRIPCION AS TIPO,');
-             SQL.Add('CON$COMPROBANTE.FECHADIA,');
-             SQL.Add('CON$COMPROBANTE.DESCRIPCION,');
-             SQL.Add('"gen$empleado".PRIMER_APELLIDO,');
-             SQL.Add('"gen$empleado".SEGUNDO_APELLIDO,');
-             SQL.Add('"gen$empleado".NOMBRE,');
-             SQL.Add('CON$AUXILIAR.CODIGO,');
-             SQL.Add('CON$PUC.NOMBRE AS CUENTA,');
-             SQL.Add('CON$AUXILIAR.DEBITO,');
-             SQL.Add('CON$AUXILIAR.CREDITO');
-             SQL.Add('from ');
-             SQL.Add('CON$COMPROBANTE ');
-             SQL.Add('INNER JOIN CON$AUXILIAR ON (CON$COMPROBANTE.ID_COMPROBANTE = CON$AUXILIAR.ID_COMPROBANTE)');
-             SQL.Add('LEFT JOIN CON$PUC ON (CON$AUXILIAR.CODIGO = CON$PUC.CODIGO)');
-             SQL.Add('INNER JOIN CON$TIPOCOMPROBANTE ON (CON$COMPROBANTE.TIPO_COMPROBANTE = CON$TIPOCOMPROBANTE.ID) ');
-             SQL.Add('INNER JOIN "gen$agencia" ON (CON$AUXILIAR.ID_AGENCIA = "gen$agencia".ID_AGENCIA)');
-             SQL.Add('INNER JOIN "gen$empleado" ON (CON$COMPROBANTE.ID_EMPLEADO = "gen$empleado".ID_EMPLEADO)');
-             SQL.Add('where ');
-             SQL.Add('(CON$COMPROBANTE.ID_AGENCIA = :"ID_AGENCIA") and ');
-             SQL.Add('(CON$COMPROBANTE.ID_COMPROBANTE = :"ID_COMPROBANTE")');
-             ParamByName('ID_AGENCIA').AsInteger := Agencia;
-             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
-             try
-              Open;
-              ReporteA.Variables.ByName['EMPRESA'].AsString := Empresa;
-              ReporteA.Variables.ByName['NIT'].AsString := Nit;
-              ReporteA.Variables.ByName['Agencia'].AsString := IntToStr(Agencia);
-              if ReporteA.PrepareReport then
-                 ReporteA.PreviewPreparedReport(True);
-              Close;
-             except
-               MessageDlg('Error generando el comprobante',mtError,[mbcancel],0);
-               Close;
-             end;
-             Transaction.Commit;
-        end;
-        end;
-
-end;
-
-procedure TFrmCausacionContractual.NotaC;
-begin
+        _transactionComp := TIBTransaction.Create(nil);
+        _transactionComp.DefaultDatabase := dmGeneral.IBDatabase1;
+        IBSComprobante.Transaction := _transactionComp;
         Comprobante := ObtenerConsecutivo(IBSComprobante);//generacion del comprobante
         with IBSQL1 do
         begin
-          if Transaction.InTransaction then
-              Transaction.Commit;
-          Transaction.StartTransaction;
           Close;
           SQL.Clear;
           SQL.Add('insert into CON$COMPROBANTE');
@@ -537,9 +443,9 @@ begin
             ExecQuery;
           except
           begin
-            MessageDlg('Error Generando Comprobante',mtInformation,[mbok],0);
-            Transaction.Rollback;
-            Exit;
+             _transaction.Rollback;
+             PostMessage(self.Handle, WM_CLOSE, 0, 0);
+             modalresult := mrCancel;
           end;
           end;
           //contabilizacion causacion mensual
@@ -581,9 +487,9 @@ begin
             ExecQuery;
           except
           begin
-            MessageDlg('Error Actualizando Comprobante',mtError,[mbok],0);
-            Transaction.Rollback;
-            Exit;
+                _transaction.Rollback;
+                PostMessage(self.Handle, WM_CLOSE, 0, 0);
+                modalresult := mrCancel;
           end;
           end;
           //contabilizacion total causacion
@@ -608,67 +514,61 @@ begin
             ExecQuery;
           except
           begin
-            MessageDlg('Error Actualizando Comprobante',mtError,[mbok],0);
-            Transaction.Rollback;
-            Exit;
+                _transaction.Rollback;
+                PostMessage(self.Handle, WM_CLOSE, 0, 0);
+                modalresult := mrCancel;
           end;
           end;
           // contabilizacion retefuente
           //contabilizacion retefuente
-          ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
-          ParamByName('ID_AGENCIA').AsInteger := Agencia;
-          ParamByName('FECHA').AsDateTime := fFechaActual;
-          CdCodigos.Filtered := False;
-          CdCodigos.Filter := 'id_codigo = 3';
-          CdCodigos.Filtered := True;
-          ParamByName('CODIGO').AsString := CdCodigos.FieldByName('codigo').AsString;
-          ParamByName('DEBITO').AsCurrency := 0;
-          ParamByName('CREDITO').AsCurrency := vRetefuenteMensual;
-          ParamByName('ID_CUENTA').Clear;
-          ParamByName('ID_COLOCACION').Clear;
-          ParamByName('ID_IDENTIFICACION').AsInteger := 0;
-          ParamByName('ID_PERSONA').Clear;
-          ParamByName('MONTO_RETENCION').AsCurrency := 0;
-          ParamByName('TASA_RETENCION').AsFloat := 0;
-          ParamByName('ESTADOAUX').AsString := 'O';
-          ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
-          try
-            ExecQuery;
-          except
+          if vRetefuenteMensual <> 0 then
           begin
-            MessageDlg('Error Actualizando Comprobante',mtError,[mbok],0);
-            Transaction.Rollback;
-            Exit;
+            ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            ParamByName('ID_AGENCIA').AsInteger := Agencia;
+            ParamByName('FECHA').AsDateTime := fFechaActual;
+            CdCodigos.Filtered := False;
+            CdCodigos.Filter := 'id_codigo = 3';
+            CdCodigos.Filtered := True;
+            ParamByName('CODIGO').AsString := CdCodigos.FieldByName('codigo').AsString;
+            ParamByName('DEBITO').AsCurrency := 0;
+            ParamByName('CREDITO').AsCurrency := vRetefuenteMensual;
+            ParamByName('ID_CUENTA').Clear;
+            ParamByName('ID_COLOCACION').Clear;
+            ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+            ParamByName('ID_PERSONA').Clear;
+            ParamByName('MONTO_RETENCION').AsCurrency := 0;
+            ParamByName('TASA_RETENCION').AsFloat := 0;
+            ParamByName('ESTADOAUX').AsString := 'O';
+            ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+            try
+              ExecQuery;
+            except
+              begin
+                _transaction.Rollback;
+                PostMessage(self.Handle, WM_CLOSE, 0, 0);
+                modalresult := mrCancel;
+              end;
+            end;
           end;
-          end;
-          Transaction.Commit;
+
         end;
 end;
 
-procedure TFrmCausacionContractual.CmdAplicarClick(Sender: TObject);
+procedure TFrmCausacionContractualAuto.Aplicar;
 begin
-        if Rdefinitivo.Checked then
-        begin
-          if MessageDlg('Esta seguro de aplicar la causación?',mtInformation,[mbyes,mbno],0) = mrno then
-             Exit;
           NotaC;
-          EDcomprobante.Text := IntToStr(Comprobante);
-          if IBSQL1.Transaction.InTransaction then
-           IBSQL1.Transaction.Commit;
-          IBSQL1.Transaction.StartTransaction;
+
           with CdContractual do
           begin
             Last;
-            frmProgreso := TfrmProgreso.Create(Self);
-            frmProgreso.Min := 0;
-            frmProgreso.Titulo := 'Aplicando Causación de Contractuales';
-            frmProgreso.Max := RecordCount;
-            frmProgreso.Ejecutar;
             First;
+            progreso.Min := 0;
+            edEstado.Text := 'Aplicando Causación de Contractuales';
+            progreso.Max := RecordCount;            
             while not Eof do
             begin
-              frmProgreso.Position := RecNo;
-              frmProgreso.InfoLabel := 'Registro Numero: ' + IntToStr(RecNo);
+              progreso.Position := RecNo;
+              edCaptacion.Text := 'Registro Numero: ' + IntToStr(RecNo);
               Application.ProcessMessages;
               with IBSQL1 do
               begin
@@ -716,8 +616,8 @@ begin
                 ParamByName('SEGUNDO_APELLIDO').AsString := CdContractual.FieldByName('segundo_apellido').AsString;
                 ParamByName('NOMBRE').AsString := CdContractual.FieldByName('nombre').AsString;
                 ParamByName('RETEFUENTE').AsInteger := CdContractual.FieldByName('retefuente').AsInteger;
-                ParamByName('ANO').AsInteger := YearOf(Dfecha.Date);
-                ParamByName('MES').AsInteger := MonthOf(Dfecha.Date);
+                ParamByName('ANO').AsInteger := YearOf(_fechaProceso);
+                ParamByName('MES').AsInteger := MonthOf(_fechaProceso);
                 ParamByName('DIAS').AsInteger := CdContractual.FieldByName('dias').AsInteger;
                 ParamByName('RETEFUENTE_MENSUAL').AsCurrency := CdContractual.FieldByName('retefuente_mensual').AsCurrency;
                 ParamByName('RETEFUENTE_ACUMULADA').AsCurrency := CdContractual.FieldByName('retefuente_acumulada').AsCurrency;
@@ -728,36 +628,6 @@ begin
               Next;
             end;
           end;
-          IBSQL1.Transaction.Commit;
-          //MessageDlg('Causación Aplicada con Exito...',mtInformation,[mbok],0);
-          frmProgreso.Cerrar;
-          CmdAplicar.Enabled := False;
-          Rprueba.Enabled := False;
-          CmdComprobante.Click
-        end;
-end;
-
-function TFrmCausacionContractual.BuscaFecha(
-  _iNumeroCuenta: Integer): Tdate;
-begin
-        with IBSQL1 do
-        begin
-          Close;
-          SQL.Clear;
-          SQL.Add('SELECT');
-          SQL.Add('     MAX(FECHA_DESCUENTO) AS FECHA_DESCUENTO');
-          SQL.Add('FROM "cap$tablaliquidacioncon"');
-          SQL.Add('WHERE');
-          SQL.Add('    "cap$tablaliquidacioncon".ID_AGENCIA = :ID_AGENCIA and');
-          SQL.Add('    "cap$tablaliquidacioncon".ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION and');
-          SQL.Add('    "cap$tablaliquidacioncon".NUMERO_CUENTA = :NUMERO_CUENTA AND');
-          SQL.Add('    "cap$tablaliquidacioncon".DESCONTADO = 1');
-          ParamByName('ID_AGENCIA').AsInteger := Agencia;
-          ParamByName('ID_TIPO_CAPTACION').AsInteger := 5;
-          ParamByName('NUMERO_CUENTA').AsInteger := _iNumeroCuenta;
-          ExecQuery;
-          Result := FieldByName('FECHA_DESCUENTO').AsDate;
-        end;
 end;
 
 end.

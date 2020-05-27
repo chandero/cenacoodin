@@ -3,7 +3,7 @@ unit UnitCausacionCdatAuto;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, CommCtrl,
   IBQuery, IBStoredProc, IB, DBClient, IBDatabase, IBCustomDataSet, IBSQL, DB,
   Dialogs, ComCtrls, StdCtrls;
 
@@ -27,6 +27,7 @@ type
     edEstado: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
     procedure ProcesarCausacion;
@@ -157,8 +158,6 @@ var MinCaptacion,MaxCaptacion:Integer;
     NetoCausar:Currency;
 begin
 
-        _transaction.StartTransaction;
-
         FechaCorte := _fechaProceso;
         RetefuenteAcum := 0;
         progreso.Min := 0;
@@ -193,11 +192,20 @@ begin
            ParamByName('ID').AsInteger := 6;
            ParamByName('ID_ESTADO').AsInteger := 1;
            Open;
-
+           Last;
+           First;
+           progreso.Min := 0;
+           progreso.Max := RecordCount;
+           progreso.Position := 0;
+           edEstado.Text := 'Creando Temporal...';
            while not _query.Eof do
             begin
               with _queryALiquidar do
                begin
+                 edCaptacion.Text := 'Creando Temporal CDAT:' + Format('%.2d',[_query.FieldByName('ID_AGENCIA').AsInteger]) + '-' +
+                                         Format('%.7d',[_query.FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
+                                         IntToStr(_query.FieldByName('DIGITO_CUENTA').AsInteger);
+                 progreso.Position := _query.RecNo;
                  Application.ProcessMessages;
                  Close;
                  sql.Clear;
@@ -277,6 +285,7 @@ begin
                  modalresult := mrCancel;
               end;
               MaxCaptacion := ParamByName('TOTAL').AsInteger;
+              progreso.Min := 0;
               progreso.Max := MaxCaptacion;
               if MaxCaptacion = 0 then
               begin
@@ -288,7 +297,7 @@ begin
           end;
 
           Application.ProcessMessages;
-
+        progreso.Position := 0;
         with _query do
         begin
             SQL.Clear;
@@ -301,16 +310,18 @@ begin
                 PostMessage(Handle, WM_CLOSE, 0, 0);
                 modalresult := mrCancel;
               end;
-
+              edEstado.Text := 'Causando...';
+              SendMessage(progreso.Handle, PBM_SETBARCOLOR, 0, clGreen);
               while not Eof do
               begin
                 Application.ProcessMessages;
-                edCaptacion.Text := 'Liquidando CDAT:' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
+                edCaptacion.Text := 'Causando CDAT:' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
                                          Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
                                          IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
                 Numero := FieldByName('NUMERO_CUENTA').AsInteger;
                 Digito := FieldByName('DIGITO_CUENTA').AsInteger;
                 progreso.Position := RecNo;
+                Application.ProcessMessages;
                 Valor := FieldByName('VALOR_INICIAL').AsCurrency;
                 if FieldByName('FECHA_ULTIMO_PAGO').AsDateTime = 0 THEN
                    UltimoPago := FieldByName('FECHA_PRORROGA').AsDateTime
@@ -434,6 +445,7 @@ begin
 
         _queryConsulta := TIBQuery.Create(self);
         _ibsql1 := TIBSQL.Create(self);
+        
         _transactionConsulta := TIBTransaction.Create(self);
         _transactionComprobante := TIBTransaction.Create(self);
 
@@ -450,12 +462,24 @@ begin
        SQL.Clear;
        SQL.Add('select * from "cap$causacioncdattmp"');
        Open;
+       Last;
+       First;
+       progreso.Max := RecordCount;
+       progreso.Min := 0;
+       progreso.Position := 0;
+       SendMessage (progreso.Handle, PBM_SETBARCOLOR, 0, clYellow);
+       edEstado.Text := 'Aplicando...';
        while not Eof do
         begin
           with _queryALiquidar do
            begin
              Close;
              SQL.Clear;
+             edCaptacion.Text := 'Aplicando Causación Cdat No.' + Format('%.2d',[_query.FieldByName('ID_AGENCIA').AsInteger]) + '-' +
+                                         Format('%.7d',[_query.FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
+                                         IntToStr(_query.FieldByName('DIGITO_CUENTA').AsInteger);;
+             progreso.Position := _query.RecNo;
+             Application.ProcessMessages;
              SQL.Add('insert into "cap$causacioncdat" values(');
              SQL.Add(':"ID_AGENCIA",');
              SQL.Add(':"ID_TIPO_CAPTACION",');
@@ -594,7 +618,7 @@ begin
        vNocomprobanteCausacion := IntToStr(ObtenerConsecutivo(_ibsql1));
 
      end;
-
+     edEstado.Text := 'Contabilizando';
      with _queryALiquidar do
       try
         Close;
@@ -686,6 +710,7 @@ begin
         ParamByName('ESTADOAUX').AsString := 'O';
         ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
         ExecSQL;
+
       except
         _transaction.Rollback;
         PostMessage(Handle, WM_CLOSE, 0, 0);
@@ -901,7 +926,7 @@ begin
 // Realizo comprobante de Edades CDAT
     if Lista.Count > 0 then begin
       vNocomprobanteAjuste := IntToStr(ObtenerConsecutivo(_ibsql1));
-
+       edEstado.Text := 'Reclasificando';
        with _queryALiquidar do
         try
           Close;
@@ -956,7 +981,7 @@ begin
              ExecSQL;
              Close;
            end;
-
+          Next;
         except
                Transaction.Rollback;
                PostMessage(self.Handle, WM_CLOSE, 0, 0);
@@ -973,6 +998,12 @@ begin
 end;
 
 procedure TfrmCausacionCdatAuto.FormShow(Sender: TObject);
+begin
+        _transaction.StartTransaction;
+        _fechaProceso := fFechaActual;
+end;
+
+procedure TfrmCausacionCdatAuto.FormActivate(Sender: TObject);
 begin
         ProcesarCausacion;
 end;
