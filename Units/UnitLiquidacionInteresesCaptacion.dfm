@@ -1,8 +1,8 @@
 object frmLiquidacionInteresesCaptacion: TfrmLiquidacionInteresesCaptacion
-  Left = 652
-  Top = 346
-  Width = 485
-  Height = 170
+  Left = 598
+  Top = 297
+  Width = 488
+  Height = 234
   BorderIcons = []
   Caption = 'Liquidaci'#243'n de Intereses'
   Color = clBtnFace
@@ -24,7 +24,7 @@ object frmLiquidacionInteresesCaptacion: TfrmLiquidacionInteresesCaptacion
     Left = 0
     Top = 0
     Width = 373
-    Height = 136
+    Height = 200
     Align = alLeft
     TabOrder = 0
     object Label24: TLabel
@@ -247,10 +247,10 @@ object frmLiquidacionInteresesCaptacion: TfrmLiquidacionInteresesCaptacion
     end
   end
   object Panel1: TPanel
-    Left = 373
+    Left = 376
     Top = 0
     Width = 104
-    Height = 136
+    Height = 200
     Align = alRight
     Color = clOlive
     TabOrder = 1

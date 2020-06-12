@@ -42,14 +42,6 @@ type
     procedure frReport1GetValue(const ParName: String;
       var ParValue: Variant);
   private
-     total :Integer;
-     aprobado :Currency;
-     valor_ratificado :Currency;
-     total_r :Integer;
-     valor_admisible :Currency;
-     valor_noadmisible :Currency;
-     total_admisible :Integer;
-     total_noadmisible :Integer;
      acta :string;
     procedure firmas(ente: string);
 
@@ -65,6 +57,18 @@ type
 
 var
   FrmInformeEnte: TFrmInformeEnte;
+  aprobada,aplazada,negada,ratificada :Integer;
+  total :Integer;
+  aprobado :Currency;
+  valor_ratificado :Currency;
+  valor_aprobado: Currency;
+  valor_negado: Currency;
+  valor_aplazado: Currency;
+  total_r :Integer;
+  valor_admisible :Currency;
+  valor_noadmisible :Currency;
+  total_admisible :Integer;
+  total_noadmisible :Integer;
 
 implementation
 
@@ -114,7 +118,6 @@ begin
 end;
 
 procedure TFrmInformeEnte.BitBtn1Click(Sender: TObject);
-var     aprobada,aplazada,negada,ratificada :Integer;
 begin
         aplazada := 0;
         negada := 0;
@@ -123,6 +126,9 @@ begin
         ratificada := 0;
         total_r := 0;
         valor_ratificado := 0;
+        valor_aprobado := 0;
+        valor_negado := 0;
+        valor_aplazado := 0;
         total_admisible := 0;
         total_noadmisible := 0;
         valor_admisible := 0;
@@ -135,7 +141,7 @@ begin
              if FieldValues['estado'] = 4 then
              begin
                aprobada := aprobada + 1;
-               aprobado := aprobado + FieldByName('valor').AsCurrency;
+               valor_aprobado := valor_aprobado +  FieldByName('valor').AsCurrency;
                if FieldByName('garantia').AsInteger = 1 then
                begin
                   total_admisible := total_admisible + 1;
@@ -148,9 +154,15 @@ begin
                end;
             end
              else if FieldValues['estado'] = 7 then
-               negada := negada + 1
+             begin
+               negada := negada + 1;
+               valor_negado := valor_negado + FieldByName('valor').AsCurrency;
+             end
              else if FieldValues['estado'] = 9 then
-               aplazada := aplazada + 1
+             begin
+               aplazada := aplazada + 1;
+               valor_aplazado := valor_aplazado + FieldByName('valor').AsCurrency;
+             end
              else if FieldValues['estado']  = 16 then
              begin
                ratificada := ratificada + 1;
@@ -166,7 +178,7 @@ begin
         begin
           CDestado.Append;
           CDestado.FieldValues['descripcion'] := 'APROBADAS';
-          CDestado.FieldValues['total'] := aprobada;
+          CDestado.FieldValues['total'] := valor_aprobado;
           CDestado.Post;
           total := total + aprobada;
         end;
@@ -260,6 +272,12 @@ begin
            ParValue := valor_admisible;
         if ParName = 'valor_noad' then
            ParValue := valor_noadmisible;
+
+//
+        if ParName = 'total_ratificadas' then
+           ParValue := ratificada;
+        if ParName = 'valor_ratificado' then
+           ParValue := valor_ratificado;
 
 
 end;

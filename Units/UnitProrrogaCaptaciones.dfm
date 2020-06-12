@@ -1,6 +1,6 @@
 object frmProrrogaCaptacion: TfrmProrrogaCaptacion
-  Left = 346
-  Top = 24
+  Left = 484
+  Top = 275
   Width = 486
   Height = 147
   BorderIcons = []

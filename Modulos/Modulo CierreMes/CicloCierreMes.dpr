@@ -19,7 +19,10 @@ uses
   UnitCausacionContractual in '\\VBOXSVR\cena\cenacoodin\Units\UnitCausacionContractual.pas' {FrmCausacionContractual},
   UnitCausacionCdatAuto in 'Unit\UnitCausacionCdatAuto.pas' {frmCausacionCdatAuto},
   unitCausacionCdat in '\\VBOXSVR\cena\cenacoodin\Units\otraunit\unitCausacionCdat.pas' {frmcausacioncdat},
-  UnitCausacionContractualAuto in 'Unit\UnitCausacionContractualAuto.pas' {frmCausacionContractualAuto};
+  UnitCausacionContractualAuto in 'Unit\UnitCausacionContractualAuto.pas' {frmCausacionContractualAuto},
+  UnitLiquidacionCdatAuto in 'Unit\UnitLiquidacionCdatAuto.pas' {frmLiquidacionCdatAuto},
+  UnitDescuentoContractualAuto in 'Unit\UnitDescuentoContractualAuto.pas' {frmDescuentoContractualAuto},
+  UnitProrrogaCaptaciones in '\\VBOXSVR\cena\cenacoodin\Units\UnitProrrogaCaptaciones.pas' {frmProrrogaCaptacion};
 
 {$R *.res}
 
@@ -28,6 +31,6 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmLiquidacionCaptacion, dmLiquidacionCaptacion);
   Application.CreateForm(TFrmCierreMes, FrmCierreMes);
-  Application.CreateForm(TfrmCausacionContractualAuto, frmCausacionContractualAuto);
+  Application.CreateForm(TfrmProrrogaCaptacion, frmProrrogaCaptacion);
   Application.Run;
 end.

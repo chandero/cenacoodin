@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
   Left = 493
   Top = 216
-  Width = 632
+  Width = 683
   Height = 393
   Caption = 'Modulo Captaciones - '
   Color = clBtnFace
@@ -36,7 +36,7 @@ object frmMain: TfrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 624
+    Width = 675
     Height = 39
     ButtonHeight = 36
     ButtonWidth = 55
@@ -608,6 +608,17 @@ object frmMain: TfrmMain
         Caption = 'Consulta Solicitud'
         Visible = False
         OnClick = ConsultaSolicitud1Click
+      end
+      object N27: TMenuItem
+        Caption = '-'
+      end
+      object ContractualDescontado1: TMenuItem
+        Caption = 'Contractual Descontado'
+        OnClick = ContractualDescontado1Click
+      end
+      object CdatLiquidado1: TMenuItem
+        Caption = 'Cdat Liquidado'
+        OnClick = CdatLiquidado1Click
       end
       object N6: TMenuItem
         Caption = '-'

@@ -173,6 +173,9 @@ type
     CancelarServiciosVirtuales1: TMenuItem;
     ArchivoPlanoMovimientos1: TMenuItem;
     ConciliacinBancariaServiciosVirtuales1: TMenuItem;
+    ContractualDescontado1: TMenuItem;
+    N27: TMenuItem;
+    CdatLiquidado1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -284,6 +287,8 @@ type
     procedure CancelarServiciosVirtuales1Click(Sender: TObject);
     procedure ArchivoPlanoMovimientos1Click(Sender: TObject);
     procedure ConciliacinBancariaServiciosVirtuales1Click(Sender: TObject);
+    procedure ContractualDescontado1Click(Sender: TObject);
+    procedure CdatLiquidado1Click(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -336,7 +341,8 @@ uses unitLogin, unitdmColocacion, IniFiles,
      UnitInformeGeneraldeCaptaciones1,UnitRegistroIncapacitados,
      UnitTarjetaSinMovimiento, UnitSorteoCumpleanhos, UnitSaldoPorRangos, UnitArchivoTransacciones, UnitArchivoFinancieroAsociado, UnitReimprimirCDAT,
      UnitDeJuvenilaAsociado, UnitAdministracionProductosVirtuales, UnitConciliacionServiciosVirtuales, UnitActualizarSaldoCuentaServiciosVirtuales,
-     UnitCancelarServiciosVirtuales, UnitArchivoPlanoMovimientosTarjetas, UnitConciliacionBancariaServiciosVirtuales;
+     UnitCancelarServiciosVirtuales, UnitArchivoPlanoMovimientosTarjetas, UnitConciliacionBancariaServiciosVirtuales,
+     UnitInformeCDATLiquidadoUnaFecha, UnitInformeContractualDescontadoUnaFecha;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1403,6 +1409,22 @@ procedure TfrmMain.ConciliacinBancariaServiciosVirtuales1Click(
 begin
    frmConciliacionBancariaServiciosVirtuales := TfrmConciliacionBancariaServiciosVirtuales.Create(self);
    frmConciliacionBancariaServiciosVirtuales.ShowModal;
+end;
+
+procedure TfrmMain.ContractualDescontado1Click(Sender: TObject);
+var
+  frmInformeContractualDescontadoUnaFecha: TfrmInformeContractualDescontadoUnaFecha;
+begin
+   frmInformeContractualDescontadoUnaFecha := TfrmInformeContractualDescontadoUnaFecha.Create(self);
+   frmInformeContractualDescontadoUnaFecha.ShowModal;
+end;
+
+procedure TfrmMain.CdatLiquidado1Click(Sender: TObject);
+var
+  frmInformeCDATLiquidadoUnaFecha: TfrmInformeCDATLiquidadoUnaFecha;
+begin
+   frmInformeCDATLiquidadoUnaFecha := TfrmInformeCDATLiquidadoUnaFecha.Create(self);
+   frmInformeCDATLiquidadoUnaFecha.ShowModal;
 end;
 
 end.

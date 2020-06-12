@@ -240,51 +240,6 @@ begin
           end;
           end;
 
-          {
-          Close;
-          SQL.Clear;
-          SQL.Add('insert INTO "dian$movretefuente"');
-          SQL.Add('SELECT');
-          SQL.Add(QuotedStr('INTERES') + ' AS EXTRACTO,');
-          SQL.Add('"cap$maestrotitular".ID_IDENTIFICACION,');
-          SQL.Add('"cap$maestrotitular".ID_PERSONA,');
-          SQL.Add('5006, ');
-          SQL.Add( Tasa + ' AS TASA,');
-          SQL.Add('SUM("cap$extracto".VALOR_DEBITO) as MONTO,');
-          SQL.Add('0 AS DEVOLUCION,');
-          SQL.Add('0 AS RETENCION,');
-          SQL.Add('0');
-          SQL.Add('FROM');
-          SQL.Add('"cap$extracto"');
-          SQL.Add('INNER JOIN "cap$maestrotitular" ON ("cap$extracto".ID_AGENCIA = "cap$maestrotitular".ID_AGENCIA)');
-          SQL.Add('AND ("cap$extracto".ID_TIPO_CAPTACION = "cap$maestrotitular".ID_TIPO_CAPTACION)');
-          SQL.Add('AND ("cap$extracto".NUMERO_CUENTA = "cap$maestrotitular".NUMERO_CUENTA)');
-          SQL.Add('AND ("cap$extracto".DIGITO_CUENTA = "cap$maestrotitular".DIGITO_CUENTA)');
-          SQL.Add('INNER JOIN "cap$maestro" ON ("cap$extracto".NUMERO_CUENTA = "cap$maestro".NUMERO_CUENTA)');
-          SQL.Add('AND ("cap$extracto".DIGITO_CUENTA = "cap$maestro".DIGITO_CUENTA)');
-          SQL.Add('AND ("cap$extracto".ID_AGENCIA = "cap$maestro".ID_AGENCIA)');
-          SQL.Add('AND ("cap$extracto".ID_TIPO_CAPTACION = "cap$maestro".ID_TIPO_CAPTACION)');
-          SQL.Add('WHERE');
-          SQL.Add('"cap$extracto".ID_TIPO_CAPTACION IN (2,4) AND');
-          SQL.Add('"cap$extracto".ID_TIPO_MOVIMIENTO IN (7,15) AND');
-          SQL.Add('"cap$extracto".FECHA_MOVIMIENTO BETWEEN :FECHA1 AND :FECHA2 AND');
-          SQL.Add('"cap$maestrotitular".NUMERO_TITULAR = 1 AND');
-          SQL.Add('"cap$maestro".ID_ESTADO <> 15');
-          SQL.Add('GROUP BY');
-          SQL.Add('"cap$maestrotitular".ID_IDENTIFICACION,');
-          SQL.Add('"cap$maestrotitular".ID_PERSONA');
-          try
-            ParamByName('FECHA1').AsDateTime := _dFecha1;
-            ParamByName('FECHA2').AsDateTime := _dFecha2;
-            ExecSQL;
-          except
-          on E: Exception do
-          begin
-            ShowMessage(E.Message);
-          end;
-          end;
-          }
-
           Transaction.Commit;
           Transaction.StartTransaction;
         end;

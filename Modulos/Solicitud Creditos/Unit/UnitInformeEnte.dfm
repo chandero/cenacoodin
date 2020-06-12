@@ -1,6 +1,6 @@
 object FrmInformeEnte: TFrmInformeEnte
-  Left = 178
-  Top = 260
+  Left = 548
+  Top = 236
   Width = 419
   Height = 114
   BorderIcons = [biSystemMenu]
@@ -191,7 +191,6 @@ object FrmInformeEnte: TFrmInformeEnte
       end>
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     DefaultDatabase = dmGeneral.IBDatabase1
     Left = 104
     Top = 40

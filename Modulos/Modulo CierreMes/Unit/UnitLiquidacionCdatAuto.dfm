@@ -1,9 +1,9 @@
-object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
-  Left = 503
-  Top = 269
-  Width = 566
-  Height = 216
-  Caption = 'Liquidaci'#243'n Autom'#225'tica de Intereses'
+object frmLiquidacionCdatAuto: TfrmLiquidacionCdatAuto
+  Left = 561
+  Top = 293
+  Width = 568
+  Height = 172
+  Caption = 'Prorroga de Cdat Auto'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,9 +19,9 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
   object Label1: TLabel
     Left = 8
     Top = 8
-    Width = 55
+    Width = 61
     Height = 13
-    Caption = 'Liquidando:'
+    Caption = 'Prorrogando:'
   end
   object Label2: TLabel
     Left = 8
@@ -33,9 +33,9 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
   object Label3: TLabel
     Left = 8
     Top = 65
-    Width = 174
+    Width = 154
     Height = 13
-    Caption = 'Cantidad de Cuentas a Pagar Inter'#233's'
+    Caption = 'Cantidad de Cuentas a Prorrogar'
   end
   object edCaptacion: TEdit
     Left = 96
@@ -52,6 +52,21 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
     Enabled = False
     TabOrder = 1
   end
+  object edCantidad: TJvIntegerEdit
+    Left = 192
+    Top = 63
+    Width = 89
+    Height = 21
+    Alignment = taRightJustify
+    ReadOnly = True
+    TabOrder = 2
+    Value = 0
+    MaxValue = 0
+    MinValue = 0
+    HasMaxValue = False
+    HasMinValue = False
+    ClipBoardCommands = [caCopy]
+  end
   object progreso: TProgressBar
     Left = 8
     Top = 88
@@ -59,16 +74,7 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
     Height = 17
     Min = 0
     Max = 100
-    TabOrder = 2
-  end
-  object CmdCerrar: TBitBtn
-    Left = 464
-    Top = 134
-    Width = 75
-    Height = 25
-    Caption = 'Cerrar'
     TabOrder = 3
-    OnClick = CmdCerrarClick
   end
   object progreso2: TProgressBar
     Left = 8
@@ -78,42 +84,6 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
     Min = 0
     Max = 100
     TabOrder = 4
-  end
-  object edDefinitivo: TCheckBox
-    Left = 8
-    Top = 136
-    Width = 97
-    Height = 17
-    Caption = 'Definitivo'
-    Checked = True
-    State = cbChecked
-    TabOrder = 5
-  end
-  object edCantidad: TJvIntegerEdit
-    Left = 192
-    Top = 63
-    Width = 89
-    Height = 21
-    Alignment = taRightJustify
-    ReadOnly = True
-    TabOrder = 6
-    Value = 0
-    MaxValue = 0
-    MinValue = 0
-    HasMaxValue = False
-    HasMinValue = False
-    ClipBoardCommands = [caCopy]
-  end
-  object IBTotalCaptaciones: TIBStoredProc
-    Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
-    StoredProcName = 'P_CAP_0001'
-    Left = 16
-    Top = 104
-    object IBTotalCaptacionesTOTAL: TIntegerField
-      FieldName = 'TOTAL'
-      Origin = '"P_CAP_0001"."TOTAL"'
-    end
   end
   object CDStemp: TClientDataSet
     Active = True
@@ -354,8 +324,8 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
       '  CON$COMPROBANTE."ID_AGENCIA" = :"ID_AGENCIA"')
     SelectSQL.Strings = (
       'select * from CON$COMPROBANTE')
-    Left = 60
-    Top = 102
+    Left = 308
+    Top = 62
   end
   object IBDAuxiliar: TIBDataSet
     Database = dmGeneral.IBDatabase1
@@ -406,13 +376,13 @@ object frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto
       '  CON$AUXILIAR."CODIGO" = :"CODIGO"')
     SelectSQL.Strings = (
       'select * from CON$AUXILIAR')
-    Left = 96
-    Top = 102
+    Left = 344
+    Top = 62
   end
   object IBPagar: TIBSQL
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
-    Left = 136
-    Top = 104
+    Left = 384
+    Top = 64
   end
 end

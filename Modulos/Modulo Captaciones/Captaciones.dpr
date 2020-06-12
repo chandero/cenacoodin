@@ -147,7 +147,9 @@ uses
   UnitActualizarSaldoCuentaServiciosVirtuales in 'Units\UnitActualizarSaldoCuentaServiciosVirtuales.pas' {frmActualizarSaldoCuentaServiciosVirtuales},
   UnitCancelarServiciosVirtuales in 'Units\UnitCancelarServiciosVirtuales.pas' {frmCancelarServiciosVirtuales},
   UnitArchivoPlanoMovimientosTarjetas in 'Units\UnitArchivoPlanoMovimientosTarjetas.pas' {frmArchivoPlanoMovimientosTarjetas},
-  UnitConciliacionBancariaServiciosVirtuales in 'Units\UnitConciliacionBancariaServiciosVirtuales.pas' {frmConciliacionBancariaServiciosVirtuales};
+  UnitConciliacionBancariaServiciosVirtuales in 'Units\UnitConciliacionBancariaServiciosVirtuales.pas' {frmConciliacionBancariaServiciosVirtuales},
+  UnitInformeContractualDescontadoUnaFecha in 'Units\UnitInformeContractualDescontadoUnaFecha.pas' {frmInformeContractualDescontadoUnaFecha},
+  UnitInformeCDATLiquidadoUnaFecha in 'Units\UnitInformeCDATLiquidadoUnaFecha.pas' {frmInformeCDATLiquidadoUnaFecha};
 
 {$R *.res}
 
@@ -157,6 +159,8 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmInformeContractualDescontadoUnaFecha, frmInformeContractualDescontadoUnaFecha);
+  Application.CreateForm(TfrmInformeCDATLiquidadoUnaFecha, frmInformeCDATLiquidadoUnaFecha);
   Application.Run;
 end.
 

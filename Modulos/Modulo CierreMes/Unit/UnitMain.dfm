@@ -19,24 +19,32 @@ object FrmCierreMes: TFrmCierreMes
   TextHeight = 13
   object Label1: TLabel
     Left = 8
-    Top = 8
+    Top = 41
     Width = 191
     Height = 13
     Caption = 'Hora Ejecuci'#243'n Liquidaci'#243'n de Intereses'
   end
   object Label2: TLabel
     Left = 8
-    Top = 40
+    Top = 68
     Width = 178
     Height = 13
     Caption = 'Hora Ejecuci'#243'n Causaci'#243'n de Cartera'
   end
   object Label3: TLabel
     Left = 8
-    Top = 72
+    Top = 97
     Width = 105
     Height = 13
     Caption = 'N'#250'mero Notas a Crear'
+  end
+  object Label4: TLabel
+    Left = 8
+    Top = 6
+    Width = 176
+    Height = 26
+    Caption = 'Hora Ejecuci'#243'n Liquidaci'#243'n Prorroga Cdat y Descuento Contractual'
+    WordWrap = True
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -61,50 +69,50 @@ object FrmCierreMes: TFrmCierreMes
   end
   object edHoraLiquidacion: TMaskEdit
     Left = 208
-    Top = 8
+    Top = 40
     Width = 57
     Height = 21
     ReadOnly = True
-    TabOrder = 1
+    TabOrder = 2
     Text = '22:00:00'
   end
   object btnHoraLiquidacion: TToggleButton
     Left = 269
-    Top = 8
+    Top = 40
     Width = 25
     Height = 23
     Caption = 'E'
-    TabOrder = 2
+    TabOrder = 3
     OnClick = btnHoraLiquidacionClick
     GroupIndex = 0
   end
   object edHoraCausacion: TMaskEdit
     Left = 208
-    Top = 40
+    Top = 68
     Width = 57
     Height = 21
     ReadOnly = True
-    TabOrder = 3
+    TabOrder = 4
     Text = '23:00:00'
   end
   object btnHoraCausacion: TToggleButton
     Left = 269
-    Top = 40
+    Top = 68
     Width = 25
     Height = 23
     Caption = 'E'
-    TabOrder = 4
+    TabOrder = 5
     OnClick = btnHoraCausacionClick
     GroupIndex = 0
   end
   object edNotas: TJvIntegerEdit
     Left = 120
-    Top = 69
+    Top = 94
     Width = 41
     Height = 21
     Alignment = taRightJustify
     ReadOnly = True
-    TabOrder = 5
+    TabOrder = 6
     Value = 35
     MaxValue = 0
     MinValue = 0
@@ -114,17 +122,36 @@ object FrmCierreMes: TFrmCierreMes
   end
   object btnNotas: TToggleButton
     Left = 165
-    Top = 69
+    Top = 94
     Width = 25
     Height = 23
     Caption = 'E'
-    TabOrder = 6
+    TabOrder = 7
     OnClick = btnNotasClick
     GroupIndex = 0
   end
+  object edHoraDescuentoContractual: TMaskEdit
+    Left = 208
+    Top = 11
+    Width = 57
+    Height = 21
+    ReadOnly = True
+    TabOrder = 0
+    Text = '01:00:00'
+  end
+  object btnHoraDescuentoContractual: TToggleButton
+    Left = 269
+    Top = 11
+    Width = 25
+    Height = 23
+    Caption = 'E'
+    TabOrder = 1
+    OnClick = btnHoraDescuentoContractualClick
+    GroupIndex = 0
+  end
   object MainMenu1: TMainMenu
-    Left = 64
-    Top = 80
+    Left = 8
+    Top = 96
     object Manuales1: TMenuItem
       Caption = 'Manuales'
       object LiquidacindeIntersdeCaptacin1: TMenuItem
@@ -156,8 +183,18 @@ object FrmCierreMes: TFrmCierreMes
     end
     object mnuAuto: TMenuItem
       Caption = 'Test Autom'#225'tico'
-      Visible = False
-      OnClick = mnuAutoClick
+      object LiquidacionCdatAuto1: TMenuItem
+        Caption = 'Liquidacion Cdat Auto'
+        OnClick = LiquidacionCdatAuto1Click
+      end
+      object LiquidacionCaptacionAuto1: TMenuItem
+        Caption = 'Liquidacion Captacion Auto'
+        OnClick = LiquidacionCaptacionAuto1Click
+      end
+      object DescuentoContractual1: TMenuItem
+        Caption = 'Descuento Contractual Auto'
+        OnClick = DescuentoContractual1Click
+      end
     end
     object mnuCausacionAuto: TMenuItem
       Caption = 'Causaci'#243'n Autom'#225'tico'

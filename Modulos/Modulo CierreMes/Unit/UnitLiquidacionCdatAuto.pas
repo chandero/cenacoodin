@@ -1,22 +1,21 @@
-unit UnitLiquidacionYCausacionAuto;
+unit UnitLiquidacionCdatAuto;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, IBQuery, IBStoredProc, IB, DBClient, IBDatabase, IBCustomDataSet, IBSQL, DB,
-  StdCtrls, ComCtrls, Math, Buttons, JvEdit, JvTypedEdit;
+  IBQuery, IBStoredProc, IB, DBClient, IBDatabase, IBCustomDataSet, IBSQL, DB,
+  Dialogs, ComCtrls, JvEdit, JvTypedEdit, StdCtrls, Math;
 
 type
-  TfrmLiquidacionYCausacionAuto = class(TForm)
+  TfrmLiquidacionCdatAuto = class(TForm)
     Label1: TLabel;
     edCaptacion: TEdit;
     Label2: TLabel;
     edEstado: TEdit;
+    Label3: TLabel;
+    edCantidad: TJvIntegerEdit;
     progreso: TProgressBar;
-    IBTotalCaptaciones: TIBStoredProc;
-    IBTotalCaptacionesTOTAL: TIntegerField;
-    CmdCerrar: TBitBtn;
     CDStemp: TClientDataSet;
     CDStempID_AGENCIA: TIntegerField;
     CDStempID_TIPO_CAPTACION: TIntegerField;
@@ -44,28 +43,22 @@ type
     CDStempTOTALRETECAUSADO: TAggregateField;
     IBDComprobante: TIBDataSet;
     IBDAuxiliar: TIBDataSet;
-    progreso2: TProgressBar;
     IBPagar: TIBSQL;
-    edDefinitivo: TCheckBox;
-    Label3: TLabel;
-    edCantidad: TJvIntegerEdit;
+    progreso2: TProgressBar;
+    procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure CmdCerrarClick(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
   private
-    { Private declarations }
-    _tipo : Integer;
-    procedure ProcesarAhorros;
-    procedure ProcesarCertificados(_id_captacion: Integer);    
+    procedure ProcesarCertificados;
     procedure Aplicar;
+    { Private declarations }
   public
+
     { Public declarations }
-    property Tipo:Integer Read _tipo Write _tipo;
   end;
 
 var
-  frmLiquidacionYCausacionAuto: TfrmLiquidacionYCausacionAuto;
+  frmLiquidacionCdatAuto: TfrmLiquidacionCdatAuto;
   _queryCaptacion, _queryRetefuente, _queryDiasLiquidados, _query : TIBQuery;
   _queryALiquidar: TIBQuery;
   _queryProcedure : TIBStoredProc;
@@ -98,50 +91,39 @@ var
 
   FechaCorte: TDate;
   cada: Integer;
-
+  
 implementation
 
 {$R *.dfm}
 
 uses UnitDmGeneral, UnitCaptaciones, UnitGlobalesCol, UnitGlobales;
 
-procedure TfrmLiquidacionYCausacionAuto.FormCreate(Sender: TObject);
+procedure TfrmLiquidacionCdatAuto.ProcesarCertificados;
+var MinCaptacion,MaxCaptacion:Integer;
+    Ag,Numero,Digito:Integer;
+    L:tInteres;
+    FechaCorte:TDate;
+    Valor:Currency;
+    TipoI:string;
+    CodTipoI:Integer;
+    TasaN:Double;
+    Retefuente:Currency;
+    UltimoPago:TDate;
+    Puntos:Double;
+    Moda:string;
+    Amor:Integer;
 begin
-        _query := TIBQuery.Create(self);
-        _queryCaptacion := TIBQuery.Create(self);
-        _queryRetefuente := TIBQuery.Create(self);
-        _queryDiasLiquidados := TIBQuery.Create(self);
-        _queryALiquidar := TIBQuery.Create(self);
-        _queryProcedure := TIBStoredProc.Create(self);
-        _transaction := TIBTransaction.Create(self);
+          TotalCapta2:=0;
+          TotalCapta4:=0;
+          TotalCapta2R:=0;
+          TotalCapta4R:=0;
+          TotalCapta2RMes:=0;
+          TotalCapta4RMes:=0;
+          MinCaptacion := 0;
+          MaxCaptacion := 0;
 
-        _transaction.DefaultDatabase := dmGeneral.IBDatabase1;
+          FechaCorte := _fechaProceso;
 
-        _query.Database := dmGeneral.IBDatabase1;
-        _queryCaptacion.Database := dmGeneral.IBDatabase1;
-        _queryRetefuente.Database := dmGeneral.IBDatabase1;
-        _queryDiasLiquidados.Database := dmGeneral.IBDatabase1;
-        _queryALiquidar.Database := dmGeneral.IBDatabase1;
-        _queryProcedure.Database := dmGeneral.IBDatabase1;
-
-        _query.Transaction := _transaction;
-        _queryCaptacion.Transaction := _transaction;
-        _queryRetefuente.Transaction := _transaction;
-        _queryALiquidar.Transaction := _transaction;
-        _queryDiasLiquidados.Transaction := _transaction;
-        _queryProcedure.Transaction := _transaction;
-
-        IBDComprobante.Transaction := _transaction;
-        IBDAuxiliar.Transaction := _transaction;
-        IBPagar.Transaction := _transaction;
-        
-end;
-
-procedure TfrmLiquidacionYCausacionAuto.ProcesarAhorros;
- var
-   L:tInteres;
-
-begin
         Application.ProcessMessages;
         with _queryRetefuente do
         begin
@@ -161,9 +143,7 @@ begin
         end;
 
         if TasaR <> 0 then
-           TasaR := TasaNominalVencida(TasaR,30);
-
-        cada := 1;
+           TasaR := TasaNominalVencida(TasaR,30);        
 
         _queryCaptacion.Close;
         _queryCaptacion.SQL.Clear;
@@ -186,188 +166,12 @@ begin
         _queryCaptacion.Open;
         Codigo_Captacion4 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
 
-        _queryCaptacion.SQL.Clear;
-        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_FORMA = :ID_FORMA');
-        _queryCaptacion.ParamByName('ID_FORMA').AsInteger := 2;
-        _queryCaptacion.Open;
 
-        _query.Close;
-        _query.SQL.Clear;
-        _query.SQL.Add('SELECT * FROM CAP$DIASLIQUIDADOS WHERE ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION AND FECHA_LIQUIDADA = :FECHA_LIQUIDADA');
-
-        while not _queryCaptacion.Eof do
-        begin
-          edCaptacion.Text := _queryCaptacion.FieldByName('DESCRIPCION').AsString;
-          // Inicio Ciclo Captacion
-          _tipo := _queryCaptacion.FieldByName('ID_TIPO_CAPTACION').AsInteger;
-          //Verificar si hay que liquidar o no el producto
-          _query.Close;
-          _query.ParamByName('ID_TIPO_CAPTACION').AsInteger := _tipo;
-          _query.ParamByName('FECHA_LIQUIDADA').AsDate := _fechaProceso;
-          _query.Open;
-          if _query.RecordCount > 0 then
-          begin
-            _queryCaptacion.Next;
-            Continue;
-          end;
-          MinCaptacion := 1;
-          MaxCaptacion := 1;
-          Application.ProcessMessages;
-          Codigo_Captacion := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
-          FechaCorte := _fechaProceso;
-          interes := _queryCaptacion.FieldByName('INTERES_EFECTIVO').AsFloat;
-          SaldoMinimo := _queryCaptacion.FieldByName('SALDO_MINIMO_PARA_INTERES').AsCurrency;
-          cada:= _queryCaptacion.FieldByName('INTERES_CADA').AsInteger;
-          TasaN := TasaNominalVencida(interes,30);
-          with _queryProcedure do
-          begin
-              StoredProcName := 'P_CAP_0001';
-              ParamByName('ID').AsInteger := _tipo;
-              try
-                 Application.ProcessMessages;
-                 Screen.Cursor := crHourGlass;
-                 Prepare;
-                 ExecProc;
-                 Screen.Cursor := crDefault;
-              except
-                 EdEstado.Text := 'Error Localizando Captaciones a Liquidar';
-                 Continue;
-              end;
-              MaxCaptacion := ParamByName('TOTAL').AsInteger;
-              if MaxCaptacion = 0 then
-              begin
-                 edEstado.Text := 'No existen captaciones a las cuales liquidarles intereses';
-                 Continue;
-              end;
-              Close;
-// Crear Tabla Temporal
-//              frmProgreso.InfoLabel := 'Creando Tabla Temporal';
-          end;
-
-          edEstado.Text := 'Iniciando Proceso de Liquidación';
-
-          with _queryALiquidar do
-          begin
-              SQL.Clear;
-              SQL.Add('SELECT ');
-              SQL.Add('* FROM P_CAP_0002 (:ID)');
-              ParamByName('ID').AsInteger := _tipo;
-              try
-                 Application.ProcessMessages;
-                 Screen.Cursor := crHourGlass;
-                 Open;
-                 Screen.Cursor := crDefault;
-              except
-                 EdEstado.Text := 'Error Localizando Captaciones a Liquidar';
-                 Continue;
-              end;
-
-              progreso.Min  := MinCaptacion;
-              progreso.Max := MaxCaptacion;
-              progreso.Position:= 1;
-
-              progreso2.Min  := 0;
-              progreso2.Max := 1;
-              progreso2.Position:= 0;
-
-              Screen.Cursor := crHourGlass;
-              CmdCerrar.Enabled := False;
-              CDStemp.Open;
-              CDStemp.EmptyDataSet;
-
-              while not Eof do
-              begin
-                Application.ProcessMessages;
-                edEstado.Text := 'Liquidando Captacion:' + IntToStr(_tipo) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
-                                         Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
-                                         IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
-                Ag := FieldByName('ID_AGENCIA').AsInteger;
-                Numero := FieldByName('NUMERO_CUENTA').AsInteger;
-                Digito := FieldByName('DIGITO_CUENTA').AsInteger;
-                progreso.Position := RecNo;
-                case cada of
-                  1: begin
-                       L := InteresDiario(ag,_tipo,numero,digito,FechaCorte,TasaN,SaldoMinimo,DiarioR,TasaR);
-                       CDSTemp.Insert;
-                       CDStempID_AGENCIA.Value := Ag;
-                       CDStempID_TIPO_CAPTACION.Value := _tipo;
-                       CDStempNUMERO_CUENTA.Value := Numero;
-                       CDStempDIGITO_CUENTA.Value := Digito;
-                       CDStempID_IDENTIFICACION.Value := FieldByName('ID_IDENTIFICACION').AsInteger;
-                       CDStempID_PERSONA.Value := FieldByName('ID_PERSONA').AsString;
-                       CDStempNOMBRE.Value := FieldbyName('PRIMER_APELLIDO').AsString + ' ' +
-                                              FieldbyName('SEGUNDO_APELLIDO').AsString + ' ' +
-                                              FieldbyName('NOMBRE').AsString;
-                       CDStempSALDO_ACTUAL.Value := L.SaldoAFecha;
-                       CDStempSALDO_LIQUIDACION.Value := L.SaldoLiquidacion;
-                       CDStempCAUSADO.Value := 0;
-                       CDStempRETEINTERES.Value := 0;
-                       CDStempRETECAUSADO.Value := 0;
-                       CDStempINTERES.Value := L.Interes;
-                       if not InttoBoolean(FieldByName('RETEFUENTE').AsInteger) then
-                          L.Retencion := 0;
-                       CDStempRETENCION.Value := L.Retencion;
-                       if (L.Interes > 0) then
-                         CDStemp.Post
-                       else
-                         CDStemp.Cancel;
-                     end;
-                end;
-                edCantidad.Value := CDStemp.RecordCount;
-                Next;
-              end;
-
-              Close;
-              Screen.Cursor := crDefault;
-              // CmdLiquidar.Enabled := False;
-              // CmdVer.Enabled := True;
-
-          end;
-
-          edEstado.Text := 'Proceso de Liquidación Culminado con Exito!';
-
-          // Continuación Ciclo _queryCaptacion
-          if edDefinitivo.Checked then
-            Aplicar;
-          _queryCaptacion.Next;
-        end;
-        _transaction.Commit;
-        CmdCerrar.Enabled := True;
-
-        PostMessage(Handle, WM_CLOSE, 0, 0);
-        modalresult := mrCancel;
-end;
-
-procedure TfrmLiquidacionYCausacionAuto.ProcesarCertificados(_id_captacion: Integer);
-var MinCaptacion,MaxCaptacion:Integer;
-    Ag,Numero,Digito:Integer;
-    L:tInteres;
-    FechaCorte:TDate;
-    Valor:Currency;
-    TipoI:string;
-    CodTipoI:Integer;
-    TasaN:Double;
-    Retefuente:Currency;
-    UltimoPago:TDate;
-    Puntos:Double;
-    Moda:string;
-    Amor:Integer;
-begin
-          TotalCapta2:=0;
-          TotalCapta4:=0;
-          TotalCapta2R:=0;
-          TotalCapta4R:=0;
-          TotalCapta2RMes:=0;
-          TotalCapta4RMes:=0;
-          MinCaptacion := 1;
-          MaxCaptacion := 1;
-
-          FechaCorte := _fechaProceso;
                       
           with _queryProcedure do
           begin
               StoredProcName := 'P_CAP_0003';
-              ParamByName('ID').AsInteger := _id_captacion;
+              ParamByName('ID').AsInteger := 6;
               ParamByName('FECHA').AsDate := FechaCorte;
               try
                  Application.ProcessMessages;
@@ -375,14 +179,14 @@ begin
                  ExecProc;
               except
                  // frmProgreso.Cerrar;
-                 edEstado.Text := 'No existen captaciones a las cuales liquidarles intereses';
+                 edEstado.Text := 'No existen cdat a las cuales liquidarles intereses';
                  PostMessage(Handle, WM_CLOSE, 0, 0);
                  modalresult := mrCancel;;
               end;
               MaxCaptacion := ParamByName('TOTAL').AsInteger;
               if MaxCaptacion = 0 then
               begin
-                 edEstado.Text := 'No existen captaciones a las cuales liquidarles intereses';
+                 edEstado.Text := 'No existen cdat a las cuales liquidarles intereses';
                  PostMessage(Handle, WM_CLOSE, 0, 0);
                  modalresult := mrCancel;;
               end;
@@ -434,7 +238,7 @@ begin
         begin
             SQL.Clear;
             SQL.Add('select * from P_CAP_0004 (:ID, :FECHA)');
-            ParamByName('ID').AsInteger := _id_captacion;
+            ParamByName('ID').AsInteger := 6;
             ParamByName('FECHA').AsDate := FechaCorte;
               try
                  Application.ProcessMessages;
@@ -461,7 +265,7 @@ begin
               while not Eof do
               begin
                 Application.ProcessMessages;
-                edCaptacion.Text := 'Liquidando Captacion:' + IntToStr(_id_captacion) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
+                edCaptacion.Text := 'Liquidando Captacion:' + IntToStr(6) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
                                          Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
                                          IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
                 Ag := FieldByName('ID_AGENCIA').AsInteger;
@@ -560,26 +364,53 @@ begin
         end;
         
         CDStemp.First;
-        if edDefinitivo.Checked then
-          Aplicar;
 
-        _transaction.Commit;
-        CmdCerrar.Enabled := True;
 
-        PostMessage(Handle, WM_CLOSE, 0, 0);
-        modalresult := mrCancel;
-          //frmProgreso.Cerrar;
-          //Liquidado := True;
-          //CmdLiquidar.Enabled := False;
-          //CmdVer.Enabled := True;
-          //CmdCerrar.Enabled := True;
-          //RadioTipoLiquidacion.Enabled := False;
-          //if RadioTipoLiquidacion.ItemIndex = 1 then
-          //CmdAplicar.Enabled := True;
-        
 end;
 
-procedure TfrmLiquidacionYCausacionAuto.Aplicar;
+procedure TfrmLiquidacionCdatAuto.FormActivate(Sender: TObject);
+begin
+        ProcesarCertificados;
+        Aplicar;
+
+        _transaction.Commit;
+
+        PostMessage(Handle, WM_CLOSE, 0, 0);
+        modalresult := mrCancel;        
+end;
+
+procedure TfrmLiquidacionCdatAuto.FormCreate(Sender: TObject);
+begin
+        _query := TIBQuery.Create(self);
+        _queryCaptacion := TIBQuery.Create(self);
+        _queryRetefuente := TIBQuery.Create(self);
+        _queryDiasLiquidados := TIBQuery.Create(self);
+        _queryALiquidar := TIBQuery.Create(self);
+        _queryProcedure := TIBStoredProc.Create(self);
+        _transaction := TIBTransaction.Create(self);
+
+        _transaction.DefaultDatabase := dmGeneral.IBDatabase1;
+
+        _query.Database := dmGeneral.IBDatabase1;
+        _queryCaptacion.Database := dmGeneral.IBDatabase1;
+        _queryRetefuente.Database := dmGeneral.IBDatabase1;
+        _queryDiasLiquidados.Database := dmGeneral.IBDatabase1;
+        _queryALiquidar.Database := dmGeneral.IBDatabase1;
+        _queryProcedure.Database := dmGeneral.IBDatabase1;
+
+        _query.Transaction := _transaction;
+        _queryCaptacion.Transaction := _transaction;
+        _queryRetefuente.Transaction := _transaction;
+        _queryALiquidar.Transaction := _transaction;
+        _queryDiasLiquidados.Transaction := _transaction;
+        _queryProcedure.Transaction := _transaction;
+
+        IBDComprobante.Transaction := _transaction;
+        IBDAuxiliar.Transaction := _transaction;
+        IBPagar.Transaction := _transaction;
+end;
+
+procedure TfrmLiquidacionCdatAuto.Aplicar;
 var TInteres:Currency;
     TRetefuente:Currency;
     TReteCausado:Currency;
@@ -603,14 +434,9 @@ var TInteres:Currency;
     _queryConsulta : TIBQuery;
     _ibsql1 : TIBSQL;
     _transactionConsulta, _transactionComprobante : TIBTransaction;
+    _tipo: Integer;
 begin
-        {
-        if programado then
-        begin
-          AplicarProgramado;
-          Exit;
-        end;
-        }
+        _tipo := 6;
 
         _queryConsulta := TIBQuery.Create(self);
         _ibsql1 := TIBSQL.Create(self);
@@ -692,8 +518,8 @@ begin
              end;
           end;
 // Marca Finalizada
-        _ibsql1.Transaction.Commit;
-           exit;
+          _ibsql1.Transaction.Commit;
+          exit;
         end;
         {
         with IBConsulta do
@@ -790,13 +616,14 @@ begin
             Open;
             Codigo_Gasto3xmil := FieldByName('CODIGO_CONTABLE').AsString;
             Close;
-            if certificado then begin
-            Close;
-            ParamByName('ID_CAPTACION').AsInteger := _tipo;
-            ParamByName('ID_CONTABLE').AsInteger := 6;
-            Open;
-            Codigo_Causados := FieldByName('CODIGO_CONTABLE').AsString;
-            Close;
+            if certificado then
+            begin
+              Close;
+              ParamByName('ID_CAPTACION').AsInteger := _tipo;
+              ParamByName('ID_CONTABLE').AsInteger := 6;
+              Open;
+              Codigo_Causados := FieldByName('CODIGO_CONTABLE').AsString;
+              Close;
             end;
         end;
 
@@ -1157,7 +984,7 @@ begin
            Registros := CDStemp.RecordCount;
            progreso2.Min  := 0;
            progreso2.Max := Registros;
-           progreso2.Position:= 1;
+           progreso2.Position:= 0;
 
            while not Eof do
            begin
@@ -1427,21 +1254,11 @@ begin
 
 end;
 
-procedure TfrmLiquidacionYCausacionAuto.FormShow(Sender: TObject);
+procedure TfrmLiquidacionCdatAuto.FormShow(Sender: TObject);
 begin
         _transaction.StartTransaction;
         _fechaProceso := fFechaActual;
-        
-end;
-
-procedure TfrmLiquidacionYCausacionAuto.CmdCerrarClick(Sender: TObject);
-begin
-       Close;
-end;
-
-procedure TfrmLiquidacionYCausacionAuto.FormActivate(Sender: TObject);
-begin
-        ProcesarAhorros;
+        certificado := True;
 end;
 
 end.
