@@ -1,8 +1,8 @@
 object frmDescuentoContractualAuto: TfrmDescuentoContractualAuto
-  Left = 541
-  Top = 264
+  Left = 501
+  Top = 154
   Width = 574
-  Height = 187
+  Height = 468
   Caption = 'Descuento Contractual Autom'#225'tico'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -84,6 +84,19 @@ object frmDescuentoContractualAuto: TfrmDescuentoContractualAuto
     Min = 0
     Max = 100
     TabOrder = 4
+  end
+  object gridContractual: TDBGrid
+    Left = 8
+    Top = 136
+    Width = 553
+    Height = 289
+    DataSource = dsContractual
+    TabOrder = 5
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
   end
   object CDSContractual: TClientDataSet
     Active = True
@@ -461,5 +474,10 @@ object frmDescuentoContractualAuto: TfrmDescuentoContractualAuto
         Name = 'TIPO_COMPROBANTE'
         ParamType = ptUnknown
       end>
+  end
+  object dsContractual: TDataSource
+    DataSet = CDSContractual
+    Left = 64
+    Top = 176
   end
 end

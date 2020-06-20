@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, CommCtrl,
   IBQuery, IBStoredProc, IB, DBClient, IBDatabase, IBCustomDataSet, IBSQL, DB,
-  Dialogs, ComCtrls, JvEdit, JvTypedEdit, StdCtrls, DateUtils, Math;
+  Dialogs, ComCtrls, JvEdit, JvTypedEdit, StdCtrls, DateUtils, Math, Grids,
+  DBGrids;
 
 type
   TfrmDescuentoContractualAuto = class(TForm)
@@ -41,6 +42,8 @@ type
     IBPagar: TIBSQL;
     IbComprobante: TIBQuery;
     IbAux: TIBQuery;
+    gridContractual: TDBGrid;
+    dsContractual: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -321,8 +324,8 @@ begin
         CDSContractual.Close;
 
         _transaction.Commit;
-        modalresult := mrCancel;
-        PostMessage(Handle, WM_CLOSE, 0, 0);
+        // modalresult := mrCancel;
+        // PostMessage(Handle, WM_CLOSE, 0, 0);
 
 end;
 
