@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, DBCtrls, StdCtrls, Buttons, JvStaticText, DB,
   IBCustomDataSet, IBQuery, IBDatabase, FR_DSet, FR_DBSet, FR_Class,
-  DBClient;
+  DBClient, ComCtrls;
 
 type
   TFrmInformeEnte = class(TForm)
@@ -15,8 +15,7 @@ type
     DBente: TDBLookupComboBox;
     Label2: TLabel;
     Panel2: TPanel;
-    BitBtn1: TBitBtn;
-    JVfecha: TJvStaticText;
+    btnInforme: TBitBtn;
     IBQuery1: TIBQuery;
     DataSource1: TDataSource;
     frReport1: TfrReport;
@@ -37,10 +36,25 @@ type
     CDfirmasfirma: TStringField;
     frDBDataSet4: TfrDBDataSet;
     IBQuery3: TIBQuery;
+    JvFecha: TDateTimePicker;
+    Label3: TLabel;
+    edActa: TEdit;
+    CDinvitados: TClientDataSet;
+    CDinvitadosnombre: TStringField;
+    CDinvitadoscargo: TStringField;
+    CDparticipantes: TClientDataSet;
+    CDparticipantesnombre: TStringField;
+    CDparticipantescargo: TStringField;
+    CDinformeid_oficina: TIntegerField;
+    CDinformegarantia: TIntegerField;
+    CDinformesolicitado: TCurrencyField;
+    CDinformeradicado: TStringField;
+    CDinformedes_estado: TStringField;
     procedure FormCreate(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure btnInformeClick(Sender: TObject);
     procedure frReport1GetValue(const ParName: String;
       var ParValue: Variant);
+    procedure edActaExit(Sender: TObject);
   private
      acta :string;
     procedure firmas(ente: string);
@@ -57,13 +71,14 @@ type
 
 var
   FrmInformeEnte: TFrmInformeEnte;
-  aprobada,aplazada,negada,ratificada :Integer;
+  aprobada,aplazada,negada,ratificada, consejo :Integer;
   total :Integer;
   aprobado :Currency;
   valor_ratificado :Currency;
   valor_aprobado: Currency;
   valor_negado: Currency;
   valor_aplazado: Currency;
+  valor_consejo: Currency;
   total_r :Integer;
   valor_admisible :Currency;
   valor_noadmisible :Currency;
@@ -96,7 +111,8 @@ end;
 procedure TFrmInformeEnte.FormCreate(Sender: TObject);
 begin
         DmSolicitud := TDmSolicitud.Create(self);
-        JVfecha.Caption := FormatDateTime('yyyy/MM/dd',retorna_fecha);
+        IBQuery1.Open;
+        JvFecha.Date := fFechaActual;
 end;
 
 procedure TFrmInformeEnte.imprimir_reporte(cadena: string);
@@ -104,7 +120,8 @@ var
    _tFrfpict1 : TfrPictureView;
    _sRutaLogo :string;
 begin
-        FrmImpresion := TFrmImpresion.Create(self);
+        //FrmImpresion := TFrmImpresion.Create(self);
+        CDinforme.First;
         frReport1.LoadFromFile(cadena);
         _tFrfpict1 := TfrPictureView(frReport1.FindObject('picture1'));
         _sRutaLogo := frmMain.wpath + 'logo\logo.jpg';
@@ -112,28 +129,69 @@ begin
         begin
            _tFrfPict1.Picture.LoadFromFile(_sRutaLogo);
         end;
-        frReport1.Preview := FrmImpresion.frPreview1;
-        frReport1.ShowReport;
-        FrmImpresion.ShowModal
+        //frReport1.Preview := FrmImpresion.frPreview1;
+        if frReport1.PrepareReport then
+           frReport1.ShowPreparedReport;
+        //FrmImpresion.ShowModal
 end;
 
-procedure TFrmInformeEnte.BitBtn1Click(Sender: TObject);
+procedure TFrmInformeEnte.btnInformeClick(Sender: TObject);
 begin
         aplazada := 0;
         negada := 0;
         aprobada := 0;
         aprobado := 0;
         ratificada := 0;
+        consejo := 0;
         total_r := 0;
         valor_ratificado := 0;
         valor_aprobado := 0;
         valor_negado := 0;
         valor_aplazado := 0;
+        valor_consejo := 0;
         total_admisible := 0;
         total_noadmisible := 0;
         valor_admisible := 0;
         valor_noadmisible := 0;
-        with frmMain.CDinforme do
+
+        CDparticipantes.Open;
+        CDparticipantes.EmptyDataSet;
+        IBQuery3.Close;
+        IBQuery3.SQL.Clear;
+        IBQuery3.SQL.Add('SELECT * FROM "ent$asistente" WHERE NUMERO_ACTA = :ACTA');
+        IBQuery3.ParamByName('ACTA').AsString := edActa.Text;
+        IBQuery3.Open;
+
+        while not IBQuery3.Eof do
+        begin
+            CDparticipantes.Append;
+            CDparticipantesnombre.Value := IBQuery3.FieldByName('NOMBRE').AsString;
+            CDparticipantescargo.Value := IBQuery3.FieldByName('CARGO').AsString;
+            CDparticipantes.Post;
+            IBQuery3.Next;
+        end;
+
+        CDinforme.Open;
+        CDinforme.EmptyDataSet;
+
+        IBQuery2.Close;
+        IBQuery2.ParamByName('ACTA').AsString := edActa.Text;
+        IBQuery2.Open;
+        while not IBQuery2.Eof do
+        begin
+          CDInforme.Append;
+          CDinformeid_oficina.Value := IBQuery2.FieldByName('ID_AGENCIA').AsInteger;
+          CDinformeradicado.Value := IBQuery2.FieldByName('ID_SOLICITUD').AsString;
+          CDinformenombre.Value := IBQuery2.FieldByName('NOMBRE').AsString;
+          CDinformeestado.Value := IBQuery2.FieldByName('ESTADO').AsString;
+          CDinformesolicitado.Value := IBQuery2.FieldByName('VALOR_SOLICITADO').AsCurrency;
+          CDinformevalor.Value := IBQuery2.FieldByName('VALOR_APROBADO').AsCurrency;
+          CDinformegarantia.Value := IBQuery2.FieldByName('GARANTIA').AsInteger;
+          CDinformedes_estado.Value := IBQuery2.FieldByName('DESCRIPCION_ESTADO').AsString;
+          CDinforme.Post;
+          IBQuery2.Next;
+        end;
+        with CDinforme do
         begin
            First;
            while not Eof do
@@ -167,13 +225,18 @@ begin
              begin
                ratificada := ratificada + 1;
                valor_ratificado := valor_ratificado + FieldByName('valor').AsCurrency;
+             end
+             else if FieldValues['estado']  = 8 then
+             begin
+               consejo := consejo + 1;
+               valor_consejo := valor_consejo + FieldByName('valor').AsCurrency;
              end;
              Next;
            end;
         end;
         total := 0;
-        CDinforme.CancelUpdates;
-        CDestado.CancelUpdates;
+        // CDinforme.CancelUpdates;
+        // CDestado.CancelUpdates;
         if aprobada <> 0 then
         begin
           CDestado.Append;
@@ -206,40 +269,8 @@ begin
           CDestado.Post;
           total := total + aplazada;
         end;
-{        with frmMain.CDinforme do
-        begin
-        First;
-        while not Eof do
-        begin
-        with IBQuery2 do
-        begin
-          Close;
-          if Transaction.InTransaction then
-             Transaction.Commit;
-          Transaction.StartTransaction;
-          ParamByName('ID_SOLICITUD').AsInteger := frmMain.CDinforme.FieldValues['RADICADO'];
-          Open;
-            if vacta = False then
-               acta := FieldByName('NUMERO_ACTA').AsString;
-            vacta := True;
-            CDinforme.Append;
-            CDinforme.FieldValues['SOLICITUD'] := FieldByName('ID_SOLICITUD').AsString;
-            CDinforme.FieldValues['NOMBRE'] := FieldByName('NOMBRE').AsString + ' ' +FieldByName('PRIMER_APELLIDO').AsString + ' ' + FieldByName('SEGUNDO_APELLIDO').AsString;
-            CDinforme.FieldValues['ESTADO'] := FieldByName('DESCRIPCION_ESTADO').AsString;
-            if FieldByName('ESTADO').AsInteger = 4 then
-            begin
-               CDinforme.FieldValues['VALOR'] := FieldByName('VALOR_APROBADO').AsCurrency;
-               aprobado := aprobado + FieldByName('VALOR_APROBADO').AsCurrency;
-            end
-            else
-               CDinforme.FieldValues['VALOR'] := 0;
-            CDinforme.Post;
-          end;
-          Next;
-        end;
-
-        end;} // fin del while cdsolicitud
-        frmMain.CDinforme.IndexFieldNames := 'id_oficina';
+        CDinforme.IndexFieldNames := 'id_oficina';
+        CDparticipantes.First;
         if Id_EnteAprobador = 3 then
            imprimir_reporte(frmMain.wpath+'reporte\repinformediario_c.frf')
         else
@@ -251,19 +282,19 @@ procedure TFrmInformeEnte.frReport1GetValue(const ParName: String;
   var ParValue: Variant);
 begin
         if ParName = 'enteaprobador' then
-           ParValue := ente;
+           ParValue := DBente.Text;
         if ParName = 'fecha_concepto' then
-           ParValue := vFechaEnte;
+           ParValue := JvFecha.Date;
         if ParName = 'valor_a' then
-           ParValue := aprobado;
+           ParValue := valor_aprobado;
         if ParName = 'valor_r' then
            ParValue := valor_ratificado;
-        if ParName = 'total' then
-           ParValue := total;
+        if ParName = 'total_aprobado' then
+           ParValue := aprobada;
         if ParName = 'total_r' then
            ParValue := total_r;
         if ParName = 'acta' then
-           ParValue := frmMain.n_acta;
+           ParValue := edActa.Text;
         if ParName = 'total_ad' then
            ParValue := total_admisible;
         if ParName = 'total_noad' then
@@ -276,9 +307,20 @@ begin
 //
         if ParName = 'total_ratificadas' then
            ParValue := ratificada;
+        if ParName = 'total_negadas' then
+           ParValue := negada;
+        if ParName = 'total_aplazadas' then
+           ParValue := aplazada;
         if ParName = 'valor_ratificado' then
            ParValue := valor_ratificado;
-
+        if ParName = 'valor_negado' then
+           ParValue := valor_negado;
+        if ParName = 'valor_aplazado' then
+           ParValue := valor_aplazado;
+        if ParName = 'total_consejo' then
+           ParValue := consejo;
+        if ParName = 'valor_consejo' then
+           ParValue := valor_consejo;
 
 end;
 
@@ -306,9 +348,6 @@ begin
           Result := FieldByName('TOTAL').AsInteger;
           Close;
         end;}
-        with frmMain.CDinforme do
-        begin
-        end;
 
 end;
 
@@ -320,6 +359,26 @@ begin
           FieldValues['firma'] := ente;
           Post;
         end;
+end;
+
+procedure TFrmInformeEnte.edActaExit(Sender: TObject);
+begin
+        // Buscar el Acta
+        IBQuery3.Close;
+        IBQuery3.ParamByName('ACTA').AsString := edActa.Text;
+        IBQuery3.Open;
+        IBQuery3.Last;
+        IBQuery3.First;
+        if (IBQuery3.RecordCount > 0) then
+        begin
+          JvFecha.Date := IBQuery3.FieldByName('FECHA').AsDateTime;
+          btnInforme.Enabled := True;
+        end
+        else
+        begin
+          btnInforme.Enabled := False;
+        end;
+
 end;
 
 end.

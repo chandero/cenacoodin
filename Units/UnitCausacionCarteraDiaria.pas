@@ -3603,7 +3603,7 @@ begin
                  FechaFinal := EdFechaCorte.Date;
                  ListaFechas := TList.Create;
                  if IBQuery1.FieldByName('ID_TIPO_CUOTA').AsInteger = 1 then
-                    CalcularFechasLiquidarFija(FechaInicial,FechaFinal,FechaFinal,ListaFechas)
+                    CalcularFechasLiquidarFija(IBQuery1.FieldByName('ID_COLOCACION').AsString, FechaInicial,FechaFinal,FechaFinal,ListaFechas)
                  else
                  if IBQuery1.FieldByName('ID_TIPO_CUOTA').AsInteger = 2 then
                     CalcularFechasLiquidarVarAnticipada(FechaInicial,FechaFinal,FechaFinal,ListaFechas)
@@ -9322,7 +9322,7 @@ begin
                  FechaFinal := EdFechaCorte.Date;
                  ListaFechas := TList.Create;
                  if IBQuery1.FieldByName('ID_TIPO_CUOTA').AsInteger = 1 then
-                    CalcularFechasLiquidarFija(FechaInicial,FechaFinal,FechaFinal,ListaFechas)
+                    CalcularFechasLiquidarFija(IBQuery1.FieldByName('ID_COLOCACION').AsString, FechaInicial,FechaFinal,FechaFinal,ListaFechas)
                  else
                  if IBQuery1.FieldByName('ID_TIPO_CUOTA').AsInteger = 2 then
                     CalcularFechasLiquidarVarAnticipada(FechaInicial,FechaFinal,FechaFinal,ListaFechas)

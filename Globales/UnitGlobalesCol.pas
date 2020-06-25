@@ -139,7 +139,7 @@ procedure LiquidarCuotasVarVencidaPagoTotal(IdAgencia:Integer;IdColocacion:strin
                             var MyCuotasLiq:TCuotasLiq;Clasificacion:Integer;Garantia:Integer;Categoria:String;Estado:Integer;ValorCuota:Currency;
                             FechaPagoK:TDate;FechaPagoI:TDate;TipoInteres:integer;ValorTasa:Double;ValorMora:Double;PuntosAdic:Double;
                             SaldoActual:Currency;AmortizaK:Integer;AmortizaI:Integer;DiasProrroga:Integer);
-procedure CalcularFechasLiquidarFija(FechaInicial:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
+procedure CalcularFechasLiquidarFija(id_colocacion:String; FechaInicial:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
 procedure CalcularFechasLiquidarVarAnticipada(FechaInicial:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
 procedure CalcularFechasDevolucion(FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
 procedure CalcularFechasDevolucion1(FechaDesembolso:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
@@ -196,19 +196,26 @@ implementation
 
 uses DB;
 
-procedure CalcularFechasLiquidarFija(FechaInicial:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
+procedure CalcularFechasLiquidarFija(id_colocacion:String; FechaInicial:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
 var FechaF1,FechaF2,FechaF3,FechaF4:TDate;
     Fecha,FechaA,FechaB:TDate;
     AF:PFechasLiq;
     Paso : Boolean;
     A,AA,M,MM,D,DD:Word;
+    _fechainicialgracia: TDate;
+    _fechafinalgracia: TDate;
 begin
+
     FechaF1 := FechaInicial;
     FechaF2 := FechaCorte;
 
     FechaF3 := FechaProx;
     FechaF4 := fFechaActual;
     Paso := False;
+
+    // Leer Rango Periodo Gracia
+
+    // Fin Leer Rango Periodo Gracia
 
     // Inicio While 1
     While Int(FechaF1) <= Int(FechaF3) do
@@ -882,7 +889,41 @@ var I,J:Integer;
     Ano,Mes,Dia,AnoA,MesA,DiaA:Word;
     Linea:Integer;
     _tasaDescontar: Double;
+    _queryGracia: TIBQuery;
+    _fechaInicioGracia, _fechaFinGracia: TDate;
+    _hayGracia: Boolean;
+    _diasGracia: Integer;
+    _diasUsadosGracia: Integer;
+    _diasEvaluadosGracia: Integer;
 begin
+
+  _queryGracia := TIBQuery.Create(nil);
+  _queryGracia.Database := dmGeneral.IBDatabase1;
+  _queryGracia.Transaction := dmGeneral.IBTransaction1;
+
+  _queryGracia.Close;
+  _queryGracia.SQL.Clear;
+  _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA cpg ');
+  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO < 9');
+  _queryGracia.SQL.Add('ORDER BY cpg.FECHA_REGISTRO DESC ');
+  _queryGracia.ParamByName('ID_COLOCACION').AsString := IdColocacion;
+  _queryGracia.Open;
+  _queryGracia.Last;
+  _queryGracia.First;
+  if (_queryGracia.RecordCount > 0) then
+  begin
+      _hayGracia := True;
+      _fechaInicioGracia := _queryGracia.FieldByName('FECHA_INTERES').AsDateTime;
+      _diasGracia := _queryGracia.FieldByName('DIAS').AsInteger;
+      _fechaFinGracia :=  CalculoFecha(_fechaInicioGracia, _diasGracia);
+  end
+  else
+  begin
+      _hayGracia := False;
+      _fechaInicioGracia := 0;
+      _fechaFinGracia := 0;
+  end;
+
   TotalCredito := 0;
   TotalDebito  := 0;
   Costas := 0;
@@ -1061,7 +1102,7 @@ begin
          FechasLiq := TList.Create;
          FechaArranque := IncDay(Fecha1);
 
-         CalcularFechasLiquidarFija(FechaArranque,FechaCorte,FechaProx,FechasLiq);
+         CalcularFechasLiquidarFija(IdColocacion, FechaArranque,FechaCorte,FechaProx,FechasLiq);
 //         FechaProxNueva := FechaProx;
          if FechaProxNueva > FechaCorte then
             CalcularFechasDevolucion1(FechaDesembolso,FechaCorte,FechaProxNueva,FechasLiq)
@@ -1127,6 +1168,21 @@ begin
                 TasaMora := TasaDoble;
              end;
             vTasa := TasaLiquidar;
+
+            if (AF^.FechaInicial >= _fechaInicioGracia) and (AF^.FechaFinal <= _fechaFinGracia) then
+            begin
+               AF^.Causado := True;
+               AF^.Anticipado := False;
+               AF^.Corrientes := False;
+               AF^.Vencida := False;
+               AF^.Devuelto := False;
+               _diasEvaluadosGracia := DiasEntre(AF^.FechaInicial, AF^.FechaFinal);
+               if ( _diasUsadosGracias + _diasEvaluadosGracia ) > _diasGracia then
+               begin
+
+               end;
+            end;
+
 
             if (AF^.Anticipado) or (AF^.Devuelto) then
               AR^.CodigoPuc   := dmColocacion.IBSQLcodigos.FieldByName('COD_INT_ANT').AsString
@@ -2367,7 +2423,7 @@ begin
               FechasLiq := TList.Create;
               FechaArranque := IncDay(Fecha1);
 
-              CalcularFechasLiquidarFija(FechaArranque,FechaCorte,FechaProx,FechasLiq);
+              CalcularFechasLiquidarFija(IdColocacion, FechaArranque,FechaCorte,FechaProx,FechasLiq);
               if FechaProxNueva > FechaCorte then
                 CalcularFechasDevolucion(FechaCorte,FechaProxNueva,FechasLiq)
               else
@@ -2580,7 +2636,7 @@ begin
         try
         FechasLiq := TList.Create;
         FechaArranque := IncDay(Fecha1);
-        CalcularFechasLiquidarFija(FechaArranque,FechaCorte,FechaProx,FechasLiq);
+        CalcularFechasLiquidarFija(IdColocacion, FechaArranque,FechaCorte,FechaProx,FechasLiq);
          if FechaPagoI > FechaCorte then
             CalcularFechasDevolucion(FechaCorte,FechaPagoI,FechasLiq);
          // Proceso de Liquidaci??n de Fechas

@@ -1,8 +1,8 @@
 object FrmInformeEnte: TFrmInformeEnte
-  Left = 548
-  Top = 236
-  Width = 419
-  Height = 114
+  Left = 443
+  Top = 265
+  Width = 635
+  Height = 144
   BorderIcons = [biSystemMenu]
   Caption = 'Informe Diario Ente Aprobador'
   Color = clBtnFace
@@ -19,7 +19,7 @@ object FrmInformeEnte: TFrmInformeEnte
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 410
+    Width = 585
     Height = 41
     TabOrder = 0
     object Label1: TLabel
@@ -30,11 +30,18 @@ object FrmInformeEnte: TFrmInformeEnte
       Caption = 'Ente Aprobador'
     end
     object Label2: TLabel
-      Left = 294
+      Left = 446
       Top = 13
       Width = 30
       Height = 13
       Caption = 'Fecha'
+    end
+    object Label3: TLabel
+      Left = 300
+      Top = 13
+      Width = 22
+      Height = 13
+      Caption = 'Acta'
     end
     object DBente: TDBLookupComboBox
       Left = 84
@@ -46,44 +53,45 @@ object FrmInformeEnte: TFrmInformeEnte
       ListSource = DataSource1
       TabOrder = 0
     end
-    object JVfecha: TJvStaticText
-      Left = 329
+    object JvFecha: TDateTimePicker
+      Left = 480
       Top = 10
-      Width = 76
+      Width = 98
       Height = 21
-      TextMargins.X = 0
-      TextMargins.Y = 0
-      Alignment = taCenter
-      AutoSize = False
-      BorderStyle = sbsSunken
-      Color = clWhite
-      HotTrackFont.Charset = DEFAULT_CHARSET
-      HotTrackFont.Color = clBlack
-      HotTrackFont.Height = -11
-      HotTrackFont.Name = 'MS Sans Serif'
-      HotTrackFont.Style = []
-      Layout = tlCenter
-      ParentColor = False
+      CalAlignment = dtaLeft
+      Date = 44005.3949740741
+      Time = 44005.3949740741
+      DateFormat = dfShort
+      DateMode = dmComboBox
+      Kind = dtkDate
+      ParseInput = False
       TabOrder = 1
-      WordWrap = False
+    end
+    object edActa: TEdit
+      Left = 327
+      Top = 11
+      Width = 112
+      Height = 21
+      TabOrder = 2
+      OnExit = edActaExit
     end
   end
   object Panel2: TPanel
     Left = 0
     Top = 41
-    Width = 410
+    Width = 585
     Height = 38
-    Caption = 'Panel2'
     Color = clOlive
     TabOrder = 1
-    object BitBtn1: TBitBtn
-      Left = 131
+    object btnInforme: TBitBtn
+      Left = 451
       Top = 7
       Width = 126
       Height = 25
-      Caption = '&Ejecutar Informe'
+      Caption = '&Generar Informe'
+      Enabled = False
       TabOrder = 0
-      OnClick = BitBtn1Click
+      OnClick = btnInformeClick
       Glyph.Data = {
         36050000424D3605000000000000360400002800000010000000100000000100
         08000000000000010000220B0000220B00000001000000010000181818002118
@@ -134,8 +142,8 @@ object FrmInformeEnte: TFrmInformeEnte
     Transaction = dmGeneral.IBTransaction1
     SQL.Strings = (
       'select *  from "col$enteaprobador"')
-    Left = 24
-    Top = 65528
+    Left = 32
+    Top = 8
   end
   object DataSource1: TDataSource
     DataSet = IBQuery1
@@ -147,46 +155,40 @@ object FrmInformeEnte: TFrmInformeEnte
     ReportType = rtMultiple
     RebuildPrinter = False
     OnGetValue = frReport1GetValue
-    Top = 32
+    Left = 8
+    Top = 40
     ReportForm = {19000000}
   end
   object frDBDataSet1: TfrDBDataSet
-    DataSet = frmMain.CDinforme
+    DataSet = CDinforme
     Left = 40
-    Top = 32
+    Top = 72
   end
   object IBQuery2: TIBQuery
     Database = dmGeneral.IBDatabase1
     Transaction = IBTransaction1
     SQL.Strings = (
-      'SELECT DISTINCT '
-      '  "col$solicitud".ID_SOLICITUD,'
-      '  "col$solicitud".VALOR_APROBADO,'
-      '  "col$solicitud".FECHA_RECEPCION,'
-      '  "col$solicitud".ESTADO,'
-      '  "col$estadosolicitud".DESCRIPCION_ESTADO,'
-      '  "gen$persona".NOMBRE,'
-      '  "gen$persona".PRIMER_APELLIDO,'
-      '  "gen$persona".SEGUNDO_APELLIDO,'
-      '   "col$solicitud".NUMERO_ACTA'
-      'FROM'
-      '  "col$solicitud"'
       
-        '  INNER JOIN "col$estadosolicitud" ON ("col$solicitud".ESTADO = ' +
-        '"col$estadosolicitud".ID_ESTADO)'
+        'SELECT cr.ID_AGENCIA, cr.ID_SOLICITUD, gp.NOMBRE || '#39' '#39' || gp.PR' +
+        'IMER_APELLIDO || '#39' '#39' || gp.SEGUNDO_APELLIDO AS NOMBRE, cr.ESTADO' +
+        ', cr.FECHA, '
       
-        '  INNER JOIN "gen$persona" ON ("col$solicitud".ID_PERSONA = "gen' +
-        '$persona".ID_PERSONA) AND ("col$solicitud".ID_IDENTIFICACION = "' +
-        'gen$persona".ID_IDENTIFICACION)'
-      'WHERE'
-      '  ("col$solicitud".ID_SOLICITUD = :ID_SOLICITUD) '
-      '')
+        'cr.ID_ENTE_APROBADOR, cs.VALOR_SOLICITADO, cs.VALOR_APROBADO, cs' +
+        '.GARANTIA, ce.DESCRIPCION_ESTADO FROM "col$registrosesion" cr'
+      
+        'INNER JOIN "col$solicitud" cs ON cs.ID_SOLICITUD = cr.ID_SOLICIT' +
+        'UD'
+      'INNER JOIN "col$estadosolicitud" ce ON ce.ID_ESTADO = cr.ESTADO'
+      
+        'INNER JOIN "gen$persona" gp ON gp.ID_IDENTIFICACION = cs.ID_IDEN' +
+        'TIFICACION AND gp.ID_PERSONA = cs.ID_PERSONA'
+      'WHERE cr.ACTA = :ACTA')
     Left = 72
     Top = 40
     ParamData = <
       item
         DataType = ftUnknown
-        Name = 'ID_SOLICITUD'
+        Name = 'ACTA'
         ParamType = ptUnknown
       end>
   end
@@ -198,15 +200,66 @@ object FrmInformeEnte: TFrmInformeEnte
   object CDinforme: TClientDataSet
     Active = True
     Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'id_oficina'
+        DataType = ftInteger
+      end
+      item
+        Name = 'solicitud'
+        DataType = ftString
+        Size = 10
+      end
+      item
+        Name = 'nombre'
+        DataType = ftString
+        Size = 255
+      end
+      item
+        Name = 'estado'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'solicitado'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'valor'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'garantia'
+        DataType = ftInteger
+      end
+      item
+        Name = 'radicado'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'des_estado'
+        DataType = ftString
+        Size = 200
+      end>
+    IndexDefs = <>
     Params = <>
+    StoreDefs = True
     Left = 296
     Top = 40
     Data = {
-      900000009619E0BD010000001800000004000000000003000000900009736F6C
-      6963697475640100490000000100055749445448020002000A00066E6F6D6272
-      65020049000000010005574944544802000200FF000665737461646F01004900
-      000001000557494454480200020032000576616C6F7208000400000001000753
-      5542545950450200490006004D6F6E6579000000}
+      170100009619E0BD01000000180000000900000000000300000017010A69645F
+      6F666963696E61040001000000000009736F6C69636974756401004900000001
+      00055749445448020002000A00066E6F6D627265020049000000010005574944
+      544802000200FF000665737461646F0100490000000100055749445448020002
+      0032000A736F6C6963697461646F080004000000010007535542545950450200
+      490006004D6F6E6579000576616C6F7208000400000001000753554254595045
+      0200490006004D6F6E65790008676172616E7469610400010000000000087261
+      64696361646F01004900000001000557494454480200020014000A6465735F65
+      737461646F010049000000010005574944544802000200C8000000}
+    object CDinformeid_oficina: TIntegerField
+      FieldName = 'id_oficina'
+    end
     object CDinformesolicitud: TStringField
       FieldName = 'solicitud'
       Size = 10
@@ -219,8 +272,21 @@ object FrmInformeEnte: TFrmInformeEnte
       FieldName = 'estado'
       Size = 50
     end
+    object CDinformesolicitado: TCurrencyField
+      FieldName = 'solicitado'
+    end
     object CDinformevalor: TCurrencyField
       FieldName = 'valor'
+    end
+    object CDinformegarantia: TIntegerField
+      FieldName = 'garantia'
+    end
+    object CDinformeradicado: TStringField
+      FieldName = 'radicado'
+    end
+    object CDinformedes_estado: TStringField
+      FieldName = 'des_estado'
+      Size = 200
     end
   end
   object CDestado: TClientDataSet
@@ -254,13 +320,13 @@ object FrmInformeEnte: TFrmInformeEnte
   end
   object frDBDataSet2: TfrDBDataSet
     DataSet = CDestado
-    Left = 48
-    Top = 48
+    Left = 72
+    Top = 72
   end
   object frDBDataSet3: TfrDBDataSet
-    DataSet = CDfirmas
-    Left = 208
-    Top = 24
+    DataSet = CDparticipantes
+    Left = 104
+    Top = 72
   end
   object CDfirmas: TClientDataSet
     Active = True
@@ -285,22 +351,52 @@ object FrmInformeEnte: TFrmInformeEnte
     Database = dmGeneral.IBDatabase1
     Transaction = IBTransaction1
     SQL.Strings = (
-      'select'
-      '"col$reportetmp".ID_SOLICITUD as solicitud,'
-      
-        '"gen$persona".NOMBRE || '#39' '#39' || "gen$persona".PRIMER_APELLIDO ||'#39 +
-        ' '#39'|| "gen$persona".SEGUNDO_APELLIDO as nombre,'
-      '"col$estadosolicitud".DESCRIPCION_ESTADO as estado,'
-      '"col$reportetmp".VALOR_APROBADO as valor'
-      'from "col$reportetmp"'
-      
-        'inner join "gen$persona" on ("col$reportetmp".ID_IDENTIFICACION ' +
-        '= "gen$persona".ID_IDENTIFICACION and'
-      '"col$reportetmp".ID_PERSONA = "gen$persona".ID_PERSONA)'
-      
-        'inner join "col$estadosolicitud" on ("col$reportetmp".ESTADO = "' +
-        'col$estadosolicitud".ID_ESTADO)')
-    Left = 160
+      'SELECT * FROM "ent$acta" a WHERE a.NUMERO_ACTA = :ACTA')
+    Left = 136
     Top = 40
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ACTA'
+        ParamType = ptUnknown
+      end>
+  end
+  object CDinvitados: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 224
+    Top = 48
+    Data = {
+      4F0000009619E0BD0100000018000000020000000000030000004F00066E6F6D
+      627265020049000000010005574944544802000200FF0005636172676F010049
+      00000001000557494454480200020032000000}
+    object CDinvitadosnombre: TStringField
+      FieldName = 'nombre'
+      Size = 255
+    end
+    object CDinvitadoscargo: TStringField
+      FieldName = 'cargo'
+      Size = 50
+    end
+  end
+  object CDparticipantes: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 256
+    Top = 48
+    Data = {
+      4F0000009619E0BD0100000018000000020000000000030000004F00066E6F6D
+      627265010049000000010005574944544802000200640005636172676F010049
+      00000001000557494454480200020064000000}
+    object CDparticipantesnombre: TStringField
+      FieldName = 'nombre'
+      Size = 100
+    end
+    object CDparticipantescargo: TStringField
+      FieldName = 'cargo'
+      Size = 100
+    end
   end
 end

@@ -493,8 +493,8 @@ begin
         FrmInformeEnte.IBQuery1.Open;
         FrmInformeEnte.IBQuery1.Last;
         FrmInformeEnte.ente := Mensaje_EnteAprobador;
-        FrmInformeEnte.BitBtn1.Click;
-        //FrmInformeEnte.ShowModal;
+        // FrmInformeEnte.BitBtn1.Click;
+        FrmInformeEnte.ShowModal;
 end;
 
 procedure TfrmMain.SolicitudporEmpleado1Click(Sender: TObject);

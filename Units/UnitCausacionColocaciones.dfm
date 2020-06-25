@@ -457,6 +457,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
                 Font.Height = -11
                 Font.Name = 'MS Sans Serif'
                 Font.Style = []
+                EditorInheritsCellProps = False
               end
               item
                 HeaderFont.Charset = ANSI_CHARSET
@@ -472,6 +473,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
                 Font.Height = -11
                 Font.Name = 'MS Sans Serif'
                 Font.Style = []
+                EditorInheritsCellProps = False
               end
               item
                 HeaderFont.Charset = ANSI_CHARSET
@@ -487,6 +489,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
                 Font.Height = -11
                 Font.Name = 'MS Sans Serif'
                 Font.Style = []
+                EditorInheritsCellProps = False
               end
               item
                 HeaderFont.Charset = ANSI_CHARSET
@@ -503,6 +506,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
                 Font.Style = []
                 Alignment = taRightJustify
                 Editor = EdCapital
+                EditorInheritsCellProps = False
               end
               item
                 HeaderFont.Charset = ANSI_CHARSET
@@ -519,6 +523,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
                 Font.Style = []
                 Alignment = taRightJustify
                 Editor = EdInteres
+                EditorInheritsCellProps = False
               end
               item
                 HeaderFont.Charset = ANSI_CHARSET
@@ -535,6 +540,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
                 Font.Style = []
                 Alignment = taRightJustify
                 Editor = EdCostas
+                EditorInheritsCellProps = False
               end>
             MultiLine = False
             ImmediateEditMode = False
@@ -577,6 +583,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
+            EditorInheritsCellProps = False
           end
           item
             HeaderFont.Charset = DEFAULT_CHARSET
@@ -590,6 +597,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
             Font.Height = -11
             Font.Name = 'MS Sans Serif'
             Font.Style = []
+            EditorInheritsCellProps = False
           end
           item
             HeaderFont.Charset = DEFAULT_CHARSET
@@ -603,6 +611,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             Alignment = taRightJustify
+            EditorInheritsCellProps = False
           end
           item
             HeaderFont.Charset = DEFAULT_CHARSET
@@ -618,6 +627,7 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             Alignment = taRightJustify
+            EditorInheritsCellProps = False
           end>
         MultiLine = False
         ImmediateEditMode = True
@@ -1262,11 +1272,11 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
     Left = 444
     Top = 178
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
-      'NumberOfProcessors: 2'
+      'NumberOfProcessors: 1'
       'ProcessorType: 586'
       ''
       'Compiler version: Delphi6'
@@ -4992,24 +5002,20 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
       '         from'
       'CON$COMPROBANTE'
       
-        'LEFT JOIN CON$AUXILIAR ON (CON$COMPROBANTE.ID_COMPROBANTE = ' +
-        'CON$AUXILIAR.ID_COMPROBANTE)'
+        'LEFT JOIN CON$AUXILIAR ON (CON$COMPROBANTE.ID_COMPROBANTE = CON$' +
+        'AUXILIAR.ID_COMPROBANTE)'
       
-        'LEFT JOIN CON$TIPOCOMPROBANTE ON (CON$COMPROBANTE.TIPO_COMPR' +
-        'OBANTE  = CON$TIPOCOMPROBANTE.ID ) '
+        'LEFT JOIN CON$TIPOCOMPROBANTE ON (CON$COMPROBANTE.TIPO_COMPROBAN' +
+        'TE  = CON$TIPOCOMPROBANTE.ID ) '
       
-        'LEFT JOIN "gen$agencia" ON (CON$AUXILIAR.ID_AGENCIA = "gen$age' +
-        'ncia".ID_AGENCIA)'
+        'LEFT JOIN "gen$agencia" ON (CON$AUXILIAR.ID_AGENCIA = "gen$agenc' +
+        'ia".ID_AGENCIA)'
+      'LEFT JOIN CON$PUC ON (CON$AUXILIAR.CODIGO = CON$PUC.CODIGO)'
       
-        'LEFT JOIN CON$PUC ON (CON$AUXILIAR.CODIGO = CON$PUC.CODIGO' +
-        ')'
-      
-        'LEFT JOIN "gen$empleado" ON (CON$COMPROBANTE.ID_EMPLEADO = "ge' +
-        'n$empleado".ID_EMPLEADO) '
+        'LEFT JOIN "gen$empleado" ON (CON$COMPROBANTE.ID_EMPLEADO = "gen$' +
+        'empleado".ID_EMPLEADO) '
       'where (CON$COMPROBANTE.ID_AGENCIA = :"ID_AGENCIA" ) and'
-      
-        '           (CON$COMPROBANTE.ID_COMPROBANTE = :"ID_COMPROBANTE"' +
-        ' )'
+      '           (CON$COMPROBANTE.ID_COMPROBANTE = :"ID_COMPROBANTE" )'
       'Order By  CON$AUXILIAR.CODIGO ASC')
     Left = 448
     Top = 234
@@ -5077,11 +5083,11 @@ object frmCausacionColocaciones: TfrmCausacionColocaciones
     Left = 476
     Top = 236
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
-      'NumberOfProcessors: 2'
+      'NumberOfProcessors: 1'
       'ProcessorType: 586'
       ''
       'Compiler version: Delphi6'
