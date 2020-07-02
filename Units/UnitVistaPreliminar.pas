@@ -9,29 +9,13 @@ uses
   pr_CommonPreviewPanel, pr_TxPreviewPanel, vgr_ControlBar;
 type
   TfrmVistaPreliminar = class(TForm)
-    Manager: TvgrControlBarManager;
     ImageList1: TImageList;
-    prControlBar1: TvgrControlBar;
-    ToolBar1: TToolBar;
-    CmdImprimir: TToolButton;
-    ToolButton4: TToolButton;
-    CmdAbrir: TToolButton;
-    CmdGuardar: TToolButton;
-    ToolButton5: TToolButton;
-    CmdExportar: TToolButton;
-    ToolButton7: TToolButton;
-    Label1: TLabel;
-    CBpaginas: TComboBox;
-    ToolButton8: TToolButton;
-    CmdBuscar: TToolButton;
-    ToolButton10: TToolButton;
-    CBzoom: TComboBox;
-    ToolButton11: TToolButton;
-    CmdCerrar: TToolButton;
     PrintDialog1: TPrintDialog;
     Vista: TprTxPreviewPanel;
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
+    prControlBar1: TControlBar;
+    CBzoom: TComboBox;
     procedure FormShow(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -65,12 +49,14 @@ var i:Integer;
 begin
         Reporte.PrepareReport;
         Vista.Report := Reporte;
+        {
         for i := 1 to Vista.Report.PagesCount do
         begin
-          CBpaginas.Items.Add(IntToStr(i));  
+          CBpaginas.Items.Add(IntToStr(i));
         end;
+        }
         Vista.Font.Size := 10;
-        CBzoom.ItemIndex := 4;
+        //CBzoom.ItemIndex := 4;
 
 end;
 

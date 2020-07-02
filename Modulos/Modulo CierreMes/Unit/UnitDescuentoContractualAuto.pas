@@ -118,7 +118,10 @@ var MinCaptacion,MaxCaptacion:Integer;
     vCuota :Currency;
     vSaldo :Currency;
 begin
-          CdSaldo.CancelUpdates;
+          CdSaldo.Open;
+          CdSaldo.EmptyDataSet;
+          CDSContractual.Open;
+          CDSContractual.EmptyDataSet;
           MinCaptacion := 0;
           MaxCaptacion := 0;
 
@@ -159,7 +162,7 @@ begin
               progreso.Position:= 0;
               while not Eof do
               begin
-                progreso.Position := RecNo;              
+                progreso.Position := RecNo;
                 Application.ProcessMessages;
                 edCaptacion.Text := 'Descontando a Contractual:' + IntToStr(_tipo) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
                                          Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
@@ -203,16 +206,7 @@ begin
                    CDSContractual.FieldByName('ID_TIPO_CAPTACION_D').asinteger := TipoD;
                    CDSContractual.FieldByName('NUMERO_CUENTA_D').AsInteger := NumeroD;
                    CDSContractual.FieldByName('DIGITO_CUENTA_D').AsInteger := DigitoD;
-                   _query.Close;
-                   _query.SQL.Clear;
-                   _query.SQL.Add('select SALDO_DISPONIBLE from SALDO_DISPONIBLE(:AG,:TP,:CTA,:DG,:ANO,:FECHA1,:FECHA2)');
-                   _query.ParamByName('AG').AsInteger := AgD;
-                   _query.ParamByName('TP').AsInteger := TipoD;
-                   _query.ParamByName('CTA').AsInteger := NumeroD;
-                   _query.ParamByName('DG').AsInteger := DigitoD;
-                   _query.ParamByName('ANO').AsString := IntToStr(YearOf(fFechaActual));
-                   _query.ParamByName('FECHA1').AsDate := EncodeDate(YearOf(fFechaActual),01,01);
-                   _query.ParamByName('FECHA2').AsDate := fFechaActual;
+
                    try
                     vSaldo := 0;
                     with CdSaldo do
@@ -229,7 +223,19 @@ begin
                         vSaldo := 0;
                       end;
                     end;
+                   _query.Close;
+                   _query.SQL.Clear;
+                   _query.SQL.Add('select SALDO_DISPONIBLE from SALDO_DISPONIBLE(:AG,:TP,:CTA,:DG,:ANO,:FECHA1,:FECHA2)');
+                   _query.ParamByName('AG').AsInteger := AgD;
+                   _query.ParamByName('TP').AsInteger := TipoD;
+                   _query.ParamByName('CTA').AsInteger := NumeroD;
+                   _query.ParamByName('DG').AsInteger := DigitoD;
+                   _query.ParamByName('ANO').AsString := IntToStr(YearOf(fFechaActual));
+                   _query.ParamByName('FECHA1').AsDate := EncodeDate(YearOf(fFechaActual),01,01);
+                   _query.ParamByName('FECHA2').AsDate := _fechaProceso;
                     _query.Open;
+                    _query.Last;
+                    _query.First;
                     if vCuotasContractual < 3 then
                     begin
                       if _query.RecordCount > 0 then begin
@@ -265,7 +271,6 @@ begin
                         _transaction.Rollback;
                         modalresult := mrCancel;
                         PostMessage(Handle, WM_CLOSE, 0, 0);
-
                    end;
                   end;
                   vDias := DaysBetween(fFechaActual, FechaDescuento);
@@ -324,8 +329,8 @@ begin
         CDSContractual.Close;
 
         _transaction.Commit;
-        // modalresult := mrCancel;
-        // PostMessage(Handle, WM_CLOSE, 0, 0);
+        modalresult := mrCancel;
+        PostMessage(Handle, WM_CLOSE, 0, 0);
 
 end;
 
@@ -343,6 +348,7 @@ var Total:Integer;
     Digito:Integer;
     VrDescuento,GMF:Currency;
     ValorCap2:Currency;
+    ValorCap3:Currency;
     _dFechaDescuento :TDate;
     ValorCap4:Currency;
     Codigo_GMF:string;
@@ -377,8 +383,40 @@ begin
 
 
         Empleado;
+
+         _queryCaptacion.Close;
+        _queryCaptacion.SQL.Clear;
+        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION');
+        _queryCaptacion.ParamByName('ID_TIPO_CAPTACION').AsInteger := 5;
+        _queryCaptacion.Open;
+        Codigo_Captacion := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
+
+        _queryCaptacion.Close;
+        _queryCaptacion.SQL.Clear;
+        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION');
+        _queryCaptacion.ParamByName('ID_TIPO_CAPTACION').AsInteger := 2;
+        _queryCaptacion.Open;
+        Codigo_Captacion2 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
+
+        _queryCaptacion.Close;
+        _queryCaptacion.SQL.Clear;
+        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION');
+        _queryCaptacion.ParamByName('ID_TIPO_CAPTACION').AsInteger := 3;
+        _queryCaptacion.Open;
+        Codigo_Captacion3 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
+
+        _queryCaptacion.Close;
+        _queryCaptacion.SQL.Clear;
+        _queryCaptacion.SQL.Add('SELECT * FROM "cap$tipocaptacion" a WHERE a.ID_TIPO_CAPTACION = :ID_TIPO_CAPTACION');
+        _queryCaptacion.ParamByName('ID_TIPO_CAPTACION').AsInteger := 4;
+        _queryCaptacion.Open;
+        Codigo_Captacion4 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
+
+
+
         VrDescuento:=0;
         ValorCap2 := 0;
+        ValorCap3 := 0;
         ValorCap4 := 0;
         with CDSContractual do begin
            Filter := 'ESTADO = '+QuotedStr('S');
@@ -427,12 +465,14 @@ begin
                   IBPagar.ExecQuery;
                   if IBPagar.RowsAffected < 1 then
                   begin
+                      edEstado.Text := 'Cerrando Por No Hay Para Agregar a Extracto';
                       _transaction.Rollback;
                       modalresult := mrCancel;
                       PostMessage(Handle, WM_CLOSE, 0, 0);
                    end;
                   VrDescuento := VrDescuento + FieldByName('DESCUENTO').AsCurrency;
                 except
+                    edEstado.Text := 'Cerrando Por No Se Pudo Agregar a Extracto';
                     _transaction.Rollback;
                     modalresult := mrCancel;
                     PostMessage(Handle, WM_CLOSE, 0, 0);
@@ -460,11 +500,13 @@ begin
                   IBPagar.ExecQuery;
                   if IBPagar.RowsAffected < 1 then
                   begin
+                        edEstado.Text := 'Cerrando Por No Hay Para Descontar Extracto';
                         _transaction.Rollback;
                         modalresult := mrCancel;
                         PostMessage(Handle, WM_CLOSE, 0, 0);
                   end
                 except
+                        edEstado.Text := 'Cerrando Por No Se Pudo Descontar de Extracto';
                         _transaction.Rollback;
                         modalresult := mrCancel;
                         PostMessage(Handle, WM_CLOSE, 0, 0);
@@ -472,8 +514,10 @@ begin
 
                 case Tipo of
                  2: ValorCap2 := ValorCap2 + FieldByName('DESCUENTO').AsCurrency;
+                 3: ValorCap3 := ValorCap3 + FieldByName('DESCUENTO').AsCurrency;
                  4: ValorCap4 := ValorCap4 + FieldByName('DESCUENTO').AsCurrency;
                 end;
+                { Omitir Cambio de Fechas de Pago por abono retrasado
                 if CDSContractualDIAS.Value > 5 then
                 begin
                   _ibsql1.Close;
@@ -516,6 +560,7 @@ begin
                         _ibsql1.ExecQuery;
                         Dispose(ARecord);
                      except
+                        edEstado.Text := 'Cerrando Por No Se Pudo Insertar en Tabla Contractual';
                         _transaction.Rollback;
                         modalresult := mrCancel;
                         PostMessage(Handle, WM_CLOSE, 0, 0);
@@ -548,6 +593,7 @@ begin
                   _ibsql1.ExecQuery;
 
                 end;
+                }
 //                else
 //                begin
                   _ibsql1.Close;
@@ -566,11 +612,13 @@ begin
                    if _ibsql1.RowsAffected < 1 then
                     begin
                      //MessageDlg('Error Marcando Cuenta:'+Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]),mtError,[mbcancel],0);
+                        edEstado.Text := 'Cerrando Por No Hay Para Actualizar en Tabla Contractual : ' + FieldByName('NUMERO_CUENTA').AsString;
                         _transaction.Rollback;
                         modalresult := mrCancel;
-                        PostMessage(Handle, WM_CLOSE, 0, 0);                     
+                        PostMessage(Handle, WM_CLOSE, 0, 0);
                     end;
                   except
+                        edEstado.Text := 'Cerrando Por No Se Pudo Actualizar en Tabla Contractual';
                         _transaction.Rollback;
                         modalresult := mrCancel;
                         PostMessage(Handle, WM_CLOSE, 0, 0);
@@ -646,6 +694,26 @@ begin
              ParamByName('FECHA').AsDateTime := _fechaProceso;
              ParamByName('CODIGO').AsString := Codigo_Captacion2;
              ParamByName('DEBITO').AsCurrency := ValorCap2;
+             ParamByName('CREDITO').AsCurrency := 0 ;
+             ParamByName('ID_CUENTA').AsInteger :=0;
+             ParamByName('ID_COLOCACION').Clear;
+             ParamByName('ID_IDENTIFICACION').AsInteger := 0;
+             ParamByName('ID_PERSONA').Clear;
+             ParamByName('MONTO_RETENCION').AsCurrency := 0;
+             ParamByName('TASA_RETENCION').AsFloat := 0;
+             ParamByName('ESTADOAUX').AsString := 'O';
+             ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
+             ExecSQL;
+           end;
+
+           if ValorCap3 > 0 then
+           begin
+             Close;
+             ParamByName('ID_COMPROBANTE').AsInteger := Comprobante;
+             ParamByName('ID_AGENCIA').AsInteger := Agencia;
+             ParamByName('FECHA').AsDateTime := _fechaProceso;
+             ParamByName('CODIGO').AsString := Codigo_Captacion3;
+             ParamByName('DEBITO').AsCurrency := ValorCap3;
              ParamByName('CREDITO').AsCurrency := 0 ;
              ParamByName('ID_CUENTA').AsInteger :=0;
              ParamByName('ID_COLOCACION').Clear;

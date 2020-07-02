@@ -1706,10 +1706,7 @@ begin
 
            if Report.PrepareReport then
            begin
-              frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
-              frmVistaPreliminar.CmdImprimir.Enabled := False;
-              frmVistaPreliminar.Reporte := Report;
-              frmVistaPreliminar.ShowModal;
+              Report.PreviewPreparedReport(true);
            end;
            IBInforme.EmptyDataSet;
 end;

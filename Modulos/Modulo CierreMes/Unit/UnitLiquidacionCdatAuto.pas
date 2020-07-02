@@ -143,7 +143,9 @@ begin
         end;
 
         if TasaR <> 0 then
-           TasaR := TasaNominalVencida(TasaR,30);        
+           TasaR := TasaNominalVencida(TasaR,30);
+
+
 
         _queryCaptacion.Close;
         _queryCaptacion.SQL.Clear;
@@ -167,7 +169,7 @@ begin
         Codigo_Captacion4 := _queryCaptacion.FieldByName('CODIGO_CONTABLE').AsString;
 
 
-                      
+
           with _queryProcedure do
           begin
               StoredProcName := 'P_CAP_0003';
@@ -352,6 +354,12 @@ begin
                    TotalCapta2RMes := TotalCapta2RMes + L.ReteInteres;
                 end
                 else
+                if FieldByName('ID_TIPO_CAPTACION_ABONO').AsInteger = 3 then begin
+                   TotalCapta3 := TotalCapta3 + L.Interes + L.Causado;
+                   TotalCapta3R := TotalCapta3R + L.Retencion;
+                   TotalCapta3RMes := TotalCapta3RMes + L.ReteInteres;
+                end
+                else
                 if FieldByName('ID_TIPO_CAPTACION_ABONO').AsInteger = 4 then begin
                    TotalCapta4 := TotalCapta4 + L.Interes + L.Causado;
                    TotalCapta4R := TotalCapta4R + L.Retencion;
@@ -360,9 +368,9 @@ begin
                 Next;
               end;
           Close;
-          
+
         end;
-        
+
         CDStemp.First;
 
 
@@ -1258,6 +1266,7 @@ procedure TfrmLiquidacionCdatAuto.FormShow(Sender: TObject);
 begin
         _transaction.StartTransaction;
         _fechaProceso := fFechaActual;
+        // _fechaProceso := EncodeDate(2020,06,29);
         certificado := True;
 end;
 

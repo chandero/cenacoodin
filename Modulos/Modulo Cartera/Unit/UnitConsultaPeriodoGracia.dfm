@@ -1,8 +1,8 @@
 object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
-  Left = 253
-  Top = 196
-  Width = 1038
-  Height = 443
+  Left = 87
+  Top = 96
+  Width = 1209
+  Height = 521
   Caption = 'Colocaciones con Periodo de Gracia Activo'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,16 +18,16 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
   object GroupBox1: TGroupBox
     Left = 0
     Top = 0
-    Width = 1030
-    Height = 288
+    Width = 1201
+    Height = 304
     Align = alClient
     Caption = 'Colocaciones con Periodo de Gracia'
     TabOrder = 0
     object DBGperiodogracias: TDBGrid
       Left = 2
       Top = 15
-      Width = 1026
-      Height = 271
+      Width = 1197
+      Height = 287
       Align = alClient
       DataSource = DSperiodogracia
       TabOrder = 0
@@ -37,18 +37,65 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
       TitleFont.Name = 'MS Sans Serif'
       TitleFont.Style = []
       OnCellClick = DBGperiodograciasCellClick
+      OnDrawColumnCell = DBGperiodograciasDrawColumnCell
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'ID_COLOCACION'
+          Width = 94
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOMBRE'
+          Width = 362
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'FECHA_CAPITAL'
+          Width = 93
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'FECHA_INTERES'
+          Width = 97
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'FECHA_REGISTRO'
+          Width = 108
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DIAS'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'SE_CAUSA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ESTADO'
+          Visible = True
+        end>
     end
   end
   object Panel1: TPanel
     Left = 0
-    Top = 377
-    Width = 1030
+    Top = 455
+    Width = 1201
     Height = 32
     Align = alBottom
     Color = clOlive
     TabOrder = 1
     object btnCerrar: TBitBtn
-      Left = 726
+      Left = 974
       Top = 4
       Width = 75
       Height = 25
@@ -154,9 +201,9 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
   end
   object Panel2: TPanel
     Left = 0
-    Top = 288
-    Width = 1030
-    Height = 89
+    Top = 304
+    Width = 1201
+    Height = 151
     Align = alBottom
     TabOrder = 2
     object Label1: TLabel
@@ -292,7 +339,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
       ClipBoardCommands = [caCopy]
     end
     object btnAgregar: TBitBtn
-      Left = 925
+      Left = 973
       Top = 4
       Width = 75
       Height = 25
@@ -344,7 +391,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
         1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B}
     end
     object btnEliminar: TBitBtn
-      Left = 925
+      Left = 973
       Top = 32
       Width = 75
       Height = 25
@@ -405,7 +452,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
       TabOrder = 8
     end
     object btnLimpiar: TBitBtn
-      Left = 925
+      Left = 973
       Top = 59
       Width = 75
       Height = 25
@@ -413,47 +460,117 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
       TabOrder = 9
       OnClick = btnLimpiarClick
     end
+    object btnNormalizar: TButton
+      Left = 973
+      Top = 88
+      Width = 75
+      Height = 25
+      Caption = 'Normalizar'
+      Enabled = False
+      TabOrder = 10
+      OnClick = btnNormalizarClick
+    end
+    object btnReversoNormalizar: TButton
+      Left = 973
+      Top = 120
+      Width = 75
+      Height = 25
+      Caption = 'Reverso'
+      TabOrder = 11
+      OnClick = btnReversoNormalizarClick
+    end
   end
   object CDSperiodogracia: TClientDataSet
     Active = True
     Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_COLOCACION'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'NOMBRE'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'FECHA_CAPITAL'
+        DataType = ftDate
+      end
+      item
+        Name = 'FECHA_INTERES'
+        DataType = ftDate
+      end
+      item
+        Name = 'FECHA_REGISTRO'
+        DataType = ftDateTime
+      end
+      item
+        Name = 'DIAS'
+        DataType = ftInteger
+      end
+      item
+        Name = 'SE_CAUSA'
+        DataType = ftBoolean
+      end
+      item
+        Name = 'ESTADO'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID'
+        DataType = ftLargeint
+      end>
+    IndexDefs = <>
     Params = <>
+    StoreDefs = True
     Left = 656
     Top = 192
     Data = {
-      B80000009619E0BD010000001800000007000000000003000000B8000D49445F
+      D20000009619E0BD010000001800000009000000000003000000D2000D49445F
       434F4C4F434143494F4E0100490000000100055749445448020002001400064E
       4F4D42524501004900000001000557494454480200020014000D46454348415F
       4341504954414C04000600000000000D46454348415F494E5445524553040006
-      00000000000E46454348415F524547495354524F040006000000000004444941
-      5304000100000000000853455F434155534102000300000000000000}
+      00000000000E46454348415F524547495354524F080008000000000004444941
+      5304000100000000000853455F43415553410200030000000000064553544144
+      4F040001000000000002494408000100000000000000}
     object CDSperiodograciaID_COLOCACION: TStringField
-      DisplayWidth = 18
+      DisplayWidth = 17
       FieldName = 'ID_COLOCACION'
     end
     object CDSperiodograciaNOMBRE: TStringField
-      DisplayWidth = 59
+      DisplayWidth = 64
       FieldName = 'NOMBRE'
     end
     object CDSperiodograciaFECHA_CAPITAL: TDateField
-      DisplayWidth = 17
+      DisplayWidth = 19
       FieldName = 'FECHA_CAPITAL'
     end
     object CDSperiodograciaFECHA_INTERES: TDateField
-      DisplayWidth = 18
+      DisplayWidth = 20
       FieldName = 'FECHA_INTERES'
     end
-    object CDSperiodograciaFECHA_REGISTRO: TDateField
-      DisplayWidth = 20
+    object CDSperiodograciaFECHA_REGISTRO: TDateTimeField
+      DisplayWidth = 21
       FieldName = 'FECHA_REGISTRO'
     end
     object CDSperiodograciaDIAS: TIntegerField
-      DisplayWidth = 12
+      DisplayWidth = 7
       FieldName = 'DIAS'
     end
     object CDSperiodograciaSE_CAUSA: TBooleanField
-      DisplayWidth = 11
+      DisplayWidth = 19
       FieldName = 'SE_CAUSA'
+    end
+    object CDSperiodograciaESTADO: TIntegerField
+      DisplayWidth = 35
+      FieldName = 'ESTADO'
+      OnGetText = CDSperiodograciaESTADOGetText
+    end
+    object CDSperiodograciaID: TLargeintField
+      DisplayWidth = 18
+      FieldName = 'ID'
     end
   end
   object DSperiodogracia: TDataSource

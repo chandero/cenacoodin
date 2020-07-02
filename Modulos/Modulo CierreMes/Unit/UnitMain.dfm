@@ -1,6 +1,6 @@
 object FrmCierreMes: TFrmCierreMes
-  Left = 569
-  Top = 236
+  Left = 412
+  Top = 123
   Width = 520
   Height = 325
   Caption = 'Procesos Autom'#225'ticos'

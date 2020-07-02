@@ -1,6 +1,6 @@
 object frmDescuentoContractualAuto: TfrmDescuentoContractualAuto
-  Left = 501
-  Top = 154
+  Left = 426
+  Top = 78
   Width = 574
   Height = 468
   Caption = 'Descuento Contractual Autom'#225'tico'

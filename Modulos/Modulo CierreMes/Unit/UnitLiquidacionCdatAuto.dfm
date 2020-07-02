@@ -1,6 +1,6 @@
 object frmLiquidacionCdatAuto: TfrmLiquidacionCdatAuto
-  Left = 561
-  Top = 293
+  Left = 458
+  Top = 238
   Width = 568
   Height = 172
   Caption = 'Prorroga de Cdat Auto'

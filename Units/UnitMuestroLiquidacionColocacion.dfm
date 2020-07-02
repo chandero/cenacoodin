@@ -744,6 +744,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'Cuota'
+        Color = clWhite
         Width = 33
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -761,6 +762,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'Codigo'
+        Color = clWhite
         Width = 90
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -777,6 +779,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'Nombre Cuenta'
+        Color = clWhite
         Width = 225
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -793,6 +796,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'Fecha Inicial'
+        Color = clWhite
         Width = 65
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -810,6 +814,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'Fecha Final'
+        Color = clWhite
         Width = 65
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -826,6 +831,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Name = 'MS Sans Serif'
         HeaderFont.Style = []
         Caption = 'D'#237'as'
+        Color = clWhite
         Width = 29
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -843,6 +849,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'Tasa'
+        Color = clWhite
         Width = 34
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -860,6 +867,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'D'#233'bito'
+        Color = clWhite
         Width = 65
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
@@ -878,6 +886,7 @@ object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
         HeaderFont.Style = []
         HeaderAlignment = taCenter
         Caption = 'Cr'#233'dito'
+        Color = clWhite
         Width = 65
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack

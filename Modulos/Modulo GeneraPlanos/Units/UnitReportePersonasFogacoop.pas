@@ -203,7 +203,7 @@ begin
          SQL.Add(' LEFT JOIN "gen$direccion" d ON (d.ID_IDENTIFICACION = p.ID_IDENTIFICACION and d.ID_PERSONA = p.ID_PERSONA and d.ID_DIRECCION = 1)');
          SQL.Add(' LEFT JOIN "gen$persadicional" a ON (a.ID_IDENTIFICACION = p.ID_IDENTIFICACION AND a.ID_PERSONA = p.ID_PERSONA)');
          SQL.Add(' WHERE');
-         SQL.Add(' p.ID_TIPO_RELACION IN (4,5) and p.FECHA_REGISTRO <= :FECHA_CORTE');
+         SQL.Add(' p.ID_TIPO_RELACION IN (4) and p.FECHA_REGISTRO <= :FECHA_CORTE');
          SQL.Add(')');
          ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
          try
@@ -249,7 +249,7 @@ begin
          SQL.Add(' LEFT JOIN "gen$direccion" d ON (d.ID_IDENTIFICACION = p.ID_IDENTIFICACION and d.ID_PERSONA = p.ID_PERSONA and d.ID_DIRECCION = 1)');
          SQL.Add(' LEFT JOIN "gen$persadicional" a ON (a.ID_IDENTIFICACION = p.ID_IDENTIFICACION AND a.ID_PERSONA = p.ID_PERSONA)');
          SQL.Add(' WHERE');
-         SQL.Add(' p.ID_TIPO_RELACION IN (4,5) and p.FECHA_REGISTRO <= :FECHA_CORTE');
+         SQL.Add(' p.ID_TIPO_RELACION IN (4) and p.FECHA_REGISTRO <= :FECHA_CORTE');
          ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
          try
           ExecQuery;

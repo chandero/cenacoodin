@@ -1,6 +1,6 @@
 object frmVistaPreliminar: TfrmVistaPreliminar
-  Left = 52
-  Top = 25
+  Left = 518
+  Top = 127
   Width = 720
   Height = 524
   Caption = 'Vista Preliminar'

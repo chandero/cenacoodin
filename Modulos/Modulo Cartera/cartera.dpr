@@ -110,12 +110,14 @@ uses
   UnitGeneraCartas in '..\..\Units\UnitGeneraCartas.pas' {FrmGeneraCarta},
   UnitGuardaImagen in '..\..\Units\UnitGuardaImagen.pas',
   UnitEvaluacion in 'Unit\UnitEvaluacion.pas' {frmEvaluacion},
-  UnitReporteAseguradora in '\\Vboxsvr\sgft\sgftcooperativoNIIF\Modulos\Modulo Cartera\Unit\UnitReporteAseguradora.pas' {frmReporteAseguradora},
-  UnitGestionColocacion in '\\Vboxsvr\sgft\sgftcooperativoNIIF\Modulos\Modulo Cartera\Unit\UnitGestionColocacion.pas' {frmGestionColocacion},
-  UnitGestionTablaLiquidacion in '\\Vboxsvr\sgft\sgftcooperativoNIIF\Modulos\Modulo Cartera\Unit\UnitGestionTablaLiquidacion.pas' {frmGestionTablaLiquidacion},
+  UnitReporteAseguradora in 'Unit\UnitReporteAseguradora.pas' {frmReporteAseguradora},
+  UnitGestionColocacion in 'Unit\UnitGestionColocacion.pas' {frmGestionColocacion},
+  UnitGestionTablaLiquidacion in 'Unit\UnitGestionTablaLiquidacion.pas' {frmGestionTablaLiquidacion},
   UnitInformeCuotaRecalculada in 'Unit\UnitInformeCuotaRecalculada.pas' {frmInformeCuotaRecalculada},
   UnitConsultaPeriodoGracia in 'Unit\UnitConsultaPeriodoGracia.pas' {frmConsultaPeriodoGracia},
-  UnitAjusteTasa in 'Unit\UnitAjusteTasa.pas' {frmAjusteTasa};
+  UnitAjusteTasa in 'Unit\UnitAjusteTasa.pas' {frmAjusteTasa},
+  UnitNormalizar in 'Unit\UnitNormalizar.pas' {frmNormalizar},
+  UnitReversoNormalizar in '\\VBoxSvr\cena\cenacoodin\Modulos\Modulo Cartera\Unit\UnitReversoNormalizar.pas' {frmReversoNormalizar};
 
 {$R *.res}
 
@@ -125,6 +127,5 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmAjusteTasa, frmAjusteTasa);
   Application.Run;
 end.

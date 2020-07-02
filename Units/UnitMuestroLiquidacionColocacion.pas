@@ -117,6 +117,8 @@ type
     MyNacional:Boolean;
     MyFechaConsignacion:TDate;
     MyCodigoBanco:string;
+    MyDiasCobradosPeriodoGracia: Integer;
+    MyIdPeriodoGracia: Integer;
     procedure Empleado;
     function BuscarCodigoPuc(Codigo: String): string;
     procedure Grabarextracto;
@@ -148,6 +150,8 @@ type
     property Nacional:Boolean read MyNacional Write MyNacional;
     property FechaConsignacion:TDate read MyFechaConsignacion Write MyFechaConsignacion;
     property CodigoBanco:string read MyCodigoBanco Write MyCodigoBanco;
+    property DiasCobradosPeriodoGracia: Integer Read MyDiasCobradosPeriodoGracia Write MyDiasCobradosPeriodoGracia;
+    property IdPeriodoGracia: Integer Read MyIdPeriodoGracia Write MyIdPeriodoGracia;
     { Public declarations }
   end;
 
@@ -469,6 +473,14 @@ if MessageDlg('Seguro de Realizar el Abono?',mtConfirmation,[mbYes,mbNo],0) = mr
       ParamByName('DIAS_PRORROGADOS').AsInteger := MyDiasProrrogados;
 //      ParamByName('ID_ESTADO_COLOCACION').AsInteger := NuevoEstado;
       ExecSql;
+      Close;
+
+      /// Actualizar DiasCobrados Periodo Gracias
+      SQL.Clear;
+      SQL.Add('UPDATE COL_PERIODO_GRACIA SET DIAS_COBRADOS = :DIAS_COBRADOS WHERE ID = :ID');
+      ParamByName('DIAS_COBRADOS').AsInteger := MyDiasCobradosPeriodoGracia;
+      ParamByName('ID').AsInteger := MyIdPeriodoGracia;
+      ExecSQL;
       Close;
 
 

@@ -18,7 +18,6 @@ type
     CDSperiodograciaNOMBRE: TStringField;
     CDSperiodograciaFECHA_CAPITAL: TDateField;
     CDSperiodograciaFECHA_INTERES: TDateField;
-    CDSperiodograciaFECHA_REGISTRO: TDateField;
     CDSperiodograciaDIAS: TIntegerField;
     CDSperiodograciaSE_CAUSA: TBooleanField;
     DSperiodogracia: TDataSource;
@@ -50,6 +49,11 @@ type
     chkCausa: TCheckBox;
     IBTproceso: TIBTransaction;
     btnLimpiar: TBitBtn;
+    btnNormalizar: TButton;
+    CDSperiodograciaESTADO: TIntegerField;
+    btnReversoNormalizar: TButton;
+    CDSperiodograciaFECHA_REGISTRO: TDateTimeField;
+    CDSperiodograciaID: TLargeintField;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnCerrarClick(Sender: TObject);
@@ -60,8 +64,16 @@ type
     procedure btnAgregarClick(Sender: TObject);
     procedure btnEliminarClick(Sender: TObject);
     procedure btnLimpiarClick(Sender: TObject);
+    procedure btnNormalizarClick(Sender: TObject);
+    procedure CDSperiodograciaESTADOGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
+    procedure btnReversoNormalizarClick(Sender: TObject);
+    procedure DBGperiodograciasDrawColumnCell(Sender: TObject;
+      const Rect: TRect; DataCol: Integer; Column: TColumn;
+      State: TGridDrawState);
   private
     { Private declarations }
+    procedure Inicializar;
   public
     { Public declarations }
   end;
@@ -74,7 +86,7 @@ implementation
 {$R *.dfm}
 
 
-uses UnitGlobales, UnitGlobalesCol;
+uses UnitGlobales, UnitGlobalesCol, UnitNormalizar, UnitReversoNormalizar;
 
 procedure TfrmConsultaPeriodoGracia.FormCreate(Sender: TObject);
 begin
@@ -93,9 +105,8 @@ begin
 
 end;
 
-procedure TfrmConsultaPeriodoGracia.FormShow(Sender: TObject);
+procedure TfrmConsultaPeriodoGracia.Inicializar;
 begin
-
         if IBTperiodogracia.InTransaction then
           IBTperiodogracia.Commit;
 
@@ -106,16 +117,17 @@ begin
 
         IBQperiodogracia.Close;
         IBQperiodogracia.SQL.Clear;
-        IBQperiodogracia.SQL.Add('SELECT g.ID_COLOCACION, (p.NOMBRE || '' '' || p.PRIMER_APELLIDO || '' '' || p.SEGUNDO_APELLIDO) AS NOMBRE, g.FECHA_CAPITAL, g.FECHA_INTERES, g.FECHA_REGISTRO, g.DIAS, g.SE_CAUSA FROM COL_PERIODO_GRACIA g');
+        IBQperiodogracia.SQL.Add('SELECT g.ID_COLOCACION, (p.NOMBRE || '' '' || p.PRIMER_APELLIDO || '' '' || p.SEGUNDO_APELLIDO) AS NOMBRE, g.FECHA_CAPITAL, g.FECHA_INTERES, g.FECHA_REGISTRO, g.DIAS, g.SE_CAUSA, g.ESTADO, g.ID FROM COL_PERIODO_GRACIA g');
         IBQperiodogracia.SQL.Add('INNER JOIN "col$colocacion" c ON c.ID_COLOCACION = g.ID_COLOCACION');
         IBQperiodogracia.SQL.Add('INNER JOIN "gen$persona" p ON p.ID_IDENTIFICACION = c.ID_IDENTIFICACION and p.ID_PERSONA = c.ID_PERSONA');
-        IBQperiodogracia.SQL.Add('WHERE c.ID_ESTADO_COLOCACION IN (0,1,2) AND g.ESTADO = :ESTADO');
-        IBQperiodogracia.ParamByName('ESTADO').AsInteger := 0;
+        IBQperiodogracia.SQL.Add('WHERE c.ID_ESTADO_COLOCACION IN (0,1,2) AND g.ESTADO IN (0,8)');
         IBQperiodogracia.Open;
+
+        CDSperiodogracia.Open;
+        CDSperiodogracia.EmptyDataSet;
 
         while not IBQperiodogracia.Eof do
         begin
-          CDSperiodogracia.Open;
           CDSperiodogracia.Append;
           CDSperiodograciaID_COLOCACION.Value := IBQperiodogracia.FieldByName('ID_COLOCACION').AsString;
           CDSperiodograciaNOMBRE.Value := IBQperiodogracia.FieldByName('NOMBRE').AsString;
@@ -124,10 +136,20 @@ begin
           CDSperiodograciaFECHA_REGISTRO.Value := IBQperiodogracia.FieldByName('FECHA_REGISTRO').AsDateTime;
           CDSperiodograciaDIAS.Value := IBQperiodogracia.FieldByName('DIAS').AsInteger;
           CDSperiodograciaSE_CAUSA.Value := InttoBoolean(IBQperiodogracia.FieldByName('SE_CAUSA').AsInteger);
+          CDSperiodograciaESTADO.Value := IBQperiodogracia.FieldByName('ESTADO').AsInteger;
+          CDSperiodograciaID.Value := IBQperiodogracia.FieldByName('ID').AsInteger;
           CDSperiodogracia.Post;
 
           IBQperiodogracia.Next;
         end;
+
+        btnNormalizar.Enabled := False;
+        btnReversoNormalizar.Enabled := False;
+end;
+
+procedure TfrmConsultaPeriodoGracia.FormShow(Sender: TObject);
+begin
+   Inicializar;
 end;
 
 procedure TfrmConsultaPeriodoGracia.btnCerrarClick(Sender: TObject);
@@ -186,6 +208,21 @@ begin
         edAsociado.Text := CDSperiodograciaNOMBRE.Value;
         edPeriodoGracia.Value := CDSperiodograciaDIAS.Value;
         edMora.Value := ObtenerDiasMora(Agencia, edColocacion.Text, IBSQL1);
+        if (CDSperiodograciaID.Value > 0) and (CDSperiodograciaESTADO.Value = 8) and (edColocacion.Text <> '') and (Length(edColocacion.Text) = 11) then
+        begin
+           btnReversoNormalizar.Enabled := True;
+           btnNormalizar.Enabled := False;
+        end
+        else if (CDSperiodograciaID.Value > 0) and (CDSperiodograciaESTADO.Value = 0) and (edColocacion.Text <> '') and (Length(edColocacion.Text) = 11) then
+        begin
+           btnReversoNormalizar.Enabled := False;
+           btnNormalizar.Enabled := True;
+        end
+        else
+        begin
+           btnReversoNormalizar.Enabled := False;
+           btnNormalizar.Enabled := False;
+        end;
 end;
 
 procedure TfrmConsultaPeriodoGracia.btnAgregarClick(Sender: TObject);
@@ -196,6 +233,7 @@ begin
         _hoy := fFechaHoraActual;
 
         CDSperiodogracia.Append;
+        CDSperiodograciaID.Clear;
         CDSperiodograciaID_COLOCACION.Value := edColocacion.Text;
         CDSperiodograciaNOMBRE.Value := edAsociado.Text;
         CDSperiodograciaFECHA_CAPITAL.Value := edFechaCapital.Date;
@@ -209,7 +247,7 @@ begin
         IBTproceso.StartTransaction;
         IBQproceso.Close;
         IBQproceso.SQL.Clear;
-        IBQproceso.SQL.Add('INSERT INTO COL_PERIODO_GRACIA VALUES (:ID_COLOCACION, :FECHA_CAPITAL, :FECHA_INTERES, :FECHA_REGISTRO, :DIAS, :SE_CAUSA, :FECHA_CANCELADO, :ESTADO)');
+        IBQproceso.SQL.Add('INSERT INTO COL_PERIODO_GRACIA VALUES (:ID_COLOCACION, :FECHA_CAPITAL, :FECHA_INTERES, :FECHA_REGISTRO, :DIAS, :SE_CAUSA, :FECHA_CANCELADO, :ESTADO, :DIAS_COBRADOS)');
         IBQproceso.ParamByName('ID_COLOCACION').AsString := edColocacion.Text;
         IBQproceso.ParamByName('FECHA_CAPITAL').AsDate := edFechaCapital.Date;
         IBQproceso.ParamByName('FECHA_INTERES').AsDate := edFechaInteres.Date;
@@ -218,6 +256,7 @@ begin
         IBQproceso.ParamByName('SE_CAUSA').AsInteger := BooleanoToInt(chkCausa.Checked);
         IBQproceso.ParamByName('FECHA_CANCELADO').Clear;
         IBQproceso.ParamByName('ESTADO').AsInteger := 0;
+        IBQproceso.ParamByName('DIAS_COBRADOS').AsInteger := 0;
         IBQproceso.ExecSQL;
         IBTproceso.Commit;
 
@@ -275,6 +314,50 @@ begin
         edFechaInteres.Date := _hoy;
         edPeriodoGracia.Value := 120;
         chkCausa.Checked := True;
+end;
+
+procedure TfrmConsultaPeriodoGracia.btnNormalizarClick(Sender: TObject);
+var
+  frmNormalizar: TfrmNormalizar;
+begin
+        frmNormalizar := TfrmNormalizar.Create(self);
+        frmNormalizar.Colocacion := edColocacion.Text;
+        frmNormalizar.DiasPeriodoGracias := edPeriodoGracia.Value;
+        frmNormalizar.Id := CDSperiodograciaID.Value;
+        frmNormalizar.ShowModal;
+        Inicializar;
+end;
+
+procedure TfrmConsultaPeriodoGracia.CDSperiodograciaESTADOGetText(
+  Sender: TField; var Text: String; DisplayText: Boolean);
+begin
+  if (Sender.Value = 0) then
+    Text := 'ACTIVO'
+  else if (Sender.Value = 8) then
+    Text := 'NORMALIZADO';
+  DisplayText := True;
+end;
+
+procedure TfrmConsultaPeriodoGracia.btnReversoNormalizarClick(
+  Sender: TObject);
+var
+  frmReversoNormalizar: TfrmReversoNormalizar;
+begin
+        frmReversoNormalizar := TfrmReversoNormalizar.Create(self);
+        frmReversoNormalizar.Colocacion := edColocacion.Text;
+        frmReversoNormalizar.DiasPeriodoGracias := edPeriodoGracia.Value;
+        frmReversoNormalizar.Id := CDSperiodograciaID.Value;
+        frmReversoNormalizar.ShowModal;
+        Inicializar;
+end;
+
+procedure TfrmConsultaPeriodoGracia.DBGperiodograciasDrawColumnCell(
+  Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+          if CDSperiodograciaESTADO.Value = 8 then
+            DBGperiodogracias.Canvas.Brush.Color := clSkyBlue;
+          DBGperiodogracias.DefaultDrawColumnCell(Rect, DataCol, Column, State);
 end;
 
 end.

@@ -1,11 +1,10 @@
 object dmGeneral: TdmGeneral
   OldCreateOrder = False
   Left = 308
-  Top = 126
+  Top = 128
   Height = 194
   Width = 171
   object IBDatabase1: TIBDatabase
-    Connected = True
     DatabaseName = '10.0.2.2:C:\OPT\DB\COODINDEV.FDB'
     Params.Strings = (
       'lc_ctype=ISO8859_1'
@@ -19,7 +18,6 @@ object dmGeneral: TdmGeneral
     Top = 14
   end
   object IBTransaction1: TIBTransaction
-    Active = True
     AllowAutoStart = False
     DefaultDatabase = IBDatabase1
     DefaultAction = TARollback
