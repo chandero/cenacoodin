@@ -2027,39 +2027,35 @@ object frmBarridoAhoApo: TfrmBarridoAhoApo
     Transaction = dmGeneral.IBTransaction1
     SQL.Strings = (
       'select'
-      '         "con$auxiliar".ID_COMPROBANTE,'
+      '         CON$AUXILIAR.ID_COMPROBANTE,'
       '         "gen$agencia".DESCRIPCION_AGENCIA,'
-      '         "con$tipocomprobante".DESCRIPCION AS TIPO,'
-      '         "con$comprobante".FECHADIA,'
-      '         "con$comprobante".DESCRIPCION,'
+      '         CON$TIPOCOMPROBANTE.DESCRIPCION AS TIPO,'
+      '         CON$COMPROBANTE.FECHADIA,'
+      '         CON$COMPROBANTE.DESCRIPCION,'
       '         "gen$empleado".PRIMER_APELLIDO,'
       '         "gen$empleado".SEGUNDO_APELLIDO,'
       '         "gen$empleado".NOMBRE,'
-      '         "con$auxiliar".CODIGO,'
-      '         "con$puc".NOMBRE AS CUENTA,'
-      '         "con$auxiliar".DEBITO,'
-      '         "con$auxiliar".CREDITO'
+      '         CON$AUXILIAR.CODIGO,'
+      '         CON$PUC.NOMBRE AS CUENTA,'
+      '         CON$AUXILIAR.DEBITO,'
+      '         CON$AUXILIAR.CREDITO'
       '         from'
-      '"con$comprobante"'
+      'CON$COMPROBANTE'
       
-        'INNER JOIN "con$auxiliar" ON ("con$comprobante".ID_COMPROBANTE =' +
-        ' "con$auxiliar".ID_COMPROBANTE)'
+        'INNER JOIN CON$AUXILIAR ON (CON$COMPROBANTE.ID_COMPROBANTE = CON' +
+        '$AUXILIAR.ID_COMPROBANTE)'
       
-        'INNER JOIN "con$tipocomprobante" ON ("con$comprobante".TIPO_COMP' +
-        'ROBANTE  = "con$tipocomprobante".ID ) '
+        'INNER JOIN CON$TIPOCOMPROBANTE ON (CON$COMPROBANTE.TIPO_COMPROBA' +
+        'NTE  = CON$TIPOCOMPROBANTE.ID ) '
       
-        'INNER JOIN "gen$agencia" ON ("con$auxiliar".ID_AGENCIA = "gen$ag' +
-        'encia".ID_AGENCIA)'
+        'INNER JOIN "gen$agencia" ON (CON$AUXILIAR.ID_AGENCIA = "gen$agen' +
+        'cia".ID_AGENCIA)'
+      'LEFT JOIN CON$PUC ON (CON$AUXILIAR.CODIGO = CON$PUC.CODIGO)'
       
-        'LEFT JOIN "con$puc" ON ("con$auxiliar".CODIGO = "con$puc".CODIGO' +
-        ')'
-      
-        'INNER JOIN "gen$empleado" ON ("con$comprobante".ID_EMPLEADO = "g' +
-        'en$empleado".ID_EMPLEADO) '
-      'where ("con$comprobante".ID_AGENCIA = :"ID_AGENCIA" ) and'
-      
-        '           ("con$comprobante".ID_COMPROBANTE = :"ID_COMPROBANTE"' +
-        ' )')
+        'INNER JOIN "gen$empleado" ON (CON$COMPROBANTE.ID_EMPLEADO = "gen' +
+        '$empleado".ID_EMPLEADO) '
+      'where (CON$COMPROBANTE.ID_AGENCIA = :"ID_AGENCIA" ) and'
+      '           (CON$COMPROBANTE.ID_COMPROBANTE = :"ID_COMPROBANTE" )')
     Left = 198
     Top = 8
     ParamData = <

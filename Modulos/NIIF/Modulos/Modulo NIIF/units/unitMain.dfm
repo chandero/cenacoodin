@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 482
-  Top = 155
+  Left = 366
+  Top = 56
   Width = 691
   Height = 519
   Caption = 'Modulo NIIF - '

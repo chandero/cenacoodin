@@ -1,7 +1,7 @@
 object dmPersona: TdmPersona
   OldCreateOrder = False
   Left = 599
-  Top = 186
+  Top = 179
   Height = 448
   Width = 638
   object IBQuery: TIBQuery

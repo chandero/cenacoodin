@@ -474,7 +474,7 @@ if MessageDlg('Seguro de Realizar el Abono?',mtConfirmation,[mbYes,mbNo],0) = mr
 //      ParamByName('ID_ESTADO_COLOCACION').AsInteger := NuevoEstado;
       ExecSql;
       Close;
-
+      { Se inactiva por solicitud de revisoria fiscal coodin
       /// Actualizar DiasCobrados Periodo Gracias
       SQL.Clear;
       SQL.Add('UPDATE COL_PERIODO_GRACIA SET DIAS_COBRADOS = :DIAS_COBRADOS WHERE ID = :ID');
@@ -482,7 +482,7 @@ if MessageDlg('Seguro de Realizar el Abono?',mtConfirmation,[mbYes,mbNo],0) = mr
       ParamByName('ID').AsInteger := MyIdPeriodoGracia;
       ExecSQL;
       Close;
-
+      }
 
       if not AplicaGravamen then begin
         DescImpuesto := SimpleRoundTo((BaseGMF/1000) * 4,0);

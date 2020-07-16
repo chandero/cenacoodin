@@ -139,15 +139,15 @@ begin
         SGCons.Cells[7,0] := 'C Banco';
         SGCons.Cells[8,0] := 'Fecha';
 
-        SGCons.ColWidths[0] := 100;
-        SGCons.ColWidths[1] := 100;
-        SGCons.ColWidths[2] := 80;
-        SGCons.ColWidths[3] := 50;
-        SGCons.ColWidths[4] := 190;
-        SGCons.ColWidths[5] := 50;
-        SGCons.ColWidths[6] := 70;
-        SGCons.ColWidths[7] := 60;
-        SGCons.ColWidths[8] := 60;
+        SGCons.ColWidths[0] := 180;
+        SGCons.ColWidths[1] := 180;
+        SGCons.ColWidths[2] := 180;
+        SGCons.ColWidths[3] := 90;
+        SGCons.ColWidths[4] := 200;
+        SGCons.ColWidths[5] := 90;
+        SGCons.ColWidths[6] := 100;
+        SGCons.ColWidths[7] := 90;
+        SGCons.ColWidths[8] := 90;
 
 
         AdicionarBanco(1);
@@ -313,7 +313,7 @@ begin
         NuevoDblcb.KeyField := DBLCBBancos.KeyField;
         NuevoDblcb.Parent := SGCons;
         NuevoDblcb.TabStop := False;
-        NuevoDblcb.DropDownWidth := 120;
+        NuevoDblcb.DropDownWidth := 227;
         SGCons.Objects[0,ARow] := NuevoDblcb;
         R := SGCons.CellRect(0,ARow);
         NuevoDblcb.Left := SGCons.Left + R.Left;// + 1;
@@ -779,7 +779,7 @@ begin
         NuevoDblcb.KeyField := DBLCBTipoAhorro.KeyField;
         NuevoDblcb.Parent := SGCons;
         NuevoDblcb.TabStop := False;
-        NuevoDblcb.DropDownWidth := 120;
+        NuevoDblcb.DropDownWidth := 227;
         SGCons.Objects[1,ARow] := NuevoDblcb;
         R := SGCons.CellRect(1,ARow);
         NuevoDblcb.Left := SGCons.Left + R.Left;// + 1;
@@ -801,7 +801,7 @@ begin
         NuevoDblcb.OnClick := chkCredito.OnClick;
         NuevoDblcb.Parent := Self;
         NuevoDblcb.Color := clCaptionText;
-        NuevoDblcb.Caption := 'Ahorr';
+        NuevoDblcb.Caption := 'Ahorro';
         NuevoDblcb.Parent := SGCons;
         NuevoDblcb.TabStop := False;
         SGCons.Objects[5,ARow] := NuevoDblcb;
@@ -891,7 +891,7 @@ begin
         NuevoDblcb.KeyField := DBLCBAgencia.KeyField;
         NuevoDblcb.Parent := SGCons;
         NuevoDblcb.TabStop := False;
-        NuevoDblcb.DropDownWidth := 100;
+        NuevoDblcb.DropDownWidth := 187;
         SGCons.Objects[2,ARow] := NuevoDblcb;
         R := SGCons.CellRect(2,ARow);
         NuevoDblcb.Left := SGCons.Left + R.Left;// + 1;

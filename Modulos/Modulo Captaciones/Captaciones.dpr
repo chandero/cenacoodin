@@ -159,8 +159,6 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmInformeContractualDescontadoUnaFecha, frmInformeContractualDescontadoUnaFecha);
-  Application.CreateForm(TfrmInformeCDATLiquidadoUnaFecha, frmInformeCDATLiquidadoUnaFecha);
   Application.Run;
 end.
 

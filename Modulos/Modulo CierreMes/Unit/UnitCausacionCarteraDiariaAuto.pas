@@ -3525,11 +3525,18 @@ var id_ant:Integer;
     _diasGracia: Integer;
     _diasCorridosGracia : Integer;
     _diasParaCausar, _diasParaContingencia: Integer;
+    _morosidad: Integer;
+    _queryGracia : TIBQuery;
 begin
           with IBQuery1 do begin
             if Transaction.InTransaction then
                Transaction.Rollback;
            Transaction.StartTransaction;
+
+           _queryGracia := TIBQuery.Create(self);
+           _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO <> 9 ORDER BY FECHA_REGISTRO DESC');
+
+
            _cTasaDtfMaxima := BuscoTasaEfectivaMaximaDtfNueva(IBQuery1,EdFechaCorte.Date);//** se puede con variable?
 
            _cTasaIpcNueva := BuscoTasaEfectivaMaximaIPCNueva(IBQuery1); //** se puede con variable?
@@ -3585,6 +3592,7 @@ begin
               end;
               Deuda := IBQuery1.FieldByName('DEUDA').AsCurrency;
               Tasa1 := BuscoTasaEfectivaMaxima1(IBQVarios,EdFechaCorte.Date,IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,'A');
+              _morosidad := IBQuery1.FieldByName('MOROSIDAD').AsInteger;
               _diasParaCausar := 0;
               _diasParaContingencia := 0;
               // Primer Paso
@@ -3777,6 +3785,14 @@ begin
                        Tasa := TasaNominalVencida(Tasa1,30);
                     end;
 //  Fin Tasa A Aplicar Causados
+            if _morosidad < 1 then
+            begin
+               _diasParaCausar := _diasParaCausar + _diasParaContingencia;
+               _diasParaContingencia := 0;
+            end;
+// Consultar los días de gracia solicitados y evaluar si se debe causar o no
+
+//
             Causados := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaCausar,0);
             Contingentes := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaContingencia,0);
             DiasCXC := _diasParaCausar;

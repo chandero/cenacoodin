@@ -1,6 +1,6 @@
 object frmCreacionPersona: TfrmCreacionPersona
-  Left = 392
-  Top = 112
+  Left = 322
+  Top = 17
   BorderStyle = bsDialog
   Caption = 'Creaci'#243'n de Persona'
   ClientHeight = 576

@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{B38439FE-96C0-48E6-987F-225B8D1BF8E2}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="EntregaSeguro.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\Project4.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="EntregaSeguro">
+			<MSBuild Projects="EntregaSeguro.dproj"/>
+		</Target>
+		<Target Name="EntregaSeguro:Clean">
+			<MSBuild Targets="Clean" Projects="EntregaSeguro.dproj"/>
+		</Target>
+		<Target Name="EntregaSeguro:Make">
+			<MSBuild Targets="Make" Projects="EntregaSeguro.dproj"/>
+		</Target>
+		<Target Name="Project4">
+			<MSBuild Projects="..\Project4.dproj"/>
+		</Target>
+		<Target Name="Project4:Clean">
+			<MSBuild Targets="Clean" Projects="..\Project4.dproj"/>
+		</Target>
+		<Target Name="Project4:Make">
+			<MSBuild Targets="Make" Projects="..\Project4.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="EntregaSeguro;Project4"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="EntregaSeguro:Clean;Project4:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="EntregaSeguro:Make;Project4:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

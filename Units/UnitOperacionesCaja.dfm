@@ -1,6 +1,6 @@
 object frmOperacionesCaja: TfrmOperacionesCaja
-  Left = 383
-  Top = 131
+  Left = 358
+  Top = 60
   BorderIcons = []
   BorderStyle = bsDialog
   ClientHeight = 502
@@ -2398,7 +2398,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 12
           TabStop = False
@@ -3099,7 +3099,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 3
           TabStop = False
@@ -4564,10 +4564,10 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Top = 214
           Width = 558
           Height = 211
-          ActivePage = TabCol1
+          ActivePage = TabCol2
           Align = alBottom
           Enabled = False
-          TabIndex = 0
+          TabIndex = 1
           TabOrder = 2
           object TabCol1: TTabSheet
             Caption = 'Liquidaci'#243'n'
@@ -11076,7 +11076,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 10
           TabStop = False

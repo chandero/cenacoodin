@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
   Left = 405
-  Top = 101
+  Top = 14
   Width = 812
   Height = 612
   Caption = 'Modulo Cajas - NIIF v1.0'

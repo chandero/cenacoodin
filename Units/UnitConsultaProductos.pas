@@ -796,7 +796,7 @@ begin
                                 FieldByName('SEGUNDO_APELLIDO').AsString + ' ' +
                                 FieldByName('NOMBRE').AsString;
             //Aplicar Cambios a Idpersona
-
+           try
             _rimagen := _iImagen.ConsultaImagen(vididentificacion,vidpersona);
             if _rImagen.Foto.Size > 0 then
             begin
@@ -815,7 +815,8 @@ begin
               FreeAndNil(jpg);
             end;
             FreeAndNil(_rImagen);
-
+          except
+          end;
         end;
 
         PageBuscar.Enabled := False;

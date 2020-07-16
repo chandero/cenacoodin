@@ -1,10 +1,10 @@
 object frmConsignacionNacional: TfrmConsignacionNacional
-  Left = 168
-  Top = 153
+  Left = 99
+  Top = 125
   BorderStyle = bsDialog
   Caption = 'Consignaciones Nacionales'
   ClientHeight = 446
-  ClientWidth = 788
+  ClientWidth = 1237
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack
@@ -23,13 +23,13 @@ object frmConsignacionNacional: TfrmConsignacionNacional
   object Panel1: TPanel
     Left = 0
     Top = 414
-    Width = 788
+    Width = 1237
     Height = 32
     Align = alBottom
     Color = clOlive
     TabOrder = 1
     object cmdCerrar: TBitBtn
-      Left = 672
+      Left = 992
       Top = 4
       Width = 75
       Height = 25
@@ -190,7 +190,7 @@ object frmConsignacionNacional: TfrmConsignacionNacional
   object Panel2: TPanel
     Left = 0
     Top = 386
-    Width = 788
+    Width = 1237
     Height = 28
     Align = alBottom
     TabOrder = 2
@@ -235,7 +235,7 @@ object frmConsignacionNacional: TfrmConsignacionNacional
   object SGCons: TJvStringGrid
     Left = 0
     Top = 0
-    Width = 788
+    Width = 1237
     Height = 386
     Align = alClient
     ColCount = 6
@@ -244,12 +244,11 @@ object frmConsignacionNacional: TfrmConsignacionNacional
     RowCount = 2
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
-    Font.Height = -10
+    Font.Height = -13
     Font.Name = 'Century Gothic'
     Font.Style = []
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goDrawFocusSelected, goEditing, goTabs]
     ParentFont = False
-    ScrollBars = ssVertical
     TabOrder = 0
     OnClick = SGConsClick
     OnGetEditText = SGConsGetEditText
@@ -261,9 +260,9 @@ object frmConsignacionNacional: TfrmConsignacionNacional
     object DBLCBBancos: TDBLookupComboBox
       Left = 30
       Top = 182
-      Width = 145
-      Height = 21
-      DropDownWidth = 150
+      Width = 227
+      Height = 24
+      DropDownWidth = 227
       KeyField = 'ID_BANCO'
       ListField = 'DESCRIPCION'
       ListSource = DSBancos
@@ -276,9 +275,9 @@ object frmConsignacionNacional: TfrmConsignacionNacional
     object DBLCBTipoAhorro: TDBLookupComboBox
       Left = 30
       Top = 236
-      Width = 145
-      Height = 21
-      DropDownWidth = 150
+      Width = 227
+      Height = 24
+      DropDownWidth = 227
       KeyField = 'ID_TIPO_CAPTACION'
       ListField = 'DESCRIPCION'
       ListSource = DSTipoAhorro
@@ -302,9 +301,9 @@ object frmConsignacionNacional: TfrmConsignacionNacional
     object DBLCBAgencia: TDBLookupComboBox
       Left = 30
       Top = 268
-      Width = 145
-      Height = 21
-      DropDownWidth = 150
+      Width = 187
+      Height = 24
+      DropDownWidth = 187
       KeyField = 'ID_AGENCIA'
       ListField = 'DESCRIPCION_AGENCIA'
       ListSource = DSAgencia
@@ -316,8 +315,8 @@ object frmConsignacionNacional: TfrmConsignacionNacional
     object EdFecha: TDateTimePicker
       Left = 264
       Top = 192
-      Width = 60
-      Height = 23
+      Width = 81
+      Height = 24
       CalAlignment = dtaLeft
       Date = 38664.4138340857
       Time = 38664.4138340857
@@ -335,7 +334,7 @@ object frmConsignacionNacional: TfrmConsignacionNacional
     object statusBar: TStatusBar
       Left = 0
       Top = 363
-      Width = 784
+      Width = 1233
       Height = 19
       Panels = <
         item

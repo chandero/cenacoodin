@@ -548,11 +548,13 @@ begin
   _queryGracia.Open;
   _queryGracia.Last;
   _queryGracia.First;
+  { Se inactiva por solicitud de coodin
   if (_queryGracia.RecordCount > 0) then
   begin
      ShowMessage('No se puede liquidar una colocación con periodo de gracia sin haber sido Normalizada');
      Exit;
   end;
+  }
 
   _queryGracia.Close;
   _queryGracia.SQL.Clear;

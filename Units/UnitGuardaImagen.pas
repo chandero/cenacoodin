@@ -35,7 +35,11 @@ begin
   _iDatabase.Params.Add('user_name=sysdba');
   _iDatabase.Params.Add('password=masterkey');
   _iDatabase.Params.Add('lc_ctype=ISO8859_1');
+  try
   _iDatabase.Open;
+  except
+   exit;
+  end;
   _iTransaction := TIBTransaction.Create(nil);
   _iTransaction.DefaultDatabase := _iDatabase;
   _iTransaction.DefaultAction := TARollback;

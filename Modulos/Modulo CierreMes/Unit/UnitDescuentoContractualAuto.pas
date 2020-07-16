@@ -117,6 +117,7 @@ var MinCaptacion,MaxCaptacion:Integer;
     vDias :Integer;
     vCuota :Currency;
     vSaldo :Currency;
+    numeroCuotas: Integer;
 begin
           CdSaldo.Open;
           CdSaldo.EmptyDataSet;
@@ -127,12 +128,22 @@ begin
 
           FechaCorte := _fechaProceso;
 
+          with _query do
+          begin
+            Close;
+            SQL.Clear;
+            SQL.Add('SELECT VALOR_MINIMO FROM "gen$minimos" WHERE ID_MINIMO = 61');
+            Open;
+            numeroCuotas := FieldByName('VALOR_MINIMO').AsInteger;
+            Close;
+          end;
+
 
           Application.ProcessMessages;
           with _queryALiquidar do
           begin
             SQL.Clear;
-            SQL.Add('select * from P_CAP_0021 (:ID, :FECHA, :FECHA1)');
+            SQL.Add('select * from P_CAP_0021 (:ID, :FECHA, :FECHA1) ORDER BY NUMERO_CUENTA ASC');
             ParamByName('ID').AsInteger := _tipo;
             ParamByName('FECHA').AsDate := FechaCorte;
             ParamByName('FECHA1').AsDate := EncodeDate(YearOf(FechaCorte),MonthOf(FechaCorte),1);
@@ -167,6 +178,7 @@ begin
                 edCaptacion.Text := 'Descontando a Contractual:' + IntToStr(_tipo) + '-' + Format('%.2d',[FieldByName('ID_AGENCIA').AsInteger]) + '-' +
                                          Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
                                          IntToStr(FieldByName('DIGITO_CUENTA').AsInteger);
+
                 Ag := FieldByName('ID_AGENCIA').AsInteger;
                 Numero := FieldByName('NUMERO_CUENTA').AsInteger;
                 Digito := FieldByName('DIGITO_CUENTA').AsInteger;
@@ -178,7 +190,7 @@ begin
                 CuentaAhorros := FieldByName('NUMERO_CUENTA_ABONO').AsInteger;
                 FechaDescuento := FieldByName('FECHA_DESCUENTO').AsDateTime;
                 DigitoCuentaAhorros := StrToInt(DigitoControl(TipoCuentaAhorros,FormatCurr('0000000',CuentaAhorros)));
-                CDSContractual.Insert;
+                CDSContractual.Append;
                 CDSContractual.FieldByName('ID_AGENCIA').AsInteger := FieldByName('ID_AGENCIA').AsInteger;
                 CDSContractual.FieldByName('ID_TIPO_CAPTACION').AsInteger := FieldByName('ID_TIPO_CAPTACION').AsInteger;
                 CDSContractual.FieldByName('NUMERO_CUENTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
@@ -236,7 +248,7 @@ begin
                     _query.Open;
                     _query.Last;
                     _query.First;
-                    if vCuotasContractual < 3 then
+                    if vCuotasContractual < numeroCuotas then
                     begin
                       if _query.RecordCount > 0 then begin
                          //ShowMessage(CurrToStr(IBSQL1.FieldByName('SALDO_DISPONIBLE').AsCurrency) + ' vi=' + CurrToStr(FieldByName('VALOR_INICIAL').AsCurrency)+ ' vs=' + CurrToStr(vSaldo));

@@ -54,6 +54,7 @@ type
     btnReversoNormalizar: TButton;
     CDSperiodograciaFECHA_REGISTRO: TDateTimeField;
     CDSperiodograciaID: TLargeintField;
+    btnActualizar: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnCerrarClick(Sender: TObject);
@@ -71,6 +72,7 @@ type
     procedure DBGperiodograciasDrawColumnCell(Sender: TObject;
       const Rect: TRect; DataCol: Integer; Column: TColumn;
       State: TGridDrawState);
+    procedure btnActualizarClick(Sender: TObject);
   private
     { Private declarations }
     procedure Inicializar;
@@ -206,6 +208,8 @@ begin
         // Actualizar datos en la vista
         edColocacion.Text := CDSperiodograciaID_COLOCACION.Value;
         edAsociado.Text := CDSperiodograciaNOMBRE.Value;
+        edFechaCapital.Date := CDSperiodograciaFECHA_CAPITAL.Value;
+        edFechaInteres.Date := CDSperiodograciaFECHA_INTERES.Value;
         edPeriodoGracia.Value := CDSperiodograciaDIAS.Value;
         edMora.Value := ObtenerDiasMora(Agencia, edColocacion.Text, IBSQL1);
         if (CDSperiodograciaID.Value > 0) and (CDSperiodograciaESTADO.Value = 8) and (edColocacion.Text <> '') and (Length(edColocacion.Text) = 11) then
@@ -222,6 +226,19 @@ begin
         begin
            btnReversoNormalizar.Enabled := False;
            btnNormalizar.Enabled := False;
+        end;
+
+        if (CDSperiodograciaESTADO.Value = 8) then
+        begin
+           btnEliminar.Enabled := False;
+           btnActualizar.Enabled := False;
+           btnAgregar.Enabled := False;
+        end
+        else
+        begin
+           btnEliminar.Enabled := True;
+           btnActualizar.Enabled := True;
+           btnAgregar.Enabled := False;
         end;
 end;
 
@@ -314,6 +331,11 @@ begin
         edFechaInteres.Date := _hoy;
         edPeriodoGracia.Value := 120;
         chkCausa.Checked := True;
+        btnAgregar.Enabled := True;
+        btnEliminar.Enabled := False;
+        btnActualizar.Enabled := False;
+        btnNormalizar.Enabled := False;
+        btnReversoNormalizar.Enabled := False;
 end;
 
 procedure TfrmConsultaPeriodoGracia.btnNormalizarClick(Sender: TObject);
@@ -358,6 +380,40 @@ begin
           if CDSperiodograciaESTADO.Value = 8 then
             DBGperiodogracias.Canvas.Brush.Color := clSkyBlue;
           DBGperiodogracias.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+end;
+
+procedure TfrmConsultaPeriodoGracia.btnActualizarClick(Sender: TObject);
+var
+  _hoy: TDateTime;
+begin
+
+        _hoy := fFechaHoraActual;
+
+        CDSperiodogracia.Edit;
+        CDSperiodograciaFECHA_CAPITAL.Value := edFechaCapital.Date;
+        CDSperiodograciaFECHA_INTERES.Value := edFechaInteres.Date;
+        CDSperiodograciaDIAS.Value := edPeriodoGracia.Value;
+        CDSperiodogracia.Post;
+
+
+        IBTproceso.StartTransaction;
+        IBQproceso.Close;
+        IBQproceso.SQL.Clear;
+        IBQproceso.SQL.Add('UPDATE COL_PERIODO_GRACIA SET FECHA_CAPITAL = :FECHA_CAPITAL, FECHA_INTERES = :FECHA_INTERES, DIAS = :DIAS WHERE ID = :ID');
+        IBQproceso.ParamByName('FECHA_CAPITAL').AsDate := edFechaCapital.Date;
+        IBQproceso.ParamByName('FECHA_INTERES').AsDate := edFechaInteres.Date;
+        IBQproceso.ParamByName('DIAS').AsInteger := edPeriodoGracia.Value;
+        IBQproceso.ParamByName('ID').AsInteger := CDSperiodograciaID.Value;
+        IBQproceso.ExecSQL;
+        IBTproceso.Commit;
+
+        edColocacion.Text := '';
+        edAsociado.Text := '';
+        edMora.Value := 0;
+        edFechaCapital.Date := _hoy;
+        edFechaInteres.Date := _hoy;
+        edPeriodoGracia.Value := 120;
+        chkCausa.Checked := True;
 end;
 
 end.

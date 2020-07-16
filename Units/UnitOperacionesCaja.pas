@@ -1370,6 +1370,8 @@ var
   _sDireccionAsociado :string;
   _sTelefonoAsociado :string;
 
+  _vClasificacion, _vGarantia : Integer;
+  _vCategoria: String;
 
 
 implementation
@@ -6799,6 +6801,9 @@ begin
                 SQL.Add('SELECT ');
                 SQL.Add('"col$colocacion".ID_AGENCIA,');
                 SQL.Add('"col$colocacion".ID_COLOCACION,');
+                SQL.Add('"col$colocacion".ID_CLASIFICACION,');
+                SQL.Add('"col$colocacion".ID_GARANTIA,');
+                SQL.Add('"col$colocacion".ID_CATEGORIA,');
                 SQL.Add('"col$colocacion".ID_IDENTIFICACION,');
                 SQL.Add('"col$colocacion".ID_PERSONA,');
                 SQL.Add('"col$colocacion".NUMERO_CUENTA,');
@@ -6872,6 +6877,9 @@ begin
                           Exit;
                       end;
 
+                      _vClasificacion := FieldByName('ID_CLASIFICACION').AsInteger;
+                      _vGarantia := FieldByName('ID_GARANTIA').AsInteger;
+                      _vCategoria := FieldByName('ID_CATEGORIA').AsString;
                       Clasificacion := FieldByName('DESCRIPCION_CLASIFICACION').AsString;
                       Garantia := FieldByName('DESCRIPCION_GARANTIA').AsString;
                       Estado := FieldByName('DESCRIPCION_ESTADO_COLOCACION').AsString;
@@ -7296,7 +7304,87 @@ end;
 procedure TfrmOperacionesCaja.MostrarFormulario;
 var AF:PCuotasLiq;
     I:Integer;
+    _IdPeriodoGracia: Integer;
+    _queryGracia: TIBQuery;
+    _fechaInicioGracia, _fechaFinGracia: TDate;
+    _hayGracia: Boolean;
+    _diasGracia: Integer;
+    _diasCobradosGracia: Integer;
+    _diasEvaluadosGracia: Integer;
+    _diasCausados, _diasCorrientes, _diasAnticipados: Integer;
+    _valorCorriente, _valorAnticipado : Currency;
+    _diasAjustarCorriente, _diasAjustarAnticipado: Integer;
+    _diasDiferencia : Integer;
+    _valorAjustarCorriente, _valorAjustarAnticipado: Currency;
+    FechaCorte: TDate;
+    CodigoCorriente, CodigoCausado, CodigoAnticipado: String;
+    CuotaNumero: Integer;
 begin
+
+   FechaCorte := fFechaActual;
+
+  _queryGracia := TIBQuery.Create(nil);
+  _queryGracia.Database := dmGeneral.IBDatabase1;
+  _queryGracia.Transaction := dmGeneral.IBTransaction1;
+
+  _queryGracia.Close;
+  _queryGracia.SQL.Clear();
+  _queryGracia.SQL.Add('SELECT * FROM COL$CODIGOSPUC WHERE ID_CLASIFICACION = :ID_CLASIFICACION AND ID_GARANTIA = :ID_GARANTIA AND ID_CATEGORIA = :ID_CATEGORIA');
+  _queryGracia.ParamByName('ID_CLASIFICACION').AsInteger := _vClasificacion;
+  _queryGracia.ParamByName('ID_GARANTIA').AsInteger := _vGarantia;
+  _queryGracia.ParamByName('ID_CATEGORIA').ASsTRING := _vCategoria;
+  _queryGracia.Open;
+
+  CodigoCorriente := _queryGracia.FieldByName('COD_INT_MES').AsString;
+  CodigoCausado := _queryGracia.FieldByName('COD_CXC').AsString;
+  CodigoAnticipado := _queryGracia.FieldByName('COD_INT_ANT').AsString;
+
+
+  _queryGracia.Close;
+  _queryGracia.SQL.Clear;
+  _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA cpg ');
+  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO = 0');
+  _queryGracia.SQL.Add('ORDER BY cpg.FECHA_REGISTRO DESC ');
+  _queryGracia.ParamByName('ID_COLOCACION').AsString := EdNumeroColocacion.Text;
+  _queryGracia.Open;
+  _queryGracia.Last;
+  _queryGracia.First;
+  { Se inactiva por solicitud de coodin
+  if (_queryGracia.RecordCount > 0) then
+  begin
+     ShowMessage('No se puede liquidar una colocación con periodo de gracia sin haber sido Normalizada');
+     Exit;
+  end;
+  }
+
+  _queryGracia.Close;
+  _queryGracia.SQL.Clear;
+  _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA cpg ');
+  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO = 8');
+  _queryGracia.SQL.Add('ORDER BY cpg.FECHA_REGISTRO DESC ');
+  _queryGracia.ParamByName('ID_COLOCACION').AsString := EdNumeroColocacion.Text;
+  _queryGracia.Open;
+  _queryGracia.Last;
+  _queryGracia.First;
+  if (_queryGracia.RecordCount > 0) then
+  begin
+      _hayGracia := True;
+      _IdPeriodoGracia := _queryGracia.FieldByName('ID').AsInteger;
+      _fechaInicioGracia := _queryGracia.FieldByName('FECHA_INTERES').AsDateTime;
+      _diasGracia := _queryGracia.FieldByName('DIAS').AsInteger;
+      _diasCobradosGracia := _queryGracia.FieldByName('DIAS_COBRADOS').AsInteger;
+      _fechaFinGracia :=  CalculoFecha(_fechaInicioGracia, _diasGracia);
+  end
+  else
+  begin
+      _hayGracia := False;
+      _diasGracia := 0;
+      _diasCobradosGracia := 0;
+      _fechaInicioGracia := 0;
+      _fechaFinGracia := 0;
+  end;
+
+  
         if DmGeneral.IBTransaction1.InTransaction then
            DmGeneral.IBTransaction1.Commit;
         dmGeneral.IBTransaction1.StartTransaction;
@@ -7313,11 +7401,21 @@ begin
         DiasAnticipado:=0;
         DiasDevuelto:=0;
         vTipoOperacion := 1;
+
+
+        _diasEvaluadosGracia := 0;
+        _diasCausados := 0;
+        _diasCorrientes := 0;
+        _valorCorriente := 0;
+        _diasAjustarCorriente := 0;
+        _diasAjustarAnticipado := 0;
+
+
               for I := 0 to (Lista.Count - 1) do
               begin
                 Application.ProcessMessages;
                 AF := Lista.Items[I];
-
+                CuotaNumero := AF^.CuotaNumero;
                 if AF^.EsCapital then
                  begin
                    abono_capital := AF^.Credito;
@@ -7329,6 +7427,7 @@ begin
                    abono_cxc := AF^.Credito;
                    Causado := Causado + AF^.Credito;
                    DiasCausado := DiasCausado + AF^.Dias;
+                   _diasCausados := _diasCausados + AF^.Dias;
                 end;
 
                 if AF^.EsCorriente then
@@ -7336,6 +7435,8 @@ begin
                    abono_servicios := AF^.Credito;
                    Corriente := Corriente + AF^.Credito;
                    DiasCorriente := DiasCorriente + AF^.Dias;
+                   _diasCorrientes := _diasCorrientes + AF^.Dias;
+                   _valorCorriente := _valorCorriente + AF^.Credito;
                 end;
 
                 if AF^.EsVencido then
@@ -7350,6 +7451,8 @@ begin
                    abono_anticipado := AF^.Credito;
                    Anticipado := Anticipado + AF^.Credito;
                    DiasAnticipado := DiasAnticipado + AF^.Dias;
+                   _diasAnticipados := _diasAnticipados + AF^.Dias;
+                   _valorAnticipado := _valorAnticipado + AF^.Credito;                   
                 end;
 
                 if AF^.EsDevuelto then
@@ -7359,6 +7462,138 @@ begin
                    DiasDevuelto := DiasDevuelto + AF^.Dias;
                  end;
               end;
+
+// Evaluo si debo cruzar Corrientes con Causados
+
+
+          if (_diasGracia > _diasCobradosGracia) then
+          begin
+             _diasDiferencia := _diasGracia - _diasCobradosGracia;
+             if (_diasDiferencia > _diasCausados) then
+             begin
+                _diasDiferencia := _diasDiferencia - _diasCausados;
+                if (_diasDiferencia > _diasCorrientes) then
+                begin
+                   _diasAjustarCorriente := _diasCorrientes;
+                   _valorAjustarCorriente := _valorCorriente;
+                end
+                else
+                begin
+                   _diasAjustarCorriente := _diasCorrientes - _diasDiferencia;
+                   _valorAjustarCorriente := SimpleRoundTo(_valorCorriente * _diasAjustarCorriente / _diasCorrientes, 0);
+                end;
+                _diasDiferencia := _diasDiferencia  - _diasAjustarCorriente;
+                if (_diasDiferencia > _diasAnticipados) then
+                begin
+                   _diasAjustarAnticipado := _diasAnticipados;
+                   _valorAjustarAnticipado := _valorAnticipado;
+                end
+                else
+                begin
+                   _diasAjustarAnticipado := _diasAnticipados - _diasDiferencia;
+                   _valorAjustarAnticipado := SimpleRoundTo(_valorAnticipado * _diasAjustarAnticipado / _diasAnticipados, 0);
+                end;
+             end
+             else
+             begin
+               _diasCausados := _diasCausados - _diasDiferencia;
+               _diasAjustarCorriente := 0;
+               _diasAjustarAnticipado := 0;
+               _valorAjustarCorriente := 0;
+               _valorAjustarAnticipado := 0;
+             end;
+          end
+          else
+          begin
+              _diasCausados := 0;
+              _diasAjustarCorriente := 0;
+              _diasAjustarAnticipado := 0;
+              _valorAjustarCorriente := 0;
+              _valorAjustarAnticipado := 0;
+          end;
+
+          if (_diasAjustarCorriente > 0) then
+          begin
+             New(AF);
+             AF^.CuotaNumero := 0;
+             AF^.CodigoPuc   := CodigoCorriente;
+             AF^.FechaInicial := FechaCorte;
+             AF^.FechaFinal   := FechaCorte;
+             AF^.Dias         := _diasAjustarCorriente;
+             AF^.Tasa         := 0;
+             AF^.Debito       := _valorAjustarCorriente;
+             AF^.Credito      := 0;
+             AF^.EsCapital := False;
+             AF^.EsCausado := False;
+             AF^.EsCorriente := True;
+             AF^.EsVencido := False;
+             AF^.EsAnticipado := False;
+             AF^.EsDevuelto := False;
+             if (AF^.Debito <> 0) or
+                (AF^.Credito <> 0) then
+             Lista.Add(AF);
+
+             New(AF);
+             AF^.CuotaNumero := CuotaNumero;
+             AF^.CodigoPuc   := CodigoCausado;
+             AF^.FechaInicial := FechaCorte;
+             AF^.FechaFinal   := FechaCorte;
+             AF^.Dias         := _diasAjustarCorriente;
+             AF^.Tasa         := 0;
+             AF^.Debito       := 0;
+             AF^.Credito      := _valorAjustarCorriente;
+             AF^.EsCapital := False;
+             AF^.EsCausado := True;
+             AF^.EsCorriente := False;
+             AF^.EsVencido := False;
+             AF^.EsAnticipado := False;
+             AF^.EsDevuelto := False;
+             if (AF^.Debito <> 0) or
+                (AF^.Credito <> 0) then
+             Lista.Add(AF);
+          end;
+
+          if (_diasAjustarAnticipado > 0) then
+          begin
+               New(AF);
+             AF^.CuotaNumero := CuotaNumero;
+             AF^.CodigoPuc   := CodigoAnticipado;
+             AF^.FechaInicial := FechaCorte;
+             AF^.FechaFinal   := FechaCorte;
+             AF^.Dias         := _diasAjustarAnticipado;
+             AF^.Tasa         := 0;
+             AF^.Debito       := _valorAjustarAnticipado;
+             AF^.Credito      := 0;
+             AF^.EsCapital := False;
+             AF^.EsCausado := False;
+             AF^.EsCorriente := False;
+             AF^.EsVencido := False;
+             AF^.EsAnticipado := True;
+             AF^.EsDevuelto := False;
+             if (AF^.Debito <> 0) or
+                (AF^.Credito <> 0) then
+             Lista.Add(AF);
+
+             New(AF);
+             AF^.CuotaNumero := CuotaNumero;
+             AF^.CodigoPuc   := CodigoCausado;
+             AF^.FechaInicial := FechaCorte;
+             AF^.FechaFinal   := FechaCorte;
+             AF^.Dias         := _diasAjustarAnticipado;
+             AF^.Tasa         := 0;
+             AF^.Debito       := 0;
+             AF^.Credito      := _valorAjustarAnticipado;
+             AF^.EsCapital := False;
+             AF^.EsCausado := True;
+             AF^.EsCorriente := False;
+             AF^.EsVencido := False;
+             AF^.EsAnticipado := False;
+             AF^.EsDevuelto := False;
+             if (AF^.Debito <> 0) or
+                (AF^.Credito <> 0) then
+             Lista.Add(AF);
+          end;
+// Fin Evaluar Periodo Gracia
 
            with IBQuery do
            begin

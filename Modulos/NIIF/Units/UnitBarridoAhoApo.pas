@@ -424,7 +424,7 @@ begin
        end;
 
 // Busco Consecutivo Comprobante
-         Comprobante := ObtenerConsecutivo(IBSQL1,1);
+         Comprobante := ObtenerConsecutivoSinTipo(IBSQL1);
 // Fin Consecutivo Comprobante       
 
        with IBQuery1 do begin
@@ -592,7 +592,7 @@ begin
          IBQuery2.SQL.Add(':"ID_AGENCIA",:"ID_TIPO_CAPTACION",:"NUMERO_CUENTA",');
          IBQuery2.SQL.Add(':"DIGITO_CUENTA",:"FECHA_MOVIMIENTO",:"HORA_MOVIMIENTO",');
          IBQuery2.SQL.Add(':"ID_TIPO_MOVIMIENTO",:"DOCUMENTO_MOVIMIENTO",:"DESCRIPCION_MOVIMIENTO",');
-         IBQuery2.SQL.Add(':"VALOR_DEBITO",:"VALOR_CREDITO")');
+         IBQuery2.SQL.Add(':"VALOR_DEBITO",:"VALOR_CREDITO", :"ID")');
 
         with CDSTabla do begin
          while not Eof do begin
@@ -612,6 +612,7 @@ begin
               IBQuery2.ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Actualización Aportes Sociales';
               IBQuery2.ParamByName('VALOR_DEBITO').AsCurrency := FieldByName('VALOR_ABONADO').AsCurrency;
               IBQuery2.ParamByName('VALOR_CREDITO').AsCurrency := 0;
+              IBQuery2.ParamByName('ID').Clear;
               try
                 IBQuery2.ExecSQL;
               except
@@ -625,7 +626,7 @@ begin
               IBQuery2.ParamByName('ID_AGENCIA').AsInteger := FieldByName('ID_AGENCIA').AsInteger;
               IBQuery2.ParamByName('ID_TIPO_CAPTACION').AsInteger := 2;
               IBQuery2.ParamByName('NUMERO_CUENTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
-              IBQuery2.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(DigitoControl(2,Format('%.7d',[IBQuery1.FieldByName('NUMERO_CUENTA').AsInteger])));
+              IBQuery2.ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(DigitoControl(2,Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger])));
               IBQuery2.ParamByName('FECHA_MOVIMIENTO').AsDate := Date;
               IBQuery2.ParamByName('HORA_MOVIMIENTO').AsTime := Time;
               IBQuery2.ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 6;
@@ -633,6 +634,7 @@ begin
               IBQuery2.ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Actualización Aportes Sociales';
               IBQuery2.ParamByName('VALOR_DEBITO').AsCurrency := 0;
               IBQuery2.ParamByName('VALOR_CREDITO').AsCurrency := FieldByName('VALOR_ABONADO').AsCurrency;
+              IBQuery2.ParamByName('ID').Clear;
               try
                 IBQuery2.ExecSQL;
               except

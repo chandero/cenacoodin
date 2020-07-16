@@ -117,7 +117,7 @@ uses
   UnitBalance in 'units\UnitBalance.pas' {frmBalance},
   UnitNotasCoop in 'units\UnitNotasCoop.pas' {FrmNotasCoop},
   UnitLibroAsociados in 'units\UnitLibroAsociados.pas' {frmLibroAsociados},
-  UnitConsultaComprobantes in '\\Vboxsvr\sgft\NIIF\Modulos\Modulo NIIF\units\UnitConsultaComprobantes.pas' {frmConsultaComprobantes};
+  UnitConsultaComprobantes in 'units\UnitConsultaComprobantes.pas' {frmConsultaComprobantes};
 
 {$R *.res}
 
