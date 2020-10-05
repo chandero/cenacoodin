@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 360
-  Top = 137
+  Left = 330
+  Top = 131
   Width = 683
   Height = 393
   Caption = 'Modulo Captaciones - '
@@ -186,6 +186,10 @@ object frmMain: TfrmMain
       object CreacindeNuevaPersona1: TMenuItem
         Caption = '&Mantenimiento de Persona'
         OnClick = CreacindeNuevaPersona1Click
+      end
+      object ClonarPersona1: TMenuItem
+        Caption = 'Clonar Persona'
+        OnClick = ClonarPersona1Click
       end
       object ActualizarFechasdeVerificacindeDatos1: TMenuItem
         Caption = 'Actualizar Fechas de Verificaci'#243'n de Datos'
@@ -481,6 +485,7 @@ object frmMain: TfrmMain
         end
         object Bloqueadas1: TMenuItem
           Caption = 'Bloqueadas'
+          Visible = False
           OnClick = Bloqueadas1Click
         end
         object N16: TMenuItem
@@ -488,6 +493,7 @@ object frmMain: TfrmMain
         end
         object CuentasconTarjeta1: TMenuItem
           Caption = 'Tarjetas con Estado'
+          Visible = False
           OnClick = CuentasconTarjeta1Click
         end
         object N17: TMenuItem
@@ -496,10 +502,12 @@ object frmMain: TfrmMain
         object MovimientosdelDa1: TMenuItem
           Tag = 102050305
           Caption = 'Movimientos del D'#237'a'
+          Visible = False
           OnClick = MovimientosdelDa1Click
         end
         object Mnu050306: TMenuItem
           Caption = 'Saldos de Cuentas'
+          Visible = False
           OnClick = Mnu050306Click
         end
         object N23: TMenuItem
@@ -508,10 +516,12 @@ object frmMain: TfrmMain
         object ReportedePlsticos1: TMenuItem
           Tag = 102050307
           Caption = 'Reporte de Pl'#225'sticos'
+          Visible = False
           OnClick = ReportedePlsticos1Click
         end
         object ReportedeTarjetassinMovimiento1: TMenuItem
           Caption = 'Reporte de Tarjetas sin Movimiento'
+          Visible = False
           OnClick = ReportedeTarjetassinMovimiento1Click
         end
       end

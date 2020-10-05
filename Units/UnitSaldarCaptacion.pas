@@ -2267,6 +2267,36 @@ begin
                 Exit;
               end;
 
+              Close;
+              SQL.Clear;
+              SQL.Add('insert into "cap$extracto" values(');
+              SQL.Add(':"ID_AGENCIA",:"ID_TIPO_CAPTACION",:"NUMERO_CUENTA",');
+              SQL.Add(':"DIGITO_CUENTA",:"FECHA_MOVIMIENTO",:"HORA_MOVIMIENTO",');
+              SQL.Add(':"ID_TIPO_MOVIMIENTO",:"DOCUMENTO_MOVIMIENTO",:"DESCRIPCION_MOVIMIENTO",');
+              SQL.Add(':"VALOR_DEBITO",:"VALOR_CREDITO",:"ID")');
+              ParamByName('ID_AGENCIA').AsInteger := Agencia;
+              ParamByName('ID_TIPO_CAPTACION').AsInteger := DBLCBTiposCaptacion.KeyValue;
+              ParamByName('NUMERO_CUENTA').AsInteger := StrToInt(EdNumeroContractual.Text);
+              ParamByName('DIGITO_CUENTA').AsInteger := StrToInt(EdDigitoContractual.Caption);
+              ParamByName('FECHA_MOVIMIENTO').AsDate := Date;
+              ParamByName('HORA_MOVIMIENTO').AsTime := Time;
+              ParamByName('ID_TIPO_MOVIMIENTO').AsInteger := 12;
+              ParamByName('DOCUMENTO_MOVIMIENTO').AsString := Format('%.8d',[Comprobante]);
+              ParamByName('DESCRIPCION_MOVIMIENTO').AsString := 'Captacion Saldada No.' +
+                                                                IntToStr(DBLCBTiposCaptacion.KeyValue) + '-' +
+                                                                EdNumeroContractual.Text + '-' + EdDigitoContractual.Caption;
+              ParamByName('VALOR_DEBITO').AsCurrency := 0;
+              ParamByName('VALOR_CREDITO').AsCurrency := ValorCredito;
+              ParamByName('ID').AsInteger := 0;        
+              try
+                ExecQuery;
+                Close;
+              except
+                MessageDlg('Error abonando en Captacion',mtError,[mbcancel],0);
+                Transaction.Rollback;
+                Exit;
+              end;
+
             end;
 // Marcar Captacion Como Saldada
             SQL.Clear;

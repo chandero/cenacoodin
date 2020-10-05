@@ -280,12 +280,11 @@ end;
 
 procedure TFrmVencimientoCdat.Imprimir(cadena: string);
 begin
-        FrmImpresion := TFrmImpresion.Create(self);
         frReport1.LoadFromFile(cadena);
         frReport1.ModifyPrepared := False;
-        frReport1.Preview := FrmImpresion.frPreview1;
-        frReport1.ShowReport;
-        FrmImpresion.ShowModal
+        frReport1.Dictionary.Variables.Variable['EMPRESA'] := QuotedStr(Empresa);
+        if (frReport1.PrepareReport) then
+          frReport1.ShowPreparedReport;
 end;
 
 procedure TFrmVencimientoCdat.frReport1GetValue(const ParName: String;

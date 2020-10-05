@@ -361,6 +361,7 @@ Consec:string;
 MyCuotasLiq:TCuotasLiq;
 DescImpuesto : Currency;
 CodigoAhorros,CodigoCapital:string;
+_diasGracia: Integer;
 begin
   CmdAceptar.Enabled := False;
   Application.ProcessMessages;
@@ -454,6 +455,14 @@ if MessageDlg('Seguro de Realizar el Abono?',mtConfirmation,[mbYes,mbNo],0) = mr
           ExecSql;
           Close;
         end;
+
+      _diasGracia := 0;
+      SQL.Clear;
+      SQL.Add('SELECT * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO < 8');
+      ParamByName('ID_COLOCACION').AsString := colocacion;
+      Open;
+      _diasGracia := FieldByName('DIAS').AsInteger; 
+      Close;
 
       sql.Clear;
       sql.Add('update "col$colocacion" set ');

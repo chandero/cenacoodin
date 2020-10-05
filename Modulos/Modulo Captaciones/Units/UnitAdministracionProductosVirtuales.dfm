@@ -1,6 +1,6 @@
 object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
-  Left = 479
-  Top = 126
+  Left = 383
+  Top = 42
   Width = 688
   Height = 540
   Caption = 'Administraci'#243'n de Productos Virtuales'
@@ -350,7 +350,6 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       Width = 66
       Height = 17
       Caption = 'Activar'
-      Enabled = False
       TabOrder = 1
     end
     object edNopeATM: TJvIntegerEdit
@@ -991,7 +990,7 @@ object frmAdministracionProductosVirtuales: TfrmAdministracionProductosVirtuales
       0001000000000500417269616C00080000000200000000000000000001000200
       00000000FFFFFF000000000200000000000000FEFEFF0200000008002047656E
       6572616C0000000006004E4F4D425245000000000000000000000000FC000000
-      000000000000000000000000004D000717B6C7545DE340BD9E87CBCC68E540}
+      000000000000000000000000004D000717B6C7545DE340491E4E9B6C84E540}
   end
   object IBQvCuenta: TIBQuery
     Database = dmGeneral.IBDatabase1

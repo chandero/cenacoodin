@@ -1,6 +1,6 @@
 object frmLiquidacionCarteraJudicial: TfrmLiquidacionCarteraJudicial
-  Left = 412
-  Top = 86
+  Left = 405
+  Top = 18
   Width = 579
   Height = 596
   Caption = '.'
@@ -238,7 +238,7 @@ object frmLiquidacionCarteraJudicial: TfrmLiquidacionCarteraJudicial
         0404040404040404040404040404040404040404040404040404}
     end
     object CmdGrabar: TBitBtn
-      Left = 393
+      Left = 401
       Top = 6
       Width = 75
       Height = 25

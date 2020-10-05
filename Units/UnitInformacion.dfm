@@ -1,6 +1,6 @@
 object FrmInformacion: TFrmInformacion
-  Left = 433
-  Top = 29
+  Left = 314
+  Top = -4
   Width = 834
   Height = 702
   BorderIcons = [biSystemMenu]

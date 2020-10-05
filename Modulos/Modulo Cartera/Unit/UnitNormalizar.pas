@@ -112,10 +112,11 @@ begin
            IBQnormalizar.ParamByName('ID_COLOCACION').AsString := _vColocacion;
            IBQnormalizar.ExecSQL;
 
+
            IBQnormalizar.Close;
            IBQnormalizar.SQL.Clear;
            IBQnormalizar.SQL.Add('UPDATE COL_PERIODO_GRACIA SET ESTADO = :ESTADO, FECHA_CANCELADO = :FECHA_CANCELADO WHERE ID = :ID');
-           IBQnormalizar.ParamByName('ESTADO').AsInteger := 8;
+           IBQnormalizar.ParamByName('ESTADO').AsInteger := 1;
            IBQnormalizar.ParamByName('FECHA_CANCELADO').AsDateTime := Now;
            IBQnormalizar.ParamByName('ID').AsInteger := _vId;
            IBQnormalizar.ExecSQL;

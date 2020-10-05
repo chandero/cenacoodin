@@ -1,7 +1,7 @@
 object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
-  Left = 241
-  Top = 170
-  Width = 300
+  Left = 449
+  Top = 210
+  Width = 437
   Height = 203
   Caption = 'Listado General de Captaciones'
   Color = clBtnFace
@@ -19,7 +19,7 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 292
+    Width = 429
     Height = 133
     Align = alTop
     TabOrder = 0
@@ -132,13 +132,13 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
   object Panel2: TPanel
     Left = 0
     Top = 134
-    Width = 292
+    Width = 429
     Height = 35
     Align = alBottom
     Color = clOlive
     TabOrder = 1
     object CmdCerrar: TBitBtn
-      Left = 213
+      Left = 349
       Top = 4
       Width = 75
       Height = 25
@@ -190,11 +190,11 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
         1B1C010303030303031A1A1A1A1A1A1A0303011A1A1A1A1A1A1A}
     end
     object CmdVer: TBitBtn
-      Left = 122
+      Left = 2
       Top = 4
       Width = 85
       Height = 25
-      Caption = '&Ver Informe'
+      Caption = '&Procesar'
       TabOrder = 0
       OnClick = CmdVerClick
       Glyph.Data = {
@@ -240,6 +240,24 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
         0A0A0A0A0A0A0A0A050606090A0A00000000000000000A0A050606090A0A0404
         0303020202010A0A050606090A0A0A0A0A0A0A0A0A0A0A0A0506060909090909
         0909090909070707070606060606060606060606060606060606}
+    end
+    object BitBtn1: TBitBtn
+      Left = 91
+      Top = 4
+      Width = 75
+      Height = 25
+      Caption = 'A Excel'
+      TabOrder = 2
+      OnClick = BitBtn1Click
+    end
+    object btnReporte: TBitBtn
+      Left = 169
+      Top = 4
+      Width = 75
+      Height = 25
+      Caption = 'Reporte'
+      TabOrder = 3
+      OnClick = btnReporteClick
     end
   end
   object IBQuery1: TIBQuery
@@ -396,7 +414,7 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
     Left = 176
     Top = 30
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -1031,7 +1049,7 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
     Left = 230
     Top = 30
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -1842,7 +1860,7 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
     Left = 204
     Top = 30
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -2706,5 +2724,118 @@ object frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones
     Transaction = dmGeneral.IBTransaction1
     Left = 126
     Top = 62
+  end
+  object frReporteCap: TfrReport
+    Dataset = frDBDataSet1
+    InitialZoom = pzDefault
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    RebuildPrinter = False
+    Left = 80
+    Top = 72
+    ReportForm = {19000000}
+  end
+  object frDBDataSet1: TfrDBDataSet
+    DataSet = CDSdata
+    Left = 64
+    Top = 96
+  end
+  object CDSdata: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_AGENCIA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_TIPO_CAPTACION'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NUMERO_CUENTA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'DIGITO_CUENTA'
+        DataType = ftInteger
+      end
+      item
+        Name = 'SALDO_ACTUAL'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'ID_PERSONA'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'PRIMER_TITULAR'
+        DataType = ftString
+        Size = 500
+      end
+      item
+        Name = 'SEGUNDO_TITULAR'
+        DataType = ftString
+        Size = 500
+      end
+      item
+        Name = 'DIRECCION'
+        DataType = ftString
+        Size = 500
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 32
+    Top = 32
+    Data = {
+      200100009619E0BD01000000180000000900000000000300000020010A49445F
+      4147454E43494104000100000000001149445F5449504F5F434150544143494F
+      4E04000100000000000D4E554D45524F5F4355454E544104000100000000000D
+      44494749544F5F4355454E544104000100000000000C53414C444F5F41435455
+      414C080004000000010007535542545950450200490006004D6F6E6579000A49
+      445F504552534F4E4101004900000001000557494454480200020032000E5052
+      494D45525F544954554C4152020049000000010005574944544802000200F401
+      0F534547554E444F5F544954554C415202004900000001000557494454480200
+      0200F40109444952454343494F4E020049000000010005574944544802000200
+      F4010000}
+    object CDSdataID_AGENCIA: TIntegerField
+      FieldName = 'ID_AGENCIA'
+    end
+    object CDSdataID_TIPO_CAPTACION: TIntegerField
+      FieldName = 'ID_TIPO_CAPTACION'
+    end
+    object CDSdataNUMERO_CUENTA: TIntegerField
+      FieldName = 'NUMERO_CUENTA'
+    end
+    object CDSdataDIGITO_CUENTA: TIntegerField
+      FieldName = 'DIGITO_CUENTA'
+    end
+    object CDSdataSALDO_ACTUAL: TCurrencyField
+      FieldName = 'SALDO_ACTUAL'
+    end
+    object CDSdataID_PERSONA: TStringField
+      FieldName = 'ID_PERSONA'
+      Size = 50
+    end
+    object CDSdataPRIMER_TITULAR: TStringField
+      DisplayWidth = 200
+      FieldName = 'PRIMER_TITULAR'
+      Size = 500
+    end
+    object CDSdataSEGUNDO_TITULAR: TStringField
+      DisplayWidth = 200
+      FieldName = 'SEGUNDO_TITULAR'
+      Size = 500
+    end
+    object CDSdataDIRECCION: TStringField
+      DisplayWidth = 255
+      FieldName = 'DIRECCION'
+      Size = 500
+    end
+  end
+  object SD1: TSaveDialog
+    Left = 288
+    Top = 56
   end
 end

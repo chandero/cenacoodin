@@ -232,6 +232,11 @@ begin
            end;  // Fin de While
         end;
 
+        if (CDCuentas.RecordCount > 0) then
+        begin
+           btnReporte.Enabled := True;
+        end;
+
 end;
 
 procedure TfrmExencionGMFmod.FormKeyPress(Sender: TObject; var Key: Char);

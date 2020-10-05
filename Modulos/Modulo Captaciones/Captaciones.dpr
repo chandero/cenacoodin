@@ -149,7 +149,8 @@ uses
   UnitArchivoPlanoMovimientosTarjetas in 'Units\UnitArchivoPlanoMovimientosTarjetas.pas' {frmArchivoPlanoMovimientosTarjetas},
   UnitConciliacionBancariaServiciosVirtuales in 'Units\UnitConciliacionBancariaServiciosVirtuales.pas' {frmConciliacionBancariaServiciosVirtuales},
   UnitInformeContractualDescontadoUnaFecha in 'Units\UnitInformeContractualDescontadoUnaFecha.pas' {frmInformeContractualDescontadoUnaFecha},
-  UnitInformeCDATLiquidadoUnaFecha in 'Units\UnitInformeCDATLiquidadoUnaFecha.pas' {frmInformeCDATLiquidadoUnaFecha};
+  UnitInformeCDATLiquidadoUnaFecha in 'Units\UnitInformeCDATLiquidadoUnaFecha.pas' {frmInformeCDATLiquidadoUnaFecha},
+  UnitClonarPersona in 'Units\UnitClonarPersona.pas' {frmClonarPersona};
 
 {$R *.res}
 

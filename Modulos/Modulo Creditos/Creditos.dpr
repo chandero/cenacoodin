@@ -146,6 +146,5 @@ begin
   Application.Title := 'Creditos';
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmEditarEstudioSolicitud, frmEditarEstudioSolicitud);
   Application.Run;
 end.

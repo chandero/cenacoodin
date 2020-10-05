@@ -3408,6 +3408,17 @@ begin
                   (IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger = 3) then
                 Edad := 'E';
 
+            // Buscar días Gracias
+            with IBSQL4 do begin
+                Close;
+                SQL.Clear;
+                SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO < 8');
+                ParamByName('ID_COLOCACION').AsString := IBQuery1.FieldByName('ID_COLOCACION').AsString;
+                ExecQuery;
+                _diasGracia := FieldByName('DIAS').AsInteger;
+            end;
+            //
+
             // Insertar datos en tabla temporal
             with IBSQL4 do begin
                 Close;
@@ -3437,8 +3448,18 @@ begin
                 ParamByName('VALOR').AsCurrency := IBQuery1.FieldByName('VALOR_DESEMBOLSO').AsCurrency;
                 ParamByName('DEUDA').AsCurrency := IBQuery1.FieldByName('SALDO').AsCurrency;
                 ParamByName('ID_TIPO_CUOTA').AsInteger := IBQuery1.fieldbyname('ID_TIPO_CUOTA').AsInteger;
-                ParamByName('FECHA_CAPITAL').AsDate := IBQuery1.FieldByName('FECHA_CAPITAL').AsDateTime;
-                ParamByName('FECHA_INTERES').AsDate := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
+
+                // if (_diasGracia <> 0) then
+                // begin
+                //  ParamByName('FECHA_CAPITAL').AsDate := CalculoFecha(IBQuery1.FieldByName('FECHA_CAPITAL').AsDateTime, -_diasGracia);
+                //  ParamByName('FECHA_INTERES').AsDate := CalculoFecha(IBQuery1.FieldByName('FECHA_INTERES').AsDateTime, -_diasGracia);
+                // end
+                // else
+                begin
+                  ParamByName('FECHA_CAPITAL').AsDate := IBQuery1.FieldByName('FECHA_CAPITAL').AsDateTime;
+                  ParamByName('FECHA_INTERES').AsDate := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
+                end;
+
                 ParamByName('TIPOC_INTERES').AsString := IBQuery1.FieldByName('TIPOC_INTERES').AsString;
                 ParamByName('AMORTIZA_CAPITAL').AsInteger := IBQuery1.FieldByName('AMORTIZA_CAPITAL').AsInteger;
                 ParamByName('AMORTIZA_INTERES').AsInteger := IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger;
@@ -3785,7 +3806,7 @@ begin
                        Tasa := TasaNominalVencida(Tasa1,30);
                     end;
 //  Fin Tasa A Aplicar Causados
-            if _morosidad < 1 then
+            if _morosidad < DiasContingencia then
             begin
                _diasParaCausar := _diasParaCausar + _diasParaContingencia;
                _diasParaContingencia := 0;

@@ -122,7 +122,7 @@ begin
         IBQperiodogracia.SQL.Add('SELECT g.ID_COLOCACION, (p.NOMBRE || '' '' || p.PRIMER_APELLIDO || '' '' || p.SEGUNDO_APELLIDO) AS NOMBRE, g.FECHA_CAPITAL, g.FECHA_INTERES, g.FECHA_REGISTRO, g.DIAS, g.SE_CAUSA, g.ESTADO, g.ID FROM COL_PERIODO_GRACIA g');
         IBQperiodogracia.SQL.Add('INNER JOIN "col$colocacion" c ON c.ID_COLOCACION = g.ID_COLOCACION');
         IBQperiodogracia.SQL.Add('INNER JOIN "gen$persona" p ON p.ID_IDENTIFICACION = c.ID_IDENTIFICACION and p.ID_PERSONA = c.ID_PERSONA');
-        IBQperiodogracia.SQL.Add('WHERE c.ID_ESTADO_COLOCACION IN (0,1,2) AND g.ESTADO IN (0,8)');
+        IBQperiodogracia.SQL.Add('WHERE c.ID_ESTADO_COLOCACION IN (0,1,2) AND g.ESTADO IN (0,1,8) ORDER BY g.ID_COLOCACION ASC');
         IBQperiodogracia.Open;
 
         CDSperiodogracia.Open;

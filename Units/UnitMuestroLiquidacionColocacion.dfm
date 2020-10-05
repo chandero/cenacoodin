@@ -1,6 +1,6 @@
 object frmMuestroLiquidacionColocacion: TfrmMuestroLiquidacionColocacion
-  Left = 498
-  Top = 120
+  Left = 328
+  Top = 82
   Width = 693
   Height = 469
   Caption = 'Detalle de la Liquidaci'#243'n'

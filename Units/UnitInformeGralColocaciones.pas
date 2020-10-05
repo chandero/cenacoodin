@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, IBCustomDataSet, IBQuery, StdCtrls, Buttons, ComCtrls,
-  ExtCtrls, pr_Common, pr_TxClasses, DBClient;
+  ExtCtrls, pr_Common, pr_TxClasses, DBClient, DataSetToExcel;
 
 type
   TfrmInformeGralColocaciones = class(TForm)
@@ -43,6 +43,13 @@ type
     InformeColocaciones: TprTxReport;
     Label2: TLabel;
     Label3: TLabel;
+    IBQTablaENTE_APROBADOR: TStringField;
+    IBQTablaINVERSION: TStringField;
+    Panel2: TPanel;
+    btnExcel: TBitBtn;
+    btnReporte: TBitBtn;
+    IBQuery5: TIBQuery;
+    SD1: TSaveDialog;
     procedure EdFechaInicialEnter(Sender: TObject);
     procedure EdFechaInicialKeyPress(Sender: TObject; var Key: Char);
     procedure CmdAceptarClick(Sender: TObject);
@@ -50,6 +57,8 @@ type
     procedure EdFechaFinalEnter(Sender: TObject);
     procedure EdFechaFinalKeyPress(Sender: TObject; var Key: Char);
     procedure CmdCerrarClick(Sender: TObject);
+    procedure btnReporteClick(Sender: TObject);
+    procedure btnExcelClick(Sender: TObject);
   private
     procedure Empleado;
     { Private declarations }
@@ -147,6 +156,16 @@ begin
              IBQuery3.Open;
              IBQuery3.RecordCount;
 
+             IBQuery5.Close;
+             IBQuery5.SQL.Clear;
+             IBQuery5.SQL.Add('SELECT FIRST 1 e.DESCRIPCION_ENTE_APROBADOR, n.DESCRIPCION_INVERSION FROM "col$desembolsoparcial" dp ');
+             IBQuery5.SQL.Add('LEFT JOIN "col$solicitud" s ON s.ID_SOLICITUD = dp.ID_SOLICITUD');
+             IBQuery5.SQL.Add('LEFT JOIN "col$enteaprobador" e ON e.ID_ENTE_APROBADOR = s.ENTE_APROBADOR');
+             IBQuery5.SQL.Add('LEFT JOIN "col$inversion" n ON n.ID_INVERSION = s.INVERSION');
+             IBQuery5.SQL.Add('WHERE dp.ID_COLOCACION = :ID_COLOCACION');
+             IBQuery5.ParamByName('ID_COLOCACION').AsString := FieldByName('ID_COLOCACION').AsString;
+             IBQuery5.Open;
+
 
              IBQTabla.Append;
              IBQTabla.FieldByName('DESCRIPCION_AGENCIA').AsString := FieldByName('DESCRIPCION_AGENCIA').AsString;
@@ -167,25 +186,19 @@ begin
              IBQTabla.FieldByName('SALDO').AsInteger := FieldByName('SALDO_ACTUAL').AsInteger;
              IBQTabla.FieldByName('CAPITAL_PAGO_HASTA').AsDateTime := FieldByName('FECHA_CAPITAL').AsDateTime;
              IBQTabla.FieldByName('INTERES_PAGO_HASTA').AsDateTime := FieldByName('FECHA_INTERES').AsDateTime;
+             IBQTabla.FieldByName('ENTE_APROBADOR').AsString := IBQuery5.FieldByName('DESCRIPCION_ENTE_APROBADOR').AsString;
+             IBQTabla.FieldByName('INVERSION').AsString := IBQuery5.FieldByName('DESCRIPCION_INVERSION').AsString;
              IBQTabla.Post;
            Next;
            end;
            IBQuery2.Close;
            Ibquery3.Close;
+           IBQuery5.Close;
            Close;
          end;
 
-           InformeColocaciones.Variables.ByName['Empresa'].AsString := Empresa;
-           InformeColocaciones.Variables.ByName['Nit'].AsString := Nit;
-           InformeColocaciones.Variables.ByName['empleado'].AsString := Nombres + '    ' + Apellidos;
-           InformeColocaciones.Variables.ByName['Hoy'].AsDateTime := Date;
-
-           If InformeColocaciones.PrepareReport then
-            begin
-              frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
-              frmVistaPreliminar.Reporte := InformeColocaciones;
-              frmVistaPreliminar.ShowModal;
-            end;
+         btnReporte.Enabled := True;
+         btnExcel.Enabled := True;
 
 
 end;
@@ -227,6 +240,41 @@ end;
 procedure TfrmInformeGralColocaciones.CmdCerrarClick(Sender: TObject);
 begin
         Close;
+end;
+
+procedure TfrmInformeGralColocaciones.btnReporteClick(Sender: TObject);
+begin
+           InformeColocaciones.Variables.ByName['Empresa'].AsString := Empresa;
+           InformeColocaciones.Variables.ByName['Nit'].AsString := Nit;
+           InformeColocaciones.Variables.ByName['empleado'].AsString := Nombres + '    ' + Apellidos;
+           InformeColocaciones.Variables.ByName['Hoy'].AsDateTime := Date;
+
+           If InformeColocaciones.PrepareReport then
+            begin
+              frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
+              frmVistaPreliminar.Reporte := InformeColocaciones;
+              frmVistaPreliminar.ShowModal;
+            end;
+end;
+
+procedure TfrmInformeGralColocaciones.btnExcelClick(Sender: TObject);
+var
+  ExcelFile:TDataSetToExcel;
+begin
+        IBQTabla.Last;
+        IBQTabla.First;
+        SD1.Filter := 'Archivos Excel (*.xls)|*.XLS';
+        if SD1.Execute then
+        begin
+          ExcelFile := TDataSetToExcel.Create(IBQtabla,SD1.FileName);
+          ExcelFile.WriteFile;
+          ExcelFile.Free;
+          ShowMessage('Archivo Guardado');
+        end
+        else
+        begin
+          ShowMessage('No se pudo guardar el archivo');
+        end;
 end;
 
 end.

@@ -1,8 +1,8 @@
 object frmNormalizar: TfrmNormalizar
   Left = 195
-  Top = 27
+  Top = 0
   Width = 1036
-  Height = 669
+  Height = 664
   Caption = 'Normalizaci'#243'n de Colocaci'#243'n'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

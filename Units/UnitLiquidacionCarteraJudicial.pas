@@ -983,6 +983,22 @@ MovimientoAportes:Currency;
 SumTasa:Single;
 SumDias:Integer;
 Iva:Double;
+    _IdPeriodoGracia: Integer;
+    _queryGracia: TIBQuery;
+    _fechaInicioGracia, _fechaFinGracia: TDate;
+    _hayGracia: Boolean;
+    _diasGracia: Integer;
+    _diasCobradosGracia: Integer;
+    _diasEvaluadosGracia: Integer;
+    _diasCausados, _diasCorrientes, _diasAnticipados: Integer;
+    _valorCorriente, _valorAnticipado : Currency;
+    _diasAjustarCorriente, _diasAjustarAnticipado: Integer;
+    _diasDiferencia : Integer;
+    _valorAjustarCorriente, _valorAjustarAnticipado: Currency;
+    FechaCorte: TDate;
+    CodigoCausado: String;
+    CodigoCorriente: String;
+    CodigoAnticipado: String;    
 begin
         vTasaDevCob := 0;
         vTasaCobradoCausado := 0;
@@ -1100,6 +1116,17 @@ begin
            FechaIntAnt := FieldByName('FECHA_INTERES').AsDateTime;
            FechaCapAnt := FieldByName('FECHA_CAPITAL').AsDateTime;
            Close;
+
+           Close;
+           SQL.Clear;
+           SQL.Add('select * from COL$CODIGOSPUC where ID_CLASIFICACION = :ID_CLASIFICACION AND ID_GARANTIA = :ID_GARANTIA AND ID_CATEGORIA = :ID_CATEGORIA');
+           ParamByName('ID_CLASIFICACION').AsInteger := Clasificacion;
+           ParamByName('ID_GARANTIA').AsInteger := Garantia;
+           ParamByName('ID_CATEGORIA').AsString := Categoria;
+           ExecQuery;
+           CodigoCausado := FieldByName('COD_CXC').AsString;
+           CodigoAnticipado := FieldByName('COD_INT_ANT').AsString;
+           CodigoCorriente := FieldByName('COD_INT_MES').AsString;
         end;
 
         if EdNacional.Value > 0 then begin
@@ -1122,6 +1149,61 @@ begin
           ParamByName('ID_GARANTIA').AsInteger      := Garantia;
           ParamByName('ID_CATEGORIA').AsString     := Categoria;
           ExecQuery;
+
+/// causados
+   FechaCorte := fFechaActual;
+
+  _queryGracia := TIBQuery.Create(nil);
+  _queryGracia.Database := dmGeneral.IBDatabase1;
+  _queryGracia.Transaction := dmGeneral.IBTransaction1;
+
+  _queryGracia.Close;
+  _queryGracia.SQL.Clear;
+  _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA cpg ');
+  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO = 0');
+  _queryGracia.SQL.Add('ORDER BY cpg.FECHA_REGISTRO DESC ');
+  _queryGracia.ParamByName('ID_COLOCACION').AsString := EdNumeroColocacion.Text;
+  _queryGracia.Open;
+  _queryGracia.Last;
+  _queryGracia.First;
+  { Se inactiva por solicitud de coodin
+  if (_queryGracia.RecordCount > 0) then
+  begin
+     ShowMessage('No se puede liquidar una colocación con periodo de gracia sin haber sido Normalizada');
+     Exit;
+  end;
+  }
+
+  _queryGracia.Close;
+  _queryGracia.SQL.Clear;
+  _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA cpg ');
+  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO = 0');
+  _queryGracia.SQL.Add('ORDER BY cpg.FECHA_REGISTRO DESC ');
+  _queryGracia.ParamByName('ID_COLOCACION').AsString := EdNumeroColocacion.Text;
+  _queryGracia.Open;
+  _queryGracia.Last;
+  _queryGracia.First;
+  if (_queryGracia.RecordCount > 0) then
+  begin
+      _hayGracia := True;
+      _IdPeriodoGracia := _queryGracia.FieldByName('ID').AsInteger;
+      _fechaInicioGracia := _queryGracia.FieldByName('FECHA_INTERES').AsDateTime;
+      _diasGracia := _queryGracia.FieldByName('DIAS').AsInteger;
+      _diasCobradosGracia := _queryGracia.FieldByName('DIAS_COBRADOS').AsInteger;
+      _fechaFinGracia :=  CalculoFecha(_fechaInicioGracia, _diasGracia);
+  end
+  else
+  begin
+      _hayGracia := False;
+      _diasGracia := 0;
+      _diasCobradosGracia := 0;
+      _fechaInicioGracia := 0;
+      _fechaFinGracia := 0;
+  end;
+
+
+/// fin causados
+
 
         MyCuotasLiq.Lista := TList.Create;
         if vAbonoCapital <> 0 then
@@ -1494,6 +1576,141 @@ begin
         end;
 
 //
+
+// Evaluo si debo cruzar Corrientes con Causados
+
+
+          if (_diasGracia > _diasCobradosGracia) then
+          begin
+             _diasDiferencia := _diasGracia - _diasCobradosGracia;
+             if (_diasDiferencia > _diasCausados) then
+             begin
+                _diasDiferencia := _diasDiferencia - _diasCausados;
+                if (_diasDiferencia > _diasCorrientes) then
+                begin
+                   _diasAjustarCorriente := _diasCorrientes;
+                   _valorAjustarCorriente := _valorCorriente;
+                end
+                else
+                begin
+                   _diasAjustarCorriente := _diasCorrientes - _diasDiferencia;
+                   _valorAjustarCorriente := SimpleRoundTo(_valorCorriente * _diasAjustarCorriente / _diasCorrientes, 0);
+                end;
+                _diasDiferencia := _diasDiferencia  - _diasAjustarCorriente;
+                if (_diasDiferencia > _diasAnticipados) then
+                begin
+                   _diasAjustarAnticipado := _diasAnticipados;
+                   _valorAjustarAnticipado := _valorAnticipado;
+                end
+                else
+                begin
+                   _diasAjustarAnticipado := _diasAnticipados - _diasDiferencia;
+                   _valorAjustarAnticipado := SimpleRoundTo(_valorAnticipado * _diasAjustarAnticipado / _diasAnticipados, 0);
+                end;
+             end
+             else
+             begin
+               _diasCausados := _diasCausados - _diasDiferencia;
+               _diasAjustarCorriente := 0;
+               _diasAjustarAnticipado := 0;
+               _valorAjustarCorriente := 0;
+               _valorAjustarAnticipado := 0;
+             end;
+          end
+          else
+          begin
+              _diasCausados := 0;
+              _diasAjustarCorriente := 0;
+              _diasAjustarAnticipado := 0;
+              _valorAjustarCorriente := 0;
+              _valorAjustarAnticipado := 0;
+          end;
+
+          {
+          if (_diasAjustarCorriente > 0) then
+          begin
+               New(AR);
+             AR^.CuotaNumero := 0;
+             AR^.CodigoPuc   := CodigoCorriente;
+             AR^.FechaInicial := FechaCorte;
+             AR^.FechaFinal   := FechaCorte;
+             AR^.Dias         := _diasAjustarCorriente;
+             AR^.Tasa         := 0;
+             AR^.Debito       := _valorAjustarCorriente;
+             AR^.Credito      := 0;
+             AR^.EsCapital := False;
+             AR^.EsCausado := False;
+             AR^.EsCorriente := True;
+             AR^.EsVencido := False;
+             AR^.EsAnticipado := False;
+             AR^.EsDevuelto := False;
+             if (AR^.Debito <> 0) or
+                (AR^.Credito <> 0) then
+             MyCuotasLiq.Lista.Add(AR);
+
+             New(AR);
+             AR^.CuotaNumero := 0;
+             AR^.CodigoPuc   := CodigoCausado;
+             AR^.FechaInicial := FechaCorte;
+             AR^.FechaFinal   := FechaCorte;
+             AR^.Dias         := _diasAjustarCorriente;
+             AR^.Tasa         := 0;
+             AR^.Debito       := 0;
+             AR^.Credito      := _valorAjustarCorriente;
+             AR^.EsCapital := False;
+             AR^.EsCausado := True;
+             AR^.EsCorriente := False;
+             AR^.EsVencido := False;
+             AR^.EsAnticipado := False;
+             AR^.EsDevuelto := False;
+             if (AR^.Debito <> 0) or
+                (AR^.Credito <> 0) then
+             MyCuotasLiq.Lista.Add(AR);
+          end;
+
+          if (_diasAjustarAnticipado > 0) then
+          begin
+               New(AR);
+             AR^.CuotaNumero := 0;
+             AR^.CodigoPuc   := CodigoAnticipado;
+             AR^.FechaInicial := FechaCorte;
+             AR^.FechaFinal   := FechaCorte;
+             AR^.Dias         := _diasAjustarAnticipado;
+             AR^.Tasa         := 0;
+             AR^.Debito       := _valorAjustarAnticipado;
+             AR^.Credito      := 0;
+             AR^.EsCapital := False;
+             AR^.EsCausado := False;
+             AR^.EsCorriente := False;
+             AR^.EsVencido := False;
+             AR^.EsAnticipado := True;
+             AR^.EsDevuelto := False;
+             if (AR^.Debito <> 0) or
+                (AR^.Credito <> 0) then
+             MyCuotasLiq.Lista.Add(AR);
+
+             New(AR);
+             AR^.CuotaNumero := 0;
+             AR^.CodigoPuc   := CodigoCausado;
+             AR^.FechaInicial := FechaCorte;
+             AR^.FechaFinal   := FechaCorte;
+             AR^.Dias         := _diasAjustarAnticipado;
+             AR^.Tasa         := 0;
+             AR^.Debito       := 0;
+             AR^.Credito      := _valorAjustarAnticipado;
+             AR^.EsCapital := False;
+             AR^.EsCausado := True;
+             AR^.EsCorriente := False;
+             AR^.EsVencido := False;
+             AR^.EsAnticipado := False;
+             AR^.EsDevuelto := False;
+             if (AR^.Debito <> 0) or
+                (AR^.Credito <> 0) then
+             MyCuotasLiq.Lista.Add(AR);
+          end;
+          }
+// Fin Evaluar Periodo Gracia
+
 
 // Coloco Ahorros
          if vTotalAhorros > 0 then begin

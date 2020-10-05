@@ -1,6 +1,6 @@
 object frmCausacionCarteraDiaria: TfrmCausacionCarteraDiaria
-  Left = 325
-  Top = 100
+  Left = 285
+  Top = 125
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Causaci'#243'n de Colocaciones'

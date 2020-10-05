@@ -7339,28 +7339,10 @@ begin
   CodigoCausado := _queryGracia.FieldByName('COD_CXC').AsString;
   CodigoAnticipado := _queryGracia.FieldByName('COD_INT_ANT').AsString;
 
-
   _queryGracia.Close;
   _queryGracia.SQL.Clear;
   _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA cpg ');
-  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO = 0');
-  _queryGracia.SQL.Add('ORDER BY cpg.FECHA_REGISTRO DESC ');
-  _queryGracia.ParamByName('ID_COLOCACION').AsString := EdNumeroColocacion.Text;
-  _queryGracia.Open;
-  _queryGracia.Last;
-  _queryGracia.First;
-  { Se inactiva por solicitud de coodin
-  if (_queryGracia.RecordCount > 0) then
-  begin
-     ShowMessage('No se puede liquidar una colocación con periodo de gracia sin haber sido Normalizada');
-     Exit;
-  end;
-  }
-
-  _queryGracia.Close;
-  _queryGracia.SQL.Clear;
-  _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA cpg ');
-  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO = 8');
+  _queryGracia.SQL.Add('WHERE cpg.ID_COLOCACION = :ID_COLOCACION AND cpg.ESTADO < 8');
   _queryGracia.SQL.Add('ORDER BY cpg.FECHA_REGISTRO DESC ');
   _queryGracia.ParamByName('ID_COLOCACION').AsString := EdNumeroColocacion.Text;
   _queryGracia.Open;
@@ -7472,7 +7454,7 @@ begin
              if (_diasDiferencia > _diasCausados) then
              begin
                 _diasDiferencia := _diasDiferencia - _diasCausados;
-                if (_diasDiferencia > _diasCorrientes) then
+                if (_diasDiferencia >= _diasCorrientes) then
                 begin
                    _diasAjustarCorriente := _diasCorrientes;
                    _valorAjustarCorriente := _valorCorriente;
@@ -7483,7 +7465,7 @@ begin
                    _valorAjustarCorriente := SimpleRoundTo(_valorCorriente * _diasAjustarCorriente / _diasCorrientes, 0);
                 end;
                 _diasDiferencia := _diasDiferencia  - _diasAjustarCorriente;
-                if (_diasDiferencia > _diasAnticipados) then
+                if (_diasDiferencia >= _diasAnticipados) then
                 begin
                    _diasAjustarAnticipado := _diasAnticipados;
                    _valorAjustarAnticipado := _valorAnticipado;
@@ -7512,6 +7494,7 @@ begin
               _valorAjustarAnticipado := 0;
           end;
 
+          {
           if (_diasAjustarCorriente > 0) then
           begin
              New(AF);
@@ -7593,6 +7576,7 @@ begin
                 (AF^.Credito <> 0) then
              Lista.Add(AF);
           end;
+          }
 // Fin Evaluar Periodo Gracia
 
            with IBQuery do

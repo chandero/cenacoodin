@@ -1,6 +1,6 @@
 object FrmAnalisiscre: TFrmAnalisiscre
-  Left = 453
-  Top = 156
+  Left = 465
+  Top = 103
   Width = 585
   Height = 503
   AutoSize = True

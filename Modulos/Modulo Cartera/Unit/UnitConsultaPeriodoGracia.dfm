@@ -1,7 +1,7 @@
 object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
   Left = 87
   Top = 96
-  Width = 1209
+  Width = 1206
   Height = 521
   Caption = 'Colocaciones con Periodo de Gracia Activo'
   Color = clBtnFace
@@ -18,7 +18,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
   object GroupBox1: TGroupBox
     Left = 0
     Top = 0
-    Width = 1201
+    Width = 1198
     Height = 342
     Align = alClient
     Caption = 'Colocaciones con Periodo de Gracia'
@@ -26,7 +26,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
     object DBGperiodogracias: TDBGrid
       Left = 2
       Top = 15
-      Width = 1197
+      Width = 1194
       Height = 325
       Align = alClient
       DataSource = DSperiodogracia
@@ -89,7 +89,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
   object Panel1: TPanel
     Left = 0
     Top = 455
-    Width = 1201
+    Width = 1198
     Height = 32
     Align = alBottom
     Color = clOlive
@@ -202,7 +202,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
   object Panel2: TPanel
     Left = 0
     Top = 342
-    Width = 1201
+    Width = 1198
     Height = 113
     Align = alBottom
     TabOrder = 2
@@ -391,8 +391,8 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
         1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B1B}
     end
     object btnEliminar: TBitBtn
-      Left = 1085
-      Top = 4
+      Left = 925
+      Top = 84
       Width = 75
       Height = 25
       Caption = 'Quitar'
@@ -454,7 +454,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
     end
     object btnLimpiar: TBitBtn
       Left = 925
-      Top = 35
+      Top = 32
       Width = 75
       Height = 25
       Caption = 'Limpiar'
@@ -462,7 +462,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
       OnClick = btnLimpiarClick
     end
     object btnNormalizar: TButton
-      Left = 1085
+      Left = 5
       Top = 48
       Width = 75
       Height = 25
@@ -472,7 +472,7 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
       OnClick = btnNormalizarClick
     end
     object btnReversoNormalizar: TButton
-      Left = 1085
+      Left = 5
       Top = 77
       Width = 75
       Height = 25
@@ -482,8 +482,8 @@ object frmConsultaPeriodoGracia: TfrmConsultaPeriodoGracia
       OnClick = btnReversoNormalizarClick
     end
     object btnActualizar: TBitBtn
-      Left = 1005
-      Top = 4
+      Left = 925
+      Top = 60
       Width = 75
       Height = 25
       Caption = 'Actualizar'

@@ -3198,6 +3198,8 @@ vFechaGracia:TDate;
 DiasMora:Integer;
 Dia:Word;
 NFecha:TDateTime;
+_fechaInteresGracia, _fechaGracia : TDate;
+_diasGracia, _diasCorridosGracia, _estadoGracia : Integer;
 begin
         frmPantallaProgreso := TfrmProgreso.Create(Self);
 
@@ -3381,6 +3383,19 @@ begin
                   (IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger = 3) then
                 Edad := 'E';
 
+
+            // Buscar días Gracias
+            with IBSQL4 do begin
+                Close;
+                SQL.Clear;
+                SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO < 8');
+                ParamByName('ID_COLOCACION').AsString := IBQuery1.FieldByName('ID_COLOCACION').AsString;
+                ExecQuery;
+                _diasGracia := FieldByName('DIAS').AsInteger;
+                _estadoGracia := FieldByName('ESTADO').AsInteger;
+            end;
+            //
+
             // Insertar datos en tabla temporal
             with IBSQL4 do begin
                 Close;
@@ -3410,8 +3425,16 @@ begin
                 ParamByName('VALOR').AsCurrency := IBQuery1.FieldByName('VALOR_DESEMBOLSO').AsCurrency;
                 ParamByName('DEUDA').AsCurrency := IBQuery1.FieldByName('SALDO').AsCurrency;
                 ParamByName('ID_TIPO_CUOTA').AsInteger := IBQuery1.fieldbyname('ID_TIPO_CUOTA').AsInteger;
-                ParamByName('FECHA_CAPITAL').AsDate := IBQuery1.FieldByName('FECHA_CAPITAL').AsDateTime;
-                ParamByName('FECHA_INTERES').AsDate := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
+                // if (_diasGracia <> 0) then
+                // begin
+                //  ParamByName('FECHA_CAPITAL').AsDate := CalculoFecha(IBQuery1.FieldByName('FECHA_CAPITAL').AsDateTime, -_diasGracia);
+                //  ParamByName('FECHA_INTERES').AsDate := CalculoFecha(IBQuery1.FieldByName('FECHA_INTERES').AsDateTime, -_diasGracia);
+                //end
+                //else
+                begin
+                  ParamByName('FECHA_CAPITAL').AsDate := IBQuery1.FieldByName('FECHA_CAPITAL').AsDateTime;
+                  ParamByName('FECHA_INTERES').AsDate := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
+                end;
                 ParamByName('TIPOC_INTERES').AsString := IBQuery1.FieldByName('TIPOC_INTERES').AsString;
                 ParamByName('AMORTIZA_CAPITAL').AsInteger := IBQuery1.FieldByName('AMORTIZA_CAPITAL').AsInteger;
                 ParamByName('AMORTIZA_INTERES').AsInteger := IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger;
@@ -4716,15 +4739,22 @@ end;
 
 procedure TfrmCausacionCarteraDiaria.TercerPC;
 var AR:PList;
-    Valor,ValorCausado:Currency;
-    Codigo:string;
+    Valor,ValorCausado, ValorCausadoGracia:Currency;
+    Codigo, CodigoGraciaCausado, CodigoGraciaIngreso:string;
     Comercial,Consumo,Vivienda,Microcredito:Currency;
+    ComercialGracia,ConsumoGracia,ViviendaGracia,MicrocreditoGracia:Currency;
     Aplica :Boolean;
 begin
               Comercial    := 0;
               Consumo      := 0;
               Vivienda     := 0;
               Microcredito := 0;
+
+              ComercialGracia    := 0;
+              ConsumoGracia      := 0;
+              ViviendaGracia     := 0;
+              MicrocreditoGracia := 0;
+
               with IBSQL1 do begin
                 if Transaction.InTransaction then
                    Transaction.Rollback;
@@ -4741,6 +4771,7 @@ begin
                   raise;
                 end;
                 while not Eof do begin
+                // NO PERIODO DE GRACIA
                  IBSQL2.Close;
                  IBSQL2.SQL.Clear;
                  IBSQL2.SQL.Add('select SUM("col$causaciondiaria".CAUSADOS) AS CAUSADOS');
@@ -4748,6 +4779,7 @@ begin
                  IBSQL2.SQL.Add('where ID_CLASIFICACION = :ID_CLASIFICACION and ');
                  IBSQL2.SQL.Add('ID_ARRASTRE = :ID_CATEGORIA and');
                  IBSQL2.SQL.Add('FECHA_CORTE = :FECHA_CORTE');
+                 IBSQL2.SQL.Add(' AND ID_COLOCACION NOT IN (SELECT ID_COLOCACION FROM COL_PERIODO_GRACIA WHERE ESTADO IN (0))');
                  IBSQL2.ParamByName('ID_CLASIFICACION').AsInteger := FieldByName('ID_CLASIFICACION').AsInteger;
                  IBSQL2.ParamByName('ID_CATEGORIA').AsString := FieldByName('ID_EDAD').AsString;
                  IBSQL2.ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
@@ -4853,6 +4885,9 @@ begin
                      else if FieldByName('ID_CLASIFICACION').AsInteger = 4 then
                         Microcredito := Microcredito + ar^.credito - ar^.debito;
                      ActualizarGrid;
+
+
+
                      Next;
                 end; // while
                end;// with
@@ -4961,7 +4996,106 @@ begin
                    AR^.credito := 0;
                  end;
                  Lista.Add(AR);
+
+
                 end;
+
+                // PERIODO DE GRACIA
+                IBSQL1.Close;
+                IBSQL1.SQL.Clear;
+                IBSQL1.SQL.Add('SELECT * FROM "col$clasificacion" ORDER BY ID_CLASIFICACION');
+                IBSQL1.ExecQuery;
+
+                while not IBSQL1.Eof do
+                begin
+                     // CON PERIODO DE GRACIA
+                 IBSQL2.Close;
+                 IBSQL2.SQL.Clear;
+                 IBSQL2.SQL.Add('select SUM("col$causaciondiaria".CAUSADOS) AS CAUSADOS');
+                 IBSQL2.SQL.Add('from "col$causaciondiaria"');
+                 IBSQL2.SQL.Add('where ID_CLASIFICACION = :ID_CLASIFICACION and ');
+                 IBSQL2.SQL.Add('ID_ARRASTRE = :ID_CATEGORIA and');
+                 IBSQL2.SQL.Add('FECHA_CORTE = :FECHA_CORTE');
+                 IBSQL2.SQL.Add(' AND ID_COLOCACION IN (SELECT ID_COLOCACION FROM COL_PERIODO_GRACIA WHERE ESTADO IN (0))');
+                 IBSQL2.ParamByName('ID_CLASIFICACION').AsInteger := IBSQL1.FieldByName('ID_CLASIFICACION').AsInteger;
+                 IBSQL2.ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
+                 try
+                   IBSQL2.ExecQuery;
+                   if IBSQL2.RecordCount > 0 then
+                      ValorCausadoGracia := IBSQL2.FieldByName('CAUSADOS').AsCurrency
+                   else
+                      ValorCausadoGracia := 0;
+                 except
+                   MessageDlg('Error al Buscar Causados Gracia',mtError,[mbcancel],0);
+                   IBSQL1.Transaction.Rollback;
+                   raise;
+                   Exit;
+                 end;
+
+// Buscar y Comparar Valores
+// Buscar Codigo Puc
+                     IBSQL2.Close;
+                     IBSQL2.SQL.Clear;
+                     IBSQL2.SQL.Add('select CODIGO_CAUSACION, CODIGO_INGRESO');
+                     IBSQL2.SQL.Add('from COL_PERIODO_CODIGO where ID_CLASIFICACION = :ID_CLASIFICACION');
+                     IBSQL2.ParamByName('ID_CLASIFICACION').AsInteger := IBSQL1.FieldByName('ID_CLASIFICACION').AsInteger;
+                     try
+                      IBSQL2.ExecQuery;
+                      CodigoGraciaCausado := IBSQL3.FieldByName('CODIGO_CAUSACION').AsString;
+                      CodigoGraciaIngreso := IBSQL3.FieldByName('CODIGO_INGRESO').AsString;
+                     except
+                      MessageDlg('Error Buscando Codigos Interes Causado',mtError,[mbcancel],0);
+                      IBSQL1.Transaction.Rollback;
+                      raise;
+                      Exit;
+                     end;
+
+                     Aplica := False;
+                     if ValorCausadoGracia > 0 then
+                     begin
+                        IBSQL3.Close;
+                        IBSQL3.SQL.Clear;
+                        IBSQL3.SQL.Add('select NOMBRE from CON$PUC where CODIGO = :CODIGO');
+                        IBSQL3.ParamByName('CODIGO').AsString := CodigoGraciaCausado;
+                        IBSQL3.ExecQuery;
+                        New(AR);
+                        AR^.codigo := CodigoGraciaCausado;
+                        AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
+                        AR^.nocuenta := 0;
+                        AR^.nocredito := '';
+                        AR^.tipoide := 0;
+                        AR^.idpersona := '';
+                        AR^.monto := 0;
+                        AR^.tasa := 0;
+                        AR^.estado := 'O';
+                        AR^.debito := ValorCausadoGracia;
+                        AR^.credito := 0;
+                        Lista.Add(AR);
+                        IBSQL3.Close;
+                        IBSQL3.SQL.Clear;
+                        IBSQL3.SQL.Add('select NOMBRE from CON$PUC where CODIGO = :CODIGO');
+                        IBSQL3.ParamByName('CODIGO').AsString := CodigoGraciaIngreso;
+                        IBSQL3.ExecQuery;
+                        New(AR);
+                        AR^.codigo := CodigoGraciaIngreso;
+                        AR^.nomcuenta := IBSQL3.FieldByName('NOMBRE').AsString;
+                        AR^.nocuenta := 0;
+                        AR^.nocredito := '';
+                        AR^.tipoide := 0;
+                        AR^.idpersona := '';
+                        AR^.monto := 0;
+                        AR^.tasa := 0;
+                        AR^.estado := 'O';
+                        AR^.credito := ValorCausadoGracia;
+                        AR^.debito := 0;
+                        Lista.Add(AR);
+                        Aplica := True;
+                     end;
+                     ActualizarGrid;
+                 IBSQL1.Next;
+                     //
+                end;
+
 
                 Actualizargrid;
                 IBSQL1.Transaction.Commit;
@@ -9228,7 +9362,9 @@ var
     i,Ano,Mes,Dia,DiasCalc:Integer;
     AFechas:PFechasLiq;
     FechaDesembolso:TDate;
-    TasaViv:Double;         
+    TasaViv:Double;
+    _morosidad: Integer;
+    _diasGracia, _estadoGracia: Integer;
 begin
 // Recalcular dias y causacion
 
@@ -9241,10 +9377,10 @@ begin
 
 
             IBQuery1.SQL.Clear;
-            IBQuery1.SQL.Add('SELECT c.*, l.DIAS_PAGO FROM "col$causaciondiaria" c');
-            IBQuery1.SQL.Add('INNER JOIN COL_PERIODO_GRACIA p ON p.ID_COLOCACION = c.ID_COLOCACION');
+            IBQuery1.SQL.Add('SELECT c.*, l.DIAS_PAGO, l.ID_ESTADO_COLOCACION, l.ID_LINEA, p.DIAS AS DIAS_GRACIA, p.ESTADO FROM "col$causaciondiaria" c');
+            IBQuery1.SQL.Add('INNER JOIN COL_PERIODO_GRACIA p ON p.ID_COLOCACION = c.ID_COLOCACION AND p.ESTADO IN (0,2)');
             IBQuery1.SQL.Add('INNER JOIN "col$colocacion" l ON l.ID_COLOCACION = c.ID_COLOCACION');
-            IBQuery1.SQL.Add('WHERE c.FECHA_CORTE = :FECHA_CORTE AND p.FECHA_REGISTRO <= :FECHA_CORTE');
+            IBQuery1.SQL.Add('WHERE c.FECHA_CORTE = :FECHA_CORTE');
             IBQuery1.ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
             IBQuery1.Open;
             IBQuery1.Last;
@@ -9261,13 +9397,20 @@ begin
                 frmPantallaProgreso.Position := IBQuery1.RecNo;
                 Application.ProcessMessages;
                 FechaInicial := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
+                _diasGracia := IBQuery1.FieldByName('DIAS_GRACIA').AsInteger;
+                _estadoGracia := IBQuery1.FieldByName('ESTADO').AsInteger;
+                if (_diasGracia > 0) then
+                  if  (_estadoGracia = 0) then
+                  begin
+                    FechaInicial := CalculoFecha(FechaInicial, -_diasGracia);
+                  end;
                 FechaFinal := EdFechaCorte.Date;
                 Dias := DiasEntreFechas(IncDay(FechaInicial),FechaFinal,CalculoFecha(IBQuery1.FieldByName('FECHA_DESEMBOLSO').AsDateTime,IBQuery1.FieldByName('DIAS_PAGO').AsInteger));
                 if Dias < 0 then
-                  Dias := Dias + 2;
-
+                  Dias := 0;
                 Deuda := IBQuery1.FieldByName('DEUDA').AsCurrency;
                 Tasa1 := BuscoTasaEfectivaMaxima1(IBQVarios,EdFechaCorte.Date,IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,'A');
+                _morosidad := ObtenerDiasMoraCausacion(IBQuery1.FieldByName('ID_COLOCACION').AsString, IBQuery1.FieldByName('ID_ESTADO_COLOCACION').AsInteger, IBQuery1.FieldByName('ID_LINEA').AsInteger, IBQuery1.FieldByName('AMORTIZA_INTERES').AsInteger, IBQuery1.FieldByName('DIAS_PAGO').AsInteger, IBQUery1.FieldByName('FECHA_DESEMBOLSO').AsDateTime, IBQuery1.FieldByName('FECHA_INTERES').AsDateTime, FechaFinal,IBQuery1.FieldByName('TIPO_INTERES').AsString); // IBQuery1.FieldByName('MOROSIDAD').AsInteger;
                 _diasParaCausar := 0;
                 _diasParaContingencia := 0;
 
@@ -9285,12 +9428,13 @@ begin
               try
                 IBSQL3.ExecQuery;
                 DiasContingencia := IBSQL3.FieldByName('DIAS_INICIALES').AsInteger;
+                if _diasGracia > 0 then DiasContingencia := 999999;
               except
                 IBQuery1.Transaction.Rollback;
                 frmPantallaProgreso.Cerrar;
                 Exit;
               end;// try
-              Dias := IBQuery1.FieldByName('DIAS').AsInteger;
+              // Dias := IBQuery1.FieldByName('DIAS').AsInteger;
               DiasCorrientes := Dias;
 
               if IBQuery1.FieldByName('TIPOC_INTERES').AsString = 'V' then
@@ -9318,8 +9462,8 @@ begin
               // Evaluar Fechas
               if DiasCXC > 0 then
               begin
-                 FechaInicial := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
-                 FechaFinal := EdFechaCorte.Date;
+                 // FechaInicial := IBQuery1.FieldByName('FECHA_INTERES').AsDateTime;
+                 // FechaFinal := EdFechaCorte.Date;
                  ListaFechas := TList.Create;
                  if IBQuery1.FieldByName('ID_TIPO_CUOTA').AsInteger = 1 then
                     CalcularFechasLiquidarFija(FechaInicial,FechaFinal,FechaFinal,ListaFechas)
@@ -9462,6 +9606,17 @@ begin
                        Tasa := TasaNominalVencida(Tasa1,30);
                     end;
 //  Fin Tasa A Aplicar Causados
+//  Fin Tasa A Aplicar Causados
+            if _morosidad < DiasContingencia then
+            begin
+               _diasParaCausar := _diasParaCausar + _diasParaContingencia;
+               _diasParaContingencia := 0;
+            end;
+// Consultar los días de gracia solicitados y evaluar si se debe causar o no
+            if (_diasGracia > 0) and (_estadoGracia = 0) then
+            begin
+               if _diasParaCausar > 30 then _diasParaCausar := 30;
+            end;
             Causados := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaCausar,0);
             Contingentes := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaContingencia,0);
             DiasCXC := _diasParaCausar;

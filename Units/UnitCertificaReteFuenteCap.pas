@@ -83,16 +83,19 @@ var
    Tasa:Double;
    SaldoApo:Currency;
    SaldoAho:Currency;
+   SaldoSub:Currency;
    SaldoJuv:Currency;
    SaldoCon:Currency;
    SaldoCdat:Currency;
    IntPagAho:Currency;
+   IntPagSub:Currency;
    IntPagJuv:Currency;
    IntPagCon:Currency;
    IntPagCdat:Currency;
    SaldoCap:Currency;
    SaldoIntPag:Currency;
    SaldoRetFue:Currency;
+   SaldoRetFueSub: Currency;
    SaldoRetFueCon:Currency;
    SaldoRetFueCdat:Currency;
    SaldoRetFueJuv:Currency;
@@ -120,18 +123,22 @@ begin
 //   ShowMessage(IBDatabase1.DatabaseName);
    SaldoApo    := 0;
    SaldoCap    := 0;
+   SaldoSub    := 0;
    SaldoCre    := 0;
    SaldoIntPag := 0;
    SaldoRetFue := 0;
+   SaldoRetFueSub := 0;
    SaldoRetFueCon := 0;
    SaldoRetFueCdat := 0;
    SaldoRetFueJuv := 0;
    SaldoIntRec := 0;
    SaldoAho    := 0;
+   SaldoSub    := 0;
    SaldoJuv    := 0;
    SaldoCon    := 0;
    SaldoCdat   := 0;
    IntPagAho   := 0;
+   IntPagSub   := 0;
    IntPagJuv   := 0;
    IntPagCon   := 0;
    IntPagCdat  := 0;
@@ -254,6 +261,24 @@ begin
              SaldoRetFue := SaldoRetFue + IBSQL3.FieldByName('CREDITO').AsCurrency;
 
           end
+          else if Tipo = 3 then begin
+             SaldoSub := SaldoSub + IBSQL2.FieldByName('SALDO_ACTUAL').AsCurrency;
+             IBSQL3.Close;
+             IBSQL3.SQL.Clear;
+             IBSQL3.SQL.Add('select sum(VALOR_DEBITO) as DEBITO, sum(VALOR_CREDITO) as CREDITO from "cap$extracto" where');
+             IBSQL3.SQL.Add('ID_AGENCIA = :ID_AGENCIA AND ID_TIPO_CAPTACION = :TIPO AND NUMERO_CUENTA = :CUENTA AND');
+             IBSQL3.SQL.Add('DIGITO_CUENTA = :DIGITO AND ID_TIPO_MOVIMIENTO IN (7,8,15,16) AND');
+             IBSQL3.SQL.Add('FECHA_MOVIMIENTO BETWEEN :FECHA1 AND :FECHA2');
+             IBSQL3.ParamByName('ID_AGENCIA').AsInteger := Ag;
+             IBSQL3.ParamByName('TIPO').AsInteger := Tipo;
+             IBSQL3.ParamByName('CUENTA').AsInteger := Cuenta;
+             IBSQL3.ParamByName('DIGITO').AsInteger := Digito;
+             IBSQL3.ParamByName('FECHA1').AsDate := EncodeDate(StrToInt(EdAno.Text),01,01);
+             IBSQL3.ParamByName('FECHA2').AsDate := EncodeDate(StrToInt(EdAno.Text),12,31);
+             IBSQL3.ExecQuery;
+             IntPagSub := IntPagSub + IBSQL3.FieldByName('DEBITO').AsCurrency;
+             SaldoRetFueSub := SaldoRetFueSub + IBSQL3.FieldByName('CREDITO').AsCurrency;
+          end
           else if Tipo = 4 then begin
              SaldoJuv := SaldoJuv + IBSQL2.FieldByName('SALDO_ACTUAL').AsCurrency;
              IBSQL3.Close;
@@ -271,7 +296,6 @@ begin
              IBSQL3.ExecQuery;
              IntPagJuv := IntPagJuv + IBSQL3.FieldByName('DEBITO').AsCurrency;
              SaldoRetFueJuv := SaldoRetFueJuv + IBSQL3.FieldByName('CREDITO').AsCurrency;
-
           end
           else if Tipo = 5 then begin
              SaldoCon := SaldoCon + IBSQL2.FieldByName('SALDO_ACTUAL').AsCurrency;
@@ -308,7 +332,7 @@ begin
       CDCuentas.Append;
       CDCuentas.FieldByName('TIPO').AsString := 'Saldo Ahorro Diario';
       CDCuentas.FieldByName('MONTO').AsCurrency := SaldoAho;
-      CDCuentas.FieldByName('RETENCION').AsCurrency := SaldoRetFue;
+      CDCuentas.FieldByName('RETENCION').AsCurrency := 0;
       CDCuentas.Post;
     end;
 
@@ -316,7 +340,7 @@ begin
       CDCuentas.Append;
       CDCuentas.FieldByName('TIPO').AsString := 'Saldo Ahorro Juvenil';
       CDCuentas.FieldByName('MONTO').AsCurrency := SaldoJuv;
-      CDCuentas.FieldByName('RETENCION').AsCurrency := SaldoRetFueJuv;      
+      CDCuentas.FieldByName('RETENCION').AsCurrency := SaldoRetFueJuv;
       CDCuentas.Post;
     end;
 
@@ -324,7 +348,7 @@ begin
       CDCuentas.Append;
       CDCuentas.FieldByName('TIPO').AsString := 'Saldo Ahorro Contractual';
       CDCuentas.FieldByName('MONTO').AsCurrency := SaldoCon;
-      CDCuentas.FieldByName('RETENCION').AsCurrency := SaldoRetFueCon;
+      CDCuentas.FieldByName('RETENCION').AsCurrency := 0;
       CDCuentas.Post;
     end;
 
@@ -349,7 +373,7 @@ begin
          CDCuentas.Append;
          CDCuentas.FieldByName('TIPO').AsString := 'Saldo CDATS';
          CDCuentas.FieldByName('MONTO').AsCurrency := SaldoCdat;
-         CDCuentas.FieldByName('RETENCION').AsCurrency := SaldoRetFue;
+         CDCuentas.FieldByName('RETENCION').AsCurrency := 0;
          CDCuentas.Post;
        end;
      except
@@ -358,8 +382,8 @@ begin
      //Cambiar porceso y leer de la tabla de la dian ---*******------******-----******---
      CDCuentas.Append;
      CDCuentas.FieldByName('TIPO').AsString := 'Intereses Pagados y Causados';
-     CDCuentas.FieldByName('MONTO').AsCurrency := IntPagAho + IntPagJuv + IntPagCon + IntPagCdat;
-     CDCuentas.FieldByName('RETENCION').AsCurrency := 0;
+     CDCuentas.FieldByName('MONTO').AsCurrency := IntPagAho + IntPagSub + IntPagJuv + IntPagCon + IntPagCdat;
+     CDCuentas.FieldByName('RETENCION').AsCurrency := SaldoRetFue + SaldoRetFueSub + SaldoRetFueJuv + SaldoRetFueCon + SaldoRetFueCdat;
      CDCuentas.Post;
 
 {

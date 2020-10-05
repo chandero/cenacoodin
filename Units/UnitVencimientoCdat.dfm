@@ -1,6 +1,6 @@
 object FrmVencimientoCdat: TFrmVencimientoCdat
-  Left = 209
-  Top = 253
+  Left = 353
+  Top = 232
   Width = 379
   Height = 169
   BorderIcons = [biSystemMenu]

@@ -1,6 +1,6 @@
 object frmConsultaExtractoCaptacion: TfrmConsultaExtractoCaptacion
   Left = 308
-  Top = 159
+  Top = 32
   Width = 785
   Height = 560
   Caption = 'Consulta de Extractos'

@@ -1,11 +1,12 @@
 unit UnitListadoGeneralCaptaciones;
 
 interface
-
+    
 uses
   Windows, Messages, SysUtils, DateUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, DBCtrls, StdCtrls, ExtCtrls, DB, IBCustomDataSet,
-  IBQuery, Buttons, pr_Common, pr_TxClasses, pr_Parser, IBSQL, IBStoredProc;
+  IBQuery, Buttons, pr_Common, pr_TxClasses, pr_Parser, IBSQL, IBStoredProc,
+  FR_DSet, FR_DBSet, FR_Class, DBClient, DataSetToExcel;
 
 type
   TfrmListadoGeneralCaptaciones = class(TForm)
@@ -33,6 +34,21 @@ type
     ReporteCap: TprTxReport;
     ReporteCer: TprTxReport;
     ReporteCon: TprTxReport;
+    frReporteCap: TfrReport;
+    frDBDataSet1: TfrDBDataSet;
+    CDSdata: TClientDataSet;
+    CDSdataID_AGENCIA: TIntegerField;
+    CDSdataID_TIPO_CAPTACION: TIntegerField;
+    CDSdataNUMERO_CUENTA: TIntegerField;
+    CDSdataDIGITO_CUENTA: TIntegerField;
+    CDSdataID_PERSONA: TStringField;
+    CDSdataPRIMER_TITULAR: TStringField;
+    CDSdataSEGUNDO_TITULAR: TStringField;
+    CDSdataDIRECCION: TStringField;
+    CDSdataSALDO_ACTUAL: TCurrencyField;
+    BitBtn1: TBitBtn;
+    btnReporte: TBitBtn;
+    SD1: TSaveDialog;
     procedure FormShow(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdVerClick(Sender: TObject);
@@ -43,6 +59,8 @@ type
     procedure ReporteConUnknownVariable(Sender: TObject;
       const VarName: String; var Value: TprVarValue;
       var IsProcessed: Boolean);
+    procedure btnReporteClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     procedure CasoAhorros;
     procedure CasoContractual;
@@ -55,6 +73,7 @@ type
 var
   frmListadoGeneralCaptaciones: TfrmListadoGeneralCaptaciones;
   SaldoFinal,SaldoAnt:Currency;
+  _hoy: TDate;
 
 implementation
 
@@ -69,9 +88,10 @@ begin
         IBQuery1.Transaction.StartTransaction;
         IBQuery1.Open;
         IBQuery1.Last;
+        _hoy := fFechaActual;
         DBLCBTipoCaptacion.KeyValue := 1;
-        EdFechaInicial.Date := Date;
-        EdFechaFinal.Date := Date;
+        EdFechaInicial.Date := _hoy;
+        EdFechaFinal.Date := _hoy;
 end;
 
 procedure TfrmListadoGeneralCaptaciones.CmdCerrarClick(Sender: TObject);
@@ -89,6 +109,10 @@ begin
           Open;
         end;
 
+        CDSdata.Close;
+        CDSdata.Open;
+        CDSdata.EmptyDataSet;
+
         case DBLCBTipoCaptacion.KeyValue of
         1..4:CasoAhorros;
            5:CasoContractual;
@@ -104,11 +128,14 @@ var frmVistaPreliminar:TfrmVistaPreliminar;
     TablaTmp:string;
     Total:Integer;
     Saldo:Currency;
+    tp: Integer;
     Id:string;
     Titular:string;
     STitular:string;
     Tipo:Integer;
+    direccion: String;
 begin
+{
         TablaTmp := '"RptCap'+FloatToStr(Now)+'"';
         with IBSQL1 do begin
           Close;
@@ -131,7 +158,7 @@ begin
            Exit;
           end;
         end;
-
+}
         Tipo := DBLCBTipoCaptacion.KeyValue;
 
         with IBSQL1 do begin
@@ -186,10 +213,10 @@ begin
                                                                  Format('%.7d',[FieldByName('NUMERO_CUENTA').AsInteger]) + '-' +
                                                                  Format('%d',[FieldByName('DIGITO_CUENTA').AsInteger]);
 
-              Application.ProcessMessages;
+                Application.ProcessMessages;
                 IBSQL2.Close;
                 IBSQL2.SQL.Clear;
-                IBSQL2.SQL.Add('select "cap$maestrotitular".NUMERO_TITULAR,"cap$maestrotitular".ID_PERSONA, "gen$persona".PRIMER_APELLIDO,');
+                IBSQL2.SQL.Add('select "cap$maestrotitular".NUMERO_TITULAR,"cap$maestrotitular".ID_IDENTIFICACION, "cap$maestrotitular".ID_PERSONA, "gen$persona".PRIMER_APELLIDO,');
                 IBSQL2.SQL.Add('"gen$persona".SEGUNDO_APELLIDO, "gen$persona".NOMBRE from "cap$maestrotitular"');
                 IBSQL2.SQL.Add('left join "gen$persona" ON ("cap$maestrotitular".ID_IDENTIFICACION = "gen$persona".ID_IDENTIFICACION and');
                 IBSQL2.SQL.Add('"cap$maestrotitular".ID_PERSONA = "gen$persona".ID_PERSONA)');
@@ -205,11 +232,14 @@ begin
                 IBSQL2.ParamByName('TP').AsInteger := DBLCBTipoCaptacion.KeyValue;;
                 IBSQL2.ParamByName('CTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
                 IBSQL2.ParamByName('DG').AsInteger  := FieldByName('DIGITO_CUENTA').AsInteger;
+                Titular := '';
+                STitular := '';
                 try
                  IBSQL2.ExecQuery;
                  if IBSQL2.RecordCount > 0 then
                    while not IBSQL2.Eof do begin
                       if IBSQL2.FieldByName('NUMERO_TITULAR').AsInteger = 1 then begin
+                        tp := IBSQL2.FieldByName('ID_IDENTIFICACION').AsInteger;
                         Id := IBSQL2.FieldByName('ID_PERSONA').AsString;
                         Titular := IBSQL2.FieldByName('PRIMER_APELLIDO').AsString + ' ' +
                                    IBSQL2.FieldByName('SEGUNDO_APELLIDO').AsString + ' ' +
@@ -224,6 +254,7 @@ begin
                    end // while
                  else
                  begin
+                   tp := 0;
                    Id := '';
                    Titular := '';
                    STitular := '';
@@ -233,15 +264,69 @@ begin
                  raise;
                 end;// try
 
+                // buscar direccion
+                if (tp > 0) then
+                begin
+                  IBSQL2.Close;
+                  IBSQL2.SQL.Clear;
+                  IBSQL2.SQL.Add('SELECT FIRST 1 * FROM "gen$direccion" WHERE ID_IDENTIFICACION = :ID_IDENTIFICACION AND ID_PERSONA = :ID_PERSONA AND ID_DIRECCION = 1');
+                  IBSQL2.ParamByName('ID_IDENTIFICACION').AsInteger := tp;
+                  IBSQL2.ParamByName('ID_PERSONA').AsString := Id;
+                  IBSQL2.ExecQuery;
+                  if (IBSQL2.RecordCount > 0) then
+                  begin
+                     direccion := IBSQL2.FieldByName('DIRECCION').AsString + ' ' + IBSQL2.FieldByName('BARRIO').AsString + ' ' + IBSQL2.FieldByName('MUNICIPIO').AsString;
+                  end
+                  else
+                  begin
+                     direccion := '';
+                  end;
+                end
+                else
+                begin
+                  direccion := '';
+                end;
+                // fin direccion
+
+                // Buscar Saldo Actual
+                IBSQL2.Close;
+                IBSQL2.SQL.Clear;
+                IBSQL2.SQL.Add('SELECT * FROM SALDO_ACTUAL(:ID_AGENCIA,:ID_TIPO_CAPTACION,:NUMERO_CUENTA,:DIGITO_CUENTA,:ANO,:FECHA1,:FECHA2)');
+                IBSQL2.ParamByName('ID_AGENCIA').AsInteger := FieldByName('ID_AGENCIA').AsInteger;;
+                IBSQL2.ParamByName('ID_TIPO_CAPTACION').AsInteger := FieldByName('ID_TIPO_CAPTACION').AsInteger;
+                IBSQL2.ParamByName('NUMERO_CUENTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
+                IBSQL2.ParamByName('DIGITO_CUENTA').AsInteger := FieldByName('DIGITO_CUENTA').AsInteger;
+                IBSQL2.ParamByName('ANO').AsString := IntToStr(YearOf(_hoy));
+                IBSQL2.ParamByName('FECHA1').AsDate := EncodeDate(YearOf(_hoy),01,01);
+                IBSQL2.ParamByName('FECHA2').AsDate := EncodeDate(YearOf(_hoy),12,31);
+                try
+                  IBSQL2.ExecQuery;
+                  if IBSQL2.RecordCount < 1 then
+                   Saldo := 0
+                  else
+                   Saldo := IBSQL2.FieldByName('SALDO_ACTUAL').AsCurrency;
+                except
+                   Saldo := 0;
+                end;
+                // Fin Saldo Actual
+
+                CDSdata.Insert;
+                CDSdataID_AGENCIA.Value := FieldByName('ID_AGENCIA').AsInteger;
+                CDSdataID_TIPO_CAPTACION.Value := FieldByName('ID_TIPO_CAPTACION').AsInteger;
+                CDSdataNUMERO_CUENTA.Value := FieldByName('NUMERO_CUENTA').AsInteger;
+                CDSdataDIGITO_CUENTA.Value := FieldByName('DIGITO_CUENTA').AsInteger;
+                CDSdataID_PERSONA.Value := Id;
+                CDSdataPRIMER_TITULAR.Value := Titular;
+                CDSdataSEGUNDO_TITULAR.Value := STitular;
+                CDSdataDIRECCION.Value := direccion;
+                CDSdataSALDO_ACTUAL.Value := Saldo;
+                CDSdata.Post;
+
+                {
                 IBSQL2.Close;
                 IBSQL2.SQL.Clear;
                 IBSQL2.SQL.Add('insert into ' + TablaTmp + ' Values(');
                 IBSQL2.SQL.Add(':AG,:TP,:CTA,:DG,:ID,:T,:S,:ST)');
-{                IBSQL2.ParamByName('AG').AsInteger  := FieldByName('AG').AsInteger;
-                IBSQL2.ParamByName('TP').AsInteger  := DBLCBTipoCaptacion.KeyValue;
-                IBSQL2.ParamByName('CTA').AsInteger := FieldByName('NUMERO').AsInteger;
-                IBSQL2.ParamByName('DG').AsInteger  := FieldByName('DIGITO').AsInteger;
-}
                 IBSQL2.ParamByName('AG').AsInteger  := FieldByName('ID_AGENCIA').AsInteger;
                 IBSQL2.ParamByName('TP').AsInteger  := FieldByName('ID_TIPO_CAPTACION').AsInteger;
                 IBSQL2.ParamByName('CTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
@@ -249,7 +334,6 @@ begin
                 IBSQL2.ParamByName('ID').AsString   := Id;
                 IBSQL2.ParamByName('T').AsString    := Titular;
                 IBSQL2.ParamByName('ST').AsString   := STitular;
-//                IBSQL2.ParamByName('S').AsCurrency  := FieldByName('SALDO_ACTUAL').AsCurrency;
                 try
                  IBSQL2.ExecQuery;
                  IBSQL2.Transaction.CommitRetaining;
@@ -257,12 +341,13 @@ begin
                  frmProgreso.Cerrar;
                  raise;
                 end; // try
+                }
             Next;
            end; // while
           end; //with
           frmProgreso.Cerrar;
 
-
+        {
         IBQuery5.Close;
         IBQuery5.SQL.Clear;
         IBQuery5.SQL.Add('select * from '+ TablaTmp);
@@ -276,13 +361,13 @@ begin
         frmVistaPreliminar := TfrmVistaPreliminar.Create(Self);
         frmVistaPreliminar.Reporte := ReporteCap;
         frmVistaPreliminar.ShowModal;
-       
 
         IBSQL2.Close;
         IBSQL2.SQL.Clear;
         IBSQL2.SQL.Add('drop table ' + TablaTmp);
         IBSQL2.ExecQuery;
         IBSQL2.Transaction.Commit;
+        }
 end;
 
 procedure TfrmListadoGeneralCaptaciones.CasoContractual;
@@ -508,4 +593,38 @@ begin
 
 end;
 
+procedure TfrmListadoGeneralCaptaciones.btnReporteClick(Sender: TObject);
+begin
+        CDSdata.Last;
+        CDSdata.First;
+        frReporteCap.LoadFromFile('.\ReportesCap\InformeCaptacionFechaApertura.frf');
+        frReporteCap.Dictionary.Variables.Variable['EMPRESA'] := QuotedStr(Empresa);
+        if frReporteCap.PrepareReport then
+        begin
+           frReporteCap.ShowPreparedReport;
+        end;
+end;
+
+procedure TfrmListadoGeneralCaptaciones.BitBtn1Click(Sender: TObject);
+var
+  ExcelFile:TDataSetToExcel;
+begin
+        CDSdata.Last;
+        CDSdata.First;
+        SD1.Filter := 'Archivos Excel (*.xls)|*.XLS';
+        if SD1.Execute then
+        begin
+          ExcelFile := TDataSetToExcel.Create(CDSdata,SD1.FileName);
+          ExcelFile.WriteFile;
+          ExcelFile.Free;
+          ShowMessage('Archivo Guardado');
+        end
+        else
+        begin
+          ShowMessage('No se pudo guardar el archivo');
+        end;
+end;
+
 end.
+
+

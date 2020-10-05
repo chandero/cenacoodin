@@ -31,6 +31,5 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmLiquidacionCaptacion, dmLiquidacionCaptacion);
   Application.CreateForm(TFrmCierreMes, FrmCierreMes);
-  Application.CreateForm(TfrmProrrogaCaptacion, frmProrrogaCaptacion);
   Application.Run;
 end.
