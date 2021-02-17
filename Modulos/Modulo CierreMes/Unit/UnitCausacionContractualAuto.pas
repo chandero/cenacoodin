@@ -10,6 +10,7 @@ uses
 type
   Contractual = record
     Dias:Integer;
+    Tasa: Double;
     CausacionMensual :Currency;
     CausacionAcumulada: Currency;
     RetefuenteMensual: Currency;
@@ -70,6 +71,7 @@ type
     CdCodigosdescripcion: TStringField;
     IBcontractual: TIBQuery;
     IBAuxiliar: TIBQuery;
+    IBplancontractual: TIBQuery;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -78,7 +80,7 @@ type
     procedure Aplicar;
     procedure NotaC;    
     function BuscaFecha(_iNumeroCuenta: Integer): Tdate;
-    function vContractual(FechaApertura, FechaVencimiento: Tdate; Plazo: Smallint; Cuota,vCuota: Currency): Contractual;
+    function vContractual(FechaApertura, FechaVencimiento: Tdate; Plazo: Smallint; Cuota,vCuota: Currency; id_plan: Integer): Contractual;
     { Private declarations }
   public
 
@@ -109,6 +111,7 @@ uses UnitdmGeneral, UnitGlobales, UnitGlobalesCol, Math, DateUtils;
 
 procedure TfrmCausacionContractualAuto.ProcesarContractual;
 var     vFecha,vFechaFinal,vFechaPrueba,_dFechaVencimiento :TDate;
+   _contractual: Contractual;
 begin
         vTopeRetefuente := 1300;
         vFechaPrueba := _fechaProceso + 1;
@@ -176,13 +179,15 @@ begin
               _dFechaVencimiento := BuscaFecha(FieldByName('NUMERO_CUENTA').AsInteger);
               _bEstadoActivo := False;
             end;
+             _contractual := vContractual(FieldByName('FECHA_APERTURA').AsDateTime,_dFechaVencimiento,FieldByName('PLAZO').AsInteger,FieldByName('CUOTA').AsCurrency,FieldByName('VALOR_INICIAL').AsCurrency, FieldByName('ID_PLAN').AsInteger);
             CdContractual.Append;
             CdContractual.FieldValues['id_agencia'] := FieldByName('ID_AGENCIA').AsInteger;
             CdContractual.FieldValues['id_tipo_captacion'] := FieldByName('ID_TIPO_CAPTACION').AsInteger;
             CdContractual.FieldValues['numero_cuenta'] := FieldByName('NUMERO_CUENTA').AsInteger;
             CdContractual.FieldValues['digito_cuenta'] := FieldByName('DIGITO_CUENTA').AsInteger;
             CdContractual.FieldValues['id_plan'] := FieldByName('ID_PLAN').AsInteger;
-            CdContractual.FieldValues['cuota'] := FieldByName('CUOTA').AsCurrency;
+            // CdContractual.FieldValues['cuota'] := FieldByName('CUOTA').AsCurrency;
+            CdContractual.FieldValues['cuota'] := _contractual.Tasa;
             CdContractual.FieldValues['plazo'] := FieldByName('PLAZO').AsInteger;
             CdContractual.FieldValues['valor_inicial'] := FieldByName('VALOR_INICIAL').AsCurrency;
             CdContractual.FieldValues['fecha_apertura'] := FieldByName('FECHA_APERTURA').AsDateTime;
@@ -197,11 +202,11 @@ begin
             CdContractual.FieldValues['retefuente'] := FieldByName('RETEFUENTE').AsInteger;
             CdContractual.FieldValues['ano'] := YearOf(FechaCorte);
             CdContractual.FieldValues['mes'] := MonthOf(FechaCorte);
-            CdContractual.FieldValues['dias'] := vContractual(FieldByName('FECHA_APERTURA').AsDateTime,_dFechaVencimiento,FieldByName('PLAZO').AsInteger,FieldByName('CUOTA').AsCurrency,FieldByName('VALOR_INICIAL').AsCurrency).Dias;
-            CdContractual.FieldValues['causacion_mensual'] := vContractual(FieldByName('FECHA_APERTURA').AsDateTime,_dFechaVencimiento,FieldByName('PLAZO').AsInteger,FieldByName('CUOTA').AsCurrency,FieldByName('VALOR_INICIAL').AsCurrency).CausacionMensual;
-            CdContractual.FieldValues['causacion_acumulada'] := vContractual(FieldByName('FECHA_APERTURA').AsDateTime,_dFechaVencimiento,FieldByName('PLAZO').AsInteger,FieldByName('CUOTA').AsCurrency,FieldByName('VALOR_INICIAL').AsCurrency).CausacionAcumulada;
-            CdContractual.FieldValues['retefuente_mensual'] := vContractual(FieldByName('FECHA_APERTURA').AsDateTime,_dFechaVencimiento,FieldByName('PLAZO').AsInteger,FieldByName('CUOTA').AsCurrency,FieldByName('VALOR_INICIAL').AsCurrency).RetefuenteMensual;
-            CdContractual.FieldValues['retefuente_acumulada'] := vContractual(FieldByName('FECHA_APERTURA').AsDateTime,_dFechaVencimiento,FieldByName('PLAZO').AsInteger,FieldByName('CUOTA').AsCurrency,FieldByName('VALOR_INICIAL').AsCurrency).RetefuenteAcumulada;
+            CdContractual.FieldValues['dias'] := _contractual.Dias;
+            CdContractual.FieldValues['causacion_mensual'] := _contractual.CausacionMensual;
+            CdContractual.FieldValues['causacion_acumulada'] := _contractual.CausacionAcumulada;
+            CdContractual.FieldValues['retefuente_mensual'] := _contractual.RetefuenteMensual;
+            CdContractual.FieldValues['retefuente_acumulada'] := _contractual.RetefuenteAcumulada;
             CdContractual.Post;
             except
             on e: Exception do
@@ -243,6 +248,9 @@ begin
         
         IBcontractual.Database := dmGeneral.IBDatabase1;
         IBcontractual.Transaction := _transaction;
+
+        IBplancontractual.Database := dmGeneral.IBDatabase1;
+        IBplancontractual.Transaction := _transaction;
 
         IBSComprobante.Database := dmGeneral.IBDatabase1;
         IBSComprobante.Transaction := _transaction;
@@ -307,7 +315,7 @@ begin
 end;
 
 function TFrmCausacionContractualAuto.vContractual(FechaApertura,
-  FechaVencimiento: Tdate; Plazo: Smallint; Cuota,vCuota: Currency): Contractual;
+  FechaVencimiento: Tdate; Plazo: Smallint; Cuota, vCuota: Currency; id_plan: Integer): Contractual;
 var
         Vcausacion :Currency;
         Dia,Dia1,Mes,Ano :Smallint;
@@ -319,13 +327,22 @@ var
         vMesesAcumula :Integer;
         vFechaApertura :TDate;
         vMesesAcumulado :Smallint;
-        AnoVencimiento,MesVencimiento :Integer;
+        AnoVencimiento,MesVencimiento, _amortizacion :Integer;
+        _tasae, _tasan: Double;
 begin
         vCausacionMensual := 0;
         vCausacionAcumulada := 0;
         vRetefuenteAcumulada := 0;
         vRetefuenteMensual := 0;
-        Vcausacion := ((Cuota * vCuota)/Plazo);
+        IBplancontractual.Close;
+        IBplancontractual.ParamByName('ID_PLAN').AsInteger := id_plan;
+        IBplancontractual.Open;
+        _tasae := IBplancontractual.FieldByName('TASA').AsFloat;
+        if (Plazo > 360) then _amortizacion := 360 else _amortizacion := Plazo;
+        _tasan := TasaNominalVencida(_tasae, _amortizacion);
+        IBplancontractual.Close;        
+        Vcausacion := ((vCuota * Plazo / 30) * _tasan / 100 / 360);
+        // Vcausacion := ((Cuota * vCuota)/Plazo);
         Dia := DayOf(FechaApertura);
         Dia1 := Dia;
         Mes := MonthOf(FechaApertura);
@@ -396,6 +413,7 @@ begin
         end;
         //end;
         Result.Dias := vDias;
+        Result.Tasa := _tasae;
         Result.CausacionMensual := SimpleRoundTo(vCausacionMensual,0);
         Result.CausacionAcumulada := SimpleRoundTo(vCausacionAcumulada,0);
         Result.RetefuenteMensual := SimpleRoundTo(vRetefuenteMensual,0);

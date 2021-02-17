@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 330
-  Top = 131
-  Width = 683
+  Left = 407
+  Top = 106
+  Width = 640
   Height = 393
   Caption = 'Modulo Captaciones - '
   Color = clBtnFace
@@ -24,7 +24,7 @@ object frmMain: TfrmMain
     000000000000000000000000000000000000000000000000000000000000}
   Menu = MainMenu
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poMainFormCenter
   WindowState = wsMaximized
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
@@ -36,7 +36,7 @@ object frmMain: TfrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 675
+    Width = 632
     Height = 39
     ButtonHeight = 36
     ButtonWidth = 55
@@ -454,6 +454,10 @@ object frmMain: TfrmMain
       object SorteoCumpleaos1: TMenuItem
         Caption = 'Sorteo Cumplea'#241'os'
         OnClick = SorteoCumpleaos1Click
+      end
+      object SorteoContractual1: TMenuItem
+        Caption = 'Sorteo Contractual'
+        OnClick = SorteoContractual1Click
       end
     end
     object Informes1: TMenuItem

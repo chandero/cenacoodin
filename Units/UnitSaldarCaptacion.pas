@@ -269,7 +269,7 @@ implementation
 
 {$R *.dfm}
 
-uses UnitdmCaptacion, unitGlobales, UnitdmGeneral, UnitEfectivoNota;
+uses UnitdmCaptacion, unitGlobales, UnitGlobalesCol, UnitdmGeneral, UnitEfectivoNota;
 
 procedure TfrmSaldarCaptacion.EdNumeroCerExit(Sender: TObject);
 var i:Integer;
@@ -617,9 +617,9 @@ end;
 procedure TfrmSaldarCaptacion.EdNumeroContractualExit(Sender: TObject);
 var
   _fechaApertura, _fechaVencimiento: TDate;
-  _plazo, _abonos: Integer;
+  _plazo, _abonos, _amortizacion: Integer;
   _tiempoUsado: Integer;
-  _cuota, _porcentaje: Double;
+  _cuota, _porcentaje, _tasan: Double;
   _bonificacion: Currency;
   _saldoactual: Currency;
   _fechaHoy: TDate;
@@ -728,8 +728,11 @@ begin
                  IBQuery1.ParamByName('TIEMPO').AsInteger := _tiempoUsado;
                  IBQuery1.Open;
                  _plazo := IBQuery1.FieldByName('PLAZO').AsInteger;
+                 if (_plazo > 360) then _amortizacion := 360 else _amortizacion := _plazo;
                  _porcentaje := IBQuery1.FieldByName('CUOTAS').AsFloat;
-                 _bonificacion := RoundTo(_cuota * _porcentaje, 0);
+                 // _bonificacion := RoundTo(_cuota * _porcentaje, 0);
+                 _tasan := TasaNominalVencida(_porcentaje, _amortizacion);
+                 _bonificacion :=  SimpleRoundTo(_saldoactual * (_tasan / 100) / 360 * _plazo,0);
                  EdBonificacionCon.Value := _bonificacion;
                  _totalapagar := _saldoactual + _bonificacion;
                  EdTotalAPagarCon.Value := _totalapagar;

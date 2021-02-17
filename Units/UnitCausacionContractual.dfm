@@ -1,6 +1,6 @@
 object FrmCausacionContractual: TFrmCausacionContractual
-  Left = 606
-  Top = 227
+  Left = 854
+  Top = 178
   Width = 345
   Height = 191
   BorderIcons = [biSystemMenu]
@@ -5025,5 +5025,19 @@ object FrmCausacionContractual: TFrmCausacionContractual
       Valid = 'IBAuxiliar.ID_COMPROBANTE'
       DetailBand = ReporteA.prTxHDetailBand2
     end
+  end
+  object IBplancontractual: TIBQuery
+    SQL.Strings = (
+      
+        'SELECT CUOTAS AS TASA FROM "cap$tiposplancontractual" WHERE ID_P' +
+        'LAN = :ID_PLAN')
+    Left = 112
+    Top = 112
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_PLAN'
+        ParamType = ptUnknown
+      end>
   end
 end

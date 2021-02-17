@@ -1,7 +1,7 @@
 object dmGeneral: TdmGeneral
   OldCreateOrder = False
-  Left = 308
-  Top = 128
+  Left = 312
+  Top = 132
   Height = 194
   Width = 171
   object IBDatabase1: TIBDatabase

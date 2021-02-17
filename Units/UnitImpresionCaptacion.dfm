@@ -1,6 +1,6 @@
 object frmImpresionCaptacion: TfrmImpresionCaptacion
-  Left = 392
-  Top = 150
+  Left = 535
+  Top = 190
   Width = 649
   Height = 349
   Caption = 'Impresi'#243'n de la Captaci'#243'n'
@@ -4157,7 +4157,7 @@ object frmImpresionCaptacion: TfrmImpresionCaptacion
       0000000000000000000000FC00002F00464F524D554C4152494F204445204150
       45525455524120592041435455414C495A4143494F4E204445204441544F530E
       00414C4558414E444552204352555A01003101003101003001003000004D00E5
-      4F558615AAE2402228CC88927FE540}
+      4F558615AAE2401A81C6115896E540}
   end
   object FormularioJ: TfrReport
     InitialZoom = pzDefault

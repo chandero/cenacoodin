@@ -66,6 +66,8 @@ type
     edFechaNota: TDateTimePicker;
     CDSdataCAPTACION: TStringField;
     CDSdataREVERSO: TBooleanField;
+    Label7: TLabel;
+    edJuvenil: TJvCurrencyEdit;
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure CmdLiquidarClick(Sender: TObject);
     procedure btnExcelClick(Sender: TObject);
@@ -159,9 +161,10 @@ var
 
     vTotalGanadiario: Currency;
     vTotalSubCuenta: Currency;
+    vTotalJuvenil: Currency;
 
     vTotalTemporal: Currency;
-    CodigoGanadiario, CodigoSubcuenta, CodigoCaja, CodigoTemporal, CodigoComision: String;
+    CodigoGanadiario, CodigoSubcuenta, CodigoJuvenil, CodigoCaja, CodigoTemporal, CodigoComision: String;
 
     vTotalNota: Currency;
 
@@ -176,6 +179,7 @@ begin
         vTotalCreditoGmf := 0;
         vTotalGanadiario := 0;
         vTotalSubCuenta := 0;
+        vTotalJuvenil := 0;
         vTotalCajaDebito := 0;
         vTotalCajaCredito := 0;
 
@@ -280,6 +284,11 @@ begin
                          IF vTipoAH = '3' THEN
                          BEGIN
                             vTotalSubCuenta := vTotalSubCuenta - vValor;
+                         END
+                         ELSE
+                         IF vTipoAH = '4' THEN
+                         BEGIN
+                            vTotalJuvenil := vTotalJuvenil - vValor;
                          END;
                          IF vCanal = 'OFI' THEN
                          BEGIN
@@ -325,7 +334,12 @@ begin
                          IF vTipoAH = '3' THEN
                          BEGIN
                             vTotalSubCuenta := vTotalSubCuenta + vValor;
-                         END ;
+                         END
+                         ELSE
+                         IF vTipoAH = '4' THEN
+                         BEGIN
+                            vTotalJuvenil := vTotalJuvenil + vValor;
+                         END;
                          IF vCanal = 'OFI' THEN
                          BEGIN
                            if (not AnsiContainsText(vDescripcion, 'Transferencia')) and (vDispositivo = 'PROPIO') then
@@ -385,6 +399,11 @@ begin
                            IF vTipoAH = '3' THEN
                            BEGIN
                               vTotalSubCuenta := vTotalSubCuenta - vComision;
+                           END
+                           ELSE
+                           IF vTipoAH = '4' THEN
+                           BEGIN
+                              vTotalJuvenil := vTotalJuvenil - vComision;
                            END;
                        //
                        END;
@@ -415,6 +434,11 @@ begin
                             vTotalGanadiario := vTotalGanadiario + vGmf;
                          END
                          ELSE
+                         IF vTipoAH = '4' THEN
+                         BEGIN
+                            vTotalJuvenil := vTotalJuvenil + vGmf;
+                         END
+                         ELSE
                          IF vTipoAH = '3' THEN
                          BEGIN
                             vTotalSubCuenta := vTotalSubCuenta + vGmf;
@@ -428,6 +452,11 @@ begin
                          IF vTipoAH = '2' THEN
                          BEGIN
                             vTotalGanadiario := vTotalGanadiario - vGmf;
+                         END
+                         ELSE
+                         IF vTipoAH = '4' THEN
+                         BEGIN
+                            vTotalJuvenil := vTotalJuvenil - vGmf;
                          END
                          ELSE
                          IF vTipoAH = '3' THEN
@@ -583,12 +612,12 @@ begin
         END;
 
 
-        vTotalMovimiento := vTotalGanadiario + vTotalSubCuenta;
+        vTotalMovimiento := vTotalGanadiario + vTotalJuvenil + vTotalSubCuenta;
         vTotalComision := vTotalDebitoComision - vTotalCreditoComision;
         vTotalGmf := vTotalDebitoGmf - vTotalCreditoGmf;
         vTotalCaja := vTotalCajaDebito - vTotalCajaCredito;
 
-        vTotalTemporal := vTotalCaja - vTotalComision - vTotalGanadiario - vTotalSubCuenta;
+        vTotalTemporal := vTotalCaja - vTotalComision - vTotalGanadiario - vTotalJuvenil - vTotalSubCuenta;
         vTotalTemporal := vTotalTemporal * -1;
         edMovimiento.Value := vTotalTemporal;
         edComision.Value := vTotalComision;
@@ -596,6 +625,7 @@ begin
         edCaja.Value := vTotalCaja;
 
         edGanadiario.Value := vTotalGanadiario;
+        edJuvenil.Value := vTotalJuvenil;
         edSubCuenta.Value := vTotalSubCuenta;
 
         btnExcel.Enabled := True;
@@ -622,12 +652,6 @@ begin
         CodigoCaja := IBQCuenta.FieldByName('CODIGO').AsString;
         IBQCuenta.Close;
         IBQCuenta.SQL.Clear;
-        IBQCuenta.SQL.Add('SELECT r.CODIGO FROM COL$CODIGOSPUCBASICOS r WHERE r.ID_CODIGOPUCBASICO = :ID_CODIGO');
-        IBQCuenta.ParamByName('ID_CODIGO').AsInteger := 1;
-        IBQCuenta.Open;
-        CodigoCaja := IBQCuenta.FieldByName('CODIGO').AsString;
-        IBQCuenta.Close;
-        IBQCuenta.SQL.Clear;
         IBQCuenta.SQL.Add('SELECT r.CODIGO_CONTABLE FROM "cap$tipocaptacion" r WHERE r.ID_TIPO_CAPTACION = :ID_CODIGO');
         IBQCuenta.ParamByName('ID_CODIGO').AsInteger := 2;
         IBQCuenta.Open;
@@ -638,6 +662,13 @@ begin
         IBQCuenta.ParamByName('ID_CODIGO').AsInteger := 3;
         IBQCuenta.Open;
         CodigoSubcuenta := IBQCuenta.FieldByName('CODIGO_CONTABLE').AsString;
+        IBQCuenta.Close;
+        IBQCuenta.SQL.Clear;
+        IBQCuenta.SQL.Add('SELECT r.CODIGO_CONTABLE FROM "cap$tipocaptacion" r WHERE r.ID_TIPO_CAPTACION = :ID_CODIGO');
+        IBQCuenta.ParamByName('ID_CODIGO').AsInteger := 4;
+        IBQCuenta.Open;
+        CodigoJuvenil := IBQCuenta.FieldByName('CODIGO_CONTABLE').AsString;
+
 
 
 
@@ -726,6 +757,46 @@ begin
             FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
             Post;
             vTotalNota := vTotalNota + (-vTotalSubCuenta);
+           end;
+
+           if vTotalJuvenil > 0 then
+           begin
+            Append;
+            FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            FieldByName('ID_AGENCIA').AsInteger := Agencia;
+            FieldByName('FECHA').AsDateTime := EdFecha.Date;
+            FieldByName('CODIGO').AsString := CodigoJuvenil;
+            FieldByName('DEBITO').AsCurrency := 0;
+            FieldByName('CREDITO').AsCurrency := vTotalJuvenil;
+            FieldByName('ID_CUENTA').AsInteger :=0;
+            FieldByName('ID_COLOCACION').AsString := '';
+            FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+            FieldByName('ID_PERSONA').AsString := '';
+            FieldByName('MONTO_RETENCION').AsCurrency := 0;
+            FieldByName('TASA_RETENCION').AsFloat := 0;
+            FieldByName('ESTADOAUX').AsString := 'O';
+            FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+            Post;
+           end
+           else if vTotalJuvenil < 0 then
+           begin
+            Append;
+            FieldByName('ID_COMPROBANTE').AsInteger := Comprobante;
+            FieldByName('ID_AGENCIA').AsInteger := Agencia;
+            FieldByName('FECHA').AsDateTime := EdFecha.Date;
+            FieldByName('CODIGO').AsString := CodigoJuvenil;
+            FieldByName('DEBITO').AsCurrency := -vTotalJuvenil;
+            FieldByName('CREDITO').AsCurrency := 0;
+            FieldByName('ID_CUENTA').AsInteger := 0;
+            FieldByName('ID_COLOCACION').AsString := '';
+            FieldByName('ID_IDENTIFICACION').AsInteger := 0;
+            FieldByName('ID_PERSONA').AsString := '';
+            FieldByName('MONTO_RETENCION').AsCurrency := 0;
+            FieldByName('TASA_RETENCION').AsFloat := 0;
+            FieldByName('ESTADOAUX').AsString := 'O';
+            FieldByName('TIPO_COMPROBANTE').AsInteger := 1;
+            Post;
+            vTotalNota := vTotalNota + (-vTotalJuvenil);
            end;
 
            if vTotalCaja > 0 then

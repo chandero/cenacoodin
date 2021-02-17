@@ -136,7 +136,6 @@ uses
   UnitRegistroIncapacitados in '..\..\Units\UnitRegistroIncapacitados.pas' {FrmRegistroIncapacitados},
   UnitTarjetaSinMovimiento in '..\..\Units\UnitTarjetaSinMovimiento.pas' {frmTarjetaSinMovimiento},
   UnitRegistrarHuella in 'Units\UnitRegistrarHuella.pas' {frmRegistrarHuella},
-  UnitSorteoCumpleanhos in 'Units\UnitSorteoCumpleanhos.pas' {frmSorteoCumpleanhos},
   UnitSaldoPorRangos in 'Units\UnitSaldoPorRangos.pas' {frmSaldoPorRango},
   UnitArchivoTransacciones in 'Units\UnitArchivoTransacciones.pas' {frmArchivoTransacciones},
   UnitArchivoFinancieroAsociado in 'Units\UnitArchivoFinancieroAsociado.pas' {frmArchivoFinancieroAsociado},
@@ -150,7 +149,9 @@ uses
   UnitConciliacionBancariaServiciosVirtuales in 'Units\UnitConciliacionBancariaServiciosVirtuales.pas' {frmConciliacionBancariaServiciosVirtuales},
   UnitInformeContractualDescontadoUnaFecha in 'Units\UnitInformeContractualDescontadoUnaFecha.pas' {frmInformeContractualDescontadoUnaFecha},
   UnitInformeCDATLiquidadoUnaFecha in 'Units\UnitInformeCDATLiquidadoUnaFecha.pas' {frmInformeCDATLiquidadoUnaFecha},
-  UnitClonarPersona in 'Units\UnitClonarPersona.pas' {frmClonarPersona};
+  UnitClonarPersona in 'Units\UnitClonarPersona.pas' {frmClonarPersona},
+  UnitSorteoCumpleanhos in 'Units\UnitSorteoCumpleanhos.pas' {frmSorteoCumpleanhos},
+  UnitSorteContractual in '\\VBoxSvr\cena\cenacoodin\Modulos\Modulo Captaciones\Units\UnitSorteContractual.pas' {frmSorteoContractual};
 
 {$R *.res}
 

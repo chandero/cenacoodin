@@ -117,7 +117,9 @@ uses
   UnitBalance in 'units\UnitBalance.pas' {frmBalance},
   UnitNotasCoop in 'units\UnitNotasCoop.pas' {FrmNotasCoop},
   UnitLibroAsociados in 'units\UnitLibroAsociados.pas' {frmLibroAsociados},
-  UnitConsultaComprobantes in 'units\UnitConsultaComprobantes.pas' {frmConsultaComprobantes};
+  UnitConsultaComprobantes in 'units\UnitConsultaComprobantes.pas' {frmConsultaComprobantes},
+  UnitDocumentoEquivalente in 'units\UnitDocumentoEquivalente.pas' {frmDocumentoEquivalente},
+  UnitRelacionDocumentoEquivalente in 'units\UnitRelacionDocumentoEquivalente.pas' {frmRelacionDocumentoEquivalente};
 
 {$R *.res}
 

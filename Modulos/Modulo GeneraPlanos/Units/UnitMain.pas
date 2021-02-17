@@ -24,6 +24,7 @@ type
     GeneracinFormatoAportesF211: TMenuItem;
     GeneracinPlanoPosicinNetaPrivilegiados1: TMenuItem;
     GeneracinPlanoColocacinEvaluacin1: TMenuItem;
+    GeneracindePlanoColocacinPeriodoGracia1: TMenuItem;
     procedure Salir1Click(Sender: TObject);
     procedure GeneracinPlanoCaptaciones1Click(Sender: TObject);
     procedure GeneracinPlanoColocaciones1Click(Sender: TObject);
@@ -40,6 +41,8 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure GeneracinFormatoAportesF211Click(Sender: TObject);
     procedure GeneracinPlanoColocacinEvaluacin1Click(Sender: TObject);
+    procedure GeneracindePlanoColocacinPeriodoGracia1Click(
+      Sender: TObject);
   private
     { Private declarations }
   public
@@ -56,7 +59,7 @@ implementation
 {$R *.dfm}
 
 uses UnitGlobales,UnitReporteCaptacionesFogacoop,UnitReporteColocacionesFogacoop, UnitReporteColocacionesFogacoopEvaluacion, UnitCancelacionCdats, UnitCarteraFogacoop,
-  UnitdmGeneral, UnitReporteCdatFogacoop, UnitReportePersonasFogacoop,UnitReporteAportesFogacoop,
+  UnitdmGeneral, UnitReporteCdatFogacoop, UnitReportePersonasFogacoop, UnitReporteColocacionesPeriodoGraciaFogacoop, UnitReporteAportesFogacoop,
   UnitReporteBalance, UnitResumenProductos, UnitNivelIngresos, UnitAportesSociales_F21;
 
 procedure TfrmMain.Salir1Click(Sender: TObject);
@@ -189,6 +192,14 @@ var frmReporteColocacionesFogacoopEvaluacion :TfrmReporteColocacionesFogacoopEva
 begin
         frmReporteColocacionesFogacoopEvaluacion := TfrmReporteColocacionesFogacoopEvaluacion.Create(Self);
         frmReporteColocacionesFogacoopEvaluacion.ShowModal;
+end;
+
+procedure TfrmMain.GeneracindePlanoColocacinPeriodoGracia1Click(
+  Sender: TObject);
+var frmReporteColocacionesPeriodoGraciaFogacoop:TfrmReporteColocacionesPeriodoGraciaFogacoop;
+begin
+        frmReporteColocacionesPeriodoGraciaFogacoop := TfrmReporteColocacionesPeriodoGraciaFogacoop.Create(Self);
+        frmReporteColocacionesPeriodoGraciaFogacoop.ShowModal;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object frmCreacionCaptacion: TfrmCreacionCaptacion
-  Left = 485
-  Top = 99
+  Left = 473
+  Top = 41
   Width = 556
   Height = 595
   Caption = 'Creaci'#243'n de Captaciones'

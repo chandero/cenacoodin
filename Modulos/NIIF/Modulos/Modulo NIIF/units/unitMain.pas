@@ -120,6 +120,10 @@ type
     GenerarBalanceNIIFDirecto1: TMenuItem;
     Asociados1: TMenuItem;
     ConsultarComprobantes1: TMenuItem;
+    DocumentoEquivalente1: TMenuItem;
+    N19: TMenuItem;
+    Lista: TMenuItem;
+    Crear1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -198,6 +202,8 @@ type
     procedure GenerarBalanceNIIFDirecto1Click(Sender: TObject);
     procedure Asociados1Click(Sender: TObject);
     procedure ConsultarComprobantes1Click(Sender: TObject);
+    procedure Crear1Click(Sender: TObject);
+    procedure ListaClick(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -236,7 +242,8 @@ uses unitLogin, IniFiles,
      UnitCreaciondePersona, UnitPlanillaConsolidada, UnitBalanceporOficinas,
      UnitBalanceConsolidadoTxt, UnitExportarSaldos, UnitCambios, UnitExtractoCredito,
      UnitInformeEstadoIngresosGastos, UnitSincronizarPlanCuentasNIIF, unitMigraciondeNotasColgaap, UnitBalanceDirectoColgaapNiif,
-     UnitBalance, UnitAuxiliar, UnitMayorYBalance, UnitLibroAsociados, UnitConsultaComprobantes;
+     UnitBalance, UnitAuxiliar, UnitMayorYBalance, UnitLibroAsociados, UnitConsultaComprobantes, UnitDocumentoEquivalente,
+     UnitRelacionDocumentoEquivalente;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1000,6 +1007,22 @@ var
 begin
         frmConsultaComprobantes := TfrmConsultaComprobantes.Create(self);
         frmConsultaComprobantes.ShowModal;
+end;
+
+procedure TfrmMain.Crear1Click(Sender: TObject);
+var
+   frmDocumentoEquivalente: TfrmDocumentoEquivalente;
+begin
+        frmDocumentoEquivalente := TfrmDocumentoEquivalente.Create(self);
+        frmDocumentoEquivalente.ShowModal;
+end;
+
+procedure TfrmMain.ListaClick(Sender: TObject);
+var
+    frmRelacionDocumentoEquivalente : TfrmRelacionDocumentoEquivalente;
+begin
+    frmRelacionDocumentoEquivalente := TfrmRelacionDocumentoEquivalente.Create(Self);
+    frmRelacionDocumentoEquivalente.ShowModal;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 417
-  Top = 237
+  Left = 672
+  Top = 402
   Width = 420
   Height = 196
   Caption = 'Generaci'#243'n de Planos y Reportes'
@@ -46,6 +46,10 @@ object frmMain: TfrmMain
       object GeneracinPlanoColocacinEvaluacin1: TMenuItem
         Caption = 'Generaci'#243'n Plano Colocaci'#243'n Evaluaci'#243'n'
         OnClick = GeneracinPlanoColocacinEvaluacin1Click
+      end
+      object GeneracindePlanoColocacinPeriodoGracia1: TMenuItem
+        Caption = 'Generaci'#243'n de Plano Colocaci'#243'n Periodo Gracia'
+        OnClick = GeneracindePlanoColocacinPeriodoGracia1Click
       end
       object BalanceGeneral1: TMenuItem
         Caption = 'Generar Balance General'

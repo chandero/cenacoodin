@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   StrUtils, Dialogs, FR_Class, frOLEExl, FR_DSet, FR_DBSet, DB, DBClient,DataSetToExcel,
-  IBCustomDataSet, IBQuery, StdCtrls, Buttons, ComCtrls, Mask, ExtCtrls, DateUtils, UnitdmGeneral;
+  IBCustomDataSet, IBQuery, StdCtrls, Buttons, ComCtrls, Mask, ExtCtrls, DateUtils, UnitdmGeneral,
+  JvEdit, JvTypedEdit;
 
 type
   TfrmBalance = class(TForm)
@@ -13,7 +14,6 @@ type
     Label5: TLabel;
     Label4: TLabel;
     CBMeses: TComboBox;
-    EdAno: TMaskEdit;
     ProgressBar1: TProgressBar;
     Panel2: TPanel;
     CmdAceptar: TBitBtn;
@@ -65,6 +65,7 @@ type
     IBQTabla4ColDEBITO: TCurrencyField;
     IBQTabla4ColCREDITO: TCurrencyField;
     IBQTabla4ColSALDOACTUAL: TCurrencyField;
+    edAno: TJvYearEdit;
     procedure CmdAceptarClick(Sender: TObject);
     procedure IBQTablaCalcFields(DataSet: TDataSet);
     procedure IBQTabla1CalcFields(DataSet: TDataSet);
@@ -80,9 +81,9 @@ type
     procedure EdCodigoInicialKeyPress(Sender: TObject; var Key: Char);
     procedure CBNivelKeyPress(Sender: TObject; var Key: Char);
     procedure EdCodigoFinalKeyPress(Sender: TObject; var Key: Char);
-    procedure EdAnoKeyPress(Sender: TObject; var Key: Char);
     procedure btnAExcel1ColClick(Sender: TObject);
     procedure btnAExcel4ColClick(Sender: TObject);
+    procedure edAnoKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     function RightPad(value:string; length:integer=18;pad:char='0'):string;
@@ -485,11 +486,6 @@ begin
         EnterTabs(Key, Self);
 end;
 
-procedure TfrmBalance.EdAnoKeyPress(Sender: TObject; var Key: Char);
-begin
-        EnterTabs(Key, Self);
-end;
-
 procedure TfrmBalance.btnAExcel1ColClick(Sender: TObject);
 var
    ExcelFile : TDataSetToExcel;
@@ -521,6 +517,11 @@ end;
 function TfrmBalance.RightPad(value:string; length:integer=18;pad:char='0'):string;
 begin
      result := LeftStr(value + StringOfChar(pad,length) ,length);
+end;
+
+procedure TfrmBalance.edAnoKeyPress(Sender: TObject; var Key: Char);
+begin
+        EnterTabs(Key, Self);
 end;
 
 end.

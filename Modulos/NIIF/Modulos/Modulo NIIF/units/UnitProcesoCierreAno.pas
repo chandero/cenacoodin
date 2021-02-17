@@ -42,6 +42,9 @@ type
     GroupBox5: TGroupBox;
     Provisiones: TCheckBox;
     hi: TStaticText;
+    Panel3: TPanel;
+    Label2: TLabel;
+    edFechaCorte: TDateTimePicker;
     procedure FormShow(Sender: TObject);
     procedure BTimportarClick(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
@@ -68,7 +71,7 @@ procedure TfrmCierreAno.FormShow(Sender: TObject);
 begin
         Generado := False;
         DTfecha.Format := 'yyyy/MM/dd';
-        DTfecha.Date := fFechaActual;
+        DTfecha.Date := edFechaCorte.Date;
 
         with IBQuery1 do begin
          if Transaction.InTransaction then
@@ -97,7 +100,10 @@ var
    i :Integer;
    Total:Integer;
    frmProgreso:TfrmProgreso;
+   _fecha: TDate;
 begin
+
+        _fecha := edFechaCorte.Date;
         if Generado then begin
           MessageDlg('El Proceso de Fin de Año, ya fue Ejecutado',mtError,[mbok],0);
           BTimportar.Enabled := False;
@@ -281,9 +287,9 @@ begin
                IBSQL2.ParamByName('TIPO').AsInteger := FieldByName('ID_TIPO_CAPTACION').AsInteger;
                IBSQL2.ParamByName('CUENTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
                IBSQL2.ParamByName('DIGITO').AsInteger := FieldByName('DIGITO_CUENTA').AsInteger;
-               IBSQL2.ParamByName('ANO').AsInteger := YearOf(fFechaActual);
-               IBSQL2.ParamByName('FECHA1').AsDate := EncodeDate(YearOf(fFechaActual),01,01);
-               IBSQL2.ParamByName('FECHA2').AsDate := EncodeDate(YearOf(fFechaActual),12,31);
+               IBSQL2.ParamByName('ANO').AsInteger := YearOf(edFechaCorte.Date);
+               IBSQL2.ParamByName('FECHA1').AsDate := EncodeDate(YearOf(edFechaCorte.Date),01,01);
+               IBSQL2.ParamByName('FECHA2').AsDate := EncodeDate(YearOf(edFechaCorte.Date),12,31);
                try
                 IBSQL2.ExecQuery;
                except
@@ -301,7 +307,7 @@ begin
                IBSQL3.ParamByName('TIPO').AsInteger := FieldByName('ID_TIPO_CAPTACION').AsInteger;
                IBSQL3.ParamByName('CUENTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
                IBSQL3.ParamByName('DIGITO').AsInteger := FieldByName('DIGITO_CUENTA').AsInteger;
-               IBSQL3.ParamByName('ANO').AsInteger := YearOf(fFechaActual) + 1;
+               IBSQL3.ParamByName('ANO').AsInteger := YearOf(edFechaCorte.Date) + 1;
                IBSQL3.ParamByName('SALDOINICIAL').AsCurrency := IBSQL2.FieldByName('SALDO_ACTUAL').AsCurrency;
                try
                  IBSQL3.ExecQuery;
@@ -320,7 +326,7 @@ begin
                IBSQL3.ParamByName('TIPO').AsInteger := FieldByName('ID_TIPO_CAPTACION').AsInteger;
                IBSQL3.ParamByName('CUENTA').AsInteger := FieldByName('NUMERO_CUENTA').AsInteger;
                IBSQL3.ParamByName('DIGITO').AsInteger := FieldByName('DIGITO_CUENTA').AsInteger;
-               IBSQL3.ParamByName('ANO').AsInteger := YearOf(fFechaActual) + 1;
+               IBSQL3.ParamByName('ANO').AsInteger := YearOf(edFechaCorte.Date) + 1;
                IBSQL3.ParamByName('PERIODO').AsInteger := 1;
                IBSQL3.ParamByName('SALDOINICIAL').AsCurrency := IBSQL2.FieldByName('SALDO_ACTUAL').AsCurrency;
                try
@@ -352,7 +358,7 @@ begin
            Close;
            SQL.Clear;
            SQL.Add('SELECT * FROM P_COL_TRASLADO_PROVISION(:FECHA)');
-           ParamByName('FECHA').AsDate := EncodeDate(YearOf(fFechaActual),12,30);
+           ParamByName('FECHA').AsDate := EncodeDate(YearOf(edFechaCorte.Date),12,30);
            try
             Open;
            except
@@ -409,6 +415,8 @@ begin
    IBSQL1.Transaction := dmGeneral.IBTransaction1;
    IBSQL2.Transaction := dmGeneral.IBTransaction1;
    IBSQL3.Transaction := dmGeneral.IBTransaction1;
+
+   edFechaCorte.Date := fFechaActual;
 
 end;
 

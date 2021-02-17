@@ -1,6 +1,6 @@
 object frmSaldarCaptacion: TfrmSaldarCaptacion
-  Left = 575
-  Top = 77
+  Left = 485
+  Top = 65
   Width = 549
   Height = 560
   Caption = 'Saldar Captaciones'

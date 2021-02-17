@@ -1,8 +1,8 @@
 object frmCierreAno: TfrmCierreAno
   Left = 399
   Top = 164
-  Width = 317
-  Height = 447
+  Width = 347
+  Height = 478
   Caption = 'Proceso de Cierre de A'#241'o'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,14 +17,14 @@ object frmCierreAno: TfrmCierreAno
   TextHeight = 13
   object TLabel
     Left = 3
-    Top = 360
+    Top = 391
     Width = 90
     Height = 13
     Caption = 'Inicio del Proceso: '
   end
   object GroupBox1: TGroupBox
     Left = 0
-    Top = 40
+    Top = 71
     Width = 305
     Height = 81
     Caption = 'Tablas de Contabilidad'
@@ -73,9 +73,9 @@ object frmCierreAno: TfrmCierreAno
   end
   object Panel1: TPanel
     Left = -106
-    Top = 0
+    Top = 31
     Width = 411
-    Height = 36
+    Height = 41
     TabOrder = 1
     object Label1: TLabel
       Left = 133
@@ -101,7 +101,7 @@ object frmCierreAno: TfrmCierreAno
   end
   object GroupBox2: TGroupBox
     Left = 0
-    Top = 123
+    Top = 154
     Width = 305
     Height = 86
     Caption = 'Tablas de Caja'
@@ -158,7 +158,7 @@ object frmCierreAno: TfrmCierreAno
   end
   object GroupBox3: TGroupBox
     Left = 0
-    Top = 211
+    Top = 242
     Width = 305
     Height = 38
     Caption = 'Inicializacion de Tablas'
@@ -175,8 +175,8 @@ object frmCierreAno: TfrmCierreAno
   end
   object Panel2: TPanel
     Left = 0
-    Top = 378
-    Width = 309
+    Top = 409
+    Width = 339
     Height = 35
     Align = alBottom
     Color = clOlive
@@ -288,7 +288,7 @@ object frmCierreAno: TfrmCierreAno
   end
   object GroupBox4: TGroupBox
     Left = 0
-    Top = 249
+    Top = 280
     Width = 305
     Height = 64
     Caption = 'Saldos Iniciales Captaciones'
@@ -329,7 +329,7 @@ object frmCierreAno: TfrmCierreAno
   end
   object GroupBox5: TGroupBox
     Left = 0
-    Top = 320
+    Top = 351
     Width = 305
     Height = 33
     Caption = 'Cartera'
@@ -346,7 +346,7 @@ object frmCierreAno: TfrmCierreAno
   end
   object hi: TStaticText
     Left = 96
-    Top = 356
+    Top = 387
     Width = 124
     Height = 19
     AutoSize = False
@@ -357,6 +357,34 @@ object frmCierreAno: TfrmCierreAno
     Color = clWhite
     ParentColor = False
     TabOrder = 7
+  end
+  object Panel3: TPanel
+    Left = 0
+    Top = 0
+    Width = 305
+    Height = 33
+    TabOrder = 8
+    object Label2: TLabel
+      Left = 8
+      Top = 8
+      Width = 58
+      Height = 13
+      Caption = 'Fecha Corte'
+    end
+    object edFechaCorte: TDateTimePicker
+      Left = 80
+      Top = 5
+      Width = 95
+      Height = 21
+      CalAlignment = dtaLeft
+      Date = 44199.4119918866
+      Time = 44199.4119918866
+      DateFormat = dfShort
+      DateMode = dmComboBox
+      Kind = dtkDate
+      ParseInput = False
+      TabOrder = 0
+    end
   end
   object IBSQL1: TIBSQL
     Database = dmGeneral.IBDatabase1

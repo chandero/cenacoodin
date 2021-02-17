@@ -1055,6 +1055,8 @@ var i,Consecutivo:Integer;
     vGMF :Currency;
     vComprobante :Integer;
     _cTasaContractual :Currency;
+    _plazo, _amortizacion: Integer;
+    _porcentaje, _tasan: Double;
 begin
          FechaCorte := fFechaActual;
          TipoId := DBLCBTiposIdentificacionCont.Text;
@@ -1081,7 +1083,13 @@ begin
                 ExecQuery;
                 Cuotas := FieldByName('PLAZO').AsInteger div 30;
                 _cCuotas := Cuotas;
-                Incentivo := EdValorContractual.Value * FieldByName('CUOTAS').AsDouble;
+                // Incentivo := EdValorContractual.Value * FieldByName('CUOTAS').AsDouble;
+                 _plazo := FieldByName('PLAZO').AsInteger;
+                 if (_plazo > 360) then _amortizacion := 360 else _amortizacion := _plazo;
+                 _porcentaje := FieldByName('CUOTAS').AsFloat;
+                 // _bonificacion := RoundTo(_cuota * _porcentaje, 0);
+                 _tasan := TasaNominalVencida(_porcentaje, _amortizacion);
+                 Incentivo :=  SimpleRoundTo((EdValorContractual.Value * _cCuotas) * (_tasan / 100) / 360 * _plazo,0);
                 _cTasaContractual := FieldByName('CUOTAS').AsDouble;
                 Close;
                 SQL.Clear;

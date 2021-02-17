@@ -1,8 +1,8 @@
 object frmCausacionContractualAuto: TfrmCausacionContractualAuto
   Left = 574
   Top = 226
-  Width = 508
-  Height = 196
+  Width = 580
+  Height = 212
   Caption = 'Causaci'#243'n Contractual Autom'#225'tica'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -374,5 +374,19 @@ object frmCausacionContractualAuto: TfrmCausacionContractualAuto
     Transaction = dmGeneral.IBTransaction1
     Left = 392
     Top = 56
+  end
+  object IBplancontractual: TIBQuery
+    SQL.Strings = (
+      
+        'SELECT CUOTAS AS TASA FROM "cap$tiposplancontractual" WHERE ID_P' +
+        'LAN = :ID_PLAN')
+    Left = 296
+    Top = 96
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID_PLAN'
+        ParamType = ptUnknown
+      end>
   end
 end

@@ -1,6 +1,6 @@
 object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
-  Left = 302
-  Top = 207
+  Left = 266
+  Top = 203
   Width = 942
   Height = 301
   Caption = 'Conciliaci'#243'n Servicios Virtuales'
@@ -162,7 +162,7 @@ object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
       Visible = False
     end
     object Label4: TLabel
-      Left = 646
+      Left = 772
       Top = 6
       Width = 48
       Height = 13
@@ -188,11 +188,24 @@ object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
       ParentFont = False
     end
     object Label6: TLabel
-      Left = 520
+      Left = 646
       Top = 6
       Width = 80
       Height = 13
       Caption = 'Total SubCuenta'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 519
+      Top = 6
+      Width = 60
+      Height = 13
+      Caption = 'Total Juvenil'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
       Font.Height = -11
@@ -377,7 +390,7 @@ object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
       HasMinValue = False
     end
     object edCaja: TJvCurrencyEdit
-      Left = 645
+      Left = 771
       Top = 19
       Width = 121
       Height = 21
@@ -399,13 +412,24 @@ object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
       HasMinValue = False
     end
     object edSubCuenta: TJvCurrencyEdit
-      Left = 519
+      Left = 645
       Top = 19
       Width = 121
       Height = 21
       Alignment = taRightJustify
       ReadOnly = False
       TabOrder = 8
+      HasMaxValue = False
+      HasMinValue = False
+    end
+    object edJuvenil: TJvCurrencyEdit
+      Left = 518
+      Top = 19
+      Width = 121
+      Height = 21
+      Alignment = taRightJustify
+      ReadOnly = False
+      TabOrder = 9
       HasMaxValue = False
       HasMinValue = False
     end

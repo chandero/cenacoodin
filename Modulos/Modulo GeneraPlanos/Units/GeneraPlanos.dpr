@@ -20,12 +20,13 @@ uses
   Consts in '..\..\..\Units\Consts.pas',
   UnitPantallaProgreso in '..\..\..\Units\UnitPantallaProgreso.pas' {frmProgreso},
   UnitReporteAportesFogacoop in 'UnitReporteAportesFogacoop.pas' {frmReporteAportesFogacoop},
-  UnitReporteColocacionesFogacoop in 'UnitReporteColocacionesFogacoop.pas' {frmReporteColocacionesFogacoop},
+  UnitReporteColocacionesPeriodoGraciaFogacoop in 'UnitReporteColocacionesPeriodoGraciaFogacoop.pas' {frmReporteColocacionesPeriodoGraciaFogacoop},
   UnitReportePersonasFogacoop in 'UnitReportePersonasFogacoop.pas' {frmReportePersonasFogacoop},
   UnitVistaPreliminar in '..\..\..\Units\UnitVistaPreliminar.pas',
   UnitAportesSociales_F21 in 'UnitAportesSociales_F21.pas' {frmAportesSociales_F21},
   DataSetToExcel in '..\..\..\Units\DataSetToExcel.pas',
-  UnitReporteColocacionesFogacoopEvaluacion in '\\VBOXSVR\cena\cenacoodin\Modulos\Modulo GeneraPlanos\Units\UnitReporteColocacionesFogacoopEvaluacion.pas' {frmReporteColocacionesFogacoopEvaluacion};
+  UnitReporteColocacionesFogacoopEvaluacion in 'Units\UnitReporteColocacionesFogacoopEvaluacion.pas' {frmReporteColocacionesFogacoopEvaluacion},
+  UnitReporteColocacionesFogacoop in 'Units\UnitReporteColocacionesFogacoop.pas' {frmReporteColocacionesFogacoop};
 
 {$R *.res}
 
@@ -33,6 +34,5 @@ begin
   Application.Initialize;
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmReporteColocacionesFogacoopEvaluacion, frmReporteColocacionesFogacoopEvaluacion);
   Application.Run;
 end.

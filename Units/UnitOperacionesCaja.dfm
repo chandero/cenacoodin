@@ -1,6 +1,6 @@
 object frmOperacionesCaja: TfrmOperacionesCaja
-  Left = 358
-  Top = 60
+  Left = 295
+  Top = 88
   BorderIcons = []
   BorderStyle = bsDialog
   ClientHeight = 502
@@ -316,7 +316,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
       Top = 1
       Width = 101
       Height = 362
-      ActivePage = TabOpAgencias
+      ActivePage = TabColocaciones
       Style = tsFlatButtons
       TabOrder = 0
       object TabProductos: TTabSheet
@@ -2398,7 +2398,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           TabOrder = 12
           TabStop = False
@@ -3099,7 +3099,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           TabOrder = 3
           TabStop = False
@@ -4131,7 +4131,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Left = -1
           Top = 63
           Width = 556
-          Height = 106
+          Height = 138
           Caption = 'Informaci'#243'n de la Colocaci'#243'n'
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
@@ -4234,7 +4234,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           end
           object Label71: TLabel
             Left = 484
-            Top = 63
+            Top = 47
             Width = 37
             Height = 13
             Caption = 'I Hasta '
@@ -4259,8 +4259,8 @@ object frmOperacionesCaja: TfrmOperacionesCaja
             ParentFont = False
           end
           object Label75: TLabel
-            Left = 382
-            Top = 63
+            Left = 462
+            Top = 95
             Width = 81
             Height = 13
             Caption = 'Total Liquidaci'#243'n'
@@ -4277,6 +4277,19 @@ object frmOperacionesCaja: TfrmOperacionesCaja
             Width = 60
             Height = 13
             Caption = 'Saldo Actual'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label210: TLabel
+            Left = 269
+            Top = 95
+            Width = 73
+            Height = 13
+            Caption = 'Fecha de Corte'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
             Font.Height = -11
@@ -4407,7 +4420,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           end
           object EdFechaInteres: TStaticText
             Left = 474
-            Top = 78
+            Top = 62
             Width = 77
             Height = 21
             Alignment = taRightJustify
@@ -4449,8 +4462,8 @@ object frmOperacionesCaja: TfrmOperacionesCaja
             TabOrder = 9
           end
           object EdTotal1: TStaticText
-            Left = 374
-            Top = 78
+            Left = 454
+            Top = 110
             Width = 96
             Height = 21
             Alignment = taRightJustify
@@ -4467,8 +4480,8 @@ object frmOperacionesCaja: TfrmOperacionesCaja
             TabOrder = 10
           end
           object CmdLiquidar: TBitBtn
-            Left = 292
-            Top = 75
+            Left = 372
+            Top = 107
             Width = 75
             Height = 25
             Caption = '&Liquidar'
@@ -4544,8 +4557,8 @@ object frmOperacionesCaja: TfrmOperacionesCaja
             TabOrder = 12
           end
           object PagoTotal: TCheckBox
-            Left = 293
-            Top = 56
+            Left = 373
+            Top = 88
             Width = 73
             Height = 12
             Caption = 'Pago Total'
@@ -4557,6 +4570,26 @@ object frmOperacionesCaja: TfrmOperacionesCaja
             ParentFont = False
             TabOrder = 13
             OnClick = PagoTotalClick
+          end
+          object edFechaCorteLiquidacion: TDateTimePicker
+            Left = 266
+            Top = 109
+            Width = 101
+            Height = 21
+            CalAlignment = dtaLeft
+            Date = 44244.4312357986
+            Time = 44244.4312357986
+            DateFormat = dfShort
+            DateMode = dmComboBox
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            Kind = dtkDate
+            ParseInput = False
+            ParentFont = False
+            TabOrder = 14
           end
         end
         object PageColocacion: TPageControl
@@ -11076,7 +11109,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           TabOrder = 10
           TabStop = False
@@ -16985,8 +17018,8 @@ object frmOperacionesCaja: TfrmOperacionesCaja
   end
   object IdHTTPServer1: TIdHTTPServer
     Bindings = <>
-    Left = 288
-    Top = 200
+    Left = 272
+    Top = 192
   end
   object IBQtiporecaudo: TIBQuery
     Database = dmGeneral.IBDatabase1

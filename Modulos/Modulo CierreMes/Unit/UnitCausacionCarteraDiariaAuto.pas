@@ -334,7 +334,7 @@ begin
         begin
           Close;
           SQL.Clear;
-          SQL.Add('SELECT FIRST 1 e.EVALUACION FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION');
+          SQL.Add('SELECT FIRST 1 e.EVALUACION FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION ORDER BY e.FECHA_CORTE DESC');
           ParamByName('ID_COLOCACION').AsString := FColocacion;
           Open;
           _eval := FieldByName('EVALUACION').AsString;
@@ -3548,6 +3548,7 @@ var id_ant:Integer;
     _diasParaCausar, _diasParaContingencia: Integer;
     _morosidad: Integer;
     _queryGracia : TIBQuery;
+    _enPeriodo: Boolean;
 begin
           with IBQuery1 do begin
             if Transaction.InTransaction then
@@ -3555,8 +3556,9 @@ begin
            Transaction.StartTransaction;
 
            _queryGracia := TIBQuery.Create(self);
-           _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO <> 9 ORDER BY FECHA_REGISTRO DESC');
-
+           _queryGracia.SQL.Add('SELECT FIRST 1 * FROM COL_PERIODO_GRACIA WHERE ID_COLOCACION = :ID_COLOCACION AND ESTADO = 0 ORDER BY FECHA_REGISTRO DESC');
+           _queryGracia.Database := dmGeneral.IBDatabase1;
+           _queryGracia.Transaction := dmGeneral.IBTransaction1;
 
            _cTasaDtfMaxima := BuscoTasaEfectivaMaximaDtfNueva(IBQuery1,EdFechaCorte.Date);//** se puede con variable?
 
@@ -3616,6 +3618,14 @@ begin
               _morosidad := IBQuery1.FieldByName('MOROSIDAD').AsInteger;
               _diasParaCausar := 0;
               _diasParaContingencia := 0;
+
+              _queryGracia.Close;
+              _queryGracia.ParamByName('ID_COLOCACION').AsString := IBQuery1.FieldByName('ID_COLOCACION').AsString;
+              _queryGracia.Open;
+              if (_queryGracia.RecordCount > 0) then
+                _enPeriodo := True
+              else
+                _enPeriodo := False;
               // Primer Paso
               Saldo := IBQuery1.FieldByName('DEUDA').AsCurrency;
               IBSQL3.Close;
@@ -3812,7 +3822,7 @@ begin
                _diasParaContingencia := 0;
             end;
 // Consultar los días de gracia solicitados y evaluar si se debe causar o no
-
+            if (_enPeriodo) then _diasParaCausar := 30;
 //
             Causados := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaCausar,0);
             Contingentes := SimpleRoundTo(((IBQuery1.FieldByName('DEUDA').AsCurrency * (Tasa/100)) / 360 ) * _diasParaContingencia,0);
@@ -5990,7 +6000,7 @@ begin
 
                  Colocaciones := SimpleRoundTo((Valor * ProvisionGral),0);
 // Validar Contra Saldo Actual
-                     Codigo := '146810000000000000';
+                     Codigo := '146805000000000000';
 
                      IBSQL3.Close;
                      IBSQL3.SQL.Clear;
@@ -6570,7 +6580,7 @@ begin
              begin
                AR := Lista.Items[i];
                if AR <> nil then
-               if AR^.codigo = '146810000000000000'{YA ES NIIF} then begin
+               if AR^.codigo = '146805000000000000'{YA ES NIIF} then begin
                   if AR^.credito > 0 then
                      AR^.credito := AR^.credito + Valor
                   else

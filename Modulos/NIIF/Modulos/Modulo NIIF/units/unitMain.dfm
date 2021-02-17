@@ -1,8 +1,8 @@
 object frmMain: TfrmMain
-  Left = 366
-  Top = 56
-  Width = 691
-  Height = 519
+  Left = 376
+  Top = 108
+  Width = 638
+  Height = 448
   Caption = 'Modulo NIIF - '
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -39,7 +39,7 @@ object frmMain: TfrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 683
+    Width = 630
     Height = 39
     ButtonHeight = 36
     ButtonWidth = 75
@@ -194,6 +194,20 @@ object frmMain: TfrmMain
         OnClick = ConsultarComprobantes1Click
       end
       object N16: TMenuItem
+        Caption = '-'
+      end
+      object DocumentoEquivalente1: TMenuItem
+        Caption = 'Documento Equivalente'
+        object Lista: TMenuItem
+          Caption = '&Lista'
+          OnClick = ListaClick
+        end
+        object Crear1: TMenuItem
+          Caption = '&Crear'
+          OnClick = Crear1Click
+        end
+      end
+      object N19: TMenuItem
         Caption = '-'
       end
       object AjusteComprobantes1: TMenuItem

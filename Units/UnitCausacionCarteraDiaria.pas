@@ -311,7 +311,7 @@ begin
         begin
           Close;
           SQL.Clear;
-          SQL.Add('SELECT FIRST 1 e.EVALUACION FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION');
+          SQL.Add('SELECT FIRST 1 e.EVALUACION FROM "col$evaluacion" e WHERE e.ID_COLOCACION = :ID_COLOCACION ORDER BY e.FECHA_CORTE DESC');
           ParamByName('ID_COLOCACION').AsString := FColocacion;
           Open;
           _eval := FieldByName('EVALUACION').AsString;
@@ -1226,6 +1226,7 @@ begin
             CmdImprimirProvision.Enabled := True;
             btnReNota.Enabled := True;
             btnRecalcularCausacion.Enabled := True;
+            btnRecalcularProvision.Enabled := True;
           end;
 
           if FieldByName('APLICADA').AsInteger = 0 then begin
@@ -5013,8 +5014,7 @@ begin
                  IBSQL2.SQL.Clear;
                  IBSQL2.SQL.Add('select SUM("col$causaciondiaria".CAUSADOS) AS CAUSADOS');
                  IBSQL2.SQL.Add('from "col$causaciondiaria"');
-                 IBSQL2.SQL.Add('where ID_CLASIFICACION = :ID_CLASIFICACION and ');
-                 IBSQL2.SQL.Add('ID_ARRASTRE = :ID_CATEGORIA and');
+                 IBSQL2.SQL.Add('where ID_CLASIFICACION = :ID_CLASIFICACION AND ');
                  IBSQL2.SQL.Add('FECHA_CORTE = :FECHA_CORTE');
                  IBSQL2.SQL.Add(' AND ID_COLOCACION IN (SELECT ID_COLOCACION FROM COL_PERIODO_GRACIA WHERE ESTADO IN (0))');
                  IBSQL2.ParamByName('ID_CLASIFICACION').AsInteger := IBSQL1.FieldByName('ID_CLASIFICACION').AsInteger;
@@ -5041,8 +5041,8 @@ begin
                      IBSQL2.ParamByName('ID_CLASIFICACION').AsInteger := IBSQL1.FieldByName('ID_CLASIFICACION').AsInteger;
                      try
                       IBSQL2.ExecQuery;
-                      CodigoGraciaCausado := IBSQL3.FieldByName('CODIGO_CAUSACION').AsString;
-                      CodigoGraciaIngreso := IBSQL3.FieldByName('CODIGO_INGRESO').AsString;
+                      CodigoGraciaCausado := IBSQL2.FieldByName('CODIGO_CAUSACION').AsString;
+                      CodigoGraciaIngreso := IBSQL2.FieldByName('CODIGO_INGRESO').AsString;
                      except
                       MessageDlg('Error Buscando Codigos Interes Causado',mtError,[mbcancel],0);
                       IBSQL1.Transaction.Rollback;
@@ -6049,7 +6049,7 @@ begin
 
                  Colocaciones := SimpleRoundTo((Valor * ProvisionGral),0);
 // Validar Contra Saldo Actual
-                 Codigo := '146810000000000000';
+                 Codigo := '146805000000000000';  // YA ES NIIF
 
                  IBSQL3.Close;
                  IBSQL3.SQL.Clear;
@@ -6629,7 +6629,7 @@ begin
              begin
                AR := Lista.Items[i];
                if AR <> nil then
-               if AR^.codigo = '146810000000000000'{YA ES NIIF} then begin
+               if AR^.codigo = '146805000000000000'{YA ES NIIF} then begin
                   if AR^.credito > 0 then
                      AR^.credito := AR^.credito + Valor
                   else
@@ -8139,11 +8139,13 @@ begin
             begin
               MovCapital := PCapAcum - Capital;
               if IBSQL6.FieldByName('PCAPITAL_ANUAL').AsCurrency > 0 then
-                if IBSQL6.FieldByName('PCAPITAL_ANUAL').AsCurrency > MovCapital then
+                if IBSQL6.FieldByName('PCAPITAL_ANUAL').AsCurrency >= MovCapital then
                   RecCapital := MovCapital
-                else begin
+                else
+                  begin
                   RevGCapital := MovCapital - IBSQL6.FieldByName('PCAPITAL_ANUAL').AsCurrency;
                   RecCapital := IBSQL6.FieldByName('PCAPITAL_ANUAL').AsCurrency;
+                  RevCapital := MovCapital - RecCapital;
                 end
               else
                 RevGCapital := MovCapital;
@@ -8945,7 +8947,7 @@ begin
 
           Close;
           SQL.Clear;
-          SQL.Add('select count(*) as TOTAL from "col$causaciondiaria" where FECHA_CORTE = :FECHA_CORTE AND DEUDA > 0');
+          SQL.Add('select count(*) as TOTAL from "col$causaciondiaria" where FECHA_CORTE = :FECHA_CORTE');
           ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
           Open;
           Total := FieldByName('TOTAL').AsInteger;
@@ -8959,7 +8961,8 @@ begin
 
           Close;
           SQL.Clear;
-          SQL.Add('select * from "col$causaciondiaria" WHERE DEUDA > 0 order by ID_IDENTIFICACION,ID_PERSONA,ID_EDAD_ACT DESC,ID_AGENCIA,ID_COLOCACION');
+          SQL.Add('select * from "col$causaciondiaria" WHERE FECHA_CORTE = :FECHA_CORTE order by ID_IDENTIFICACION,ID_PERSONA,ID_EDAD_ACT DESC,ID_AGENCIA,ID_COLOCACION');
+          ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
           try
            Open;
            frmPantallaProgreso.Titulo := 'Calculando Provisión ...'+'- Leyendo Colocaciones';
@@ -9077,10 +9080,6 @@ begin
             /// validar requerimiento
             frmPantallaProgreso.Titulo := 'Calculando Provision ...'+'- Validando Calificacion';
 
-            if (IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger = 2) and (IBQuery1.FieldByName('ID_ARRASTRE').AsString = 'E') and (_iDiasMora <= 360) then
-            begin
-            //  Capital := SimpleRoundTo((Capital/2),0);
-            end;
             // fin validacion de provision
 
            end; // with
@@ -9314,14 +9313,15 @@ begin
             with IBSQL3 do begin
               Close;
               SQL.Clear;
-              SQL.Add('update "col$causaciondiaria" SET ');
+              SQL.Add('UPDATE "col$causaciondiaria" SET ');
               SQL.Add('PCAPITAL = :PCAPITAL, PINTERES = :PINTERES, PCOSTAS = :PCOSTAS,');
               SQL.Add('PCAPITAL_REC = :PCAPITAL_REC, PINTERES_REC = :PINTERES_REC, PCOSTAS_REC = :PCOSTAS_REC,');
               SQL.Add('PCAPITAL_REV = :PCAPITAL_REV, PINTERES_REV = :PINTERES_REV, PCOSTAS_REV = :PCOSTAS_REV,');
               SQL.Add('PCAPITAL_GAS = :PCAPITAL_GAS, PINTERES_GAS = :PINTERES_GAS, PCOSTAS_GAS = :PCOSTAS_GAS');
-              SQL.Add('where ID_AGENCIA = :ID_AGENCIA and ID_COLOCACION = :ID_COLOCACION');
+              SQL.Add('where ID_AGENCIA = :ID_AGENCIA and ID_COLOCACION = :ID_COLOCACION AND FECHA_CORTE = :FECHA_CORTE');
               ParamByName('ID_AGENCIA').AsInteger := IBQuery1.fieldbyname('ID_AGENCIA').AsInteger;
               ParamByName('ID_COLOCACION').AsString := IBQuery1.FieldByName('ID_COLOCACION').AsString;
+              ParamByName('FECHA_CORTE').AsDate := EdFechaCorte.Date;
               ParamByName('PCAPITAL').AsCurrency := Capital;
               ParamByName('PINTERES').AsCurrency := Interes;
               ParamByName('PCOSTAS').AsCurrency := PCostas;
@@ -9406,7 +9406,7 @@ begin
                   end;
                 FechaFinal := EdFechaCorte.Date;
                 Dias := DiasEntreFechas(IncDay(FechaInicial),FechaFinal,CalculoFecha(IBQuery1.FieldByName('FECHA_DESEMBOLSO').AsDateTime,IBQuery1.FieldByName('DIAS_PAGO').AsInteger));
-                if Dias < 0 then
+                if (Dias < 0) AND (_estadoGracia = 0) then
                   Dias := 0;
                 Deuda := IBQuery1.FieldByName('DEUDA').AsCurrency;
                 Tasa1 := BuscoTasaEfectivaMaxima1(IBQVarios,EdFechaCorte.Date,IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger,'A');

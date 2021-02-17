@@ -766,6 +766,8 @@ type
     CDSliquidacionCREDITO: TCurrencyField;
     CDSliquidacionNOMBRE: TStringField;
     ReporteComprobante: TprTxReport;
+    edFechaCorteLiquidacion: TDateTimePicker;
+    Label210: TLabel;
     procedure TimerTimer(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -1443,6 +1445,7 @@ begin
         CerosVariables;
         EdFecha.Caption := FormatDateTime('yyyy/mm/dd',Date);
         EdHora.Caption := FormatDateTime('hh:nn:ss am/pm',Time);
+        edFechaCorteLiquidacion.Date := fFechaActual;
 {
         with IBConsulta do
         begin
@@ -5493,7 +5496,7 @@ begin
   vPapeleria := 0;
 
   EdTotalColManual.Caption := '';
-
+  edFechaCorteLiquidacion.Date := fFechaActual;
 
 {  EdAbonoInteresContingente.Text := '';
   EdAbonoInteresCausado.Text := '';
@@ -6774,13 +6777,14 @@ Cuotas: Integer;
 begin
         if DmGeneral.IBTransaction1.InTransaction then
            DmGeneral.IBTransaction1.Commit;
-        dmGeneral.IBTransaction1.StartTransaction;   
 
+           dmGeneral.IBTransaction1.StartTransaction;   
            colocacion := trim(EdNumeroColocacion.Text);
            EdNumeroColocacion.Text := colocacion;
 
         If EdNumeroColocacion.Text = '' then Exit;
-
+        edFechaCorteLiquidacion.Date := fFechaActual;
+        
         with IBVerificaTmp do begin
           Close;
           SQL.Clear;
@@ -7243,29 +7247,29 @@ begin
    end;
 
   if (TipoCuota = 1) and (CredPagoTotal) then
-   LiquidarCuotasFijaPagoTotal(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),StrToDate(EdFecha.Caption),
+   LiquidarCuotasFijaPagoTotal(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),edFechaCorteLiquidacion.Date,
                      CuotasLiq,Clasificacion,Garantia,Categoria,Estado,ValorCuota,
                      FechaPagoK,FechaPagoI,TipoInteres,ValorTasa,ValorMora,PuntosAdic,SaldoActual,AmortizaK,AmortizaI,DiasProrroga)
   else if (TipoCuota = 1) then
-   LiquidarCuotasFija(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),StrToDate(EdFecha.Caption),
+   LiquidarCuotasFija(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),edFechaCorteLiquidacion.Date,
                      CuotasLiq,Clasificacion,Garantia,Categoria,Estado,ValorCuota,
                      FechaPagoK,FechaPagoI,TipoInteres,ValorTasa,ValorMora,PuntosAdic,SaldoActual,AmortizaK,AmortizaI,DiasProrroga);
 
   if (TipoCuota = 2) and (CredPagoTotal) then
-   LiquidarCuotasVarAnticipadaPagoTotal(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),StrToDate(EdFecha.Caption),
+   LiquidarCuotasVarAnticipadaPagoTotal(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),edFechaCorteLiquidacion.Date,
                      CuotasLiq,Clasificacion,Garantia,Categoria,Estado,ValorCuota,
                      FechaPagoK,FechaPagoI,TipoInteres,ValorTasa,ValorMora,PuntosAdic,SaldoActual,AmortizaK,AmortizaI,DiasProrroga)
   else if (TipoCuota = 2) then
-   LiquidarCuotasVarAnticipada(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),StrToDate(EdFecha.Caption),
+   LiquidarCuotasVarAnticipada(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),edFechaCorteLiquidacion.Date,
                      CuotasLiq,Clasificacion,Garantia,Categoria,Estado,ValorCuota,
                      FechaPagoK,FechaPagoI,TipoInteres,ValorTasa,ValorMora,PuntosAdic,SaldoActual,AmortizaK,AmortizaI,DiasProrroga);
 
   if (TipoCuota = 3) and (CredPagoTotal)  then
-   LiquidarCuotasVarVencidaPagoTotal(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),StrToDate(EdFecha.Caption),
+   LiquidarCuotasVarVencidaPagoTotal(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),edFechaCorteLiquidacion.Date,
                      CuotasLiq,Clasificacion,Garantia,Categoria,Estado,ValorCuota,
                      FechaPagoK,FechaPagoI,TipoInteres,ValorTasa,ValorMora,PuntosAdic,SaldoActual,AmortizaK,AmortizaI,DiasProrroga)
   else if (TipoCuota = 3) then
-   LiquidarCuotasVarVencida(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),StrToDate(EdFecha.Caption),
+   LiquidarCuotasVarVencida(EdAgencia.KeyValue,EdNumeroColocacion.Text,StrToInt(EdCuotas.Text),edFechaCorteLiquidacion.Date,
                      CuotasLiq,Clasificacion,Garantia,Categoria,Estado,ValorCuota,
                      FechaPagoK,FechaPagoI,TipoInteres,ValorTasa,ValorMora,PuntosAdic,SaldoActual,AmortizaK,AmortizaI,DiasProrroga);
 
@@ -7275,7 +7279,7 @@ begin
      Colocacion := EdNumeroColocacion.Text;
      Lista := CuotasLiq.Lista;
      Asociado := EdNombre.Caption;
-     FechaCorte := StrToDate(EdFecha.Caption);
+     FechaCorte := edFechaCorteLiquidacion.Date;
      ProximaCuota := CuotasLiq.FechaProx;
      NuevoSaldo := CuotasLiq.NuevoSaldo;
      InteresesHasta := CuotasLiq.InteresesHasta;

@@ -53,6 +53,7 @@ type
     LiquidacionCdatAuto1: TMenuItem;
     LiquidacionCaptacionAuto1: TMenuItem;
     DescuentoContractual1: TMenuItem;
+    CausacinContractualAuto2: TMenuItem;
     procedure LiquidacindeIntersdeCaptacin1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -72,6 +73,7 @@ type
     procedure LiquidacionCdatAuto1Click(Sender: TObject);
     procedure LiquidacionCaptacionAuto1Click(Sender: TObject);
     procedure DescuentoContractual1Click(Sender: TObject);
+    procedure CausacinContractualAuto2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -500,6 +502,14 @@ var
 begin
    frmDescuentoContractualAuto := TfrmDescuentoContractualAuto.Create(self);
    frmDescuentoContractualAuto.ShowModal;
+end;
+
+procedure TFrmCierreMes.CausacinContractualAuto2Click(Sender: TObject);
+var
+  frmCausacionContractualAuto:  TfrmCausacionContractualAuto;
+begin
+         frmCausacionContractualAuto := TfrmCausacionContractualAuto.Create(self);
+         frmCausacionContractualAuto.ShowModal;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object FrmCierreMes: TFrmCierreMes
-  Left = 716
-  Top = 121
+  Left = 416
+  Top = 162
   Width = 520
   Height = 325
   Caption = 'Procesos Autom'#225'ticos'
@@ -150,8 +150,7 @@ object FrmCierreMes: TFrmCierreMes
     GroupIndex = 0
   end
   object MainMenu1: TMainMenu
-    Left = 8
-    Top = 96
+    Top = 120
     object Manuales1: TMenuItem
       Caption = 'Manuales'
       object LiquidacindeIntersdeCaptacin1: TMenuItem
@@ -195,11 +194,14 @@ object FrmCierreMes: TFrmCierreMes
         Caption = 'Descuento Contractual Auto'
         OnClick = DescuentoContractual1Click
       end
-    end
-    object mnuCausacionAuto: TMenuItem
-      Caption = 'Causaci'#243'n Autom'#225'tico'
-      Visible = False
-      OnClick = mnuCausacionAutoClick
+      object CausacinContractualAuto2: TMenuItem
+        Caption = 'Causaci'#243'n Contractual Auto'
+        OnClick = CausacinContractualAuto2Click
+      end
+      object mnuCausacionAuto: TMenuItem
+        Caption = 'Causaci'#243'n Cartera Autom'#225'tico'
+        OnClick = mnuCausacionAutoClick
+      end
     end
   end
   object Timer1: TTimer

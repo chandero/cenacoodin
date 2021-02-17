@@ -1,4 +1,4 @@
-unit UnitSorteoCumpleanhos;
+unit UnitSorteContractual;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   IBCustomDataSet, IBQuery, IBDatabase, IBSQL, DateUtils, DataSetToExcel;
 
 type
-  TfrmSorteoCumpleanhos = class(TForm)
+  TfrmSorteoContractual = class(TForm)
     GroupBox1: TGroupBox;
     Label1: TLabel;
     edPeriodo: TComboBox;
@@ -58,7 +58,7 @@ type
   end;
 
 var
-  frmSorteoCumpleanhos: TfrmSorteoCumpleanhos;
+  frmSorteoContractual: TfrmSorteoContractual;
   Hoy: TDateTime;
   Ano: String;
   Fecha1: TDateTime;
@@ -73,35 +73,36 @@ implementation
 
 uses UnitGlobales, UnitGlobalesCol, UnitDmColocacion;
 
-procedure TfrmSorteoCumpleanhos.edPeriodoChange(Sender: TObject);
+procedure TfrmSorteoContractual.edPeriodoChange(Sender: TObject);
 begin
         btnSorteo.Enabled := True;
 end;
 
-procedure TfrmSorteoCumpleanhos.btnCerrarClick(Sender: TObject);
+procedure TfrmSorteoContractual.btnCerrarClick(Sender: TObject);
 begin
         Close;
 end;
 
-procedure TfrmSorteoCumpleanhos.FormCreate(Sender: TObject);
+procedure TfrmSorteoContractual.FormCreate(Sender: TObject);
 begin
         DmColocacion := TDmColocacion.Create(Self);
         IBTransaction1.StartTransaction;
 end;
 
-procedure TfrmSorteoCumpleanhos.btnSorteoClick(Sender: TObject);
+procedure TfrmSorteoContractual.btnSorteoClick(Sender: TObject);
 var
   CSC : Integer;
 begin
         IBQasociado.Close;
-        IBQasociado.SQL.Add('SELECT t.ID_TIPO_CAPTACION, t.NUMERO_CUENTA, e.DESCRIPCION, p.ID_IDENTIFICACION, p.ID_PERSONA, p.FECHA_NACIMIENTO, p.PRIMER_APELLIDO, p.SEGUNDO_APELLIDO, p.NOMBRE FROM "gen$persona" p');
+        IBQasociado.SQL.Clear;
+        IBQasociado.SQL.Add('SELECT t.ID_TIPO_CAPTACION, t.NUMERO_CUENTA, t.DIGITO_CUENTA, e.DESCRIPCION, p.ID_IDENTIFICACION, p.ID_PERSONA, p.FECHA_NACIMIENTO, p.PRIMER_APELLIDO, p.SEGUNDO_APELLIDO, p.NOMBRE FROM "gen$persona" p');
         IBQasociado.SQL.Add('INNER JOIN "cap$maestrotitular" t ON t.ID_IDENTIFICACION = p.ID_IDENTIFICACION and t.ID_PERSONA = p.ID_PERSONA ');
         IBQasociado.SQL.Add('INNER JOIN "cap$maestro" m ON t.ID_TIPO_CAPTACION = m.ID_TIPO_CAPTACION and t.ID_AGENCIA = m.ID_AGENCIA and t.NUMERO_CUENTA = m.NUMERO_CUENTA and t.DIGITO_CUENTA = m.DIGITO_CUENTA ');
         IBQasociado.SQL.Add('INNER JOIN "cap$tiposestado" e ON m.ID_ESTADO = e.ID_ESTADO ');
-        IBQasociado.SQL.Add('WHERE EXTRACT(MONTH FROM p.FECHA_NACIMIENTO) = :MES and ');
-        IBQasociado.SQL.Add('t.ID_TIPO_CAPTACION = 1 and ');
+        IBQasociado.SQL.Add('WHERE');
+        IBQasociado.SQL.Add('t.ID_TIPO_CAPTACION = 5 and ');
         IBQasociado.SQL.Add('e.SE_SUMA = 1');
-        IBQasociado.ParamByName('MES').AsInteger := edPeriodo.ItemIndex + 1;
+//        IBQasociado.ParamByName('MES').AsInteger := edPeriodo.ItemIndex + 1;
         IBQasociado.Open;
         CDSasociado.EmptyDataSet;
         CSC := 0;
@@ -112,14 +113,18 @@ begin
             edCuenta.Text := IntToStr(IBQasociado.FieldByName('NUMERO_CUENTA').AsInteger);
             if ValidoParaSorteo(IBQasociado.FieldByName('ID_IDENTIFICACION').AsInteger, IBQasociado.FieldByName('ID_PERSONA').AsString) then
             begin
-             CSC := CSC + 1;
-             CDSasociado.Insert;
-             CDSasociadoCSC.Value := CSC;
-             CDSasociadoCUENTA.Value := IBQasociado.FieldByName('NUMERO_CUENTA').AsInteger;
-             CDSasociadoDOCUMENTO.Value := IBQasociado.FieldByName('ID_PERSONA').AsString;
-             CDSasociadoASOCIADO.Value := IBQasociado.FieldByName('NOMBRE').AsString + ' ' + IBQasociado.FieldByName('PRIMER_APELLIDO').AsString + ' ' + IBQAsociado.FieldByName('SEGUNDO_APELLIDO').AsString;
-             CDSasociadoDIA.Value := DayOfTheMonth(IBQasociado.FieldByName('FECHA_NACIMIENTO').AsDateTime);
-             CDSasociado.Post;
+             ValidaCon(IBQasociado.FieldByName('NUMERO_CUENTA').AsInteger,5,IBQasociado.FieldByName('DIGITO_CUENTA').AsInteger);
+             if vCuotasContractual < 2 then
+             begin
+               CSC := CSC + 1;
+               CDSasociado.Insert;
+               CDSasociadoCSC.Value := CSC;
+               CDSasociadoCUENTA.Value := IBQasociado.FieldByName('NUMERO_CUENTA').AsInteger;
+               CDSasociadoDOCUMENTO.Value := IBQasociado.FieldByName('ID_PERSONA').AsString;
+               CDSasociadoASOCIADO.Value := IBQasociado.FieldByName('NOMBRE').AsString + ' ' + IBQasociado.FieldByName('PRIMER_APELLIDO').AsString + ' ' + IBQAsociado.FieldByName('SEGUNDO_APELLIDO').AsString;
+               CDSasociadoDIA.Value := DayOfTheMonth(IBQasociado.FieldByName('FECHA_NACIMIENTO').AsDateTime);
+               CDSasociado.Post;
+             end;
             end;
             IBQasociado.Next;
         end;
@@ -135,7 +140,7 @@ begin
         end;
 end;
 
-function TfrmSorteoCumpleanhos.ValidoParaSorteo(id_identificacion: Integer; id_persona: String): Boolean;
+function TfrmSorteoContractual.ValidoParaSorteo(id_identificacion: Integer; id_persona: String): Boolean;
 var
 Csc:Integer;
         Limpiomens   : Boolean;
@@ -146,6 +151,7 @@ Csc:Integer;
         xDeudas      : Boolean;
         xFianzas     : Boolean;
         xRindediario : Boolean;
+        xContractual : Boolean;
 
         Ag, Tp, Nm, Dg: Integer;
         SaldoApoAct: Currency;
@@ -160,6 +166,7 @@ begin
         xDeudas      := False;
         xFianzas     := False;
         xRindediario := False;
+        xContractual := False;
         Csc := 0;
 
 //        xAportesJ    := False;
@@ -414,7 +421,7 @@ begin
           end;
         end;
 
-        if xEducacion  and
+        if // xEducacion and
            xAportesAct and
            xJuvenil    and
            xApertura   and
@@ -431,7 +438,7 @@ begin
 
 end;
 
-procedure TfrmSorteoCumpleanhos.FormShow(Sender: TObject);
+procedure TfrmSorteoContractual.FormShow(Sender: TObject);
 begin
         Hoy := fFechaActual;
         Ano := IntToStr(YearOf(Hoy));
@@ -485,7 +492,7 @@ begin
         
 end;
 
-procedure TfrmSorteoCumpleanhos.btnExportarClick(Sender: TObject);
+procedure TfrmSorteoContractual.btnExportarClick(Sender: TObject);
 var
    ExcelFile : TDataSetToExcel;
 begin
@@ -498,7 +505,7 @@ begin
           end;
 end;
 
-procedure TfrmSorteoCumpleanhos.btnDoSorteoClick(Sender: TObject);
+procedure TfrmSorteoContractual.btnDoSorteoClick(Sender: TObject);
 var
   iteraccion: Integer;
   i: Integer;

@@ -177,6 +177,7 @@ type
     N27: TMenuItem;
     CdatLiquidado1: TMenuItem;
     ClonarPersona1: TMenuItem;
+    SorteoContractual1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -291,6 +292,7 @@ type
     procedure ContractualDescontado1Click(Sender: TObject);
     procedure CdatLiquidado1Click(Sender: TObject);
     procedure ClonarPersona1Click(Sender: TObject);
+    procedure SorteoContractual1Click(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -344,7 +346,7 @@ uses unitLogin, unitdmColocacion, IniFiles,
      UnitTarjetaSinMovimiento, UnitSorteoCumpleanhos, UnitSaldoPorRangos, UnitArchivoTransacciones, UnitArchivoFinancieroAsociado, UnitReimprimirCDAT,
      UnitDeJuvenilaAsociado, UnitAdministracionProductosVirtuales, UnitConciliacionServiciosVirtuales, UnitActualizarSaldoCuentaServiciosVirtuales,
      UnitCancelarServiciosVirtuales, UnitArchivoPlanoMovimientosTarjetas, UnitConciliacionBancariaServiciosVirtuales,
-     UnitInformeCDATLiquidadoUnaFecha, UnitInformeContractualDescontadoUnaFecha, UnitClonarPersona;
+     UnitInformeCDATLiquidadoUnaFecha, UnitInformeContractualDescontadoUnaFecha, UnitClonarPersona, UnitSorteContractual;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1435,6 +1437,14 @@ var
 begin
   frmClonarPersona := TfrmClonarPersona.Create(self);
   frmClonarPersona.ShowModal;
+end;
+
+procedure TfrmMain.SorteoContractual1Click(Sender: TObject);
+var
+  frmSorteoContractual: TfrmSorteoContractual;
+begin
+   frmSorteoContractual := TfrmSorteoContractual.Create(self);
+   frmSorteoContractual.ShowModal;
 end;
 
 end.

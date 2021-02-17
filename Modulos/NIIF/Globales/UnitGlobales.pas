@@ -276,6 +276,8 @@ function BuscaServicio(Id_Agencia, Id_Servicio: integer): tservicio;
 function ValidaCon(Nm:Integer;Tp:integer; Dg:integer): Currency;
 function vContabilizaCon(Nm, Tp, Dg: integer): Boolean;
 procedure FechaCierre(CdFecha: TClientDataSet);
+function ObtenerGenConsecutivo(IBSQL1:TIBSQL; _iNumero: Integer): LongInt;
+function ObtenerConsecutivoEquivalente(IBSQL1: TIBSQL): LongInt;
 
 implementation
 
@@ -1539,6 +1541,105 @@ begin
 
         if Nivel > 1 then
          ColocarSaldoInicial(CodigoM,SaldoInicial,IBVarios);
+end;
+
+function ObtenerConsecutivoEquivalente(IBSQL1: TIBSQL): LongInt;
+const ntMaxTries = 100;
+var I, WaitCount, Tries,Consecutivo:Integer;
+    RecordLocked:Boolean;
+    ErrorMsg:string;
+begin
+       while True do
+        with IBSQL1 do begin
+         Close;
+         if Transaction.InTransaction then
+            Transaction.Commit;
+         Transaction.StartTransaction;
+         try
+          SQL.Clear;
+          SQL.Add('SELECT GEN_ID(GEN_DOCUEQUIVALENTE_ID, 1) FROM RDB$DATABASE;');
+          ExecQuery;
+          Consecutivo := FieldByName('GEN_ID').AsInteger;
+          Close;
+          Transaction.Commit;
+          Result := Consecutivo;
+          Break;
+         except
+           on E: EIBInterBaseError do
+           begin
+            RecordLocked := False;
+            if E.SQLCode = -913 then RecordLocked := True;
+            if RecordLocked then
+             begin
+              WaitCount := Random(20);
+              for I := 1 to WaitCount do
+              Application.ProcessMessages;
+              Continue;
+             end
+            else
+             begin
+              ErrorMsg := ErrorMsg + E.Message +
+              ' (' + IntToStr(E.IBErrorCode ) + '). ';
+              MessageDlg(ErrorMsg,mterror,[mbOk],0);
+             end;
+           end;
+          end;
+        end;
+end;
+
+
+function ObtenerGenConsecutivo(IBSQL1:TIBSQL; _iNumero: Integer): LongInt;
+const ntMaxTries = 100;
+var I, WaitCount, Tries,Consecutivo:Integer;
+    RecordLocked:Boolean;
+    ErrorMsg:string;
+begin
+       Result := 0;
+       Tries := 0;
+       while True do
+        with IBSQL1 do begin
+         Close;
+         if Transaction.InTransaction then
+            Transaction.Commit;
+         Transaction.StartTransaction;
+         try
+          SQL.Clear;
+          SQL.Add('select CONSECUTIVO from "gen$consecutivos" where "gen$consecutivos"."ID_CONSECUTIVO" = :ID');
+          ParamByName('ID').AsInteger := _iNumero;
+          ExecQuery;
+          Consecutivo := FieldByName('CONSECUTIVO').AsInteger;
+          Close;
+          Consecutivo := Consecutivo + 1;
+          SQL.Clear;
+          SQL.Add('update "gen$consecutivos" set "gen$consecutivos"."CONSECUTIVO" = :"CONSECUTIVO" ');
+          SQL.Add(' where "gen$consecutivos"."ID_CONSECUTIVO" = :ID');
+          ParamByName('ID').AsInteger := _iNumero;
+          ParamByName('CONSECUTIVO').AsInteger := Consecutivo;
+          ExecQuery;
+          Transaction.Commit;
+          Result := Consecutivo;
+          break;
+         except
+           on E: EIBInterBaseError do
+           begin
+            RecordLocked := False;
+            if E.SQLCode = -913 then RecordLocked := True;
+            if RecordLocked then
+             begin
+              WaitCount := Random(20);
+              for I := 1 to WaitCount do
+              Application.ProcessMessages;
+              Continue;
+             end
+            else
+             begin
+              ErrorMsg := ErrorMsg + E.Message +
+              ' (' + IntToStr(E.IBErrorCode ) + '). ';
+              MessageDlg(ErrorMsg,mterror,[mbOk],0);
+             end;
+           end;
+          end;
+        end;
 end;
 
 function ObtenerConsecutivoSinTipo(IBSQL1:TIBSQL): LongInt;

@@ -252,6 +252,7 @@ frmProgreso:TfrmProgreso;
 fecha_a: TDateTime;
 plazo: Integer;
 fecha_v: TDateTime;
+_amortizacion: Integer;
 begin
     Tp := 5;
     frmProgreso := TfrmProgreso.Create(Self);
@@ -389,11 +390,13 @@ begin
      end;
      AR^.Plazo := IBQuery2.FieldByName('PLAZO').AsInteger;
      plazo := IBQuery2.FieldByName('PLAZO').AsInteger;
+     if (plazo > 360) then _amortizacion := 360
+     else _amortizacion := plazo;
      fecha_v := CalculoFecha(fecha_a,plazo);
      AR^.FechaVencimiento := DateToStr(fecha_v);
      AR^.Modalidad := 2;
-     AR^.TasaNominal := SimpleRoundTo(1,-2);
-     AR^.TasaEfectiva := SimpleRoundTo(1,-2);
+     AR^.TasaNominal := SimpleRoundTo(TasaNominalVencida(FieldByName('CUOTA').AsDouble,_amortizacion),-2);
+     AR^.TasaEfectiva := SimpleRoundTo(FieldByName('CUOTA').AsDouble,-2);
      AR^.InteresCausado := FieldByName('CAUSACION_ACUMULADA').AsCurrency - FieldByName('RETEFUENTE_ACUMULADA').AsCurrency;
      AR^.Saldo := Saldo;
      AR^.DepositoInicial := Saldo;

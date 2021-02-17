@@ -2,8 +2,8 @@ object dmGeneral: TdmGeneral
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 477
-  Top = 248
+  Left = 693
+  Top = 354
   Height = 281
   Width = 273
   object IBDatabase1: TIBDatabase

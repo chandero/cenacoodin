@@ -1,9 +1,9 @@
-object frmSorteoCumpleanhos: TfrmSorteoCumpleanhos
-  Left = 517
-  Top = 277
-  Width = 727
-  Height = 455
-  Caption = 'Sorteo Cumplea'#241'os'
+object frmSorteoContractual: TfrmSorteoContractual
+  Left = 336
+  Top = 128
+  Width = 736
+  Height = 475
+  Caption = 'Sorteo Contractual'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack
@@ -11,6 +11,7 @@ object frmSorteoCumpleanhos: TfrmSorteoCumpleanhos
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
   OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
@@ -55,9 +56,9 @@ object frmSorteoCumpleanhos: TfrmSorteoCumpleanhos
     object btnSorteo: TBitBtn
       Left = 208
       Top = 11
-      Width = 169
+      Width = 193
       Height = 25
-      Caption = 'Procesar Asociados V'#225'lidos'
+      Caption = 'Procesar Contractuales V'#225'lidos'
       Enabled = False
       TabOrder = 1
       OnClick = btnSorteoClick
@@ -86,7 +87,7 @@ object frmSorteoCumpleanhos: TfrmSorteoCumpleanhos
       OnClick = btnExportarClick
     end
     object btnDoSorteo: TBitBtn
-      Left = 384
+      Left = 408
       Top = 11
       Width = 89
       Height = 25
@@ -179,8 +180,8 @@ object frmSorteoCumpleanhos: TfrmSorteoCumpleanhos
   end
   object Panel1: TPanel
     Left = 0
-    Top = 388
-    Width = 719
+    Top = 408
+    Width = 728
     Height = 33
     Align = alBottom
     Color = clBlue
