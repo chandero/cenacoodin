@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, DateUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, ComCtrls, Buttons, pr_Common, pr_TxClasses, pr_Parser,
-  DB, IBCustomDataSet, IBQuery, JvEdit, JvTypedEdit, IBSQL, DBClient;
+  DB, IBCustomDataSet, IBQuery, JvEdit, JvTypedEdit, IBSQL, DBClient,
+  pr_Classes;
 
 type
   TfrmInformeDiarioCaja = class(TForm)
@@ -41,6 +42,7 @@ type
     IBSQL1: TIBSQL;
     prTxReport1: TprTxReport;
     Report: TprTxReport;
+    prReportInforme: TprReport;
     procedure CmdGeneraClick(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -332,6 +334,7 @@ begin
                IBQuery4.Open;
                if (IBQuery1.RecordCount > 0) or (IBQuery3.RecordCount > 0) then
                 begin
+                  {
                   Report.Variables.ByName['Empresa'].AsString := Empresa;
                   Report.Variables.ByName['Agencia'].AsString := Ciudad;
                   Report.Variables.ByName['Caja'].AsInteger := EdCaja.Value;
@@ -342,6 +345,15 @@ begin
                      frmVistaPreliminar.Reporte := Report;
                      frmVistaPreliminar.ShowModal;
 //                     Report.PreviewPreparedReport(True);
+                  end;
+                  }
+                  prReportInforme.Variables.ByName['Empresa'].AsString := Empresa;
+                  prReportInforme.Variables.ByName['Agencia'].AsString := Ciudad;
+                  prReportInforme.Variables.ByName['Caja'].AsInteger := EdCaja.Value;
+                  prReportInforme.Variables.ByName['Empleado'].AsString := Empleado;
+                  if prReportInforme.PrepareReport then
+                  begin
+                     prReportInforme.PreviewPreparedReport(false);
                   end;
                 end
                else

@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 407
-  Top = 106
+  Left = 583
+  Top = 189
   Width = 640
   Height = 393
   Caption = 'Modulo Captaciones - '

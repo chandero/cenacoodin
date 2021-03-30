@@ -388,7 +388,7 @@ object frmOperacionesEfectivo: TfrmOperacionesEfectivo
     Left = 37
     Top = 49
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'
@@ -2913,7 +2913,7 @@ object frmOperacionesEfectivo: TfrmOperacionesEfectivo
     Left = 69
     Top = 49
     SystemInfo = (
-      'OS: WIN32_NT 5.1.2600 Service Pack 2'
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
       ''
       'PageSize: 4096'
       'ActiveProcessorMask: $1000'

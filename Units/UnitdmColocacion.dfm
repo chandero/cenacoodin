@@ -1,7 +1,7 @@
 object dmColocacion: TdmColocacion
   OldCreateOrder = False
-  Left = 346
-  Top = 20
+  Left = 1050
+  Top = 17
   Height = 445
   Width = 454
   object IBDSclasificacion: TIBDataSet

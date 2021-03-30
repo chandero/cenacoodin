@@ -6,7 +6,7 @@ uses
   Windows, Messages, StrUtils, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DBCtrls, StdCtrls, Buttons, Mask, ExtCtrls, ComCtrls, DB,
   IBCustomDataSet, IBQuery, pr_Common, pr_TxClasses, IBSQL, DateUtils, Math,
-  DBClient, JvEdit, JvTypedEdit, Grids, JvStringGrid;
+  DBClient, JvEdit, JvTypedEdit, Grids, JvStringGrid, pr_Classes;
 
 type
      PCuotasLiq = ^ACuotasLiq;
@@ -235,6 +235,7 @@ type
     Dacion: TCheckBox;
     IBCambioEstado: TIBSQL;
     ChVCredito: TCheckBox;
+    prReportCartera: TprReport;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure EdNumeroColocacionExit(Sender: TObject);
@@ -2692,6 +2693,7 @@ begin
            Close;
            end;
 
+           {
            Report.Variables.ByName['Empresa'].AsString := Empresa;
            Report.Variables.ByName['Colocacion'].AsString := vColocacion;
            Report.Variables.ByName['Hoy'].AsDateTime := fFechaActual;
@@ -2711,6 +2713,29 @@ begin
               frmVistaPreliminar.Reporte := Report;
               frmVistaPreliminar.ShowModal;
            end;
+           }
+           prReportCartera.LoadTemplateFromFile(ExtractFileDir(Application.ExeName)+ '/Reporte/ComprobanteCarteraMediaCarta.prt', false);
+           prReportCartera.Variables.ByName['Empresa'].AsString := Empresa;
+           prReportCartera.Variables.ByName['Colocacion'].AsString := vColocacion;
+           prReportCartera.Variables.ByName['Hoy'].AsDateTime := fFechaActual;
+           prReportCartera.Variables.ByName['ProximaCuota'].AsString := FechaProx;
+           prReportCartera.Variables.ByName['FechaCorte'].AsDateTime := fFechaActual;
+           prReportCartera.Variables.ByName['Asociado'].AsString := Asociado;
+           prReportCartera.Variables.ByName['Cuenta'].AsString := Cuenta;
+           prReportCartera.Variables.ByName['NuevoSaldo'].AsDouble := vSaldoActual - vAbonoCapital;
+           prReportCartera.Variables.ByName['InteresesHasta'].AsDateTime := vFechaFInt;
+           prReportCartera.Variables.ByName['CapitalHasta'].AsDateTime := NuevaFechaCapital;
+           if (Trim(EdNoComprobante.Text) = '') then
+            prReportCartera.Variables.ByName['comprobante'].AsInteger := 0
+           else
+            prReportCartera.Variables.ByName['comprobante'].AsInteger := StrToInt(Trim(EdNocomprobante.Text));
+           prReportCartera.Variables.ByName['empleado'].AsString := Nombres + '    ' + Apellidos;
+
+           if prReportCartera.PrepareReport then
+           begin
+                prReportCartera.PreviewPreparedReport(false);
+           end;
+
            IBInforme.EmptyDataSet;
 end;
 

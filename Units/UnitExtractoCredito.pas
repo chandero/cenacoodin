@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Mask, DBCtrls, Buttons, ExtCtrls, DB, IBCustomDataSet,
   IBQuery, pr_Common, pr_TxClasses, DBClient, IBDatabase, Math, Grids,
-  XStringGrid, DBGrids;
+  XStringGrid, DBGrids, pr_Classes, Provider;
 
 type
   TfrmExtractoCredito = class(TForm)
@@ -172,6 +172,9 @@ type
     IBQColPRIMER_APELLIDO: TIBStringField;
     IBQColSEGUNDO_APELLIDO: TIBStringField;
     IBQColDESCRIPCION_IDENTIFICACION: TIBStringField;
+    InformeComprobanteDataSetProvider: TDataSetProvider;
+    IBInforme: TClientDataSet;
+    prReportCartera: TprReport;
     procedure EdAgenciaKeyPress(Sender: TObject; var Key: Char);
     procedure EdNumeroColocacionKeyPress(Sender: TObject; var Key: Char);
     procedure EdNumeroColocacionExit(Sender: TObject);
@@ -743,27 +746,29 @@ begin
                begin
                  SQL.Clear;
                  SQL.Add('Select ');
-                 SQL.Add('"col$extractodet".CODIGO_PUC,');
-                 SQL.Add('"col$extractodet".FECHA_INICIAL,');
-                 SQL.Add('"col$extractodet".FECHA_FINAL,');
-                 SQL.Add('"col$extractodet".DIAS_APLICADOS,');
-                 SQL.Add('"col$extractodet".TASA_LIQUIDACION,');
-                 SQL.Add('"col$extractodet".VALOR_DEBITO,');
-                 SQL.Add('"col$extractodet".VALOR_CREDITO,');
-                 SQL.Add('CON$PUC.NOMBRE');
-                 SQL.Add('from "col$extractodet"');
-                 SQL.Add('LEFT JOIN CON$PUC ON ("col$extractodet".CODIGO_PUC = CON$PUC.CODIGO and ');
-                 SQL.Add('"col$extractodet".ID_AGENCIA = CON$PUC.ID_AGENCIA )');
-                 SQL.Add('where ID_COLOCACION = :"ID_COLOCACION" and');
-                 SQL.Add('ID_CBTE_COLOCACION = :"ID_CBTE_COLOCACION" and');
-                 SQL.Add('FECHA_EXTRACTO = :"FECHA_EXTRACTO"');
-                 SQL.Add('ORDER BY CODIGO_PUC,VALOR_DEBITO');
+                 SQL.Add('ce.CUOTA_EXTRACTO,');
+                 SQL.Add('ced.CODIGO_PUC As CODIGO,');
+                 SQL.Add('ced.FECHA_INICIAL,');
+                 SQL.Add('ced.FECHA_FINAL,');
+                 SQL.Add('ced.DIAS_APLICADOS AS DIAS,');
+                 SQL.Add('ced.TASA_LIQUIDACION AS TASA,');
+                 SQL.Add('ced.VALOR_DEBITO AS DEBITO,');
+                 SQL.Add('ced.VALOR_CREDITO AS CREDITO,');
+                 SQL.Add('cp.NOMBRE');
+                 SQL.Add('FROM "col$extracto" ce');
+                 SQL.Add('LEFT JOIN "col$extractodet" ced ON ced.ID_AGENCIA = ce.ID_AGENCIA AND ced.ID_COLOCACION = ce.ID_COLOCACION AND ced.ID_CBTE_COLOCACION = ce.ID_CBTE_COLOCACION');
+                 SQL.Add('LEFT JOIN CON$PUC cp ON cp.CODIGO = ced.CODIGO_PUC and ');
+                 SQL.Add('cp.ID_AGENCIA = ced.ID_AGENCIA');
+                 SQL.Add('where ce.ID_COLOCACION = :"ID_COLOCACION" and');
+                 SQL.Add('ce.ID_CBTE_COLOCACION = :"ID_CBTE_COLOCACION" and');
+                 SQL.Add('ce.FECHA_EXTRACTO = :"FECHA_EXTRACTO"');
+                 SQL.Add('ORDER BY ced.CODIGO_PUC,ced.VALOR_DEBITO');
                  ParamByName('ID_COLOCACION').AsString := vColocacion;
                  ParamByName('ID_CBTE_COLOCACION').AsString := vComprobante;
                  ParamByName('FECHA_EXTRACTO').AsDate := Fecha;
 
                  Open;
-
+                 {
                  Report.Variables.ByName['Empresa'].AsString := Empresa;
                  Report.Variables.ByName['Colocacion'].AsString := vColocacion;
                  Report.Variables.ByName['Hoy'].AsDateTime := Fecha;
@@ -784,6 +789,27 @@ begin
                     frmVistaPreliminar.Reporte := Report;
                     frmVistaPreliminar.ShowModal;
                   end;
+                  }
+                  IBInforme.Open;
+                  prReportCartera.LoadTemplateFromFile(ExtractFileDir(Application.ExeName)+ '/Reporte/ComprobanteCopiaCartera.prt', false);
+                  prReportCartera.Variables.ByName['Empresa'].AsString := Empresa;
+                  prReportCartera.Variables.ByName['Colocacion'].AsString := vColocacion;
+                  prReportCartera.Variables.ByName['Hoy'].AsDateTime := Fecha;
+                  prReportCartera.Variables.ByName['ProximaCuota'].AsString := DateToStr(FechaaPagar);
+                  prReportCartera.Variables.ByName['FechaCorte'].AsDateTime := Fecha;
+                  prReportCartera.Variables.ByName['Asociado'].AsString := Asociado;
+                  prReportCartera.Variables.ByName['Cuenta'].AsString := Cuenta;
+                  prReportCartera.Variables.ByName['NuevoSaldo'].AsDouble := NuevoSaldo;
+                  prReportCartera.Variables.ByName['InteresesHasta'].AsDateTime := InteresHasta;
+                  prReportCartera.Variables.ByName['CapitalHasta'].AsDateTime := CapitalHasta;
+                  prReportCartera.Variables.ByName['comprobante'].AsString := VComprobante;
+                  prReportCartera.Variables.ByName['empleado'].AsString := Funcionario;
+
+                  if prReportCartera.PrepareReport then
+                  begin
+                   prReportCartera.PreviewPreparedReport(false);
+                  end;
+
               end;
             end
            else

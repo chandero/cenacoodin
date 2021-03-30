@@ -1,6 +1,6 @@
 object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
-  Left = 354
-  Top = 141
+  Left = 672
+  Top = 275
   BorderStyle = bsDialog
   Caption = 'Calculo de Cuotas'
   ClientHeight = 394

@@ -289,8 +289,6 @@ begin
 
                 IBQTabla.Next;
              end;
-             IBQTabla.Close;
-
              IBQTabla.Filter := 'CODIGO <' + QuotedStr('8000');
              IBQTabla.Filtered := True;
 
@@ -354,7 +352,11 @@ end;
 
 procedure TfrmMayorYBalance.btnReporteClick(Sender: TObject);
 begin
-             frReport1.LoadFromFile('ReportesCon\frMayorBalance.frf');
+                IBQTabla.Filtered := False;
+                IBQTabla.First;
+                IBQTabla1.Filtered := False;
+                IBQTabla1.First;
+                frReport1.LoadFromFile('ReportesCon\frMayorBalance.frf');
                 frReport1.Dictionary.Variables['EMPRESA'] := QuotedStr(Empresa);
                 frReport1.Dictionary.Variables['NIT'] := QuotedStr(nit);
                 frReport1.Dictionary.Variables['MES'] := QuotedStr(CBMeses.Text);

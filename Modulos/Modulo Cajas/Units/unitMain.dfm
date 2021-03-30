@@ -1,8 +1,8 @@
 object frmMain: TfrmMain
-  Left = 289
-  Top = 34
-  Width = 812
-  Height = 612
+  Left = 614
+  Top = 226
+  Width = 638
+  Height = 448
   Caption = 'Modulo Cajas - NIIF v1.0'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -38,7 +38,7 @@ object frmMain: TfrmMain
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 804
+    Width = 630
     Height = 39
     ButtonHeight = 36
     ButtonWidth = 72

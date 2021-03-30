@@ -1,7 +1,7 @@
 object frmCertificaReteFuenteCap: TfrmCertificaReteFuenteCap
   Left = 468
   Top = 219
-  Width = 407
+  Width = 457
   Height = 231
   Caption = 'Certificado de Retenci'#243'n en la Fuente'
   Color = clBtnFace
@@ -19,7 +19,7 @@ object frmCertificaReteFuenteCap: TfrmCertificaReteFuenteCap
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 399
+    Width = 449
     Height = 91
     Align = alClient
     AutoSize = True
@@ -75,7 +75,7 @@ object frmCertificaReteFuenteCap: TfrmCertificaReteFuenteCap
   object Panel2: TPanel
     Left = 0
     Top = 91
-    Width = 399
+    Width = 449
     Height = 28
     Align = alBottom
     TabOrder = 1
@@ -124,7 +124,7 @@ object frmCertificaReteFuenteCap: TfrmCertificaReteFuenteCap
   object Panel3: TPanel
     Left = 0
     Top = 119
-    Width = 399
+    Width = 449
     Height = 46
     Align = alBottom
     TabOrder = 2
@@ -156,7 +156,7 @@ object frmCertificaReteFuenteCap: TfrmCertificaReteFuenteCap
   object Panel4: TPanel
     Left = 0
     Top = 165
-    Width = 399
+    Width = 449
     Height = 32
     Align = alBottom
     Color = clOlive
@@ -1211,7 +1211,7 @@ object frmCertificaReteFuenteCap: TfrmCertificaReteFuenteCap
     Params = <>
     StoreDefs = True
     Left = 328
-    Top = 104
+    Top = 120
     Data = {
       7B0000009619E0BD0100000018000000030000000000030000007B0004544950
       4F020049000000010005574944544802000200FF00054D4F4E544F0800040000

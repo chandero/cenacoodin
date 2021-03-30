@@ -1,6 +1,6 @@
 object frmInformeArqueoDiarioCaja: TfrmInformeArqueoDiarioCaja
-  Left = 349
-  Top = 224
+  Left = 604
+  Top = 412
   BorderStyle = bsDialog
   Caption = 'Caja - Arqueo del D'#237'a'
   ClientHeight = 107
@@ -1782,28 +1782,6 @@ object frmInformeArqueoDiarioCaja: TfrmInformeArqueoDiarioCaja
           dRec.Bottom = 18
           Visible = False
         end
-        object prTxMemoObj9: TprTxMemoObj
-          dRec.DefVersion = 0
-          dRec.Versions = <
-            item
-              Visible = True
-              Memo.Strings = (
-                '[:<$#,#0.00>IBQuery.SALDO_FINAL_MONEDA]')
-              DeleteEmptyLinesAtEnd = False
-              DeleteEmptyLines = False
-              CanResizeX = False
-              CanResizeY = False
-              hAlign = prhRight
-              vAlign = prvTop
-              DefaultFont = False
-              WordWrap = False
-            end>
-          dRec.Left = 25
-          dRec.Top = 17
-          dRec.Right = 48
-          dRec.Bottom = 18
-          Visible = False
-        end
         object prTxMemoObj10: TprTxMemoObj
           dRec.DefVersion = 0
           dRec.Versions = <
@@ -1999,9 +1977,9 @@ object frmInformeArqueoDiarioCaja: TfrmInformeArqueoDiarioCaja
               WordWrap = False
             end>
           dRec.Left = 25
-          dRec.Top = 19
+          dRec.Top = 17
           dRec.Right = 48
-          dRec.Bottom = 20
+          dRec.Bottom = 18
           Visible = False
         end
         object prTxHLineObj1: TprTxHLineObj
@@ -2104,5 +2082,1493 @@ object frmInformeArqueoDiarioCaja: TfrmInformeArqueoDiarioCaja
     Transaction = dmGeneral.IBTransaction1
     Left = 160
     Top = 60
+  end
+  object prReport1: TprReport
+    Values = <>
+    Variables = <
+      item
+        Name = 'EMPRESA'
+        ValueType = 'prvvtString'
+        Value = 'COOPSERVIR LTDA'
+      end
+      item
+        Name = 'AGENCIA'
+        ValueType = 'prvvtInteger'
+        Value = 1
+      end
+      item
+        Name = 'Consignado'
+        ValueType = 'prvvtDouble'
+        Value = 0
+      end
+      item
+        Name = 'Cheques'
+        ValueType = 'prvvtDouble'
+        Value = 0
+      end
+      item
+        Name = 'Retirado'
+        ValueType = 'prvvtDouble'
+        Value = 0
+      end>
+    PrinterName = 'HP LaserJet p1505'
+    PreviewParams.Options = []
+    PreviewParams.ShowToolbars = [prptPreviewCommon]
+    Left = 144
+    Top = 32
+    SystemInfo = (
+      'OS: WIN32_NT 5.1.2600 Service Pack 3'
+      ''
+      'PageSize: 4096'
+      'ActiveProcessorMask: $1000'
+      'NumberOfProcessors: 1'
+      'ProcessorType: 586'
+      ''
+      'Compiler version: Delphi6'
+      'PReport version: 1.9.4')
+    LOGPIXELSX = 96
+    LOGPIXELSY = 96
+    object prPage1: TprPage
+      Width = 2159
+      Height = 2794
+      PaperSize = 1
+      Orientation = poPortrait
+      lMargin = 10
+      rMargin = 10
+      tMargin = 10
+      bMargin = 10
+      object prHPageHeaderBand1: TprHPageHeaderBand
+        Height = 309
+        UseVerticalBands = False
+        PrintOnFirstPage = True
+        object prMemoObj1: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[EMPRESA]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = [fsBold]
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 0
+          dRec.Top = 0
+          dRec.Right = 182
+          dRec.Bottom = 22
+          Visible = False
+        end
+        object prMemoObj2: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'AGENCIA:[:<00>AGENCIA]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 188
+          dRec.Top = 0
+          dRec.Right = 317
+          dRec.Bottom = 22
+          Visible = False
+        end
+        object prMemoObj3: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                
+                  'ARQUEO DEL DIA [:<yyyy/MM/dd>IBQuery.FECHA] - CAJA [:<000>IBQuer' +
+                  'y.ID_CAJA]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 324
+          dRec.Top = 0
+          dRec.Right = 572
+          dRec.Bottom = 22
+          Visible = False
+        end
+        object prMemoObj4: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'IMPRESO EL:[:<yyyy/MM/dd>StartDateTime]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 587
+          dRec.Top = 0
+          dRec.Right = 737
+          dRec.Bottom = 17
+          Visible = False
+        end
+        object prMemoObj5: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'Responsable:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 0
+          dRec.Top = 22
+          dRec.Right = 85
+          dRec.Bottom = 38
+          Visible = False
+        end
+        object prMemoObj6: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                
+                  '[IBQuery2.PRIMER_APELLIDO] [IBQuery2.SEGUNDO_APELLIDO] [IBQuery2' +
+                  '.NOMBRE]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 85
+          dRec.Top = 22
+          dRec.Right = 402
+          dRec.Bottom = 37
+          Visible = False
+        end
+        object prMemoObj7: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'SALDO INICIAL:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 0
+          dRec.Top = 45
+          dRec.Right = 119
+          dRec.Bottom = 62
+          Visible = False
+        end
+        object prMemoObj8: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'EFECTIVO:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 125
+          dRec.Top = 45
+          dRec.Right = 190
+          dRec.Bottom = 62
+          Visible = False
+        end
+        object prMemoObj9: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>IBQuery.SALDO_INICIAL_EFECTIVO]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 193
+          dRec.Top = 45
+          dRec.Right = 389
+          dRec.Bottom = 62
+          Visible = False
+        end
+        object prMemoObj10: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'CHEQUE: ')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 125
+          dRec.Top = 66
+          dRec.Right = 190
+          dRec.Bottom = 83
+          Visible = False
+        end
+        object prMemoObj11: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>IBQuery.SALDO_INICIAL_CHEQUE]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 193
+          dRec.Top = 66
+          dRec.Right = 389
+          dRec.Bottom = 83
+          Visible = False
+        end
+        object prMemoObj12: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'MONEDA:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 125
+          dRec.Top = 85
+          dRec.Right = 190
+          dRec.Bottom = 102
+          Visible = False
+        end
+        object prMemoObj13: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>IBQuery.SALDO_INICIAL_MONEDA]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 193
+          dRec.Top = 86
+          dRec.Right = 389
+          dRec.Bottom = 103
+          Visible = False
+        end
+        object prMemoObj14: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'TOTAL:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 125
+          dRec.Top = 107
+          dRec.Right = 190
+          dRec.Bottom = 124
+          Visible = False
+        end
+        object prMemoObj15: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                
+                  '[:<$#,#0.00>IBQuery.SALDO_INICIAL_EFECTIVO+IBQuery.SALDO_INICIAL' +
+                  '_CHEQUE+IBQuery.SALDO_INICIAL_MONEDA]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 193
+          dRec.Top = 107
+          dRec.Right = 389
+          dRec.Bottom = 124
+          Visible = False
+        end
+        object prShapeObj1: TprShapeObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+            end>
+          dRec.Left = 126
+          dRec.Top = 98
+          dRec.Right = 391
+          dRec.Bottom = 112
+          Visible = False
+        end
+        object prMemoObj16: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'SALDO FINAL:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 1
+          dRec.Top = 222
+          dRec.Right = 120
+          dRec.Bottom = 239
+          Visible = False
+        end
+        object prMemoObj17: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'EFECTIVO:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 126
+          dRec.Top = 222
+          dRec.Right = 191
+          dRec.Bottom = 239
+          Visible = False
+        end
+        object prMemoObj18: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>IBQuery.SALDO_FINAL_EFECTIVO]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 194
+          dRec.Top = 222
+          dRec.Right = 390
+          dRec.Bottom = 239
+          Visible = False
+        end
+        object prMemoObj19: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'CHEQUE: ')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 126
+          dRec.Top = 243
+          dRec.Right = 191
+          dRec.Bottom = 260
+          Visible = False
+        end
+        object prMemoObj20: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>IBQuery.SALDO_FINAL_CHEQUE]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 194
+          dRec.Top = 243
+          dRec.Right = 390
+          dRec.Bottom = 260
+          Visible = False
+        end
+        object prMemoObj23: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'TOTAL:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 126
+          dRec.Top = 286
+          dRec.Right = 191
+          dRec.Bottom = 303
+          Visible = False
+        end
+        object prMemoObj24: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                
+                  '[:<$#,#0.00>IBQuery.SALDO_FINAL_EFECTIVO+IBQuery.SALDO_FINAL_CHE' +
+                  'QUE+IBQuery.SALDO_FINAL_MONEDA]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 194
+          dRec.Top = 286
+          dRec.Right = 390
+          dRec.Bottom = 303
+          Visible = False
+        end
+        object prShapeObj2: TprShapeObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+            end>
+          dRec.Left = 125
+          dRec.Top = 280
+          dRec.Right = 390
+          dRec.Bottom = 287
+          Visible = False
+        end
+        object prMemoObj21: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'MOVIMIENTO DEL DIA')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 0
+          dRec.Top = 129
+          dRec.Right = 119
+          dRec.Bottom = 146
+          Visible = False
+        end
+        object prMemoObj22: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'Consignado:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 126
+          dRec.Top = 149
+          dRec.Right = 191
+          dRec.Bottom = 166
+          Visible = False
+        end
+        object prMemoObj25: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>Consignado]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 194
+          dRec.Top = 150
+          dRec.Right = 390
+          dRec.Bottom = 167
+          Visible = False
+        end
+        object prMemoObj26: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'Cheques: ')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 126
+          dRec.Top = 170
+          dRec.Right = 191
+          dRec.Bottom = 187
+          Visible = False
+        end
+        object prMemoObj27: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>Cheques]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 194
+          dRec.Top = 170
+          dRec.Right = 390
+          dRec.Bottom = 187
+          Visible = False
+        end
+        object prMemoObj28: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'Retirado:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 126
+          dRec.Top = 190
+          dRec.Right = 191
+          dRec.Bottom = 207
+          Visible = False
+        end
+        object prMemoObj29: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>Retirado]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 194
+          dRec.Top = 190
+          dRec.Right = 390
+          dRec.Bottom = 207
+          Visible = False
+        end
+        object prMemoObj30: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                'MONEDA:')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhLeft
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 126
+          dRec.Top = 263
+          dRec.Right = 191
+          dRec.Bottom = 280
+          Visible = False
+        end
+        object prMemoObj31: TprMemoObj
+          dRec.DefVersion = 0
+          dRec.Versions = <
+            item
+              Visible = True
+              Memo.Strings = (
+                '[:<$#,#0.00>IBQuery.SALDO_FINAL_MONEDA]')
+              lBorder.Show = False
+              lBorder.Style = psSolid
+              lBorder.Color = clBlack
+              lBorder.Width = 1
+              rBorder.Show = False
+              rBorder.Style = psSolid
+              rBorder.Color = clBlack
+              rBorder.Width = 1
+              tBorder.Show = False
+              tBorder.Style = psSolid
+              tBorder.Color = clBlack
+              tBorder.Width = 1
+              bBorder.Show = False
+              bBorder.Style = psSolid
+              bBorder.Color = clBlack
+              bBorder.Width = 1
+              FillColor = clWhite
+              hAlign = prhRight
+              vAlign = prvTop
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Arial'
+              Font.Style = []
+              Rotate90 = False
+              DeleteEmptyLinesAtEnd = False
+              DeleteEmptyLines = False
+              CanResizeX = False
+              CanResizeY = False
+              WordWrap = False
+              FontSize = 8
+            end>
+          dRec.Left = 194
+          dRec.Top = 264
+          dRec.Right = 390
+          dRec.Bottom = 281
+          Visible = False
+        end
+      end
+    end
   end
 end

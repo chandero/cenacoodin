@@ -1,11 +1,6 @@
 object TprReport
-  ShowProgress = True
-  DesignerFormMode = fmMDIChild
   FromPage = 1
   ToPage = 1
-  Title = 'Liquidaci'#243'n'
-  ExportFromPage = 0
-  ExportToPage = 0
   Values = <
     item
       Name = 'TotalDebito'
@@ -43,8 +38,8 @@ object TprReport
   PrinterName = 'Virtual printer'
   PreviewParams.Options = []
   PreviewParams.ShowToolbars = [prptPreviewCommon]
-  Left = 240
-  Top = 126
+  Left = 544
+  Top = 454
   SystemInfo = (
     'OS: WIN32_NT 5.1.2600 Service Pack 3'
     ''
@@ -1405,9 +1400,9 @@ object TprReport
             Visible = True
             Style = prssCenterVertLine
           end>
-        dRec.Left = 724
+        dRec.Left = 723
         dRec.Top = 0
-        dRec.Right = 734
+        dRec.Right = 733
         dRec.Bottom = 17
         Visible = False
       end
@@ -1418,9 +1413,9 @@ object TprReport
             Visible = True
             Style = prssCenterVertLine
           end>
-        dRec.Left = -6
+        dRec.Left = -7
         dRec.Top = 0
-        dRec.Right = 4
+        dRec.Right = 3
         dRec.Bottom = 17
         Visible = False
       end
@@ -1487,9 +1482,9 @@ object TprReport
             Visible = True
             Style = prssCenterVertLine
           end>
-        dRec.Left = 724
+        dRec.Left = 723
         dRec.Top = 0
-        dRec.Right = 734
+        dRec.Right = 733
         dRec.Bottom = 17
         Visible = False
       end
@@ -1500,9 +1495,9 @@ object TprReport
             Visible = True
             Style = prssCenterVertLine
           end>
-        dRec.Left = -6
+        dRec.Left = -7
         dRec.Top = 0
-        dRec.Right = 4
+        dRec.Right = 3
         dRec.Bottom = 17
         Visible = False
       end

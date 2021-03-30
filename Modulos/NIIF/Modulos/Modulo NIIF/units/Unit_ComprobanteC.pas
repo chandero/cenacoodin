@@ -174,6 +174,8 @@ type
     Label14: TLabel;
     btnReversar: TBitBtn;
     prReport1: TprReport;
+    prTxReportCartera: TprTxReport;
+    prReportCartera: TprReport;
 
     procedure BtnGrabarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

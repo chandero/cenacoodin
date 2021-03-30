@@ -1537,15 +1537,18 @@ begin
            if (CodigoMayor <> CodigoMActual) then
            begin
                // Actualizar Codigo Mayor
+               {
                DmComprobante.IBQuery3.Close;
                DmComprobante.IBQuery3.SQL.Clear;
                DmComprobante.IBQuery3.SQL.Add('UPDATE CON$PUC p SET p.CODIGOMAYOR = :CODIGOMAYOR WHERE p.CODIGO = :CODIGO');
                DmComprobante.IBQuery3.ParamByName('CODIGOMAYOR').AsString := CodigoMayor;
                DmComprobante.IBQuery3.ParamByName('CODIGO').AsString := Codigo;
                DmComprobante.IBQuery3.ExecSQL;
+               }
+               ShowMessage('Codigo Mayor del Codigo:' + Codigo + ', no corresponde a :' + CodigoMayor);
            end;
                // Verificar si codigo mayor existe, de lo contrario crearlo
-
+           {
                DmComprobante.IBQuery3.Close;
                DmComprobante.IBQuery3.SQL.Clear;
                DmComprobante.IBQuery3.SQL.Add('SELECT * FROM CON$PUC p WHERE p.CODIGO = :CODIGO');
@@ -1577,6 +1580,7 @@ begin
                    DmComprobante.IBQuery3.ParamByName('SALDOINICIAL').AsCurrency := 0;
                    DmComprobante.IBQuery3.ExecSQL;
                end;
+               }
           next;
          end;
       end;

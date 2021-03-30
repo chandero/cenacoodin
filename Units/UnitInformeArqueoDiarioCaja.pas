@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, DateUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, IBCustomDataSet, IBQuery, pr_Common, pr_TxClasses, StdCtrls,
-  Buttons, JvEdit, JvTypedEdit, ComCtrls, ExtCtrls, IBSQL;
+  Buttons, JvEdit, JvTypedEdit, ComCtrls, ExtCtrls, IBSQL, pr_Classes;
 
 type
   TfrmInformeArqueoDiarioCaja = class(TForm)
@@ -36,6 +36,7 @@ type
     IBSumas: TIBQuery;
     IBSQL2: TIBSQL;
     Reporte1: TprTxReport;
+    prReport1: TprReport;
     procedure CmdGeneraClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -234,7 +235,7 @@ begin
           Cheques := 0;
          end;
         end;
-
+        {
         Reporte1.Variables.ByName['Empresa'].AsString := Empresa;
         Reporte1.Variables.ByName['Agencia'].AsInteger := Agencia;
         Reporte1.Variables.ByName['Consignado'].AsDouble := Consignado;
@@ -242,6 +243,15 @@ begin
         Reporte1.Variables.ByName['Cheques'].AsDouble := Cheques;
         if Reporte1.PrepareReport then
            Reporte1.PreviewPreparedReport(True);
+        }
+        prReport1.LoadTemplateFromFile(ExtractFilePath(Application.ExeName) + 'Reporte/InformeArqueoDelDia.prt', False);
+        prReport1.Variables.ByName['Empresa'].AsString := Empresa;
+        prReport1.Variables.ByName['Agencia'].AsInteger := Agencia;
+        prReport1.Variables.ByName['Consignado'].AsDouble := Consignado;
+        prReport1.Variables.ByName['Retirado'].AsDouble := Retirado;
+        prReport1.Variables.ByName['Cheques'].AsDouble := Cheques;
+        if prReport1.PrepareReport then
+           prReport1.PreviewPreparedReport(True);
 //      if Report.PrepareReport then
 //          Report.PreviewPreparedReport(True);
 

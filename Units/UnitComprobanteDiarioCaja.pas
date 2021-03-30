@@ -6,7 +6,7 @@ uses
   Windows, Messages, DateUtils, StrUtils, Math, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, IBCustomDataSet, IBQuery, pr_Common, pr_TxClasses, StdCtrls,
   Buttons, JvEdit, JvTypedEdit, ComCtrls, ExtCtrls, IBSQL, DBClient,
-  IBTable, FR_DSet, FR_DBSet, FR_Class, IBDatabase, JclSysUtils;
+  IBTable, FR_DSet, FR_DBSet, FR_Class, IBDatabase, JclSysUtils, pr_Classes;
 
 type
   TfrmComprobanteDiario = class(TForm)
@@ -74,6 +74,8 @@ type
     IBSQLconsec: TIBSQL;
     IBTconsec: TIBTransaction;
     edComprobante: TMemo;
+    IBAuxiliar1: TIBQuery;
+    prReportComprobanteContable: TprReport;
     procedure CmdGeneraClick(Sender: TObject);
     procedure CmdCerrarClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -84,6 +86,9 @@ type
     procedure cmdReporteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure NotasRecaudo;
+    procedure prReportComprobanteContableInitDetailBandDataSet(
+      Sender: TObject; DetailBand: TprBand; DataSet: TObject;
+      const DataSetName: String);
   private
   NohaySucursal :Boolean;
     { Private declarations }
@@ -1110,6 +1115,7 @@ begin
          SQL.Add('CON$PUC.NOMBRE AS CUENTA,');
          SQL.Add('CON$AUXILIAR.DEBITO,');
          SQL.Add('CON$AUXILIAR.CREDITO,');
+         SQL.Add('CON$AUXILIAR.ID_IDENTIFICACION,');
          SQL.Add('CON$AUXILIAR.ID_PERSONA');
          SQL.Add(' from');
          SQL.Add('CON$COMPROBANTE');
@@ -1124,10 +1130,19 @@ begin
          ParamByName('ID_AGENCIA').AsInteger := Agencia;
          try
           Open;
+          {
           Report.Variables.ByName['EMPRESA'].AsString := Empresa;
           Report.Variables.ByName['NIT'].AsString := Nit;
           if Report.PrepareReport then
              Report.PreviewPreparedReport(True);
+             }
+          Empleado;
+          prReportComprobanteContable.LoadTemplateFromFile(ExtractFilePath(Application.ExeName) + '/Reporte/ComprobanteContableCaja.prt', False);
+          prReportComprobanteContable.Variables.ByName['EMPRESA'].AsString := Empresa;
+          prReportComprobanteContable.Variables.ByName['NIT'].AsString := Nit;
+          prReportComprobanteContable.Variables.ByName['Empleado'].AsString := Nombres + ' ' + Apellidos;
+          if prReportComprobanteContable.PrepareReport then
+             prReportComprobanteContable.PreviewPreparedReport(False);
          except
          end;
         end;
@@ -1571,6 +1586,24 @@ begin
         end;
         IBSQL1.Transaction.Commit;
         _lista := TStringList.Create
+end;
+
+procedure TfrmComprobanteDiario.prReportComprobanteContableInitDetailBandDataSet(
+  Sender: TObject; DetailBand: TprBand; DataSet: TObject;
+  const DataSetName: String);
+begin
+        if DataSetName = 'IBAuxiliar1' then begin
+          with IBAuxiliar1 do begin
+            Close;
+            ParamByName('ID_IDENTIFICACION').AsInteger := IBAuxiliar.FieldByName('ID_IDENTIFICACION').AsInteger;
+            ParamByName('ID_PERSONA').AsString := IBAuxiliar.FieldByName('ID_PERSONA').AsString;
+            try
+             Open;
+            except
+             raise;
+            end;
+          end;
+        end;
 end;
 
 end.

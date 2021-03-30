@@ -156,8 +156,8 @@ begin
           SQL.Add('SELECT SUM(a.DEBITO) AS DEBITO, SUM(a.CREDITO) AS CREDITO FROM CON$COMPROBANTE c');
           SQL.Add('INNER JOIN CON$AUXILIAR a ON a.TIPO_COMPROBANTE = c.TIPO_COMPROBANTE and a.ID_COMPROBANTE = c.ID_COMPROBANTE');
           SQL.Add('WHERE a.FECHA BETWEEN :FECHA_INI and :FECHA_FIN and a.CODIGO LIKE :CODIGO');
-          SQL.Add(' and c.ESTADO <> :ESTADO');
-          ParamByName('ESTADO').AsString := 'N';
+          SQL.Add(' and c.ESTADO = :ESTADO');
+          ParamByName('ESTADO').AsString := 'C';
        end;
 
        Periodo := CBMeses.ItemIndex + 1;
@@ -415,6 +415,23 @@ begin
 
         IBQsaldo.Database := dmGeneral.IBDatabase1;
         IBQsaldo.Transaction := dmGeneral.IBTransaction1;
+
+        IBQTabla.Close;
+        IBQTabla.Open;
+        IBQTabla.EmptyDataSet;
+
+        IBQTabla1.Close;
+        IBQTabla1.Open;
+        IBQTabla1.EmptyDataSet;
+
+        IBQTabla1Col.Close;
+        IBQTabla1Col.Open;
+        IBQTabla1Col.EmptyDataSet;
+
+        IBQTabla4Col.Close;
+        IBQTabla4Col.Open;
+        IBQTabla4Col.EmptyDataSet;
+
 end;
 
 procedure TfrmBalance.FormShow(Sender: TObject);

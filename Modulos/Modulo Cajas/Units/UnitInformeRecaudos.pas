@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, JvEdit, JvTypedEdit, ComCtrls, ExtCtrls,
-  pr_Common, pr_TxClasses, DB, IBCustomDataSet, IBQuery, IBSQL, DateUtils;
+  pr_Common, pr_TxClasses, DB, IBCustomDataSet, IBQuery, IBSQL, DateUtils,
+  pr_Classes;
 
 type
   TfrmInformeRecaudo = class(TForm)
@@ -20,6 +21,7 @@ type
     IBQuery1: TIBQuery;
     IBSQL1: TIBSQL;
     repRecaudo: TprTxReport;
+    prRepRecaudo: TprReport;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure CmdGeneraClick(Sender: TObject);
@@ -123,12 +125,21 @@ begin
 
         if (IBQuery1.RecordCount > 0 ) then
         begin
+        {
          repRecaudo.Variables.ByName['EMPRESA'].AsString := Empresa;
          repRecaudo.Variables.ByName['DIA'].AsDateTime := EdFecha.Date;
          repRecaudo.Variables.ByName['EMPLEADO'].AsString := Empleado;
          repRecaudo.Variables.ByName['CAJA'].AsInteger := EdCaja.Value;
          if repRecaudo.PrepareReport then
            repRecaudo.PreviewPreparedReport(true);
+         }
+         prRepRecaudo.LoadTemplateFromFile(ExtractFilePath(Application.ExeName) + '/Reporte/InformeDeRecaudoDelDia.prt', False);
+         prRepRecaudo.Variables.ByName['EMPRESA'].AsString := Empresa;
+         prRepRecaudo.Variables.ByName['DIA'].AsDateTime := EdFecha.Date;
+         prRepRecaudo.Variables.ByName['EMPLEADO'].AsString := Empleado;
+         prRepRecaudo.Variables.ByName['CAJA'].AsInteger := EdCaja.Value;
+         if prRepRecaudo.PrepareReport then
+           prRepRecaudo.PreviewPreparedReport(true);
         end
         else
           ShowMessage('No hay datos para este día');

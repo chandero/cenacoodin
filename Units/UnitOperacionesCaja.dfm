@@ -2398,7 +2398,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 12
           TabStop = False
@@ -3099,7 +3099,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 3
           TabStop = False
@@ -11109,7 +11109,7 @@ object frmOperacionesCaja: TfrmOperacionesCaja
           Font.Height = -8
           Font.Name = 'MS Sans Serif'
           Font.Style = [fsBold]
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 10
           TabStop = False

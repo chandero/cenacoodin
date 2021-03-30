@@ -1,6 +1,6 @@
 object frmComprobante: TfrmComprobante
-  Left = 204
-  Top = 176
+  Left = 458
+  Top = 266
   Width = 760
   Height = 418
   Caption = 'Digitaci'#243'n de Comprobantes'
