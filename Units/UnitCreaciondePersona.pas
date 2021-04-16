@@ -8,7 +8,7 @@ uses
   ImgList, StrUtils, CommCtrl, OleCtrls,
   Clipbrd, GIIEPADLib_TLB,DBTables, OleServer, DPSDKOPSLib_TLB, DpSdkEngLib_TLB,
   ActiveX, IBCustomDataSet, IBBlob, Provider, DBClient, DBLocal, DBLocalI,
-  IBSQL, DBGrids, JvEdit, JvFloatEdit, JclSysUtils, UnitTomaHuella, UnitVerificarHuella,
+  IBSQL, DBGrids, JvEdit, JvFloatEdit, JclSysUtils, UnitValidarHuellaAsociado,
   IBQuery, JvTypedEdit,Jpeg, EpadInkLib_TLB, AXCtrls;
 
 type
@@ -655,6 +655,7 @@ type
     function Grabar: Boolean;
     function Actualizar: Boolean;
     procedure CambiarEstadoCivil;
+    procedure verificarHuella;
     { Private declarations }
   public
     property Id:Integer read Tipo Write Tipo;
@@ -708,7 +709,7 @@ UnitdmPersona,
 UnitTomarFoto,
 UnitBuscarCIIU,
 UnitCreacionPersonaIndependiente,
-UnitGuardaImagen;
+UnitGuardaImagen, UnitTomaHuella, UnitVerificarHuella;
 
 type
    PListaDireccion = ^AListaDireccion;
@@ -1661,6 +1662,8 @@ begin
                      ImgHuellaC.Picture.Bitmap.Assign(jpg);
                      FreeAndNil(jpg);
                      ImgHuellaC.Repaint;
+                     if ( vTipoIdentificacion <> 4) and (vTipoIdentificacion <> 7) then
+                        verificarHuella;
 //                     ImgHuellaC.Picture.Bitmap.Dormant;
 //                     ImgHuellaC.Picture.Bitmap.FreeImage;
                      CmdTomarHuella.Enabled := False;
@@ -1990,7 +1993,6 @@ begin
                   CDSfamiliarpeps.Post;
                   Next;
               end;
-
             // *** fin actualizacion hijos
         dmPersona.IBQuery.Close;
         end;
@@ -6147,6 +6149,18 @@ begin
         btnEliminarFamiliarPeps.Enabled := True;
         btnModificarFamiliarPeps.Enabled := True;
         btnAgregarFamiliarPeps.Enabled := False;
+end;
+
+procedure TfrmCreacionPersona.verificarHuella;
+var
+  frmVerify: TfrmValidarHuellaAsociado;
+  valido: Boolean;
+  i: Integer;
+begin
+      frmVerify := TfrmValidarHuellaAsociado.Create(self);
+      frmVerify.TipoDocumento := CBTiposIdentificacion.KeyValue;
+      frmVerify.Documento := EdIdentificacion.Text;
+      frmVerify.ShowModal;
 end;
 
 end.

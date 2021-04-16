@@ -3003,7 +3003,7 @@ if MessageDlg('Seguro de Realizar el Abono?',mtConfirmation,[mbYes,mbNo],0) = mr
     cambio := false;
 
 ///**Genero el consecutivo
-    Consec := FormatCurr('00000000',ObtenerConsecutivo(IBSaldo));
+    Consec := FormatCurr('0000000',ObtenerConsecutivo(IBSaldo));
     vComprobante := Consec;
     EdNoComprobante.Text := Consec;
     dmGeneral.IBTransaction1.StartTransaction;

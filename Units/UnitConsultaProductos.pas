@@ -1518,8 +1518,12 @@ var digito:string;
     Inicial:Currency;
     Actual:Currency;
     i:Integer;
-    Cuota:Currency;
+    _cCuotas, Cuota:Currency;
     _iTasaContractual :Currency;
+    _cTasaContractual :Currency;
+    _plazo, _amortizacion: Integer;
+    _porcentaje, _tasan: Double;
+    Incentivo:Currency;
 begin
         Inicial := 0;
         Actual := 0;
@@ -1550,7 +1554,7 @@ begin
                 end;
                 Close;
                 SQL.Clear;
-                SQL.Add('select CUOTA,ID_PLAN,ID_ESTADO,FECHA_APERTURA,FECHA_PROXIMO_PAGO,TASA_EFECTIVA from "cap$maestro" where ');
+                SQL.Add('select CUOTA,ID_PLAN,ID_ESTADO,FECHA_APERTURA,FECHA_PROXIMO_PAGO,TASA_EFECTIVA, PLAZO_CUENTA from "cap$maestro" where ');
                 SQL.Add('ID_AGENCIA = :"ID_AGENCIA" and ID_TIPO_CAPTACION = :"ID_TIPO_CAPTACION" ');
                 SQL.Add('and NUMERO_CUENTA = :"NUMERO_CUENTA" and DIGITO_CUENTA = :"DIGITO_CUENTA" ');
                 ParamByName('ID_AGENCIA').AsInteger := agencia;
@@ -1564,7 +1568,6 @@ begin
                      tmp1 := FieldByName('ID_PLAN').AsInteger;
                      EdFechaAperturaContractual.Caption := DateToStr(FieldByname('FECHA_APERTURA').AsDate);
                      EdProximoAbonoContractual.Caption := DateToStr(FieldByName('FECHA_PROXIMO_PAGO').AsDate);
-                     Cuota := FieldByName('CUOTA').AsCurrency;
                      _iTasaContractual := FieldByName('TASA_EFECTIVA').AsCurrency;
                      EdCuotaContractual.Caption := FormatCurr('$0,0.00',Cuota);
                      Close;
@@ -1577,13 +1580,22 @@ begin
                         EdEstadoContractual.Caption := FieldByName('DESCRIPCION').AsString;
                      Close;
                      SQL.Clear;
-                     SQL.Add('select DESCRIPCION, CUOTAS from "cap$tiposplancontractual" where ');
+                     SQL.Add('select * from "cap$tiposplancontractual" where ');
                      SQL.Add('ID_PLAN = :"ID_PLAN" ');
                      ParamByName('ID_PLAN').AsInteger := tmp1;
                      ExecQuery;
                      if RecordCount > 0 then
+                         Cuotas := FieldByName('PLAZO').AsInteger div 30;
+                         _cCuotas := Cuotas;
+                         _plazo := FieldByName('PLAZO').AsInteger;
+                        // Incentivo := EdValorContractual.Value * FieldByName('CUOTAS').AsDouble;
+                        if (_plazo > 360) then _amortizacion := 360 else _amortizacion := _plazo;
+                         _porcentaje := FieldByName('CUOTAS').AsFloat;
+                        // _bonificacion := RoundTo(_cuota * _porcentaje, 0);
+                        _tasan := TasaNominalVencida(_porcentaje, _amortizacion);
+                        Incentivo :=  SimpleRoundTo((Inicial * _cCuotas) * (_tasan / 100) / 360 * _plazo,0);
                         EdPlanContractual.Caption := FieldByName('DESCRIPCION').AsString;
-                        EdIncentivo.Caption := FormatCurr('$0,0.00',simpleroundto((Cuota*_iTasaContractual),0));
+                        EdIncentivo.Caption := FormatCurr('$0,0.00',Incentivo);
                      Close;
                    end;
                 SQL.Clear;

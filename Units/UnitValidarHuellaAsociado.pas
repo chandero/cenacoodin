@@ -44,10 +44,14 @@ type
     procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure DPFPCapture1Complete(ASender: TObject;
       const ReaderSerNum: WideString; const pSample: IDispatch);
+    procedure FormShow(Sender: TObject);
   private
      pvData:array[0..2047] of Byte;
      blobSize:Integer;
      ValidacionOK:Boolean;
+    id_identificacion: Integer;
+    id_persona: String;
+    IniciarCaptura: Boolean;
     procedure ValidarResultado;
     procedure Process(pSample: IDispatch);
     procedure StopCapture;
@@ -58,6 +62,8 @@ type
   public
      c_IVerify : IFPVerify;
      c_regTemplate : IFPTemplate;
+     property TipoDocumento : Integer read id_identificacion write id_identificacion;
+     property Documento : String read id_persona write id_persona;
     { Public declarations }
   end;
 
@@ -76,6 +82,7 @@ procedure TfrmValidarHuellaAsociado.FormCreate(Sender: TObject);
 begin
   IBTransaction1.StartTransaction;
   IBQuery1.Open;
+  IniciarCaptura := False;
 end;
 
 procedure TfrmValidarHuellaAsociado.btnCerrarClick(Sender: TObject);
@@ -127,6 +134,7 @@ begin
                   EdNombres.Caption := FieldByName('NOMBRE').AsString;
                   BlobStream.read(pvData,longitud);
                   BlobStream.Free;
+                  if (IniciarCaptura) then btnComenzar.Click;
                  end
                  else
                  begin
@@ -271,6 +279,17 @@ begin
      Convertor := TDPFPSampleConversion.Create(nil);
      Bitmap := Convertor.ConvertToPicture(pSample);
      result := Bitmap;
+end;
+
+procedure TfrmValidarHuellaAsociado.FormShow(Sender: TObject);
+begin
+  if (TipoDocumento > 0) then DBLCBTiposIdentificacion.KeyValue := TipoDocumento;
+  if (Documento <> '') then EdNumeroIdentificacion.Text := Documento;
+  if ( (TipoDocumento > 0) and (Documento <> '') ) then
+  begin
+    iniciarCaptura := True;
+    EdNumeroIdentificacionExit(Self);
+  end;
 end;
 
 end.

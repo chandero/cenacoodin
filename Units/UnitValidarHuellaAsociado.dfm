@@ -1,6 +1,6 @@
 object frmValidarHuellaAsociado: TfrmValidarHuellaAsociado
-  Left = 449
-  Top = 131
+  Left = 438
+  Top = 169
   Width = 498
   Height = 263
   Caption = 'Validacion de Asociado por Huella'
@@ -15,6 +15,7 @@ object frmValidarHuellaAsociado: TfrmValidarHuellaAsociado
   Position = poScreenCenter
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object LblAccion: TJvBlinkingLabel

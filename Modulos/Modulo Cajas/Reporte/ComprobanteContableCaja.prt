@@ -8,19 +8,21 @@ object TprReport
   ExportToPage = 0
   Values = <
     item
+      Group = prGroup1
       Name = 'TotalDebito'
       AggFunction = prafSum
       Formula = 'IBAuxiliar.DEBITO'
-      ResetOn = rvtReport
+      ResetOn = rvtGroup
       CalcOn = cvtDataSetNext
       DataSetName = 'IBAuxiliar'
       Accumulate = True
     end
     item
+      Group = prGroup1
       Name = 'TotalCredito'
       AggFunction = prafSum
       Formula = 'IBAuxiliar.CREDITO'
-      ResetOn = rvtReport
+      ResetOn = rvtGroup
       CalcOn = cvtDataSetNext
       DataSetName = 'IBAuxiliar'
     end>

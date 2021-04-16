@@ -3101,19 +3101,21 @@ object frmComprobanteDiario: TfrmComprobanteDiario
     ExportToPage = 0
     Values = <
       item
+        Group = prReportComprobanteContable.prGroup1
         Name = 'TotalDebito'
         AggFunction = prafSum
         Formula = 'IBAuxiliar.DEBITO'
-        ResetOn = rvtReport
+        ResetOn = rvtGroup
         CalcOn = cvtDataSetNext
         DataSetName = 'IBAuxiliar'
         Accumulate = True
       end
       item
+        Group = prReportComprobanteContable.prGroup1
         Name = 'TotalCredito'
         AggFunction = prafSum
         Formula = 'IBAuxiliar.CREDITO'
-        ResetOn = rvtReport
+        ResetOn = rvtGroup
         CalcOn = cvtDataSetNext
         DataSetName = 'IBAuxiliar'
       end>

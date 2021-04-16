@@ -1,6 +1,6 @@
 object dmColocacion: TdmColocacion
   OldCreateOrder = False
-  Left = 1050
+  Left = 875
   Top = 17
   Height = 445
   Width = 454

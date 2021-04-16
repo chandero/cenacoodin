@@ -5812,7 +5812,7 @@ begin
                   New(ar);
                   //AR^.codigo := '425037000000000000'; //Anterior
                   //AR^.codigo := '418026000000000000'; //Anterior
-                  AR^.codigo := '422522000000000000'; //Nuevo C?digo
+                  AR^.codigo := '422522010000000000'; //Nuevo C?digo
                   AR^.nomcuenta := 'REINTEGRO PROVISIONES DE CUENTAS POR COBRAR';
                   AR^.nocuenta := 0;
                   AR^.nocredito := '';

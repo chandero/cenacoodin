@@ -755,7 +755,7 @@ object frmConsultaProductos: TfrmConsultaProductos
         Top = 1
         Width = 381
         Height = 359
-        ActivePage = Hoja0
+        ActivePage = Hoja2
         Align = alClient
         Style = tsFlatButtons
         TabOrder = 0
@@ -777,7 +777,7 @@ object frmConsultaProductos: TfrmConsultaProductos
                 Left = 0
                 Top = 0
                 Width = 365
-                Height = 338
+                Height = 339
                 Align = alClient
                 Caption = 'Panel5'
                 TabOrder = 0
@@ -935,14 +935,14 @@ object frmConsultaProductos: TfrmConsultaProductos
                   Left = 1
                   Top = 69
                   Width = 363
-                  Height = 268
+                  Height = 269
                   Align = alClient
                   TabOrder = 1
                   object GridSaldosMes: TXStringGrid
                     Left = 1
                     Top = 1
                     Width = 361
-                    Height = 266
+                    Height = 267
                     Align = alClient
                     ColCount = 4
                     DefaultRowHeight = 17
@@ -3854,9 +3854,9 @@ object frmConsultaProductos: TfrmConsultaProductos
             Top = 0
             Width = 373
             Height = 349
-            ActivePage = TabSheet1
+            ActivePage = TabSheet3
             Align = alClient
-            TabIndex = 0
+            TabIndex = 2
             TabOrder = 0
             object TabSheet1: TTabSheet
               Caption = 'Datos Personales'
@@ -4872,7 +4872,7 @@ object frmConsultaProductos: TfrmConsultaProductos
             Left = 0
             Top = 0
             Width = 373
-            Height = 348
+            Height = 349
             Align = alClient
             Caption = 'Aqu'#237' vera la informaci'#243'n relacionada con la persona buscada'
             TabOrder = 0
