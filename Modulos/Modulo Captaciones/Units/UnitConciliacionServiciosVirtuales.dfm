@@ -1,6 +1,6 @@
 object frmConciliacionServiciosVirtuales: TfrmConciliacionServiciosVirtuales
-  Left = 266
-  Top = 203
+  Left = 231
+  Top = 191
   Width = 942
   Height = 301
   Caption = 'Conciliaci'#243'n Servicios Virtuales'

@@ -1,11 +1,11 @@
 object dmGeneral: TdmGeneral
   OldCreateOrder = False
-  Left = 951
-  Top = 285
+  Left = 444
+  Top = 114
   Height = 194
   Width = 171
   object IBDatabase1: TIBDatabase
-    DatabaseName = '10.0.2.2:C:\OPT\DB\COODINDEV.FDB'
+    DatabaseName = '10.0.2.2:/var/db/fbird/COODINDEV.FDB'
     Params.Strings = (
       'lc_ctype=ISO8859_1'
       'user_name=SYSDBA'

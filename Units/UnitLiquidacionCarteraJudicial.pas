@@ -3202,10 +3202,7 @@ if MessageDlg('Seguro de Realizar el Abono?',mtConfirmation,[mbYes,mbNo],0) = mr
               ParamByName('ID_CUENTA').AsInteger := NumeroCuentaAp
             else
               ParamByName('ID_CUENTA').AsInteger := 0;
-            if LeftStr(AR^.CodigoPuc,2) = '14' then
-              ParamByName('ID_COLOCACION').AsString := vColocacion
-            else
-              ParamByName('ID_COLOCACION').AsString := '';
+            ParamByName('ID_COLOCACION').AsString := vColocacion;
             ParamByName('ID_IDENTIFICACION').AsInteger := vTipoId;
             ParamByName('ID_PERSONA').AsString := vNumeroId;
             ParamByName('MONTO_RETENCION').AsCurrency := 0;

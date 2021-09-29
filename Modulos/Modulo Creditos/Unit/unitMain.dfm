@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 392
-  Top = 236
+  Left = 335
+  Top = 87
   Width = 759
   Height = 522
   Caption = 'M'#243'dulo Cr'#233'ditos - '
@@ -493,6 +493,10 @@ object frmMain: TfrmMain
       object PagaresEndosados1: TMenuItem
         Caption = 'Pagares Endosados'
         OnClick = PagaresEndosados1Click
+      end
+      object HistricoCrditos1: TMenuItem
+        Caption = 'Hist'#243'rico Cr'#233'ditos'
+        OnClick = HistricoCrditos1Click
       end
     end
     object Utilidades1: TMenuItem

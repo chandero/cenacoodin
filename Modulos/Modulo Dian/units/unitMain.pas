@@ -60,6 +60,8 @@ type
     Version71: TMenuItem;
     Versin91: TMenuItem;
     F10011: TMenuItem;
+    InteresesPagadosSinRetefuente1: TMenuItem;
+    IntersPagadoDeposito1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -93,6 +95,8 @@ type
     procedure ValidarCDATs1Click(Sender: TObject);
     procedure Version71Click(Sender: TObject);
     procedure Versin91Click(Sender: TObject);
+    procedure InteresesPagadosSinRetefuente1Click(Sender: TObject);
+    procedure IntersPagadoDeposito1Click(Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -117,7 +121,7 @@ uses unitLogin, IniFiles,
      UnitPrestamos, UnitRetencionesPracticadas, UnitInteresesPagados,
   UnitPrestamosCorte, UnitCodigos, UnitAgencia, UnitIntPagadoF,
   UnitInteresRete, UnitRetencionesPracticadasVal, UnitAportesPeriodo,UnitRetencionesPracticadasNueva,
-  UnitRetencion, UnitValidaEmitidos, UnitMovimientoCredito_F1019v9;
+  UnitRetencion, UnitValidaEmitidos, UnitMovimientoCredito_F1019v9, UnitInteresesPagadosSinRetefuente, UnitInteresPagadoDeposito;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -445,6 +449,22 @@ var
 begin
   frmMovimientoCredito_F1019v9 := TfrmMovimientoCredito_F1019v9.Create(Self);
   frmMovimientoCredito_F1019v9.ShowModal;
+end;
+
+procedure TfrmMain.InteresesPagadosSinRetefuente1Click(Sender: TObject);
+var
+   frmInteresesPagadosSinRetefuente: TfrmInteresesPagadosSinRetefuente;
+begin
+   frmInteresesPagadosSinRetefuente := TfrmInteresesPagadosSinRetefuente.Create(self);
+   frmInteresesPagadosSinRetefuente.ShowModal;
+end;
+
+procedure TfrmMain.IntersPagadoDeposito1Click(Sender: TObject);
+var
+  frmInteresPagadoDeposito: TfrmInteresPagadoDeposito;
+begin
+     frmInteresPagadoDeposito := TfrmInteresPagadoDeposito.Create(self);
+     frmInteresPagadoDeposito.ShowModal;
 end;
 
 end.

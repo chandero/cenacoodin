@@ -477,6 +477,7 @@ type
     procedure BuscarDatosTarjetaDebito(numero: string);
     procedure BuscarDatosSolicitud(vId_Solicitud: string;vPersona:Boolean);
     procedure AgregaCodeudor;
+    procedure ValidarActualizacion;
     { Private declarations }
   public
   id_identificacion_sol :integer;
@@ -576,6 +577,8 @@ var
   FilaCap:Integer;
   FilaCol:Integer;
   FilaFia:Integer;
+
+  _fechaHoy: TDate;
 
 implementation
 
@@ -760,6 +763,8 @@ var     jpg :TJPEGImage;
         _sjpg : TMemoryStream;
         _iImagen :TGImagen;
         _rImagen :TImagen;
+        _fechaActualizacion: TDate;
+        _diasActualizacion: Integer;
 begin
         _iImagen := TGImagen.Create;
   // _rImagen.Foto := TMemoryStream.Create;
@@ -792,6 +797,14 @@ begin
                   EdColocacion.SetFocus;
                exit;
             end;
+
+            _fechaActualizacion := FieldByName('FECHA_ACTUALIZACION').AsDateTime;
+            _diasActualizacion := DaysBetween(_fechaActualizacion, _fechaHoy);
+            if (_diasActualizacion > 365) then
+            begin
+                ShowMessage('Atención, Persona con datos desactualizados');
+            end;
+
             EdNombre.Caption := FieldByName('PRIMER_APELLIDO').AsString + ' ' +
                                 FieldByName('SEGUNDO_APELLIDO').AsString + ' ' +
                                 FieldByName('NOMBRE').AsString;
@@ -1190,7 +1203,8 @@ end;
 
 procedure TfrmConsultaProductos.FormCreate(Sender: TObject);
 begin
-        vAno := IntToStr(YearOf(fFechaActual));
+        _fechaHoy := fFechaActual;
+        vAno := IntToStr(YearOf(_fechaHoy));
         vFechaInicial := EncodeDate(YearOf(Date),01,01);
         vFechaFinal := fFechaActual + StrToTime('23:59:59');
         Hoja0.TabVisible := False;
@@ -3760,6 +3774,13 @@ begin
           DrawText(Canvas.Handle,PChar(Cells[Acol,ARow]),-1,Recuadro,
                   Atributos);
         end;
+end;
+
+procedure TfrmConsultaProductos.ValidarActualizacion;
+var
+  _dias: Integer;
+begin
+
 end;
 
 end.

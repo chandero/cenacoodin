@@ -97,7 +97,7 @@ begin
         btnComenzar.Enabled := False;
         DPFPCapture1.StartCapture;
         LblAccion.Font.Color := clBlue;
-        LblAccion.Caption := 'Por Favor Tome la Huella';
+        LblAccion.Caption := 'Por Favor Valide la Huella';
         Application.ProcessMessages;
 end;
 

@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 494
-  Top = 169
+  Left = 412
+  Top = 211
   Width = 565
   Height = 366
   Caption = 'Modulo Reportes Dian -'
@@ -201,6 +201,14 @@ object frmMain: TfrmMain
           Caption = 'Rndimientos Financieros'
           Visible = False
           OnClick = RndimientosFinancieros1Click
+        end
+        object InteresesPagadosSinRetefuente1: TMenuItem
+          Caption = 'Intereses Pagados Sin Retefuente'
+          OnClick = InteresesPagadosSinRetefuente1Click
+        end
+        object IntersPagadoDeposito1: TMenuItem
+          Caption = 'Inter'#233's Pagado Deposito'
+          OnClick = IntersPagadoDeposito1Click
         end
       end
       object Contabilidad1: TMenuItem

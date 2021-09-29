@@ -1,6 +1,6 @@
 object frmAsignacionAbogado: TfrmAsignacionAbogado
-  Left = 165
-  Top = 231
+  Left = 423
+  Top = 180
   BorderStyle = bsDialog
   Caption = 'Asignaci'#243'n de Abogado'
   ClientHeight = 118

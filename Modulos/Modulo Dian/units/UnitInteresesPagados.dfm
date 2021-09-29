@@ -1,6 +1,6 @@
 object frmInteresesPagados: TfrmInteresesPagados
-  Left = 450
-  Top = 202
+  Left = 424
+  Top = 237
   Width = 385
   Height = 151
   Caption = 'Intereses Pagados'

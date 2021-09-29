@@ -180,7 +180,9 @@ procedure CrearTablaLiquidacionNuevaCuota(TableName:String;vDesembolso:Currency;
                                FechaDesembolso:TDate;TasaE:Single;PuntosAdicionales:Single;
                                AmortizaCapital:Integer;
                                AmortizaInteres:Integer;Plazo:Integer;
-                               TipoCuota:String;Modalidad:String; vCuota:Integer);                                  
+                               TipoCuota:String;Modalidad:String; vCuota:Integer);
+
+function EvaluarEdad(id_colocacion: String; dias_mora: Integer): String;
 
 var
 vSaldoActual : Currency;
@@ -195,6 +197,61 @@ function ObtenerConsecutivodesembolso(IBSQL1: TIBSQL): LongInt;
 implementation
 
 uses DB;
+
+function EvaluarEdad(id_colocacion: String; dias_mora: Integer): String;
+var
+  _dias_mora: Integer;
+  _clasificacion, _garantia: Integer;
+  _categoria, _edad: String;
+begin
+
+  _dias_mora := dias_mora;
+
+  with dmColocacion.IBSQL do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT ID_CLASIFICACION, ID_GARANTIA, ID_CATEGORIA FROM "col$colocacion" c1');
+    SQL.Add('WHERE c1.ID_COLOCACION = :ID_COLOCACION');
+    ParamByName('ID_COLOCACION').AsString := id_colocacion;
+    ExecQuery;
+    _clasificacion := FieldByName('ID_CLASIFICACION').AsInteger;
+    _garantia := FieldByName('ID_GARANTIA').AsInteger;
+    _edad := FieldByName('ID_CATEGORIA').AsString;
+  end;
+
+   with dmColocacion.IBSQL do
+   begin
+     Close;
+     SQL.Clear;
+     SQL.Add('select DIAS from COL_PERIODO_GRACIA where ID_COLOCACION = :ID_COLOCACION and ESTADO < 2');
+     ParamByName('ID_COLOCACION').AsString := id_colocacion;
+     ExecQuery;
+     if RecordCount > 0 then
+        _dias_mora := 0;
+     Close;
+   end;
+
+  with dmColocacion.IBSQLcodigos do
+   begin
+     Close;
+     SQL.Clear;
+     SQL.Add('select * from COL$CODIGOSPUC where ');
+     SQL.Add('ID_CLASIFICACION = :"ID_CLASIFICACION" and ');
+     SQL.Add('ID_GARANTIA = :"ID_GARANTIA" and ');
+     SQL.Add(':DIAS BETWEEN DIAS_INICIALES AND DIAS_FINALES ');
+     ParamByName('ID_CLASIFICACION').AsInteger := _clasificacion;
+     ParamByName('ID_GARANTIA').AsInteger      := _garantia;
+     ParamByName('DIAS').AsInteger  := _dias_mora;
+     ExecQuery;
+     if RecordCount > 0 then
+      begin
+         _edad := FieldByName('ID_CATEGORIA').AsString;
+      end;
+   end;
+
+
+end;
 
 procedure CalcularFechasLiquidarFija(FechaInicial:TDate;FechaCorte:TDate;FechaProx:TDate;var FechasLiq:TList);
 var FechaF1,FechaF2,FechaF3,FechaF4:TDate;

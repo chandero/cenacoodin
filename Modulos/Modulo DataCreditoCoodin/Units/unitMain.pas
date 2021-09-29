@@ -186,7 +186,7 @@ end;
 procedure TfrmMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
        if Not SalirMal then
-        if MessageDlg('Seguro que desea cerrar SIFCREDISERVIR',mtConfirmation,[mbYes,mbNo],0) = mrYes Then
+        if MessageDlg('Seguro que desea cerrar',mtConfirmation,[mbYes,mbNo],0) = mrYes Then
          with TIniFile.Create(MiINI) do
           try
             WriteString('DBNAME','server',DBserver);

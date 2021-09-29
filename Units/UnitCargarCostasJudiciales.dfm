@@ -1,10 +1,10 @@
 object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
-  Left = 149
-  Top = 199
+  Left = 587
+  Top = 383
   BorderIcons = []
   BorderStyle = bsDialog
   Caption = 'Cargar Costas Judiciales'
-  ClientHeight = 295
+  ClientHeight = 398
   ClientWidth = 729
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,6 +14,7 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False
+  Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyPress = FormKeyPress
@@ -22,12 +23,12 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
-    Top = 264
+    Top = 367
     Width = 729
     Height = 31
     Align = alBottom
     Color = clOlive
-    TabOrder = 2
+    TabOrder = 1
     object Label3: TLabel
       Left = 8
       Top = 10
@@ -95,6 +96,7 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
       Width = 75
       Height = 25
       Caption = 'Aplicar'
+      Enabled = False
       TabOrder = 0
       OnClick = CmdAplicarClick
       Glyph.Data = {
@@ -211,14 +213,14 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
     Left = 0
     Top = 0
     Width = 729
-    Height = 231
+    Height = 257
     Align = alTop
     TabOrder = 0
     object GridCostas: TJvStringGrid
       Left = 1
       Top = 1
       Width = 727
-      Height = 229
+      Height = 255
       Align = alClient
       ColCount = 4
       DefaultRowHeight = 18
@@ -231,50 +233,148 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
       OnGetCellAlignment = GridCostasGetCellAlignment
     end
   end
-  object Panel3: TPanel
+  object PageMedioPago: TPageControl
     Left = 0
-    Top = 231
-    Width = 729
-    Height = 33
-    Align = alBottom
-    TabOrder = 1
-    object Label1: TLabel
-      Left = 186
-      Top = 6
-      Width = 62
-      Height = 13
-      Caption = 'Cta a Abonar'
+    Top = 257
+    Width = 601
+    Height = 64
+    ActivePage = TabAbono
+    Align = alLeft
+    HotTrack = True
+    Style = tsFlatButtons
+    TabIndex = 0
+    TabOrder = 2
+    OnChange = PageMedioPagoChange
+    object TabAbono: TTabSheet
+      Caption = 'Abono en Cuenta'
+      object Panel3: TPanel
+        Left = 0
+        Top = -6
+        Width = 593
+        Height = 39
+        Align = alBottom
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 186
+          Top = 6
+          Width = 62
+          Height = 13
+          Caption = 'Cta a Abonar'
+        end
+        object EdCuenta: TEdit
+          Left = 250
+          Top = 4
+          Width = 53
+          Height = 21
+          TabOrder = 0
+          OnExit = EdCuentaExit
+          OnKeyPress = EdCuentaKeyPress
+        end
+        object EdNombre: TStaticText
+          Left = 306
+          Top = 4
+          Width = 279
+          Height = 21
+          AutoSize = False
+          BorderStyle = sbsSunken
+          Color = clWhite
+          ParentColor = False
+          TabOrder = 1
+        end
+        object ChSucursal: TCheckBox
+          Left = 5
+          Top = 5
+          Width = 104
+          Height = 17
+          Caption = 'Sucursal Agencia'
+          TabOrder = 2
+          Visible = False
+          OnClick = ChSucursalClick
+          OnExit = ChSucursalExit
+        end
+        object EdAgencia: TDBLookupComboBox
+          Left = 113
+          Top = 3
+          Width = 69
+          Height = 21
+          Enabled = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          KeyField = 'ID_AGENCIA'
+          ListField = 'DESCRIPCION_AGENCIA'
+          ListSource = DSAgencia
+          ParentFont = False
+          TabOrder = 3
+          Visible = False
+        end
+      end
     end
+    object TabBanco: TTabSheet
+      Caption = 'Bancos'
+      ImageIndex = 1
+      object Label33: TLabel
+        Left = 4
+        Top = 16
+        Width = 31
+        Height = 13
+        Alignment = taCenter
+        Caption = 'Origen'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label4: TLabel
+        Left = 389
+        Top = 15
+        Width = 33
+        Height = 13
+        Caption = 'C'#243'digo'
+      end
+      object DBLCBBancos: TDBLookupComboBox
+        Left = 47
+        Top = 13
+        Width = 331
+        Height = 21
+        KeyField = 'ID_BANCO'
+        ListField = 'DESCRIPCION'
+        ListSource = DSBanco
+        TabOrder = 0
+      end
+      object edCodigoBanco: TDBEdit
+        Left = 430
+        Top = 11
+        Width = 159
+        Height = 21
+        DataField = 'CODIGO'
+        DataSource = DSBanco
+        ReadOnly = True
+        TabOrder = 1
+      end
+    end
+  end
+  object Panel4: TPanel
+    Left = 601
+    Top = 257
+    Width = 128
+    Height = 64
+    Align = alClient
+    TabOrder = 3
     object Label2: TLabel
-      Left = 598
-      Top = 8
+      Left = 36
+      Top = 17
       Width = 24
       Height = 13
       Caption = 'Total'
     end
-    object EdCuenta: TEdit
-      Left = 250
-      Top = 4
-      Width = 53
-      Height = 21
-      TabOrder = 0
-      OnExit = EdCuentaExit
-      OnKeyPress = EdCuentaKeyPress
-    end
-    object EdNombre: TStaticText
-      Left = 306
-      Top = 4
-      Width = 279
-      Height = 21
-      AutoSize = False
-      BorderStyle = sbsSunken
-      Color = clWhite
-      ParentColor = False
-      TabOrder = 1
-    end
     object EdTotalCostas: TStaticText
-      Left = 625
-      Top = 4
+      Left = 12
+      Top = 37
       Width = 100
       Height = 21
       Alignment = taRightJustify
@@ -282,59 +382,49 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
       BorderStyle = sbsSunken
       Color = clWhite
       ParentColor = False
-      TabOrder = 2
+      TabOrder = 0
     end
-    object ChSucursal: TCheckBox
-      Left = 5
-      Top = 5
-      Width = 104
-      Height = 17
-      Caption = 'Sucursal Agencia'
-      TabOrder = 3
-      Visible = False
-      OnClick = ChSucursalClick
-      OnExit = ChSucursalExit
-    end
-    object EdAgencia: TDBLookupComboBox
-      Left = 113
-      Top = 3
-      Width = 69
+  end
+  object GroupBox1: TGroupBox
+    Left = 0
+    Top = 321
+    Width = 729
+    Height = 46
+    Align = alBottom
+    Caption = 'Abogado'
+    TabOrder = 4
+    object DBAbogado: TDBLookupComboBox
+      Left = 24
+      Top = 16
+      Width = 633
       Height = 21
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      KeyField = 'ID_AGENCIA'
-      ListField = 'DESCRIPCION_AGENCIA'
-      ListSource = DSAgencia
-      ParentFont = False
-      TabOrder = 4
-      Visible = False
+      KeyField = 'ID_ABOGADO'
+      ListField = 'ABOGADO'
+      ListSource = DSAbogado
+      TabOrder = 0
     end
   end
   object IBSQL1: TIBSQL
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     Left = 38
     Top = 130
   end
   object IBSQL2: TIBSQL
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     Left = 66
     Top = 130
   end
   object IBPagar: TIBSQL
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     Left = 98
     Top = 130
   end
   object IBAuxiliar: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     SQL.Strings = (
       'select'
       '         CON$AUXILIAR.ID_COMPROBANTE,'
@@ -1667,13 +1757,13 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
   end
   object IBSQL3: TIBSQL
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     Left = 16
     Top = 136
   end
   object IBAuxiliar1: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     SQL.Strings = (
       
         'select "gen$persona".PRIMER_APELLIDO, "gen$persona".SEGUNDO_APEL' +
@@ -1695,7 +1785,7 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
   end
   object IBQuery1: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     Left = 208
     Top = 144
   end
@@ -3244,10 +3334,51 @@ object frmCargarCostasJudiciales: TfrmCargarCostasJudiciales
   end
   object IBAgencia: TIBQuery
     Database = dmGeneral.IBDatabase1
-    Transaction = dmGeneral.IBTransaction1
+    Transaction = IBTCosta
     SQL.Strings = (
       'select * from "gen$agencia"')
     Left = 344
     Top = 48
+  end
+  object IBQBanco: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    AfterScroll = IBQBancoAfterScroll
+    SQL.Strings = (
+      'select * from GEN$BANCOSCONNAL')
+    Left = 284
+    Top = 241
+  end
+  object DSBanco: TDataSource
+    AutoEdit = False
+    DataSet = IBQBanco
+    Left = 322
+    Top = 257
+  end
+  object IBTCosta: TIBTransaction
+    DefaultDatabase = dmGeneral.IBDatabase1
+    DefaultAction = TARollback
+    Left = 440
+    Top = 40
+  end
+  object IBQAbogado: TIBQuery
+    Database = dmGeneral.IBDatabase1
+    Transaction = dmGeneral.IBTransaction1
+    AfterScroll = IBQAbogadoAfterScroll
+    SQL.Strings = (
+      'SELECT ga1.ID_ABOGADO, ga1.ID_IDENTIFICACION, ga1.NUMERO_CUENTA,'
+      
+        'ga1.ID_PERSONA, (gp1.NOMBRE  || '#39' '#39' || gp1.PRIMER_APELLIDO || '#39' ' +
+        #39' || gp1.SEGUNDO_APELLIDO) AS ABOGADO FROM "gen$abogados" ga1'
+      
+        'INNER JOIN "gen$persona" gp1 ON gp1.ID_IDENTIFICACION = ga1.ID_I' +
+        'DENTIFICACION AND gp1.ID_PERSONA = ga1.ID_PERSONA')
+    Left = 24
+    Top = 328
+  end
+  object DSAbogado: TDataSource
+    DataSet = IBQAbogado
+    Left = 56
+    Top = 328
   end
 end

@@ -315,7 +315,7 @@ begin
   Ruta := ExtractFilePath(Application.ExeName);
   Ruta1 := Ruta;
   TheGraphic := TBitmap.Create; { Create the bitmap object }
-  TheGraphic.LoadFromFile(Ruta+'\Coopservir.bmp');
+  TheGraphic.LoadFromFile(Ruta+'\grafico.bmp');
 
   frmVisacionRetiros := TfrmVisacionRetiros.Create(Self);
   frmVisacionRetiros.IBEvents1.Database := dmGeneral.IBDatabase1;
@@ -424,7 +424,7 @@ end;
 
 procedure TfrmMain.FormShow(Sender: TObject);
 begin
-        Self.Caption := 'Módulo Tesorería - '+ DBserver;
+        Self.Caption := 'Módulo Tesorería - '+ DBserver + ':';
 
         if SalirMal then
            Self.Close;

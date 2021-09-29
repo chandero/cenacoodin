@@ -173,6 +173,7 @@ var     _sTp :string; //Tipo Doc
         _sDpto :string;
         _sMcp :string;
         _sCodMunicipio :string;
+        _sNombre : String;
         ExcelFile:TDataSetToExcel;
 begin
         with IBSelect do
@@ -232,10 +233,15 @@ begin
                  cdCdat.FieldValues['DV'] := _sDv;
                  if _sTp <> '31' then
                  begin
+                    _sNombre := Trim(FieldByName('NOMBRE').AsString);
+                    cdCdat.FieldValues['PNOMBRE'] := _sNombre;
+                    if Pos(' ', _sNombre) > 0 then
+                    begin
+                      cdCdat.FieldValues['PNOMBRE'] := LeftStr(_sNombre,Pos(' ', _sNombre)-1);
+                      cdCdat.FieldValues['SNOMBRE'] := RightStr(_sNombre,Length(_sNombre) - Pos(' ', _sNombre));
+                    end;
                    cdCdat.FieldValues['PAPELLIDO'] := FieldByName('PRIMER_APELLIDO').AsString;
                    cdCdat.FieldValues['SAPELLIDO'] := FieldByName('SEGUNDO_APELLIDO').AsString;
-                   cdCdat.FieldValues['PNOMBRE'] := LeftStr(FieldByName('NOMBRE').AsString,Pos(' ', FieldByName('NOMBRE').AsString)-1);
-                   cdCdat.FieldValues['SNOMBRE'] := RightStr(FieldByName('NOMBRE').AsString,Length(FieldByName('NOMBRE').AsString) - Pos(' ', FieldByName('NOMBRE').AsString));
                  end
                  else
                    cdCdat.FieldValues['RZ'] := Trim(FieldByName('PRIMER_APELLIDO').AsString + ' ' + FieldByName('SEGUNDO_APELLIDO').AsString + ' ' + FieldByName('NOMBRE').AsString);
@@ -388,6 +394,7 @@ var     _sTp :string; //Tipo Doc
         _sDpto :string;
         _sMcp :string;
         _sCodMunicipio :string;
+        _sNombre: String;
         ExcelFile:TDataSetToExcel;
 begin
         with IBSelect do
@@ -444,10 +451,15 @@ begin
                  cdCdat.FieldValues['DV'] := _sDv;
                  if _sTp <> '31' then
                  begin
+                    _sNombre := Trim(FieldByName('NOMBRE').AsString);
+                    cdCdat.FieldValues['PNOMBRE'] := _sNombre;
+                    if Pos(' ', _sNombre) > 0 then
+                    begin
+                      cdCdat.FieldValues['PNOMBRE'] := LeftStr(_sNombre,Pos(' ', _sNombre)-1);
+                      cdCdat.FieldValues['SNOMBRE'] := RightStr(_sNombre,Length(_sNombre) - Pos(' ', _sNombre));
+                    end;
                    cdCdat.FieldValues['PAPELLIDO'] := FieldByName('PRIMER_APELLIDO').AsString;
                    cdCdat.FieldValues['SAPELLIDO'] := FieldByName('SEGUNDO_APELLIDO').AsString;
-                   cdCdat.FieldValues['PNOMBRE'] := LeftStr(FieldByName('NOMBRE').AsString,Pos(' ', FieldByName('NOMBRE').AsString)-1);
-                   cdCdat.FieldValues['SNOMBRE'] := RightStr(FieldByName('NOMBRE').AsString,Length(FieldByName('NOMBRE').AsString) - Pos(' ', FieldByName('NOMBRE').AsString));
                  end
                  else
                    cdCdat.FieldValues['RZ'] := Trim(FieldByName('PRIMER_APELLIDO').AsString + ' ' + FieldByName('SEGUNDO_APELLIDO').AsString + ' ' + FieldByName('NOMBRE').AsString);

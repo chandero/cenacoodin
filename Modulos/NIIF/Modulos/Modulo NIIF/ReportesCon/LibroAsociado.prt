@@ -44,7 +44,7 @@ object TprReport
     PageScaleInfo.PageWidth = 2159
     PageScaleInfo.PageHeight = 2794
     object prHPageHeaderBand1: TprHPageHeaderBand
-      Height = 151
+      Height = 195
       UseVerticalBands = False
       PrintOnFirstPage = True
       object prMemoObj13: TprMemoObj
@@ -74,7 +74,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvTop
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -87,9 +87,9 @@ object TprReport
             FontSize = 7
           end>
         dRec.Left = 568
-        dRec.Top = 112
+        dRec.Top = 120
         dRec.Right = 726
-        dRec.Bottom = 127
+        dRec.Bottom = 135
         Visible = False
       end
       object prMemoObj16: TprMemoObj
@@ -119,7 +119,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvTop
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -132,9 +132,9 @@ object TprReport
             FontSize = 7
           end>
         dRec.Left = 2
-        dRec.Top = 112
+        dRec.Top = 120
         dRec.Right = 160
-        dRec.Bottom = 127
+        dRec.Bottom = 135
         Visible = False
       end
     end
@@ -173,7 +173,7 @@ object TprReport
             hAlign = prhCenter
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -218,7 +218,7 @@ object TprReport
             hAlign = prhCenter
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -263,7 +263,7 @@ object TprReport
             hAlign = prhCenter
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -308,7 +308,7 @@ object TprReport
             hAlign = prhCenter
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -353,7 +353,7 @@ object TprReport
             hAlign = prhCenter
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -398,7 +398,7 @@ object TprReport
             hAlign = prhCenter
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -453,7 +453,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -498,7 +498,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -543,7 +543,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -588,7 +588,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -633,7 +633,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -678,7 +678,7 @@ object TprReport
             hAlign = prhRight
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -731,7 +731,7 @@ object TprReport
             hAlign = prhLeft
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []
@@ -776,7 +776,7 @@ object TprReport
             hAlign = prhRight
             vAlign = prvCenter
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clBlack
             Font.Height = -9
             Font.Name = 'Arial'
             Font.Style = []

@@ -1,6 +1,6 @@
 object frmConsultaProductos: TfrmConsultaProductos
-  Left = 391
-  Top = 111
+  Left = 353
+  Top = 96
   ActiveControl = PageBuscar
   BorderStyle = bsDialog
   Caption = 'Productos de un Asociado'

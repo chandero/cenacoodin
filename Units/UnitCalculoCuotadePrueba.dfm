@@ -1,10 +1,10 @@
 object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
-  Left = 672
-  Top = 275
+  Left = 675
+  Top = 208
   BorderStyle = bsDialog
   Caption = 'Calculo de Cuotas'
-  ClientHeight = 394
-  ClientWidth = 563
+  ClientHeight = 415
+  ClientWidth = 592
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clBlack
@@ -1003,8 +1003,8 @@ object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
   end
   object Panel4: TPanel
     Left = 0
-    Top = 365
-    Width = 563
+    Top = 386
+    Width = 592
     Height = 29
     Align = alBottom
     Color = clOlive
@@ -1206,6 +1206,77 @@ object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
       Font.Style = []
       ParentFont = False
     end
+    object GrupoLib: TGroupBox
+      Left = 371
+      Top = 7
+      Width = 185
+      Height = 89
+      Caption = 'Libranza'
+      TabOrder = 4
+      Visible = False
+      object Label35: TLabel
+        Left = 4
+        Top = 18
+        Width = 24
+        Height = 13
+        Caption = 'Valor'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+      end
+      object EdLibranza: TJvCurrencyEdit
+        Left = 47
+        Top = 16
+        Width = 122
+        Height = 21
+        Alignment = taRightJustify
+        ReadOnly = False
+        TabOrder = 0
+        OnEnter = EdLibranzaEnter
+        OnExit = EdLibranzaExit
+        HasMaxValue = False
+        HasMinValue = False
+      end
+    end
+    object GrupoOtros: TGroupBox
+      Left = 371
+      Top = 7
+      Width = 185
+      Height = 89
+      Caption = 'Otros'
+      TabOrder = 7
+      Visible = False
+      object Fallecido: TCheckBox
+        Left = 24
+        Top = 25
+        Width = 81
+        Height = 17
+        Caption = 'Fallecido'
+        TabOrder = 0
+        OnClick = FallecidoClick
+      end
+      object Incapacitado: TCheckBox
+        Left = 24
+        Top = 41
+        Width = 97
+        Height = 15
+        Caption = 'Incapacitado'
+        TabOrder = 1
+        OnClick = IncapacitadoClick
+      end
+      object PagoTotal: TCheckBox
+        Left = 24
+        Top = 55
+        Width = 97
+        Height = 12
+        Caption = 'Pago Total'
+        TabOrder = 2
+        OnClick = PagoTotalClick
+      end
+    end
     object EdCuotas: TLMDSpinEdit
       Left = 96
       Top = 17
@@ -1360,41 +1431,6 @@ object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
         OnExit = EdFechaConsignacionExit
       end
     end
-    object GrupoLib: TGroupBox
-      Left = 371
-      Top = 7
-      Width = 185
-      Height = 89
-      Caption = 'Libranza'
-      TabOrder = 4
-      Visible = False
-      object Label35: TLabel
-        Left = 4
-        Top = 18
-        Width = 24
-        Height = 13
-        Caption = 'Valor'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        ParentFont = False
-      end
-      object EdLibranza: TJvCurrencyEdit
-        Left = 47
-        Top = 16
-        Width = 122
-        Height = 21
-        Alignment = taRightJustify
-        ReadOnly = False
-        TabOrder = 0
-        OnEnter = EdLibranzaEnter
-        OnExit = EdLibranzaExit
-        HasMaxValue = False
-        HasMinValue = False
-      end
-    end
     object GrupoAbono: TRadioGroup
       Left = 192
       Top = 7
@@ -1407,42 +1443,6 @@ object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
         'Otros')
       TabOrder = 2
       OnClick = GrupoAbonoClick
-    end
-    object GrupoOtros: TGroupBox
-      Left = 371
-      Top = 7
-      Width = 185
-      Height = 89
-      Caption = 'Otros'
-      TabOrder = 7
-      Visible = False
-      object Fallecido: TCheckBox
-        Left = 24
-        Top = 25
-        Width = 81
-        Height = 17
-        Caption = 'Fallecido'
-        TabOrder = 0
-        OnClick = FallecidoClick
-      end
-      object Incapacitado: TCheckBox
-        Left = 24
-        Top = 41
-        Width = 97
-        Height = 15
-        Caption = 'Incapacitado'
-        TabOrder = 1
-        OnClick = IncapacitadoClick
-      end
-      object PagoTotal: TCheckBox
-        Left = 24
-        Top = 55
-        Width = 97
-        Height = 12
-        Caption = 'Pago Total'
-        TabOrder = 2
-        OnClick = PagoTotalClick
-      end
     end
   end
   object IBQuery: TIBQuery
@@ -1537,13 +1537,13 @@ object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
         'ID_BANCO')
     Transaction = dmGeneral.IBTransaction1
     Left = 336
-    Top = 512
+    Top = 336
   end
   object DataSource1: TDataSource
     AutoEdit = False
     DataSet = IBQuery3
     Left = 306
-    Top = 513
+    Top = 337
   end
   object IBQuery3: TIBQuery
     Database = dmGeneral.IBDatabase1
@@ -1551,7 +1551,7 @@ object frmCalculoCuotadePrueba: TfrmCalculoCuotadePrueba
     SQL.Strings = (
       'select * from GEN$BANCOSCONNAL')
     Left = 284
-    Top = 513
+    Top = 337
   end
   object IBVerificaTmp: TIBSQL
     Database = dmGeneral.IBDatabase1

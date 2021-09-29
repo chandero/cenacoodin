@@ -49,6 +49,7 @@ type
     ClienteData: TClientDataSet;
     DataProvider: TDataSetProvider;
     IBData: TIBQuery;
+    IBQcodpucbasico: TIBQuery;
     procedure CmdCerrarClick(Sender: TObject);
     procedure CmdProcesarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -332,7 +333,9 @@ begin
              end;
 
              DataActual.FieldByName('CLASIFICACION').AsInteger := IBQuery1.FieldByName('ID_CLASIFICACION').AsInteger;
+
              DataActual.FieldByName('CALIFICACION').AsString := IBQuery1.FieldByName('ID_ARRASTRE').AsString;
+             // DataActual.FieldByName('CALIFICACION').AsString := EvaluarEdad(IBQuery1.FieldByName('ID_COLOCACION').AsString, IBQuery1.FieldByName('MOROSIDAD').AsInteger);
              DataActual.FieldByName('ESTADO').AsInteger := IBQuery1.FieldByName('ID_ESTADO').AsInteger;
              DataActual.FieldByName('DIASMORA').AsInteger := IBQuery1.FieldByName('MOROSIDAD').AsInteger;
 

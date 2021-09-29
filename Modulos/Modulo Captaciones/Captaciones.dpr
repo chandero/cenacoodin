@@ -151,7 +151,8 @@ uses
   UnitInformeCDATLiquidadoUnaFecha in 'Units\UnitInformeCDATLiquidadoUnaFecha.pas' {frmInformeCDATLiquidadoUnaFecha},
   UnitClonarPersona in 'Units\UnitClonarPersona.pas' {frmClonarPersona},
   UnitSorteoCumpleanhos in 'Units\UnitSorteoCumpleanhos.pas' {frmSorteoCumpleanhos},
-  UnitSorteContractual in '\\VBoxSvr\cena\cenacoodin\Modulos\Modulo Captaciones\Units\UnitSorteContractual.pas' {frmSorteoContractual};
+  UnitSorteContractual in '\\VBoxSvr\cena\cenacoodin\Modulos\Modulo Captaciones\Units\UnitSorteContractual.pas' {frmSorteoContractual},
+  UnitInformeAsociadosDatosActualizadosRango in '..\..\Units\UnitInformeAsociadosDatosActualizadosRango.pas' {frmInformeAsociadosDatosActualizadosRango};
 
 {$R *.res}
 
@@ -161,6 +162,7 @@ begin
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TdmColocacion, dmColocacion);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmInformeAsociadosDatosActualizadosRango, frmInformeAsociadosDatosActualizadosRango);
   Application.Run;
 end.
 

@@ -100,7 +100,7 @@ Begin
           SQL.Add('"cap$extracto".NUMERO_CUENTA = "cap$maestrotitular".NUMERO_CUENTA and');
           SQL.Add('"cap$extracto".DIGITO_CUENTA = "cap$maestrotitular".DIGITO_CUENTA)');
           SQL.Add('where');
-          SQL.Add('("cap$extracto".ID_TIPO_CAPTACION IN (2,4)) and');
+          SQL.Add('("cap$extracto".ID_TIPO_CAPTACION IN (2,3,4)) and');
           SQL.Add('("cap$extracto".ID_TIPO_MOVIMIENTO IN (7,15)) and');
           SQL.Add('("cap$extracto".FECHA_MOVIMIENTO BETWEEN :FECHA1 and :FECHA2) and');
           SQL.Add('("cap$maestrotitular".NUMERO_TITULAR = 1) ');

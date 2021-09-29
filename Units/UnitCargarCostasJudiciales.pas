@@ -3,25 +3,19 @@ unit UnitCargarCostasJudiciales;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, Messages, SysUtils, StrUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Grids, XStringGrid, IBSQL, Buttons, CEButton,
   JvStringGrid, pr_Common, pr_TxClasses, DB, IBCustomDataSet,
-  IBQuery, pr_Classes, DBCtrls;
+  IBQuery, pr_Classes, DBCtrls, ComCtrls, IBDatabase, Mask;
 
 type
   TfrmCargarCostasJudiciales = class(TForm)
     Panel1: TPanel;
     Panel2: TPanel;
-    Panel3: TPanel;
-    EdCuenta: TEdit;
     IBSQL1: TIBSQL;
     CmdCerrar: TBitBtn;
-    Label1: TLabel;
-    EdNombre: TStaticText;
     CmdAplicar: TBitBtn;
     CmdComprobante: TBitBtn;
-    Label2: TLabel;
-    EdTotalCostas: TStaticText;
     GridCostas: TJvStringGrid;
     IBSQL2: TIBSQL;
     IBPagar: TIBSQL;
@@ -33,10 +27,31 @@ type
     IBAuxiliar1: TIBQuery;
     IBQuery1: TIBQuery;
     prReport1: TprReport;
-    ChSucursal: TCheckBox;
-    EdAgencia: TDBLookupComboBox;
     DSAgencia: TDataSource;
     IBAgencia: TIBQuery;
+    PageMedioPago: TPageControl;
+    TabAbono: TTabSheet;
+    Panel3: TPanel;
+    Label1: TLabel;
+    EdCuenta: TEdit;
+    EdNombre: TStaticText;
+    ChSucursal: TCheckBox;
+    EdAgencia: TDBLookupComboBox;
+    TabBanco: TTabSheet;
+    Label33: TLabel;
+    DBLCBBancos: TDBLookupComboBox;
+    Panel4: TPanel;
+    Label2: TLabel;
+    EdTotalCostas: TStaticText;
+    IBQBanco: TIBQuery;
+    DSBanco: TDataSource;
+    IBTCosta: TIBTransaction;
+    edCodigoBanco: TDBEdit;
+    Label4: TLabel;
+    GroupBox1: TGroupBox;
+    IBQAbogado: TIBQuery;
+    DSAbogado: TDataSource;
+    DBAbogado: TDBLookupComboBox;
     procedure EdCuentaKeyPress(Sender: TObject; var Key: Char);
     procedure CmdCerrarClick(Sender: TObject);
     procedure EdCuentaExit(Sender: TObject);
@@ -58,8 +73,12 @@ type
     procedure ChSucursalClick(Sender: TObject);
     procedure ChSucursalExit(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure PageMedioPagoChange(Sender: TObject);
+    procedure IBQBancoAfterScroll(DataSet: TDataSet);
+    procedure IBQAbogadoAfterScroll(DataSet: TDataSet);
   private
     { Private declarations }
+    procedure validarAplicar();
   public
     procedure Inicializar;
     { Public declarations }
@@ -97,11 +116,45 @@ var
   vImpreso:Boolean;
   vTipoDoc:Integer;
   vNumeroDoc:string;
+  vFormaPago: Integer;
 implementation
 
 {$R *.dfm}
 
 uses UnitGlobales, UnitdmGeneral, unitvistapreliminar,UnitTipoImpresion,UnitDmColocacion;
+
+procedure TfrmCargarCostasJudiciales.validarAplicar();
+begin
+        if Total > 0 then
+        begin
+          if vFormaPago = 1 then
+          begin
+             if (EdCuenta.Text <> '') then
+             begin
+                CmdAplicar.Enabled := True;
+             end
+             else
+             begin
+                CmdAplicar.Enabled := False;
+             end
+          end
+          else
+          begin
+             if DBLCBBancos.KeyValue > -1 then
+             begin
+                CmdAplicar.Enabled := True;
+             end
+             else
+             begin
+                CmdAplicar.Enabled := False;
+             end;
+          end
+        end
+        else
+        begin
+           CmdAplicar.Enabled := False;
+        end;
+end;
 
 procedure TfrmCargarCostasJudiciales.EdCuentaKeyPress(Sender: TObject;
   var Key: Char);
@@ -116,7 +169,11 @@ end;
 
 procedure TfrmCargarCostasJudiciales.EdCuentaExit(Sender: TObject);
 begin
-        if EdCuenta.Text = '' then Exit;
+        if EdCuenta.Text = '' then
+        begin
+         validarAplicar();
+         Exit;
+        end;
 
         EdCuenta.Text := Format('%.7d',[strtoint(EdCuenta.Text)]);
         Dg := StrToInt(DigitoControl(1,EdCuenta.Text));
@@ -152,6 +209,7 @@ begin
             raise;
            end;
         end;
+         validarAplicar();        
 
 end;
 
@@ -179,24 +237,34 @@ var i:Integer;
     CodigoSuc:string;
     CodigoDeudoras:string;
     CodigoDeudorasC:string;
+    CodigoBanco:String;
     _idExt: Integer;
 begin
-        if ChSucursal.Checked = False then
-          if EdCuenta.Text = '' then
-          begin
+         if Lista.Count = 1 then begin
+             MessageDlg('No hay datos para aplicar',mtError,[mbcancel],0);
+             Exit;
+         end;
+
+         if DBAbogado.KeyValue < 1 then
+         begin
+             MessageDlg('Por favor seleccione el abogado',mtError,[mbcancel],0);
+             Exit;
+         end;
+
+        if ((vFormaPago = 1) and (ChSucursal.Checked = False)) then
+         if EdCuenta.Text = '' then
+         begin
              MessageDlg('Debe digitar el número de cuenta de ahorros',mtError,[mbcancel],0);
              Exit;
-          end;
+         end;
+        if ((vFormaPago = 2) and (DBLCBBancos.KeyValue < 0)) Then
+        begin
+             MessageDlg('Debe seleccionar el Banco',mtError,[mbcancel],0);
+             Exit;
+        end;
 
-// Corregir Tabla
-
-          if Lista.Count = 1 then begin
-              MessageDlg('No hay datos para aplicar',mtError,[mbcancel],0);
-              Exit;
-          end;
-
-          if MessageDlg('Seguro de Aplicar los datos',mtConfirmation,[mbyes,mbno],0) <> mryes then
-               Exit;
+        if MessageDlg('Seguro de Aplicar los datos',mtConfirmation,[mbyes,mbno],0) <> mryes then
+           Exit;
 
           CmdAplicar.Enabled := False;
           Application.ProcessMessages;
@@ -250,6 +318,8 @@ begin
                 Close;
               end;
           end;
+
+          CodigoBanco := edCodigoBanco.Text;
 
           Castigado := 0;
           for i := 0 to Lista.Count - 1 do begin
@@ -338,6 +408,8 @@ begin
                   end; // try
                  end;// with ibsql1
                 end; // for
+            if vFormaPago = 1 then
+            begin
 // Consignar en Depositos
               if ChSucursal.Checked = False then begin
                 IBPagar.Close;
@@ -369,14 +441,21 @@ begin
                 end;
               end;
 // Fin Consignación en Depositos
-
+            end;
               New(AC);
-              if ChSucursal.Checked = False then
-                AC^.codigo := CodigoAhorros
-              else AC^.codigo := CodigoSuc;
+              if vFormaPago = 1 then
+              begin
+                if ChSucursal.Checked = False then
+                  AC^.codigo := CodigoAhorros
+                else AC^.codigo := CodigoSuc;
+              end
+              else
+              begin
+                AC^.codigo := CodigoBanco;
+              end;
               AC^.debito := 0;
               AC^.credito := Total;
-              if ChSucursal.Checked = False then
+              if ((vFormaPago = 1) and (ChSucursal.Checked = False)) then
                 AC^.nocuenta := StrToInt(EdCuenta.Text)
               else AC^.nocuenta := 0;
               AC^.nocredito := '';
@@ -386,6 +465,7 @@ begin
               AC^.tasa := 0;
               AC^.estado := 'O';
               LAux.Add(AC);
+
 // Grabar Nota Contable
             with IBSQL1 do begin
               Close;
@@ -398,11 +478,11 @@ begin
               ParamByName('ID_AGENCIA').AsInteger := Agencia;
               ParamByName('TIPO_COMPROBANTE').AsInteger := 1;
               ParamByName('FECHADIA').AsDateTime := Date;
-              if ChSucursal.Checked = False then
+              if ((vFormaPago = 1) and (ChSucursal.Checked = False)) then
                 ParamByName('DESCRIPCION').AsString := 'Pago Costas Judiciales a ' + EdNombre.Caption +
                                                      ' Cuenta No. ' + EdCuenta.Text
               else
-                ParamByName('DESCRIPCION').AsString := 'Pago Costas Judiciales en la fecha';
+                ParamByName('DESCRIPCION').AsString := 'Pago Costas Judiciales en la fecha a ' + IBQAbogado.FieldByName('ABOGADO').AsString;
               ParamByName('TOTAL_DEBITO').AsCurrency := Total;
               ParamByName('TOTAL_CREDITO').AsCurrency := Total;
               ParamByName('ESTADO').AsString := 'O';
@@ -516,6 +596,8 @@ end;
 procedure TfrmCargarCostasJudiciales.Inicializar;
 var AR:PCostas;
 begin
+        vFormaPago := 1;
+        PageMedioPago.ActivePageIndex := 0;
         Total := 0;
         GridCostas.RowCount := 2;
         GridCostas.FixedCols := 0;
@@ -536,6 +618,24 @@ begin
         AR^.Descripcion := '';
         AR^.Valor := 0;
         Lista.Add(AR);
+        if dmGeneral.IBTransaction1.InTransaction then
+        begin
+           dmGeneral.IBTransaction1.Rollback;
+        end;
+        dmGeneral.IBTransaction1.StartTransaction;
+        IBTCosta.DefaultDatabase := dmGeneral.IBDatabase1;
+        IBTCosta.StartTransaction;
+
+        IBQAbogado.Open;
+        IBQAbogado.Last;
+        IBQAbogado.First;
+        DBAbogado.KeyValue := IBQAbogado.FieldByName('ID_ABOGADO').AsInteger;
+        
+
+        IBQBanco.Open;
+        IBQBanco.Last;
+        IBQBanco.First;
+        DBLCBBancos.KeyValue := IBQBanco.FieldByName('ID_BANCO').AsInteger;
 end;
 
 procedure TfrmCargarCostasJudiciales.GridCostasGetCellAlignment(
@@ -569,7 +669,7 @@ begin
               SQL.Add('"col$colocacion".ID_PERSONA = "gen$persona".ID_PERSONA)');
               SQL.Add('where "col$colocacion".ID_AGENCIA = :ID_AGENCIA and "col$colocacion".ID_COLOCACION = :ID_COLOCACION');
               ParamByName('ID_AGENCIA').AsInteger := Agencia;
-              ParamByName('ID_COLOCACION').AsString := EditText;
+              ParamByName('ID_COLOCACION').AsString := LeftStr(EditText,11);
               try
                ExecQuery;
                if RecordCount > 0 then
@@ -613,6 +713,7 @@ begin
             end;
             GridCostas.Row := GridCostas.Row + 1;
          end;
+         validarAplicar();
 end;
 
 procedure TfrmCargarCostasJudiciales.GridCostasSelectCell(Sender: TObject;
@@ -772,6 +873,31 @@ procedure TfrmCargarCostasJudiciales.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
           Action := caFree;
+end;
+
+procedure TfrmCargarCostasJudiciales.PageMedioPagoChange(Sender: TObject);
+begin
+        if (PageMedioPago.ActivePageIndex = 0) Then
+        begin
+           vFormaPago := 1;
+        end
+        else
+        begin
+           vFormaPago := 2;
+        end;
+        validarAplicar();
+end;
+
+procedure TfrmCargarCostasJudiciales.IBQBancoAfterScroll(
+  DataSet: TDataSet);
+begin
+         validarAplicar();
+end;
+
+procedure TfrmCargarCostasJudiciales.IBQAbogadoAfterScroll(
+  DataSet: TDataSet);
+begin
+        EdCuenta.Text := DataSet.FieldByName('NUMERO_CUENTA').AsString;
 end;
 
 end.

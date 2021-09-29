@@ -1,8 +1,8 @@
 object frmProcesarCentrales: TfrmProcesarCentrales
-  Left = 468
-  Top = 191
-  Width = 422
-  Height = 243
+  Left = 367
+  Top = 197
+  Width = 532
+  Height = 299
   Caption = 'Proceso Centrales de Riesgo'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,10 +17,10 @@ object frmProcesarCentrales: TfrmProcesarCentrales
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
-    Left = 300
+    Left = 410
     Top = 0
     Width = 114
-    Height = 209
+    Height = 265
     Align = alRight
     Color = clOlive
     TabOrder = 0
@@ -291,8 +291,8 @@ object frmProcesarCentrales: TfrmProcesarCentrales
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 300
-    Height = 209
+    Width = 410
+    Height = 265
     Align = alClient
     TabOrder = 1
     object Label1: TLabel
@@ -545,5 +545,11 @@ object frmProcesarCentrales: TfrmProcesarCentrales
     Transaction = dmGeneral.IBTransaction1
     Left = 176
     Top = 120
+  end
+  object IBQcodpucbasico: TIBQuery
+    Database = Database
+    Transaction = Transaction
+    Left = 24
+    Top = 210
   end
 end

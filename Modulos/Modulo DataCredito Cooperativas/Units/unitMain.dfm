@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 327
-  Top = 141
+  Left = 275
+  Top = 160
   Width = 752
   Height = 366
   Caption = 'SIF - Reporte Centrales de Riesgo'
@@ -105,7 +105,7 @@ object frmMain: TfrmMain
         Caption = '-'
       end
       object SalirdePSI1: TMenuItem
-        Caption = '&Salir de Crediservir'
+        Caption = 'Cerrar'
         OnClick = SalirdePSI1Click
       end
     end

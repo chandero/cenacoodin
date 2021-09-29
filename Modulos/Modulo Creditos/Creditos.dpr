@@ -137,7 +137,8 @@ uses
   UnitConsultaProductosAg in '..\..\Units\UnitConsultaProductosAg.pas' {frmConsultaProductosAg},
   UnitPagarePrueba in '..\..\Units\UnitPagarePrueba.pas' {frmPagarePrueba},
   UnitRestructurar in 'Unit\UnitRestructurar.pas' {frmRestructurar},
-  UnitEditarEstudioSolicitud in 'Unit\UnitEditarEstudioSolicitud.pas' {frmEditarEstudioSolicitud};
+  UnitEditarEstudioSolicitud in 'Unit\UnitEditarEstudioSolicitud.pas' {frmEditarEstudioSolicitud},
+  UnitHistoricoCreditos in 'Unit\UnitHistoricoCreditos.pas' {frmHistoricoCreditos};
 
 {$R *.res}
 

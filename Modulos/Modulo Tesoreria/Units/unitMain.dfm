@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 260
-  Top = 111
+  Left = 146
+  Top = 38
   Width = 1137
   Height = 568
   Caption = 'SIF - Modulo Tesorer'#237'a'

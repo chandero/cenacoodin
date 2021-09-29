@@ -117,7 +117,8 @@ uses
   UnitConsultaPeriodoGracia in 'Unit\UnitConsultaPeriodoGracia.pas' {frmConsultaPeriodoGracia},
   UnitAjusteTasa in 'Unit\UnitAjusteTasa.pas' {frmAjusteTasa},
   UnitNormalizar in 'Unit\UnitNormalizar.pas' {frmNormalizar},
-  UnitReversoNormalizar in '\\VBoxSvr\cena\cenacoodin\Modulos\Modulo Cartera\Unit\UnitReversoNormalizar.pas' {frmReversoNormalizar};
+  UnitReversoNormalizar in '\\VBoxSvr\cena\cenacoodin\Modulos\Modulo Cartera\Unit\UnitReversoNormalizar.pas' {frmReversoNormalizar},
+  UnitValidarHuellaAsociado in '\\VBoxSvr\cena\cenacoodin\Units\UnitValidarHuellaAsociado.pas' {frmValidarHuellaAsociado};
 
 {$R *.res}
 

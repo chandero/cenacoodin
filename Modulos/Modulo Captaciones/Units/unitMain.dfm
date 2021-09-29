@@ -581,6 +581,10 @@ object frmMain: TfrmMain
         Caption = 'Informe Abonos Ahorro Contractual'
         OnClick = InformeAbonosAhorroContractual1Click
       end
+      object InformedeAsociadosconDatosActualizadosenunRango1: TMenuItem
+        Caption = 'Informe de Asociados con Datos Actualizados en un Rango'
+        OnClick = InformedeAsociadosconDatosActualizadosenunRango1Click
+      end
       object N13: TMenuItem
         Caption = '-'
       end

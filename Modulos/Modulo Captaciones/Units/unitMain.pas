@@ -178,6 +178,7 @@ type
     CdatLiquidado1: TMenuItem;
     ClonarPersona1: TMenuItem;
     SorteoContractual1: TMenuItem;
+    InformedeAsociadosconDatosActualizadosenunRango1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -293,6 +294,8 @@ type
     procedure CdatLiquidado1Click(Sender: TObject);
     procedure ClonarPersona1Click(Sender: TObject);
     procedure SorteoContractual1Click(Sender: TObject);
+    procedure InformedeAsociadosconDatosActualizadosenunRango1Click(
+      Sender: TObject);
   private
     { Private declarations }
     SalirMal:Boolean;
@@ -346,7 +349,7 @@ uses unitLogin, unitdmColocacion, IniFiles,
      UnitTarjetaSinMovimiento, UnitSorteoCumpleanhos, UnitSaldoPorRangos, UnitArchivoTransacciones, UnitArchivoFinancieroAsociado, UnitReimprimirCDAT,
      UnitDeJuvenilaAsociado, UnitAdministracionProductosVirtuales, UnitConciliacionServiciosVirtuales, UnitActualizarSaldoCuentaServiciosVirtuales,
      UnitCancelarServiciosVirtuales, UnitArchivoPlanoMovimientosTarjetas, UnitConciliacionBancariaServiciosVirtuales,
-     UnitInformeCDATLiquidadoUnaFecha, UnitInformeContractualDescontadoUnaFecha, UnitClonarPersona, UnitSorteContractual;
+     UnitInformeCDATLiquidadoUnaFecha, UnitInformeContractualDescontadoUnaFecha, UnitClonarPersona, UnitSorteContractual, UnitInformeAsociadosDatosActualizadosRango;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1445,6 +1448,14 @@ var
 begin
    frmSorteoContractual := TfrmSorteoContractual.Create(self);
    frmSorteoContractual.ShowModal;
+end;
+
+procedure TfrmMain.InformedeAsociadosconDatosActualizadosenunRango1Click(
+  Sender: TObject);
+var frmInformeAsociadosDatosActualizadosRango: TfrmInformeAsociadosDatosActualizadosRango;
+begin
+    frmInformeAsociadosDatosActualizadosRango := TfrmInformeAsociadosDatosActualizadosRango.Create(self);
+    frmInformeAsociadosDatosActualizadosRango.showModal();
 end;
 
 end.

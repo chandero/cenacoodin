@@ -35,7 +35,9 @@ uses
   UnitDepositosPeriodo in 'units\UnitDepositosPeriodo.pas' {frmDepositosPeriodo},
   UnitRetencionesPracticadas in 'units\UnitRetencionesPracticadas.pas' {frmRetencionesPracticadas},
   UnitValidaEmitidos in 'units\UnitValidaEmitidos.pas' {FrmValidaEmitidos},
-  UnitMovimientoTerceros in 'units\UnitMovimientoTerceros.pas' {frmMovimientoTercero};
+  UnitMovimientoTerceros in 'units\UnitMovimientoTerceros.pas' {frmMovimientoTercero},
+  UnitInteresesPagadosSinRetefuente in 'units\UnitInteresesPagadosSinRetefuente.pas' {frmInteresesPagadosSinRetefuente},
+  UnitInteresPagadoDeposito in 'units\UnitInteresPagadoDeposito.pas' {frmInteresPagadoDeposito};
 
 {$R *.res}
 

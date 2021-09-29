@@ -1,6 +1,6 @@
 object FrmInformacion: TFrmInformacion
-  Left = 314
-  Top = -4
+  Left = 351
+  Top = 133
   Width = 834
   Height = 702
   BorderIcons = [biSystemMenu]
@@ -32,7 +32,7 @@ object FrmInformacion: TFrmInformacion
     Top = 0
     Width = 630
     Height = 481
-    ActivePage = Treferencias
+    ActivePage = TSolicitante
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
     Font.Height = -11
@@ -41,7 +41,7 @@ object FrmInformacion: TFrmInformacion
     Images = ImageList1
     ParentFont = False
     Style = tsFlatButtons
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     object TSolicitante: TTabSheet
       Caption = '&Informacion &Solicitante'
@@ -380,9 +380,9 @@ object FrmInformacion: TFrmInformacion
         Top = 184
         Width = 622
         Height = 254
-        ActivePage = TabSheet1
+        ActivePage = Bienes
         Images = ImageList1
-        TabIndex = 4
+        TabIndex = 2
         TabOrder = 3
         object Economico: TTabSheet
           Caption = '1.  Informaci'#243'n &Laboral'

@@ -1383,7 +1383,7 @@ begin
       else
       begin
          Svida.Enabled := True;
-         Svida.Checked := True;
+         Svida.Checked := False;
       end;
       ListarCreditosdelaCooperativa1Click(Self);
       end
@@ -7848,7 +7848,7 @@ begin
            Svida.Enabled := False;
         end
         else
-           Svida.Enabled := True;
+           Svida.Enabled := False;
 end;
 
 procedure TFrmInformacion.JVingresosEnter(Sender: TObject);

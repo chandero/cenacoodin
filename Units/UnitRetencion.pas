@@ -221,7 +221,7 @@ begin
           SQL.Add('AND ("cap$extracto".ID_AGENCIA = "cap$maestro".ID_AGENCIA)');
           SQL.Add('AND ("cap$extracto".ID_TIPO_CAPTACION = "cap$maestro".ID_TIPO_CAPTACION)');
           SQL.Add('WHERE');
-          SQL.Add('"cap$extracto".ID_TIPO_CAPTACION IN (2,4) AND');
+          SQL.Add('"cap$extracto".ID_TIPO_CAPTACION IN (2,3,4) AND');
           SQL.Add('"cap$extracto".ID_TIPO_MOVIMIENTO IN (8,16) AND');
           SQL.Add('"cap$extracto".FECHA_MOVIMIENTO BETWEEN :FECHA1 AND :FECHA2 AND');
           SQL.Add('"cap$maestrotitular".NUMERO_TITULAR = 1 AND');
@@ -337,7 +337,8 @@ begin
         begin
           Close;
           SQL.Clear;
-          SQL.Add('insert into "dian$movretefuente"');
+          SQL.Add('INSERT INTO "dian$movretefuente"');
+          {
           SQL.Add('select');
           SQL.Add('CON$AUXILIAR.ID_COMPROBANTE,');
           SQL.Add('CON$AUXILIAR.ID_IDENTIFICACION,');
@@ -354,10 +355,37 @@ begin
           SQL.Add('and CON$AUXILIAR.ID_PERSONA IS NOT NULL');
           SQL.Add('AND CON$AUXILIAR.ID_PERSONA <> :NIT and CON$AUXILIAR.ID_IDENTIFICACION <> 0');
           SQL.Add('AND CON$AUXILIAR.FECHA <= :FECHA');
+          }
+          SQL.Add('SELECT t.ID_COMPROBANTE, t.ID_IDENTIFICACION, t.ID_PERSONA, t.CODIGO, MAX(t.TASA_RETENCION) AS TASA_RETENCION, SUM(t.MONTO_RETENCION) AS MONTO_RETENCION, SUM(t.DEVOLUCION) AS DEVOLUCION, SUM(t.RETENCION) AS RETENCION, MAX(t.MES) AS MES FROM (');
+          SQL.Add('SELECT ca1.ID_COMPROBANTE, ca1.ID_IDENTIFICACION, ca1.ID_PERSONA, 5028 AS CODIGO, 0 AS TASA_RETENCION , ca1.DEBITO AS MONTO_RETENCION , 0 AS DEVOLUCION, 0 AS RETENCION, 0 AS MES FROM CON$AUXILIAR ca1 ');
+          SQL.Add('INNER JOIN CON$PUC cp1 ON cp1.CODIGO = ca1.CODIGO ');
+          SQL.Add('WHERE cp1.INFORME = :INFORME1 AND ca1.ESTADOAUX = :ESTADO AND ca1.CODIGO LIKE :CODIGO AND ca1.ID_IDENTIFICACION <> 0 AND ca1.ID_PERSONA <> :NIT');
+          SQL.Add('AND ca1.FECHA <= :FECHA');
+          SQL.Add('UNION ALL');
+          SQL.Add('SELECT');
+          SQL.Add('ca1.ID_COMPROBANTE,');
+          SQL.Add('ca1.ID_IDENTIFICACION,');
+          SQL.Add('ca1.ID_PERSONA,');
+          SQL.Add('5028 AS CODIGO,');
+          SQL.Add('ca1.TASA_RETENCION,');
+          SQL.Add('0 AS MONTO_RETENCION,');
+          SQL.Add('ca1.DEBITO as DEVOLUCION,');
+          SQL.Add('ca1.CREDITO AS RETENCION,');
+          SQL.Add('0 AS MES ');
+          SQL.Add('FROM CON$AUXILIAR ca1');
+          SQL.Add('INNER JOIN CON$PUC cp1 ON cp1.CODIGO = ca1.CODIGO');
+          SQL.Add('WHERE cp1.INFORME = :INFORME2 and ca1.ESTADOAUX = :ESTADO');
+          SQL.Add('AND ca1.ID_PERSONA IS NOT NULL');
+          SQL.Add('AND ca1.ID_PERSONA <> :NIT and ca1.ID_IDENTIFICACION <> 0');
+          SQL.Add('AND ca1.FECHA <= :FECHA');
+          SQL.Add(') t');
+          SQL.Add('GROUP BY 1,2,3,4');
+          ParamByName('INFORME1').AsString := '03';
+          ParamByName('INFORME2').AsString := '01';
           ParamByName('FECHA').AsDate := _dFecha2;
           ParamByName('ESTADO').AsString := 'C';
           ParamByName('NIT').AsString := _Nit;
-          //ParamByName('ESPACIO').AsInteger = 0;
+          ParamByName('CODIGO').AsString := '5%';
           ExecSQL;
           Transaction.Commit;
           Transaction.StartTransaction;

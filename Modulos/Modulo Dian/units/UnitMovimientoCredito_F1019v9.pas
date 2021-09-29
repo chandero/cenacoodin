@@ -203,7 +203,7 @@ begin
          SQL.Add('"cap$maestrotitular" mt ');
          SQL.Add('inner join "cap$maestro" m ON m.ID_AGENCIA = mt.ID_AGENCIA and m.ID_TIPO_CAPTACION = mt.ID_TIPO_CAPTACION and m.NUMERO_CUENTA = mt.NUMERO_CUENTA and m.DIGITO_CUENTA = mt.DIGITO_CUENTA');
          SQL.Add('left join "cap$maestroexcentas" me ON m.ID_AGENCIA = me.ID_AGENCIA and m.ID_TIPO_CAPTACION = me.ID_TIPO_CAPTACION and m.NUMERO_CUENTA = me.NUMERO_CUENTA and m.DIGITO_CUENTA = me.DIGITO_CUENTA');
-         SQL.Add('where mt.ID_TIPO_CAPTACION IN (2,4) and m.FECHA_APERTURA <= :FECHA_CORTE and mt.NUMERO_TITULAR = 1');
+         SQL.Add('where mt.ID_TIPO_CAPTACION IN (2,3,4) and m.FECHA_APERTURA <= :FECHA_CORTE and mt.NUMERO_TITULAR = 1');
          ParamByName('FECHA_CORTE').AsDate := FechaCorte;
          try
            Open;

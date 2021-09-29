@@ -100,7 +100,8 @@ uses
   UnitConsultaTarjeta in '..\..\Units\UnitConsultaTarjeta.pas' {FrmConsultaTarjeta},
   UnitClaseXml in '..\..\Units\UnitClaseXml.pas',
   UnitTiraSumadora in '..\..\Units\UnitTiraSumadora.pas' {FrmTiraSumadora},
-  UnitInformeRecaudos in 'Units\UnitInformeRecaudos.pas' {frmInformeRecaudo};
+  UnitInformeRecaudos in 'Units\UnitInformeRecaudos.pas' {frmInformeRecaudo},
+  UnitValidarHuellaAsociado in '\\VBoxSvr\cena\cenacoodin\Units\UnitValidarHuellaAsociado.pas' {frmValidarHuellaAsociado};
 
 {$R *.res}
 
@@ -109,5 +110,6 @@ begin
   Application.Title := 'Modulo de Cajas';
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TfrmValidarHuellaAsociado, frmValidarHuellaAsociado);
   Application.Run;
 end.

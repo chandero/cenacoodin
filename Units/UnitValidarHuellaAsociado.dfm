@@ -197,7 +197,7 @@ object frmValidarHuellaAsociado: TfrmValidarHuellaAsociado
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -214,7 +214,7 @@ object frmValidarHuellaAsociado: TfrmValidarHuellaAsociado
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11
@@ -231,7 +231,7 @@ object frmValidarHuellaAsociado: TfrmValidarHuellaAsociado
         Height = 21
         AutoSize = False
         BorderStyle = sbsSunken
-        Color = clCaptionText
+        Color = clWhite
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
         Font.Height = -11

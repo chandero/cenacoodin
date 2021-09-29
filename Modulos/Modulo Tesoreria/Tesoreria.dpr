@@ -89,7 +89,8 @@ uses
   UnitClaseXml in '..\Modulo Tarjeta Debito\Units\UnitClaseXml.pas',
   UnitGuardaImagen in '..\..\Units\UnitGuardaImagen.pas',
   UnitConsultaCanje in '..\..\Units\UnitConsultaCanje.pas' {FrmConsultaCanje},
-  UnitCertificadoRetefuente in '\\Vboxsvr\sgft\sgftcooperativoNIIF\Units\UnitCertificadoRetefuente.pas' {frmCertificadoRetefuente};
+  UnitCertificadoRetefuente in '..\..\Units\UnitCertificadoRetefuente.pas' {frmCertificadoRetefuente},
+  UnitValidarHuellaAsociado in '..\..\Units\UnitValidarHuellaAsociado.pas' {frmValidarHuellaAsociado};
 
 {$R *.res}
 
@@ -98,6 +99,5 @@ begin
   Application.Title := 'Módulo Tesorería';
   Application.CreateForm(TdmGeneral, dmGeneral);
   Application.CreateForm(TfrmMain, frmMain);
-  Application.CreateForm(TfrmCertificadoRetefuente, frmCertificadoRetefuente);
   Application.Run;
 end.

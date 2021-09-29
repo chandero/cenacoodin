@@ -1,6 +1,6 @@
 object FrmRetenciones: TFrmRetenciones
-  Left = 256
-  Top = 151
+  Left = 399
+  Top = 182
   Width = 760
   Height = 482
   BorderIcons = [biMaximize]
@@ -652,8 +652,8 @@ object FrmRetenciones: TFrmRetenciones
   object IBQuery2: TIBQuery
     Database = dmGeneral.IBDatabase1
     Transaction = dmGeneral.IBTransaction1
-    Left = 352
-    Top = 240
+    Left = 296
+    Top = 232
   end
   object IBQuery1: TIBQuery
     Database = dmGeneral.IBDatabase1

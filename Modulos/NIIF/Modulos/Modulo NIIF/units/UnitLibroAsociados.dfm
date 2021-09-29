@@ -392,7 +392,7 @@ object frmLibroAsociados: TfrmLibroAsociados
       PageScaleInfo.PageWidth = 2159
       PageScaleInfo.PageHeight = 2794
       object prHPageHeaderBand1: TprHPageHeaderBand
-        Height = 151
+        Height = 195
         UseVerticalBands = False
         PrintOnFirstPage = True
         object prMemoObj13: TprMemoObj
@@ -435,9 +435,9 @@ object frmLibroAsociados: TfrmLibroAsociados
               FontSize = 7
             end>
           dRec.Left = 568
-          dRec.Top = 112
+          dRec.Top = 120
           dRec.Right = 726
-          dRec.Bottom = 127
+          dRec.Bottom = 135
           Visible = False
         end
         object prMemoObj16: TprMemoObj
@@ -480,9 +480,9 @@ object frmLibroAsociados: TfrmLibroAsociados
               FontSize = 7
             end>
           dRec.Left = 2
-          dRec.Top = 112
+          dRec.Top = 120
           dRec.Right = 160
-          dRec.Bottom = 127
+          dRec.Bottom = 135
           Visible = False
         end
       end

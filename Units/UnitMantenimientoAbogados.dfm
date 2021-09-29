@@ -1,6 +1,6 @@
 object frmMantenimientoAbogados: TfrmMantenimientoAbogados
-  Left = 266
-  Top = 235
+  Left = 490
+  Top = 265
   BorderStyle = bsDialog
   Caption = 'Mantenimiento de Abogados'
   ClientHeight = 329

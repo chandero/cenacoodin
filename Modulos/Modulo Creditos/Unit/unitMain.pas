@@ -160,6 +160,7 @@ type
     N20: TMenuItem;
     N21: TMenuItem;
     EditarEstudio1: TMenuItem;
+    HistricoCrditos1: TMenuItem;
     procedure Configurar_ImpresoraExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -248,6 +249,7 @@ type
     procedure ConsultaAgencias1Click(Sender: TObject);
     procedure RestructurarColocacin1Click(Sender: TObject);
     procedure EditarEstudio1Click(Sender: TObject);
+    procedure HistricoCrditos1Click(Sender: TObject);
 //    procedure visarcolocacion1Click(Sender: TObject);
   private
     { Private declarations }
@@ -303,7 +305,7 @@ uses unitLogin, unitdmGeneral, unitdmColocacion, IniFiles,
      UnitInformeSolicitudesBancoldex,UnitAgregarCreditosBancoldex,
      UnitDesembolsoTmp, UnitVisarDesembolsoTmp, UnitPlanillaConsolidada,
      UnitHabilitaFianza, UnitValidarHuellaAsociado,UnitConsultaProductosAg, UnitRestructurar,
-     UnitEditarEstudioSolicitud;
+     UnitEditarEstudioSolicitud, UnitHistoricoCreditos;
 
 procedure TfrmMain.Configurar_ImpresoraExecute(Sender: TObject);
 begin
@@ -1632,6 +1634,14 @@ var
 begin
   frmEditarEstudioSolicitud := TfrmEditarEstudioSolicitud.Create(self);
   frmEditarEstudioSolicitud.ShowModal;
+end;
+
+procedure TfrmMain.HistricoCrditos1Click(Sender: TObject);
+var
+  frmHistoricoCreditos: TfrmHistoricoCreditos;
+begin
+        frmHistoricoCreditos := TfrmHistoricoCreditos.Create(self);
+        frmHistoricoCreditos.ShowModal;
 end;
 
 end.
